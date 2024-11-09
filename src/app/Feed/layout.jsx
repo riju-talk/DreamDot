@@ -1,12 +1,15 @@
-import Header from "./(components)/header";
-import Footer from "./(components)/footer";
+import Header from "../(components)/header";
+import Footer from "../(components)/footer";
+
 
 export default function FeedLayout({ children }) {
   return (
     <html lang="en">
+        <body>
         <Header />
-        <body>{children}</body>
-        <Footer />
+          {children}
+        <Footer /> 
+        </body>
     </html>
   );
 }
