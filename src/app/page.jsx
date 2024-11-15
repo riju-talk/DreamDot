@@ -1,4 +1,15 @@
 import Link from "next/link";
+import { Facebook } from "@mui/icons-material";
+import { Twitter } from "@mui/icons-material";
+import { Instagram } from "@mui/icons-material";
+import { GitHub } from "@mui/icons-material";
+import { LinkedIn } from "@mui/icons-material";
+import { Pinterest } from "@mui/icons-material";
+import { Reddit } from "@mui/icons-material";
+import LaptopIcon from '@mui/icons-material/Laptop';
+
+import BackgroundVideo from 'next-video';
+
 
 export default function Home() {
     return (
@@ -32,8 +43,8 @@ export default function Home() {
             </header>
             <main className="flex min-h-screen flex-col items-center justify-between p-24">
                 <section id="discover" className="text-center">
-                    <h1 className="text-4xl font-bold">Welcome to Pages</h1>
-                    <p className="text-lg">A social blogpost without any nonsence</p>
+                    <BackgroundVideo> <h1 className="text-4xl font-bold">Welcome to Pages</h1>
+                    <p className="text-lg">A social blogpost without any nonsence</p></BackgroundVideo>
                 </section>
                 <section id="about">
                     <h2 className="text-2xl font-bold">
@@ -50,11 +61,12 @@ export default function Home() {
                     <div><p>Joing some notable communities, and let out your inner self. Express your ideas and connect with like minded people.</p></div>
                 </section>
                 <section id="more">
-
+                    <h2 className="text-2xl font-extrabold">More</h2>
+                    <div><p>Join us today and let out your inner self.</p></div>
                 </section>
             </main>
-            <footer className="p-4 bg-zinc-700 text-white max-h-full h-3/4">
-                <div className="flex flex-shrink flex-wrap justify-between px-4 h-56">
+            <footer className=" bg-zinc-700 text-white h-max p-6">
+                <div className="flex flex-shrink flex-wrap justify-between px-4">
                     <div className="w-1/3">
                         <div className="pl-8 font-bold flex flex-row gap-2 items-center py-4">
                             <div>
@@ -74,16 +86,28 @@ export default function Home() {
                             <p className="pt-7">© 2024 Pages. All rights reserved.</p>
                         </div>
                     </div>
-                    <div className="items-center p-8 w-1/3">
-                        <h3 className="text-lg font-bold">Learn More</h3>
-                        <p>Discover</p>
-                        <p>Communities</p>
+                    <div className="items-center p-8 w-1/6">
+                        <h3 className="text-lg font-bold pb-6">What we give</h3>
+                        <p className="text-sm py-2">Blogs</p>
+                        <p className="text-sm py-2">Communities</p>
+                        <p className="text-sm py-2">Authorship</p>
+                        <p className="text-sm py-2">Canvases</p>
                     </div>
-                    <div className="flex items-center pr-8 w-1/3">
-                        <h3 className="text-lg font-bold">Connect with us</h3>
-                        <ul>
-                            <li></li>
+                    <div className="items-center p-8 w-1/3">
+                        <h3 className="text-lg font-bold pb-6">Connect</h3>
+                        <ul className="flex flex-shrink flex-wrap gap-5">
+                            <li><Facebook/></li>
+                            <li><Instagram/></li>
+                            <li><Twitter/></li>
+                            <li><LinkedIn/></li>
+                            <li><Pinterest/></li>
+                            <li><Reddit/></li>
+                            <li><GitHub/></li>
+                                <li><LaptopIcon/></li>
                         </ul>
+                        <h3 className="text-lg font-bold pt-6 pb-4">About the Author</h3>
+                        <p className="text-sm">I am a full stack developer, devops engineer and a machine learning engineer</p>
+                        <p className="text-sm"> and I enjoy building things that are useful to people.</p>
                     </div>
                 </div>
             </footer>
