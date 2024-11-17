@@ -7,11 +7,14 @@ import { LinkedIn } from "@mui/icons-material";
 import { Pinterest } from "@mui/icons-material";
 import { Reddit } from "@mui/icons-material";
 import LaptopIcon from '@mui/icons-material/Laptop';
+import { getAllVideoLanding } from "../lib/media_fetching";
 
-import BackgroundVideo from 'next-video';
+import LandingHero from "./(components)/landing_hero";
 
+export default async function Home() {
 
-export default function Home() {
+    const videoUrls = await getAllVideoLanding();
+
     return (
         <>
             <header className="flex items-center justify-around p-4 text-black bg-slate-100 flex-shrink flex-wrap text-wrap">
@@ -41,10 +44,9 @@ export default function Home() {
                     <button className=" text-black font-bold py-2 px-4 rounded outline outline-2">Register</button>
                 </div>
             </header>
-            <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <main className="flex min-h-screen flex-col items-center justify-between">
                 <section id="discover" className="text-center">
-                    <BackgroundVideo> <h1 className="text-4xl font-bold">Welcome to Pages</h1>
-                    <p className="text-lg">A social blogpost without any nonsence</p></BackgroundVideo>
+                    <LandingHero videoUrls={videoUrls}/>
                 </section>
                 <section id="about">
                     <h2 className="text-2xl font-bold">
@@ -103,7 +105,7 @@ export default function Home() {
                             <li><Pinterest/></li>
                             <li><Reddit/></li>
                             <li><GitHub/></li>
-                                <li><LaptopIcon/></li>
+                            <li><LaptopIcon/></li>
                         </ul>
                         <h3 className="text-lg font-bold pt-6 pb-4">About the Author</h3>
                         <p className="text-sm">I am a full stack developer, devops engineer and a machine learning engineer</p>
