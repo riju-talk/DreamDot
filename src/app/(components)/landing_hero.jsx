@@ -7,7 +7,7 @@ export default function LandingHero({ videoUrls }) {
     useEffect(() => {
         const interval = setInterval(() => {
             setVideoIndex((prevIndex) => (prevIndex + 1) % videoUrls.length);
-        }, 4000); // Change video every 2 seconds
+        }, 6000); // Change video every 2 seconds
 
         return () => clearInterval(interval);
     }, [videoUrls.length]);
@@ -35,7 +35,7 @@ export default function LandingHero({ videoUrls }) {
             <div className="absolute z-10 flex flex-col items-center justify-center text-white text-center">
                 <h1 className="text-4xl font-bold">Welcome to Pages</h1>
                 <p className="text-lg mt-2">
-                    A social blogpost without any nonsense
+                    A social media, blogging and publishing site without any nonsense.
                 </p>
             </div>
         </section>

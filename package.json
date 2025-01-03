@@ -17,6 +17,7 @@
     "@mui/joy": "^5.0.0-beta.48",
     "@mui/material": "^6.1.5",
     "@mui/styled-engine-sc": "^6.1.5",
+    "antd": "^5.22.7",
     "iconoir": "^7.10.0",
     "next": "14.2.5",
     "next-cloudinary": "^6.16.0",

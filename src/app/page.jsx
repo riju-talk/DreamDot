@@ -8,8 +8,10 @@ import { Pinterest } from "@mui/icons-material";
 import { Reddit } from "@mui/icons-material";
 import LaptopIcon from '@mui/icons-material/Laptop';
 import { getAllVideoLanding } from "../lib/media_fetching";
+import CardContainer from "./(components)/card_container";  
 
 import LandingHero from "./(components)/landing_hero";
+import CommunityLanding from "./(components)/community_landing";
 
 export default async function Home() {
 
@@ -35,23 +37,31 @@ export default async function Home() {
                     <button className=" text-black font-bold py-2 px-4 rounded outline outline-2">Register</button>
                 </div>
             </header>
-            <main className="flex min-h-screen flex-col items-center justify-between overflow-hidden bg-gradient-to-r from-gray-200 via-gray-300  to-gray-400 h-screen w-full">
-                <section id="discover" className="text-center">
+            <main className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-r from-gray-200 via-gray-300  to-gray-400 h-max w-full overflow-x-hidden">
+                <section id="discover" className="text-center mb-6">
                     <LandingHero videoUrls={videoUrls}/>
                 </section>
-                <section id="about">
-                    <h2 className="text-2xl font-bold">
-                        We are a not just a social media
-                    </h2>
-                    <div>
-                        <p>We are an encouring creative space</p>
-                        <p>No sensorship, no jargon, just creativity at it's summit</p>
+                <section id="about" className="flex flex-col items-center justify-center my-6">
+                    <h1 className="text-2xl font-bold">
+                        We are a not just a "social media" platform
+                    </h1>
+                    <h1 className="text-2xl font-bold">
+                        We are a community
+                    </h1>
+                    <div className="text-center py-4">
+                        <p>An encouring creative space for everyoneNo sensorship, no jargon, just creativity at it's peak</p>
+                        <p className="text-xl">No Toxicity and No Judgement</p>
+                        <p>A complete spot for creative people, who can and want to express themselves.</p>
                     </div>
+                    <CardContainer/>
                 </section>
-                <section id="communities">
+                <section id="communities" className="flex items-center justify-evenly my-6 bg-slate-100 h-max w-screen">
+                    <div className="flex flex-col justify-center my-6">
                     <h2 className="text-2xl font-extrabold">Communities</h2>
-                    <div>Here you mean something, A place where you belong.</div>
-                    <div><p>Joing some notable communities, and let out your inner self. Express your ideas and connect with like minded people.</p></div>
+                    <p>Here you mean something, A place where you belong.</p>
+                    <p>Joing some notable communities, and let out your inner self. Express your ideas and connect with like minded people.</p>
+                    </div>
+                    <CommunityLanding/>
                 </section>
                 <section id="more">
                     <h2 className="text-2xl font-extrabold">More</h2>
@@ -80,7 +90,7 @@ export default async function Home() {
                         </div>
                     </div>
                     <div className="items-center p-8 w-1/6">
-                        <h3 className="text-lg font-bold pb-6">What we give</h3>
+                        <h3 className="text-lg font-bold pb-6">What we do for you</h3>
                         <p className="text-sm py-2">Blogs</p>
                         <p className="text-sm py-2">Communities</p>
                         <p className="text-sm py-2">Authorship</p>
