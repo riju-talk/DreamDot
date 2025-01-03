@@ -30,21 +30,12 @@ export default async function Home() {
                         Pages
                     </div>
                 </div>
-                <div className="w-4/12">
-                    <nav>
-                        <ul className="flex justify-around">
-                            <li><Link href={"#discover"}>Discover</Link></li>
-                            <li><Link href={"#about"}>About</Link></li>
-                            <li><Link href={"#communities"}>Communities</Link></li>
-                        </ul>
-                    </nav>
-                </div>
                 <div className="pr-8 flex justify-center gap-4">
                     <button className="text-black font-bold py-2 px-4 rounded outline outline-2">Login</button>
                     <button className=" text-black font-bold py-2 px-4 rounded outline outline-2">Register</button>
                 </div>
             </header>
-            <main className="flex min-h-screen flex-col items-center justify-between">
+            <main className="flex min-h-screen flex-col items-center justify-between overflow-hidden bg-gradient-to-r from-gray-200 via-gray-300  to-gray-400 h-screen w-full">
                 <section id="discover" className="text-center">
                     <LandingHero videoUrls={videoUrls}/>
                 </section>
