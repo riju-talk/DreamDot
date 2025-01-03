@@ -8,13 +8,14 @@ import { Pinterest } from "@mui/icons-material";
 import { Reddit } from "@mui/icons-material";
 import LaptopIcon from '@mui/icons-material/Laptop';
 import { getAllVideoLanding } from "../lib/media_fetching";
-import CardContainer from "./(components)/card_container";  
+import CardContainer from "./(components)/card_container";
 
 import LandingHero from "./(components)/landing_hero";
 import CommunityLanding from "./(components)/community_landing";
 
-export default async function Home() {
+import { Input } from "antd";
 
+export default async function Home() {
     const videoUrls = await getAllVideoLanding();
 
     return (
@@ -39,7 +40,7 @@ export default async function Home() {
             </header>
             <main className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-r from-gray-200 via-gray-300  to-gray-400 h-max w-full overflow-x-hidden">
                 <section id="discover" className="text-center mb-6">
-                    <LandingHero videoUrls={videoUrls}/>
+                    <LandingHero videoUrls={videoUrls} />
                 </section>
                 <section id="about" className="flex flex-col items-center justify-center my-6">
                     <h1 className="text-2xl font-bold">
@@ -53,19 +54,23 @@ export default async function Home() {
                         <p className="text-xl">No Toxicity and No Judgement</p>
                         <p>A complete spot for creative people, who can and want to express themselves.</p>
                     </div>
-                    <CardContainer/>
+                    <CardContainer />
                 </section>
-                <section id="communities" className="flex items-center justify-evenly my-6 bg-slate-100 h-max w-screen">
-                    <div className="flex flex-col justify-center my-6">
-                    <h2 className="text-2xl font-extrabold">Communities</h2>
-                    <p>Here you mean something, A place where you belong.</p>
-                    <p>Joing some notable communities, and let out your inner self. Express your ideas and connect with like minded people.</p>
+                <section id="communities" className="flex items-center justify-center mt-6 h-80 w-4/6 mb-9">
+                    <CommunityLanding />
+                </section>
+                <section id="more" className="flex flex-col items-center justify-center mt-9 bg-slate-100 h-96 w-screen p-8 mb-0">
+                    <h2 className="text-2xl font-extrabold">Come and take your place in a world where you belong</h2>
+                    <div className="text-center py-4">
+                        <p>Ceate your account now</p>
+                        <p>Your all in one stop for socializing, blogging, journaling and so much more....</p>
                     </div>
-                    <CommunityLanding/>
-                </section>
-                <section id="more">
-                    <h2 className="text-2xl font-extrabold">More</h2>
-                    <div><p>Join us today and let out your inner self.</p></div>
+                    <div className="flex flex-row gap-4 justify-center items-center">
+                        <Input placeholder="Enter your email" className="h-11 text-black border-black placeholder-opacity-75" />
+                        <Link href="">
+                            <button className="text-black font-bold py-2 px-4 rounded outline outline-2">Register</button>
+                        </Link>
+                    </div>
                 </section>
             </main>
             <footer className=" bg-zinc-700 text-white h-max p-6">
@@ -99,14 +104,14 @@ export default async function Home() {
                     <div className="items-center p-8 w-1/3">
                         <h3 className="text-lg font-bold pb-6">Connect</h3>
                         <ul className="flex flex-shrink flex-wrap gap-5">
-                            <li><Facebook/></li>
-                            <li><Instagram/></li>
-                            <li><Twitter/></li>
-                            <li><LinkedIn/></li>
-                            <li><Pinterest/></li>
-                            <li><Reddit/></li>
-                            <li><GitHub/></li>
-                            <li><LaptopIcon/></li>
+                            <li><Facebook /></li>
+                            <li><Instagram /></li>
+                            <li><Twitter /></li>
+                            <li><LinkedIn /></li>
+                            <li><Pinterest /></li>
+                            <li><Reddit /></li>
+                            <li><GitHub /></li>
+                            <li><LaptopIcon /></li>
                         </ul>
                         <h3 className="text-lg font-bold pt-6 pb-4">About the Author</h3>
                         <p className="text-sm">I am a full stack developer, devops engineer and a machine learning engineer</p>
