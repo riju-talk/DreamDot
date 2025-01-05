@@ -14,6 +14,7 @@ import LandingHero from "./(components)/landing_hero";
 import CommunityLanding from "./(components)/community_landing";
 
 import { Input } from "antd";
+import PublishingLanding from "./(components)/publishing_landing";
 
 export default async function Home() {
     const videoUrls = await getAllVideoLanding();
@@ -38,7 +39,7 @@ export default async function Home() {
                     <button className=" text-black font-bold py-2 px-4 rounded outline outline-2">Register</button>
                 </div>
             </header>
-            <main className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-r from-gray-200 via-gray-300  to-gray-400 h-max w-full overflow-x-hidden">
+            <main className="flex min-h-screen flex-col items-center justify-between bg-gradient-to-r from-gray-300 via-gray-400  to-gray-500 h-max w-full overflow-x-hidden">
                 <section id="discover" className="text-center mb-6">
                     <LandingHero videoUrls={videoUrls} />
                 </section>
@@ -56,17 +57,19 @@ export default async function Home() {
                     </div>
                     <CardContainer />
                 </section>
-                <section id="communities" className="flex items-center justify-center mt-6 h-80 w-4/6 mb-9">
+                <section id="communities" className="flex flex-col items-center justify-center">
                     <CommunityLanding />
+                </section>
+                <section id="communities" className="flex flex-col items-center justify-center">
+                    <PublishingLanding/>
                 </section>
                 <section id="more" className="flex flex-col items-center justify-center mt-9 bg-slate-100 h-96 w-screen p-8 mb-0">
                     <h2 className="text-2xl font-extrabold">Come and take your place in a world where you belong</h2>
                     <div className="text-center py-4">
-                        <p>Ceate your account now</p>
-                        <p>Your all in one stop for socializing, blogging, journaling and so much more....</p>
+                    <p>Your all in one stop for socializing, blogging, journaling and so much more....</p>
+                    <p>Ceate your account now and start exploring</p>
                     </div>
                     <div className="flex flex-row gap-4 justify-center items-center">
-                        <Input placeholder="Enter your email" className="h-11 text-black border-black placeholder-opacity-75" />
                         <Link href="">
                             <button className="text-black font-bold py-2 px-4 rounded outline outline-2">Register</button>
                         </Link>

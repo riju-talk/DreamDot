@@ -6,8 +6,8 @@ import community_landing from "../images/community.jpg";;
 export default function CommunityLanding() {
 
     return (
-        <>
-            <div className="flex flex-col justify-center my-6 bg-slate-100 h-96 w-full p-8 gap-5 rounded-l-lg">
+        <div className="flex items-center justify-center h-80 w-4/6 my-20">
+            <div className="lex flex-col justify-center my-9 bg-slate-100 h-96 w-full p-8 gap-5 rounded-l-lg">
                 <div>
                     <h2 className="text-2xl font-extrabold">Communities</h2>
                     <p>Here you mean something, A place where you belong.</p>
@@ -25,6 +25,6 @@ export default function CommunityLanding() {
                 <Image src={community_landing} className="h-full object-center object-cover rounded-r-lg">
                 </Image>
             </div>
-        </>
+        </div>
     );
 }
