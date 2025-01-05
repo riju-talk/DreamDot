@@ -22,7 +22,7 @@ export default function CommunityLanding() {
                 </div>
             </div>
             <div className="bg-zinc-800 h-96 w-4/6 rounded-r-lg">
-                <Image src={community_landing} className="h-full object-center object-cover rounded-r-lg">
+                <Image src={community_landing} className="h-full object-center object-cover rounded-r-lg" alt="Communities">
                 </Image>
             </div>
         </div>
