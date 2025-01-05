@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import community_landing from "../images/community.jpg";;
+import community_landing from "../(images)/community.jpg";;
 
 export default function CommunityLanding() {
 

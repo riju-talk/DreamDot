@@ -2,9 +2,9 @@
 
 import { Card, CardMedia, CardContent, Typography } from "@mui/material";
 import { useState } from "react";
-import cheese_pic from "../images/cheese.jpg";
-import photogragher_pic from "../images/photography.jpg";
-import writing_pic from "../images/writing.jpg";
+import cheese_pic from "../(images)/cheese.jpg";
+import photogragher_pic from "../(images)/photography.jpg";
+import writing_pic from "../(images)/writing.jpg";
 
 
 
