@@ -1,32 +1,39 @@
 "use client";
+import { useEffect, useState } from 'react';
 import { Layout, Row, Col } from 'antd';
 import Navbar from '../(components)/Navbar';
-import {Feed, Marketplace, AppSidebar} from './page_components';
+import { Feed, Marketplace, AppSidebar } from './page_components';
 
 export default function DreamdotLayout() {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) return null;
+
   return (
-    <Layout className="min-h-screen">
-      {/* Top Navigation */}
+    <Layout className="overflow-hidden">
       <Navbar />
 
-      {/* Main Content Area */}
       <Layout>
         <Row className="h-[calc(100vh-4rem)]">
-          {/* Left Sidebar - Fixed Width */}
-          <Col className="h-full border-r border-gray-200" flex="0 0 320px">
+          {/* Reduced Sidebar Width */}
+          <Col flex="0 0 240px" className="h-full">
             <AppSidebar />
           </Col>
 
-          {/* Middle Feed - Flexible Content */}
-          <Col className="h-full overflow-y-auto" flex="auto">
-            <div className="p-6 max-w-4xl mx-auto">
+          {/* Adjusted Feed Width */}
+          <Col flex="1 1 600px" className="h-full overflow-y-auto">
+            <div className="p-4">
               <Feed />
             </div>
           </Col>
 
-          {/* Right Marketplace - Fixed Width */}
-          <Col className="h-full border-l border-gray-200" flex="0 0 400px">
-            <div className="p-6 sticky top-0">
+          {/* Marketplace maintains width */}
+          <Col flex="1 1 300px" className="h-full overflow-y-auto">
+            <div className="p-4 sticky top-0">
               <Marketplace />
             </div>
           </Col>
