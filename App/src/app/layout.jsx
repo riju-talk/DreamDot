@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Pages",
+  title: "DreamDot",
   description: "A Social Media with No nonsence what so ever",
 };
 
