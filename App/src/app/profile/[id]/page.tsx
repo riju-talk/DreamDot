@@ -1,13 +1,11 @@
 "use client";
 import { useParams } from "next/navigation";
-import { Button, Tabs, Tag, Avatar } from "antd";
-import { UserOutlined, EditOutlined, MessageOutlined, PlusOutlined, CameraOutlined } from "@ant-design/icons";
+import { Button, Tabs } from "antd";
+import { EditOutlined, MessageOutlined, PlusOutlined, CameraOutlined } from "@ant-design/icons";
 import Navbar from "../../(components)/Navbar";
 
 export default function ProfilePage() {
-  const { uuid } = useParams();
-  
-  // Mock data
+  const { id } = useParams();
   const user = {
     name: "Vorgelman",
     location: "Los Angeles, USA",
@@ -23,13 +21,13 @@ export default function ProfilePage() {
     socialLinks: {
       facebook: "vorgelman",
       twitter: "@vorgel",
-      instagram: "@vorgelman"
+      instagram: "@vorgelman",
     },
-    photos: Array(9).fill().map((_, i) => `https://picsum.photos/300/300?random=${i}`),
-    friendsList: Array(9).fill().map((_, i) => ({
-      name: `Friend ${i+1}`,
-      avatar: `https://picsum.photos/100/100?random=${i}`
-    }))
+    photos: Array.from({ length: 9 }, (_, i) => `https://picsum.photos/300/300?random=${i}`),
+    friendsList: Array.from({ length: 9 }, (_, i) => ({
+      name: `Friend ${i + 1}`,
+      avatar: `https://picsum.photos/100/100?random=${i}`,
+    })),
   };
 
   const tabs = [
@@ -50,7 +48,6 @@ export default function ProfilePage() {
             <p className="mb-2">🎓 {user.education}</p>
             <p className="mb-2">📍 Lives in {user.location}</p>
           </div>
-
           <div className="bg-white p-4 rounded-lg shadow-sm">
             <h3 className="text-lg font-semibold mb-4">Contact Info</h3>
             <p className="mb-2">📧 {user.contact}</p>
@@ -70,7 +67,7 @@ export default function ProfilePage() {
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {user.friendsList.map((friend, i) => (
               <div key={i} className="bg-white p-2 rounded-lg shadow-sm">
-                <img src={friend.avatar} className="w-full h-40 object-cover rounded-md mb-2"/>
+                <img src={friend.avatar} className="w-full h-40 object-cover rounded-md mb-2" alt={friend.name} />
                 <p className="text-sm font-medium">{friend.name}</p>
               </div>
             ))}
@@ -85,7 +82,7 @@ export default function ProfilePage() {
         <div className="p-6">
           <div className="grid grid-cols-3 gap-2">
             {user.photos.map((photo, i) => (
-              <img key={i} src={photo} className="w-full h-32 md:h-40 object-cover rounded-md"/>
+              <img key={i} src={photo} className="w-full h-32 md:h-40 object-cover rounded-md" alt={`Photo ${i}`} />
             ))}
           </div>
         </div>
@@ -95,24 +92,16 @@ export default function ProfilePage() {
 
   return (
     <div className="min-h-screen bg-gray-100">
-      <Navbar/>
+      <Navbar />
 
       {/* Cover Photo Section */}
       <div className="h-64 bg-blue-200 relative">
-        <img 
-          src={user.coverPhoto} 
-          className="w-full h-full object-cover"
-          alt="Cover"
-        />
+        <img src={user.coverPhoto} className="w-full h-full object-cover" alt="Cover" />
         <div className="absolute -bottom-16 left-4 md:left-8">
           <div className="relative">
-            <img 
-              src={user.avatar} 
-              className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white"
-              alt="Profile"
-            />
+            <img src={user.avatar} className="w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-white" alt="Profile" />
             <button className="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full">
-              <CameraOutlined className="text-lg"/>
+              <CameraOutlined className="text-lg" />
             </button>
           </div>
         </div>
@@ -126,41 +115,20 @@ export default function ProfilePage() {
               <h1 className="text-3xl font-bold">{user.name}</h1>
               <p className="text-gray-600">{user.friends} friends</p>
             </div>
-            
             <div className="flex gap-2 mt-4 md:mt-0">
-              <Button 
-                type="primary" 
-                icon={<PlusOutlined />}
-                className="bg-blue-500 hover:bg-blue-600 flex items-center"
-              >
+              <Button type="primary" icon={<PlusOutlined />} className="bg-blue-500 hover:bg-blue-600 flex items-center">
                 Add Friend
               </Button>
-              <Button 
-                icon={<MessageOutlined />}
-                className="flex items-center"
-              >
+              <Button icon={<MessageOutlined />} className="flex items-center">
                 Message
               </Button>
-              <Button 
-                icon={<EditOutlined />}
-                className="flex items-center"
-              >
+              <Button icon={<EditOutlined />} className="flex items-center">
                 Edit Profile
               </Button>
             </div>
           </div>
-
-          {/* Profile Navigation */}
           <div className="mt-4 border-t pt-4">
-            <Tabs
-              defaultActiveKey="1"
-              items={tabs}
-              tabBarStyle={{ 
-                margin: 0,
-                fontSize: '1rem'
-              }}
-              className="profile-tabs"
-            />
+            <Tabs defaultActiveKey="1" items={tabs} tabBarStyle={{ margin: 0, fontSize: "1rem" }} className="profile-tabs" />
           </div>
         </section>
 
@@ -170,10 +138,7 @@ export default function ProfilePage() {
           <div className="grid grid-cols-3 gap-2">
             {user.friendsList.slice(0, 6).map((friend, i) => (
               <div key={i} className="relative group">
-                <img 
-                  src={friend.avatar} 
-                  className="w-full h-32 object-cover rounded-md"
-                />
+                <img src={friend.avatar} className="w-full h-32 object-cover rounded-md" alt={friend.name} />
                 <div className="absolute bottom-0 left-0 right-0 bg-black/50 text-white p-2 text-sm truncate">
                   {friend.name}
                 </div>
@@ -184,4 +149,4 @@ export default function ProfilePage() {
       </main>
     </div>
   );
-}
+};
