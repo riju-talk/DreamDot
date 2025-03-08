@@ -1,16 +1,12 @@
-import { ClerkProvider } from '@clerk/nextjs';
-import Head from 'next/head';
+export const metadata = {
+  title: "Welcome to Dreamdot",
+  description: "A Social Media with No nonsence what so ever",
+};
 
 export default function RootLayout({ children }) {
   return (
-    <ClerkProvider>
       <html>
-        <Head>
-          <title>Auth Page</title>
-          <meta name="description" content="Authentication" />
-        </Head>
         <body>{children}</body>
       </html>
-    </ClerkProvider>
   );
 }

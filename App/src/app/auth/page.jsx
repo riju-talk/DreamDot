@@ -4,7 +4,6 @@ import { Google, Facebook, X, GitHub } from "@mui/icons-material";
 import { Input, Button, message } from 'antd';
 import Image from 'next/image';
 import auth_pic from '../(images)/auth_pic.jpg';
-import { useSignUp, useSignIn } from "@clerk/nextjs";
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -12,8 +11,6 @@ export default function Auth() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
-  const { signUp } = useSignUp();
-  const { signIn } = useSignIn();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
