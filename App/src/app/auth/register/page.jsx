@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Google, Facebook, X, GitHub } from "@mui/icons-material";
 import { Input, Button, message } from 'antd';
 import Image from 'next/image';
-import auth_pic from '../(images)/auth_pic.jpg';
+import auth_pic from '../../(images)/auth_pic.jpg';
 
 export default function Auth() {
   const [isLogin, setIsLogin] = useState(true);
@@ -52,7 +52,7 @@ export default function Auth() {
           <Image
             src={auth_pic}
             alt="Creative workspace"
-            fill
+            fit
             className="object-cover"
           />
         </div>
@@ -82,7 +82,7 @@ export default function Auth() {
                     <X className="text-black" />
                   }
                   className="flex items-center justify-center h-12 border hover:border-gray-400"
-                  onClick={() => window.location.href = `/api/auth/${provider}`}
+                  onClick={() => window.location.href = `../api/auth/register/${provider}`}
                 >
                   {provider.charAt(0).toUpperCase() + provider.slice(1)}
                 </Button>
@@ -169,8 +169,8 @@ export default function Auth() {
             {/* Terms */}
             <p className="text-center text-sm text-gray-500 mt-6">
               By continuing, you agree to our{' '}
-              <a href="/terms" className="text-indigo-600 hover:underline">Terms</a> and{' '}
-              <a href="/privacy" className="text-indigo-600 hover:underline">Privacy Policy</a>
+              <span className="text-indigo-600 hover:underline">Terms</span> and{' '}
+              <span className="text-indigo-600 hover:underline">Privacy Policy</span>
             </p>
           </div>
         </div>
