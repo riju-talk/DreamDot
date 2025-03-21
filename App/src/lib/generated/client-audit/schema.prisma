@@ -1,0 +1,42 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/client-social"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=audit"
+  directUrl = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=audit"
+  schemas   = ["audit"]
+}
+
+model admin_actions_log {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  admin_id    String   @db.Uuid
+  action_type String   @db.VarChar(50)
+  target_id   String?  @db.Uuid
+  description String?
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+
+  @@schema("audit")
+}
+
+model notification_log {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  recipient_id String   @db.Uuid
+  message      String
+  is_read      Boolean? @default(false)
+  created_at   DateTime @default(now()) @db.Timestamp(6)
+
+  @@schema("audit")
+}
+
+model system_audit_log {
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  event_type String   @db.VarChar(50)
+  details    String?
+  created_at DateTime @default(now()) @db.Timestamp(6)
+
+  @@schema("audit")
+}

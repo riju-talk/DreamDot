@@ -1,0 +1,142 @@
+generator client {
+  provider        = "prisma-client-js"
+  output          = "../generated/client-social"
+  previewFeatures = ["multiSchema"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=social"
+  directUrl = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=social"
+  schemas   = ["social"]
+}
+
+model blocking {
+  id                                             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  blocker_id                                     String       @db.Uuid
+  blocked_id                                     String       @db.Uuid
+  created_at                                     DateTime     @default(now()) @db.Timestamp(6)
+  social_users_blocking_blocked_idTosocial_users social_users @relation("blocking_blocked_idTosocial_users", fields: [blocked_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_users_blocking_blocker_idTosocial_users social_users @relation("blocking_blocker_idTosocial_users", fields: [blocker_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([blocker_id, blocked_id])
+  @@schema("social")
+}
+
+model comments {
+  comment_id        String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  post_id           String         @db.Uuid
+  user_id           String         @db.Uuid
+  parent_comment_id String?        @db.Uuid
+  content           String
+  created_at        DateTime?      @default(now()) @db.Timestamp(6)
+  comments          comments?      @relation("commentsTocomments", fields: [parent_comment_id], references: [comment_id], onDelete: Cascade, onUpdate: NoAction)
+  other_comments    comments[]     @relation("commentsTocomments")
+  posts_metadata    posts_metadata @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_users      social_users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("social")
+}
+
+model following {
+  id                                               String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  follower_id                                      String       @db.Uuid
+  followee_id                                      String       @db.Uuid
+  followed_at                                      DateTime?    @default(now()) @db.Timestamp(6)
+  social_users_following_followee_idTosocial_users social_users @relation("following_followee_idTosocial_users", fields: [followee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_users_following_follower_idTosocial_users social_users @relation("following_follower_idTosocial_users", fields: [follower_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([follower_id, followee_id])
+  @@schema("social")
+}
+
+model likes {
+  user_id        String         @db.Uuid
+  post_id        String         @db.Uuid
+  liked_at       DateTime?      @default(now()) @db.Timestamp(6)
+  posts_metadata posts_metadata @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_users   social_users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@id([user_id, post_id])
+  @@schema("social")
+}
+
+model notifications {
+  notification_id      String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id              String       @db.Uuid
+  notification_type    String?      @db.VarChar(50)
+  notification_content String?
+  is_read              Boolean?     @default(false)
+  created_at           DateTime     @default(now()) @db.Timestamp(6)
+  social_users         social_users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("social")
+}
+
+model posts_analytics {
+  post_id        String         @id @db.Uuid
+  views_count    Int?           @default(0)
+  likes_count    Int?           @default(0)
+  shares_count   Int?           @default(0)
+  comments_count Int?           @default(0)
+  updated_at     DateTime       @default(now()) @db.Timestamp(6)
+  posts_metadata posts_metadata @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("social")
+}
+
+model posts_metadata {
+  id               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id          String             @db.Uuid
+  title            String?            @db.VarChar(255)
+  summary          String?
+  post_type        String?
+  visibility       String?
+  price            Decimal?           @default(0.00) @db.Decimal(10, 2)
+  created_at       DateTime           @default(now()) @db.Timestamp(6)
+  updated_at       DateTime           @default(now()) @db.Timestamp(6)
+  comments         comments[]
+  likes            likes[]
+  posts_analytics  posts_analytics?
+  social_users     social_users       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  reported_content reported_content[]
+
+  @@schema("social")
+}
+
+model reported_content {
+  id                                                           String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  reporter_id                                                  String          @db.Uuid
+  reported_user_id                                             String?         @db.Uuid
+  post_id                                                      String?         @db.Uuid
+  reason                                                       String
+  status                                                       String?         @default("pending") @db.VarChar(20)
+  created_at                                                   DateTime        @default(now()) @db.Timestamp(6)
+  posts_metadata                                               posts_metadata? @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_users_reported_content_reported_user_idTosocial_users social_users?   @relation("reported_content_reported_user_idTosocial_users", fields: [reported_user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_users_reported_content_reporter_idTosocial_users      social_users    @relation("reported_content_reporter_idTosocial_users", fields: [reporter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("social")
+}
+
+model social_users {
+  id                                                               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  username                                                         String             @unique @db.VarChar(50)
+  email                                                            String             @unique @db.VarChar(100)
+  profile_picture                                                  String?
+  bio                                                              String?
+  created_at                                                       DateTime           @default(now()) @db.Timestamp(6)
+  updated_at                                                       DateTime           @default(now()) @db.Timestamp(6)
+  blocking_blocking_blocked_idTosocial_users                       blocking[]         @relation("blocking_blocked_idTosocial_users")
+  blocking_blocking_blocker_idTosocial_users                       blocking[]         @relation("blocking_blocker_idTosocial_users")
+  comments                                                         comments[]
+  following_following_followee_idTosocial_users                    following[]        @relation("following_followee_idTosocial_users")
+  following_following_follower_idTosocial_users                    following[]        @relation("following_follower_idTosocial_users")
+  likes                                                            likes[]
+  notifications                                                    notifications[]
+  posts_metadata                                                   posts_metadata[]
+  reported_content_reported_content_reported_user_idTosocial_users reported_content[] @relation("reported_content_reported_user_idTosocial_users")
+  reported_content_reported_content_reporter_idTosocial_users      reported_content[] @relation("reported_content_reporter_idTosocial_users")
+
+  @@schema("social")
+}
