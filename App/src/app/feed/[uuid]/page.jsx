@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from 'react';
 import { Layout, Row, Col } from 'antd';
-import Navbar from '../(components)/Navbar';
+import Navbar from '../../(components)/Navbar';
 import { Feed, Marketplace, AppSidebar } from './page_components';
 
 export default function DreamdotLayout() {

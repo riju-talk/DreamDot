@@ -1,7 +1,7 @@
 // src/lib/prismaClients.ts
 
-import { PrismaClient as PrismaUser } from '../generated/client-user';
-import { PrismaClient as PrismaSocial } from '../generated/client-users';
+import { PrismaClient as PrismaUser } from '../generated/client-users';
+import { PrismaClient as PrismaSocial } from '../generated/client-social';
 import { PrismaClient as PrismaItems } from '../generated/client-items';
 import { PrismaClient as PrismaCommunity } from '../generated/client-community';
 import { PrismaClient as PrismaAudit } from '../generated/client-audit';

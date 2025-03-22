@@ -18,22 +18,13 @@ export default function Auth() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true);
-
     try {
-      // If we're signing up, verify that passwords match
       if (!isLogin) {
         if (password !== confirmPassword) {
           throw new Error("Passwords don't match!");
         }
-        router.push({
-          pathname: '/register',
-          query: {
-            emailOrPhone,
-            password
-          }
-        });
-        return; // End execution here
+        router.push('/auth/register');
+        return;
       }
       const res = await signIn("credentials", {
         redirect: false,
@@ -44,15 +35,10 @@ export default function Auth() {
         throw new Error(res.error);
       }
       message.success('Enter OTP to verify!');
-      router.push({
-        pathname: '/signin',
-        query: { emailOrPhone, password }
-      });
+      router.push('/auth/signin');
 
     } catch (err) {
       message.error(err?.errors?.[0]?.message || err.message);
-    } finally {
-      setLoading(false);
     }
   };
 
@@ -108,7 +94,7 @@ export default function Auth() {
             </div>
 
             {/* Auth Form */}
-            <form className="space-y-4" onSubmit={handleSubmit}>
+            <form className="space-y-4">
               <Input
                 size="large"
                 placeholder="Email or Phone Number"
@@ -156,11 +142,12 @@ export default function Auth() {
 
               <Button
                 type="primary"
-                htmlType="submit"
+                htmlType="button"
                 block
                 size="large"
                 className="h-12 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg"
                 loading={loading}
+                onClick={handleSubmit}
               >
                 {isLogin ? 'Sign In' : 'Create Account'}
               </Button>

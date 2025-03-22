@@ -167,7 +167,8 @@ exports.Prisma.User_profileScalarFieldEnum = {
   avatar_url: 'avatar_url',
   website: 'website',
   social_links: 'social_links',
-  updated_at: 'updated_at'
+  updated_at: 'updated_at',
+  dob: 'dob'
 };
 
 exports.Prisma.User_securityScalarFieldEnum = {
@@ -186,8 +187,8 @@ exports.Prisma.User_sessionsScalarFieldEnum = {
   user_id: 'user_id',
   token: 'token',
   created_at: 'created_at',
-  expires_at: 'expires_at',
-  is_revoked: 'is_revoked'
+  is_revoked: 'is_revoked',
+  secret: 'secret'
 };
 
 exports.Prisma.UsersScalarFieldEnum = {

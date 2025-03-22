@@ -7099,6 +7099,7 @@ export namespace Prisma {
     avatar_url: string | null
     website: string | null
     updated_at: Date | null
+    dob: Date | null
   }
 
   export type User_profileMaxAggregateOutputType = {
@@ -7109,6 +7110,7 @@ export namespace Prisma {
     avatar_url: string | null
     website: string | null
     updated_at: Date | null
+    dob: Date | null
   }
 
   export type User_profileCountAggregateOutputType = {
@@ -7120,6 +7122,7 @@ export namespace Prisma {
     website: number
     social_links: number
     updated_at: number
+    dob: number
     _all: number
   }
 
@@ -7132,6 +7135,7 @@ export namespace Prisma {
     avatar_url?: true
     website?: true
     updated_at?: true
+    dob?: true
   }
 
   export type User_profileMaxAggregateInputType = {
@@ -7142,6 +7146,7 @@ export namespace Prisma {
     avatar_url?: true
     website?: true
     updated_at?: true
+    dob?: true
   }
 
   export type User_profileCountAggregateInputType = {
@@ -7153,6 +7158,7 @@ export namespace Prisma {
     website?: true
     social_links?: true
     updated_at?: true
+    dob?: true
     _all?: true
   }
 
@@ -7237,6 +7243,7 @@ export namespace Prisma {
     website: string | null
     social_links: JsonValue | null
     updated_at: Date
+    dob: Date | null
     _count: User_profileCountAggregateOutputType | null
     _min: User_profileMinAggregateOutputType | null
     _max: User_profileMaxAggregateOutputType | null
@@ -7265,6 +7272,7 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -7277,6 +7285,7 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -7289,6 +7298,7 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -7301,9 +7311,10 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
   }
 
-  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at", ExtArgs["result"]["user_profile"]>
+  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob", ExtArgs["result"]["user_profile"]>
   export type user_profileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -7328,6 +7339,7 @@ export namespace Prisma {
       website: string | null
       social_links: Prisma.JsonValue | null
       updated_at: Date
+      dob: Date | null
     }, ExtArgs["result"]["user_profile"]>
     composites: {}
   }
@@ -7760,6 +7772,7 @@ export namespace Prisma {
     readonly website: FieldRef<"user_profile", 'String'>
     readonly social_links: FieldRef<"user_profile", 'Json'>
     readonly updated_at: FieldRef<"user_profile", 'DateTime'>
+    readonly dob: FieldRef<"user_profile", 'DateTime'>
   }
     
 
@@ -9316,8 +9329,8 @@ export namespace Prisma {
     user_id: string | null
     token: string | null
     created_at: Date | null
-    expires_at: Date | null
     is_revoked: boolean | null
+    secret: string | null
   }
 
   export type User_sessionsMaxAggregateOutputType = {
@@ -9325,8 +9338,8 @@ export namespace Prisma {
     user_id: string | null
     token: string | null
     created_at: Date | null
-    expires_at: Date | null
     is_revoked: boolean | null
+    secret: string | null
   }
 
   export type User_sessionsCountAggregateOutputType = {
@@ -9334,8 +9347,8 @@ export namespace Prisma {
     user_id: number
     token: number
     created_at: number
-    expires_at: number
     is_revoked: number
+    secret: number
     _all: number
   }
 
@@ -9345,8 +9358,8 @@ export namespace Prisma {
     user_id?: true
     token?: true
     created_at?: true
-    expires_at?: true
     is_revoked?: true
+    secret?: true
   }
 
   export type User_sessionsMaxAggregateInputType = {
@@ -9354,8 +9367,8 @@ export namespace Prisma {
     user_id?: true
     token?: true
     created_at?: true
-    expires_at?: true
     is_revoked?: true
+    secret?: true
   }
 
   export type User_sessionsCountAggregateInputType = {
@@ -9363,8 +9376,8 @@ export namespace Prisma {
     user_id?: true
     token?: true
     created_at?: true
-    expires_at?: true
     is_revoked?: true
+    secret?: true
     _all?: true
   }
 
@@ -9445,8 +9458,8 @@ export namespace Prisma {
     user_id: string
     token: string
     created_at: Date
-    expires_at: Date
     is_revoked: boolean | null
+    secret: string | null
     _count: User_sessionsCountAggregateOutputType | null
     _min: User_sessionsMinAggregateOutputType | null
     _max: User_sessionsMaxAggregateOutputType | null
@@ -9471,8 +9484,8 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_sessions"]>
 
@@ -9481,8 +9494,8 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_sessions"]>
 
@@ -9491,8 +9504,8 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_sessions"]>
 
@@ -9501,11 +9514,11 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
   }
 
-  export type user_sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "user_id" | "token" | "created_at" | "expires_at" | "is_revoked", ExtArgs["result"]["user_sessions"]>
+  export type user_sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "user_id" | "token" | "created_at" | "is_revoked" | "secret", ExtArgs["result"]["user_sessions"]>
   export type user_sessionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -9526,8 +9539,8 @@ export namespace Prisma {
       user_id: string
       token: string
       created_at: Date
-      expires_at: Date
       is_revoked: boolean | null
+      secret: string | null
     }, ExtArgs["result"]["user_sessions"]>
     composites: {}
   }
@@ -9956,8 +9969,8 @@ export namespace Prisma {
     readonly user_id: FieldRef<"user_sessions", 'String'>
     readonly token: FieldRef<"user_sessions", 'String'>
     readonly created_at: FieldRef<"user_sessions", 'DateTime'>
-    readonly expires_at: FieldRef<"user_sessions", 'DateTime'>
     readonly is_revoked: FieldRef<"user_sessions", 'Boolean'>
+    readonly secret: FieldRef<"user_sessions", 'String'>
   }
     
 
@@ -11772,7 +11785,8 @@ export namespace Prisma {
     avatar_url: 'avatar_url',
     website: 'website',
     social_links: 'social_links',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    dob: 'dob'
   };
 
   export type User_profileScalarFieldEnum = (typeof User_profileScalarFieldEnum)[keyof typeof User_profileScalarFieldEnum]
@@ -11797,8 +11811,8 @@ export namespace Prisma {
     user_id: 'user_id',
     token: 'token',
     created_at: 'created_at',
-    expires_at: 'expires_at',
-    is_revoked: 'is_revoked'
+    is_revoked: 'is_revoked',
+    secret: 'secret'
   };
 
   export type User_sessionsScalarFieldEnum = (typeof User_sessionsScalarFieldEnum)[keyof typeof User_sessionsScalarFieldEnum]
@@ -12261,6 +12275,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"user_profile"> | string | null
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
+    dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -12273,6 +12288,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
+    dob?: SortOrderInput | SortOrder
     users?: usersOrderByWithRelationInput
   }
 
@@ -12288,6 +12304,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"user_profile"> | string | null
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
+    dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "user_id" | "username">
 
@@ -12300,6 +12317,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
+    dob?: SortOrderInput | SortOrder
     _count?: user_profileCountOrderByAggregateInput
     _max?: user_profileMaxOrderByAggregateInput
     _min?: user_profileMinOrderByAggregateInput
@@ -12317,6 +12335,7 @@ export namespace Prisma {
     website?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
     social_links?: JsonNullableWithAggregatesFilter<"user_profile">
     updated_at?: DateTimeWithAggregatesFilter<"user_profile"> | Date | string
+    dob?: DateTimeNullableWithAggregatesFilter<"user_profile"> | Date | string | null
   }
 
   export type user_securityWhereInput = {
@@ -12399,8 +12418,8 @@ export namespace Prisma {
     user_id?: UuidFilter<"user_sessions"> | string
     token?: StringFilter<"user_sessions"> | string
     created_at?: DateTimeFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableFilter<"user_sessions"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -12409,8 +12428,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrderInput | SortOrder
+    secret?: SortOrderInput | SortOrder
     users?: usersOrderByWithRelationInput
   }
 
@@ -12422,8 +12441,8 @@ export namespace Prisma {
     user_id?: UuidFilter<"user_sessions"> | string
     token?: StringFilter<"user_sessions"> | string
     created_at?: DateTimeFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableFilter<"user_sessions"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "session_id">
 
@@ -12432,8 +12451,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrderInput | SortOrder
+    secret?: SortOrderInput | SortOrder
     _count?: user_sessionsCountOrderByAggregateInput
     _max?: user_sessionsMaxOrderByAggregateInput
     _min?: user_sessionsMinOrderByAggregateInput
@@ -12447,8 +12466,8 @@ export namespace Prisma {
     user_id?: UuidWithAggregatesFilter<"user_sessions"> | string
     token?: StringWithAggregatesFilter<"user_sessions"> | string
     created_at?: DateTimeWithAggregatesFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeWithAggregatesFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableWithAggregatesFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableWithAggregatesFilter<"user_sessions"> | string | null
   }
 
   export type usersWhereInput = {
@@ -12846,6 +12865,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
     users: usersCreateNestedOneWithoutUser_profileInput
   }
 
@@ -12858,6 +12878,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileUpdateInput = {
@@ -12868,6 +12889,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: usersUpdateOneRequiredWithoutUser_profileNestedInput
   }
 
@@ -12880,6 +12902,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_profileCreateManyInput = {
@@ -12891,6 +12914,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileUpdateManyMutationInput = {
@@ -12901,6 +12925,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_profileUncheckedUpdateManyInput = {
@@ -12912,6 +12937,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_securityCreateInput = {
@@ -12994,8 +13020,8 @@ export namespace Prisma {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
     users: usersCreateNestedOneWithoutUser_sessionsInput
   }
 
@@ -13004,16 +13030,16 @@ export namespace Prisma {
     user_id: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsUpdateInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
     users?: usersUpdateOneRequiredWithoutUser_sessionsNestedInput
   }
 
@@ -13022,8 +13048,8 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsCreateManyInput = {
@@ -13031,16 +13057,16 @@ export namespace Prisma {
     user_id: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsUpdateManyMutationInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsUncheckedUpdateManyInput = {
@@ -13048,8 +13074,8 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersCreateInput = {
@@ -13622,6 +13648,7 @@ export namespace Prisma {
     website?: SortOrder
     social_links?: SortOrder
     updated_at?: SortOrder
+    dob?: SortOrder
   }
 
   export type user_profileMaxOrderByAggregateInput = {
@@ -13632,6 +13659,7 @@ export namespace Prisma {
     avatar_url?: SortOrder
     website?: SortOrder
     updated_at?: SortOrder
+    dob?: SortOrder
   }
 
   export type user_profileMinOrderByAggregateInput = {
@@ -13642,6 +13670,7 @@ export namespace Prisma {
     avatar_url?: SortOrder
     website?: SortOrder
     updated_at?: SortOrder
+    dob?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -13696,8 +13725,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrder
+    secret?: SortOrder
   }
 
   export type user_sessionsMaxOrderByAggregateInput = {
@@ -13705,8 +13734,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrder
+    secret?: SortOrder
   }
 
   export type user_sessionsMinOrderByAggregateInput = {
@@ -13714,8 +13743,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrder
+    secret?: SortOrder
   }
 
   export type Password_reset_tokensListRelationFilter = {
@@ -15603,6 +15632,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileUncheckedCreateWithoutUsersInput = {
@@ -15613,6 +15643,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileCreateOrConnectWithoutUsersInput = {
@@ -15649,16 +15680,16 @@ export namespace Prisma {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsUncheckedCreateWithoutUsersInput = {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsCreateOrConnectWithoutUsersInput = {
@@ -15849,6 +15880,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_profileUncheckedUpdateWithoutUsersInput = {
@@ -15859,6 +15891,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_securityUpsertWithoutUsersInput = {
@@ -15916,8 +15949,8 @@ export namespace Prisma {
     user_id?: UuidFilter<"user_sessions"> | string
     token?: StringFilter<"user_sessions"> | string
     created_at?: DateTimeFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableFilter<"user_sessions"> | string | null
   }
 
   export type password_reset_tokensCreateManyUsersInput = {
@@ -15946,8 +15979,8 @@ export namespace Prisma {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type password_reset_tokensUpdateWithoutUsersInput = {
@@ -16020,24 +16053,24 @@ export namespace Prisma {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsUncheckedUpdateWithoutUsersInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsUncheckedUpdateManyWithoutUsersInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 
