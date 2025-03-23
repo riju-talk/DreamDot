@@ -97,7 +97,6 @@ export async function generateAndStoreToken(userData) {
 async function onRegistrationComplete(userData) {
     try {
         const token = await generateAndStoreToken(userData);
-        console.log('Token generated and stored:', token);
         return token;
     } catch (error) {
         console.error('onRegistrationComplete Error:', error);

@@ -14506,6 +14506,7 @@ export namespace Prisma {
     avatar_url: string | null
     website: string | null
     updated_at: Date | null
+    dob: Date | null
   }
 
   export type User_profileMaxAggregateOutputType = {
@@ -14516,6 +14517,7 @@ export namespace Prisma {
     avatar_url: string | null
     website: string | null
     updated_at: Date | null
+    dob: Date | null
   }
 
   export type User_profileCountAggregateOutputType = {
@@ -14527,6 +14529,7 @@ export namespace Prisma {
     website: number
     social_links: number
     updated_at: number
+    dob: number
     _all: number
   }
 
@@ -14539,6 +14542,7 @@ export namespace Prisma {
     avatar_url?: true
     website?: true
     updated_at?: true
+    dob?: true
   }
 
   export type User_profileMaxAggregateInputType = {
@@ -14549,6 +14553,7 @@ export namespace Prisma {
     avatar_url?: true
     website?: true
     updated_at?: true
+    dob?: true
   }
 
   export type User_profileCountAggregateInputType = {
@@ -14560,6 +14565,7 @@ export namespace Prisma {
     website?: true
     social_links?: true
     updated_at?: true
+    dob?: true
     _all?: true
   }
 
@@ -14644,6 +14650,7 @@ export namespace Prisma {
     website: string | null
     social_links: JsonValue | null
     updated_at: Date
+    dob: Date | null
     _count: User_profileCountAggregateOutputType | null
     _min: User_profileMinAggregateOutputType | null
     _max: User_profileMaxAggregateOutputType | null
@@ -14672,6 +14679,7 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -14684,6 +14692,7 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -14696,6 +14705,7 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -14708,9 +14718,10 @@ export namespace Prisma {
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
+    dob?: boolean
   }
 
-  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at", ExtArgs["result"]["user_profile"]>
+  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob", ExtArgs["result"]["user_profile"]>
   export type user_profileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -14735,6 +14746,7 @@ export namespace Prisma {
       website: string | null
       social_links: Prisma.JsonValue | null
       updated_at: Date
+      dob: Date | null
     }, ExtArgs["result"]["user_profile"]>
     composites: {}
   }
@@ -15167,6 +15179,7 @@ export namespace Prisma {
     readonly website: FieldRef<"user_profile", 'String'>
     readonly social_links: FieldRef<"user_profile", 'Json'>
     readonly updated_at: FieldRef<"user_profile", 'DateTime'>
+    readonly dob: FieldRef<"user_profile", 'DateTime'>
   }
     
 
@@ -16723,8 +16736,8 @@ export namespace Prisma {
     user_id: string | null
     token: string | null
     created_at: Date | null
-    expires_at: Date | null
     is_revoked: boolean | null
+    secret: string | null
   }
 
   export type User_sessionsMaxAggregateOutputType = {
@@ -16732,8 +16745,8 @@ export namespace Prisma {
     user_id: string | null
     token: string | null
     created_at: Date | null
-    expires_at: Date | null
     is_revoked: boolean | null
+    secret: string | null
   }
 
   export type User_sessionsCountAggregateOutputType = {
@@ -16741,8 +16754,8 @@ export namespace Prisma {
     user_id: number
     token: number
     created_at: number
-    expires_at: number
     is_revoked: number
+    secret: number
     _all: number
   }
 
@@ -16752,8 +16765,8 @@ export namespace Prisma {
     user_id?: true
     token?: true
     created_at?: true
-    expires_at?: true
     is_revoked?: true
+    secret?: true
   }
 
   export type User_sessionsMaxAggregateInputType = {
@@ -16761,8 +16774,8 @@ export namespace Prisma {
     user_id?: true
     token?: true
     created_at?: true
-    expires_at?: true
     is_revoked?: true
+    secret?: true
   }
 
   export type User_sessionsCountAggregateInputType = {
@@ -16770,8 +16783,8 @@ export namespace Prisma {
     user_id?: true
     token?: true
     created_at?: true
-    expires_at?: true
     is_revoked?: true
+    secret?: true
     _all?: true
   }
 
@@ -16852,8 +16865,8 @@ export namespace Prisma {
     user_id: string
     token: string
     created_at: Date
-    expires_at: Date
     is_revoked: boolean | null
+    secret: string | null
     _count: User_sessionsCountAggregateOutputType | null
     _min: User_sessionsMinAggregateOutputType | null
     _max: User_sessionsMaxAggregateOutputType | null
@@ -16878,8 +16891,8 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_sessions"]>
 
@@ -16888,8 +16901,8 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_sessions"]>
 
@@ -16898,8 +16911,8 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_sessions"]>
 
@@ -16908,11 +16921,11 @@ export namespace Prisma {
     user_id?: boolean
     token?: boolean
     created_at?: boolean
-    expires_at?: boolean
     is_revoked?: boolean
+    secret?: boolean
   }
 
-  export type user_sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "user_id" | "token" | "created_at" | "expires_at" | "is_revoked", ExtArgs["result"]["user_sessions"]>
+  export type user_sessionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"session_id" | "user_id" | "token" | "created_at" | "is_revoked" | "secret", ExtArgs["result"]["user_sessions"]>
   export type user_sessionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -16933,8 +16946,8 @@ export namespace Prisma {
       user_id: string
       token: string
       created_at: Date
-      expires_at: Date
       is_revoked: boolean | null
+      secret: string | null
     }, ExtArgs["result"]["user_sessions"]>
     composites: {}
   }
@@ -17363,8 +17376,8 @@ export namespace Prisma {
     readonly user_id: FieldRef<"user_sessions", 'String'>
     readonly token: FieldRef<"user_sessions", 'String'>
     readonly created_at: FieldRef<"user_sessions", 'DateTime'>
-    readonly expires_at: FieldRef<"user_sessions", 'DateTime'>
     readonly is_revoked: FieldRef<"user_sessions", 'Boolean'>
+    readonly secret: FieldRef<"user_sessions", 'String'>
   }
     
 
@@ -17794,11 +17807,11 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     password_hash: string | null
-    role: string | null
     created_at: Date | null
     updated_at: Date | null
     is_verified: boolean | null
     is_active: boolean | null
+    pass_salts: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -17806,11 +17819,11 @@ export namespace Prisma {
     email: string | null
     phone: string | null
     password_hash: string | null
-    role: string | null
     created_at: Date | null
     updated_at: Date | null
     is_verified: boolean | null
     is_active: boolean | null
+    pass_salts: string | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -17818,11 +17831,11 @@ export namespace Prisma {
     email: number
     phone: number
     password_hash: number
-    role: number
     created_at: number
     updated_at: number
     is_verified: number
     is_active: number
+    pass_salts: number
     _all: number
   }
 
@@ -17832,11 +17845,11 @@ export namespace Prisma {
     email?: true
     phone?: true
     password_hash?: true
-    role?: true
     created_at?: true
     updated_at?: true
     is_verified?: true
     is_active?: true
+    pass_salts?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -17844,11 +17857,11 @@ export namespace Prisma {
     email?: true
     phone?: true
     password_hash?: true
-    role?: true
     created_at?: true
     updated_at?: true
     is_verified?: true
     is_active?: true
+    pass_salts?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -17856,11 +17869,11 @@ export namespace Prisma {
     email?: true
     phone?: true
     password_hash?: true
-    role?: true
     created_at?: true
     updated_at?: true
     is_verified?: true
     is_active?: true
+    pass_salts?: true
     _all?: true
   }
 
@@ -17941,11 +17954,11 @@ export namespace Prisma {
     email: string
     phone: string | null
     password_hash: string
-    role: string | null
     created_at: Date
     updated_at: Date
     is_verified: boolean | null
     is_active: boolean | null
+    pass_salts: string | null
     _count: UsersCountAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
@@ -17970,11 +17983,11 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     password_hash?: boolean
-    role?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_verified?: boolean
     is_active?: boolean
+    pass_salts?: boolean
     favorites?: boolean | users$favoritesArgs<ExtArgs>
     items?: boolean | users$itemsArgs<ExtArgs>
     pay_per_view_access?: boolean | users$pay_per_view_accessArgs<ExtArgs>
@@ -17997,11 +18010,11 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     password_hash?: boolean
-    role?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_verified?: boolean
     is_active?: boolean
+    pass_salts?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -18009,11 +18022,11 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     password_hash?: boolean
-    role?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_verified?: boolean
     is_active?: boolean
+    pass_salts?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -18021,14 +18034,14 @@ export namespace Prisma {
     email?: boolean
     phone?: boolean
     password_hash?: boolean
-    role?: boolean
     created_at?: boolean
     updated_at?: boolean
     is_verified?: boolean
     is_active?: boolean
+    pass_salts?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "role" | "created_at" | "updated_at" | "is_verified" | "is_active", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     favorites?: boolean | users$favoritesArgs<ExtArgs>
     items?: boolean | users$itemsArgs<ExtArgs>
@@ -18072,11 +18085,11 @@ export namespace Prisma {
       email: string
       phone: string | null
       password_hash: string
-      role: string | null
       created_at: Date
       updated_at: Date
       is_verified: boolean | null
       is_active: boolean | null
+      pass_salts: string | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -18518,11 +18531,11 @@ export namespace Prisma {
     readonly email: FieldRef<"users", 'String'>
     readonly phone: FieldRef<"users", 'String'>
     readonly password_hash: FieldRef<"users", 'String'>
-    readonly role: FieldRef<"users", 'String'>
     readonly created_at: FieldRef<"users", 'DateTime'>
     readonly updated_at: FieldRef<"users", 'DateTime'>
     readonly is_verified: FieldRef<"users", 'Boolean'>
     readonly is_active: FieldRef<"users", 'Boolean'>
+    readonly pass_salts: FieldRef<"users", 'String'>
   }
     
 
@@ -19392,7 +19405,8 @@ export namespace Prisma {
     avatar_url: 'avatar_url',
     website: 'website',
     social_links: 'social_links',
-    updated_at: 'updated_at'
+    updated_at: 'updated_at',
+    dob: 'dob'
   };
 
   export type User_profileScalarFieldEnum = (typeof User_profileScalarFieldEnum)[keyof typeof User_profileScalarFieldEnum]
@@ -19417,8 +19431,8 @@ export namespace Prisma {
     user_id: 'user_id',
     token: 'token',
     created_at: 'created_at',
-    expires_at: 'expires_at',
-    is_revoked: 'is_revoked'
+    is_revoked: 'is_revoked',
+    secret: 'secret'
   };
 
   export type User_sessionsScalarFieldEnum = (typeof User_sessionsScalarFieldEnum)[keyof typeof User_sessionsScalarFieldEnum]
@@ -19429,11 +19443,11 @@ export namespace Prisma {
     email: 'email',
     phone: 'phone',
     password_hash: 'password_hash',
-    role: 'role',
     created_at: 'created_at',
     updated_at: 'updated_at',
     is_verified: 'is_verified',
-    is_active: 'is_active'
+    is_active: 'is_active',
+    pass_salts: 'pass_salts'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -20281,6 +20295,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"user_profile"> | string | null
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
+    dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -20293,6 +20308,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
+    dob?: SortOrderInput | SortOrder
     users?: usersOrderByWithRelationInput
   }
 
@@ -20308,6 +20324,7 @@ export namespace Prisma {
     website?: StringNullableFilter<"user_profile"> | string | null
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
+    dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "user_id" | "username">
 
@@ -20320,6 +20337,7 @@ export namespace Prisma {
     website?: SortOrderInput | SortOrder
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
+    dob?: SortOrderInput | SortOrder
     _count?: user_profileCountOrderByAggregateInput
     _max?: user_profileMaxOrderByAggregateInput
     _min?: user_profileMinOrderByAggregateInput
@@ -20337,6 +20355,7 @@ export namespace Prisma {
     website?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
     social_links?: JsonNullableWithAggregatesFilter<"user_profile">
     updated_at?: DateTimeWithAggregatesFilter<"user_profile"> | Date | string
+    dob?: DateTimeNullableWithAggregatesFilter<"user_profile"> | Date | string | null
   }
 
   export type user_securityWhereInput = {
@@ -20419,8 +20438,8 @@ export namespace Prisma {
     user_id?: UuidFilter<"user_sessions"> | string
     token?: StringFilter<"user_sessions"> | string
     created_at?: DateTimeFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableFilter<"user_sessions"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -20429,8 +20448,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrderInput | SortOrder
+    secret?: SortOrderInput | SortOrder
     users?: usersOrderByWithRelationInput
   }
 
@@ -20442,8 +20461,8 @@ export namespace Prisma {
     user_id?: UuidFilter<"user_sessions"> | string
     token?: StringFilter<"user_sessions"> | string
     created_at?: DateTimeFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableFilter<"user_sessions"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "session_id">
 
@@ -20452,8 +20471,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrderInput | SortOrder
+    secret?: SortOrderInput | SortOrder
     _count?: user_sessionsCountOrderByAggregateInput
     _max?: user_sessionsMaxOrderByAggregateInput
     _min?: user_sessionsMinOrderByAggregateInput
@@ -20467,8 +20486,8 @@ export namespace Prisma {
     user_id?: UuidWithAggregatesFilter<"user_sessions"> | string
     token?: StringWithAggregatesFilter<"user_sessions"> | string
     created_at?: DateTimeWithAggregatesFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeWithAggregatesFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableWithAggregatesFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableWithAggregatesFilter<"user_sessions"> | string | null
   }
 
   export type usersWhereInput = {
@@ -20479,11 +20498,11 @@ export namespace Prisma {
     email?: StringFilter<"users"> | string
     phone?: StringNullableFilter<"users"> | string | null
     password_hash?: StringFilter<"users"> | string
-    role?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
     is_verified?: BoolNullableFilter<"users"> | boolean | null
     is_active?: BoolNullableFilter<"users"> | boolean | null
+    pass_salts?: StringNullableFilter<"users"> | string | null
     favorites?: FavoritesListRelationFilter
     items?: ItemsListRelationFilter
     pay_per_view_access?: Pay_per_view_accessListRelationFilter
@@ -20505,11 +20524,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     password_hash?: SortOrder
-    role?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrderInput | SortOrder
     is_active?: SortOrderInput | SortOrder
+    pass_salts?: SortOrderInput | SortOrder
     favorites?: favoritesOrderByRelationAggregateInput
     items?: itemsOrderByRelationAggregateInput
     pay_per_view_access?: pay_per_view_accessOrderByRelationAggregateInput
@@ -20534,11 +20553,11 @@ export namespace Prisma {
     OR?: usersWhereInput[]
     NOT?: usersWhereInput | usersWhereInput[]
     password_hash?: StringFilter<"users"> | string
-    role?: StringNullableFilter<"users"> | string | null
     created_at?: DateTimeFilter<"users"> | Date | string
     updated_at?: DateTimeFilter<"users"> | Date | string
     is_verified?: BoolNullableFilter<"users"> | boolean | null
     is_active?: BoolNullableFilter<"users"> | boolean | null
+    pass_salts?: StringNullableFilter<"users"> | string | null
     favorites?: FavoritesListRelationFilter
     items?: ItemsListRelationFilter
     pay_per_view_access?: Pay_per_view_accessListRelationFilter
@@ -20560,11 +20579,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrderInput | SortOrder
     password_hash?: SortOrder
-    role?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrderInput | SortOrder
     is_active?: SortOrderInput | SortOrder
+    pass_salts?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
@@ -20578,11 +20597,11 @@ export namespace Prisma {
     email?: StringWithAggregatesFilter<"users"> | string
     phone?: StringNullableWithAggregatesFilter<"users"> | string | null
     password_hash?: StringWithAggregatesFilter<"users"> | string
-    role?: StringNullableWithAggregatesFilter<"users"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"users"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"users"> | Date | string
     is_verified?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     is_active?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
+    pass_salts?: StringNullableWithAggregatesFilter<"users"> | string | null
   }
 
   export type favoritesCreateInput = {
@@ -21276,6 +21295,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
     users: usersCreateNestedOneWithoutUser_profileInput
   }
 
@@ -21288,6 +21308,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileUpdateInput = {
@@ -21298,6 +21319,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     users?: usersUpdateOneRequiredWithoutUser_profileNestedInput
   }
 
@@ -21310,6 +21332,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_profileCreateManyInput = {
@@ -21321,6 +21344,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileUpdateManyMutationInput = {
@@ -21331,6 +21355,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_profileUncheckedUpdateManyInput = {
@@ -21342,6 +21367,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_securityCreateInput = {
@@ -21424,8 +21450,8 @@ export namespace Prisma {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
     users: usersCreateNestedOneWithoutUser_sessionsInput
   }
 
@@ -21434,16 +21460,16 @@ export namespace Prisma {
     user_id: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsUpdateInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
     users?: usersUpdateOneRequiredWithoutUser_sessionsNestedInput
   }
 
@@ -21452,8 +21478,8 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsCreateManyInput = {
@@ -21461,16 +21487,16 @@ export namespace Prisma {
     user_id: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsUpdateManyMutationInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsUncheckedUpdateManyInput = {
@@ -21478,8 +21504,8 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersCreateInput = {
@@ -21487,11 +21513,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -21513,11 +21539,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -21539,11 +21565,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -21565,11 +21591,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -21591,11 +21617,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
   }
 
   export type usersUpdateManyMutationInput = {
@@ -21603,11 +21629,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -21615,11 +21641,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -22351,6 +22377,7 @@ export namespace Prisma {
     website?: SortOrder
     social_links?: SortOrder
     updated_at?: SortOrder
+    dob?: SortOrder
   }
 
   export type user_profileMaxOrderByAggregateInput = {
@@ -22361,6 +22388,7 @@ export namespace Prisma {
     avatar_url?: SortOrder
     website?: SortOrder
     updated_at?: SortOrder
+    dob?: SortOrder
   }
 
   export type user_profileMinOrderByAggregateInput = {
@@ -22371,6 +22399,7 @@ export namespace Prisma {
     avatar_url?: SortOrder
     website?: SortOrder
     updated_at?: SortOrder
+    dob?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -22425,8 +22454,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrder
+    secret?: SortOrder
   }
 
   export type user_sessionsMaxOrderByAggregateInput = {
@@ -22434,8 +22463,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrder
+    secret?: SortOrder
   }
 
   export type user_sessionsMinOrderByAggregateInput = {
@@ -22443,8 +22472,8 @@ export namespace Prisma {
     user_id?: SortOrder
     token?: SortOrder
     created_at?: SortOrder
-    expires_at?: SortOrder
     is_revoked?: SortOrder
+    secret?: SortOrder
   }
 
   export type ItemsListRelationFilter = {
@@ -22527,11 +22556,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password_hash?: SortOrder
-    role?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrder
     is_active?: SortOrder
+    pass_salts?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
@@ -22539,11 +22568,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password_hash?: SortOrder
-    role?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrder
     is_active?: SortOrder
+    pass_salts?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -22551,11 +22580,11 @@ export namespace Prisma {
     email?: SortOrder
     phone?: SortOrder
     password_hash?: SortOrder
-    role?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     is_verified?: SortOrder
     is_active?: SortOrder
+    pass_salts?: SortOrder
   }
 
   export type itemsCreateNestedOneWithoutFavoritesInput = {
@@ -23976,11 +24005,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
@@ -24001,11 +24030,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
@@ -24087,11 +24116,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
@@ -24112,11 +24141,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -24159,11 +24188,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
@@ -24184,11 +24213,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
@@ -24353,11 +24382,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
@@ -24378,11 +24407,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -24637,11 +24666,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
@@ -24662,11 +24691,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
@@ -24748,11 +24777,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
@@ -24773,11 +24802,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -24837,11 +24866,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -24862,11 +24891,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -24948,11 +24977,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -24973,11 +25002,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -24998,11 +25027,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25023,11 +25052,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25103,11 +25132,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25128,11 +25157,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25198,11 +25227,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25223,11 +25252,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25264,11 +25293,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25289,11 +25318,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25314,11 +25343,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25339,11 +25368,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25380,11 +25409,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25405,11 +25434,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25430,11 +25459,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25455,11 +25484,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25496,11 +25525,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25521,11 +25550,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25546,11 +25575,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25571,11 +25600,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25601,11 +25630,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25626,11 +25655,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25667,11 +25696,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25692,11 +25721,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25728,11 +25757,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25753,11 +25782,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25778,11 +25807,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25803,11 +25832,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25844,11 +25873,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25869,11 +25898,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25894,11 +25923,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25919,11 +25948,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25960,11 +25989,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25985,11 +26014,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -26010,11 +26039,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -26035,11 +26064,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -26076,11 +26105,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -26101,11 +26130,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -26126,11 +26155,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -26151,11 +26180,11 @@ export namespace Prisma {
     email: string
     phone?: string | null
     password_hash: string
-    role?: string | null
     created_at?: Date | string
     updated_at?: Date | string
     is_verified?: boolean | null
     is_active?: boolean | null
+    pass_salts?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -26192,11 +26221,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -26217,11 +26246,11 @@ export namespace Prisma {
     email?: StringFieldUpdateOperationsInput | string
     phone?: NullableStringFieldUpdateOperationsInput | string | null
     password_hash?: StringFieldUpdateOperationsInput | string
-    role?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -26520,6 +26549,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileUncheckedCreateWithoutUsersInput = {
@@ -26530,6 +26560,7 @@ export namespace Prisma {
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
+    dob?: Date | string | null
   }
 
   export type user_profileCreateOrConnectWithoutUsersInput = {
@@ -26566,16 +26597,16 @@ export namespace Prisma {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsUncheckedCreateWithoutUsersInput = {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type user_sessionsCreateOrConnectWithoutUsersInput = {
@@ -26862,6 +26893,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_profileUncheckedUpdateWithoutUsersInput = {
@@ -26872,6 +26904,7 @@ export namespace Prisma {
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type user_securityUpsertWithoutUsersInput = {
@@ -26929,8 +26962,8 @@ export namespace Prisma {
     user_id?: UuidFilter<"user_sessions"> | string
     token?: StringFilter<"user_sessions"> | string
     created_at?: DateTimeFilter<"user_sessions"> | Date | string
-    expires_at?: DateTimeFilter<"user_sessions"> | Date | string
     is_revoked?: BoolNullableFilter<"user_sessions"> | boolean | null
+    secret?: StringNullableFilter<"user_sessions"> | string | null
   }
 
   export type favoritesCreateManyItemsInput = {
@@ -27148,8 +27181,8 @@ export namespace Prisma {
     session_id?: string
     token: string
     created_at?: Date | string
-    expires_at: Date | string
     is_revoked?: boolean | null
+    secret?: string | null
   }
 
   export type favoritesUpdateWithoutUsersInput = {
@@ -27355,24 +27388,24 @@ export namespace Prisma {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsUncheckedUpdateWithoutUsersInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_sessionsUncheckedUpdateManyWithoutUsersInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    expires_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    secret?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
 

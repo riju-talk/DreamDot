@@ -156,15 +156,16 @@ model user_certificates {
 }
 
 model user_profile {
-  user_id      String   @id @db.Uuid
-  username     String   @unique @db.VarChar(50)
-  display_name String?  @db.VarChar(100)
+  user_id      String    @id @db.Uuid
+  username     String    @unique
+  display_name String?
   bio          String?
   avatar_url   String?
   website      String?
-  social_links Json?    @default("{}")
-  updated_at   DateTime @default(now()) @db.Timestamp(6)
-  users        users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_links Json?     @default("{}")
+  updated_at   DateTime  @default(now()) @db.Timestamp(6)
+  dob          DateTime? @db.Date
+  users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@schema("user_d")
 }
@@ -188,8 +189,8 @@ model user_sessions {
   user_id    String   @db.Uuid
   token      String
   created_at DateTime @default(now()) @db.Timestamp(6)
-  expires_at DateTime @db.Timestamp(6)
   is_revoked Boolean? @default(false)
+  secret     String?
   users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@schema("user_d")
@@ -200,11 +201,11 @@ model users {
   email                                           String                  @unique
   phone                                           String?                 @unique
   password_hash                                   String
-  role                                            String?                 @default("user") @db.VarChar(20)
   created_at                                      DateTime                @default(now()) @db.Timestamp(6)
   updated_at                                      DateTime                @default(now()) @db.Timestamp(6)
   is_verified                                     Boolean?                @default(false)
   is_active                                       Boolean?                @default(true)
+  pass_salts                                      String?
   favorites                                       favorites[]
   items                                           items[]
   pay_per_view_access                             pay_per_view_access[]

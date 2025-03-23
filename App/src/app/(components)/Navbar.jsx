@@ -1,28 +1,12 @@
-import {
-  Home,
-  Search,
-  Notifications,
-  Mail,
-  Group,
-  AddBox,
-  AccountCircle
-} from '@mui/icons-material';
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Avatar,
-  InputBase,
-  Badge
-} from '@mui/material';
-import {
-  Button,
-  Dropdown,
-  Space,
-  Typography
-} from 'antd';
-import { styled, alpha } from '@mui/material/styles';
+"use client";
+import Link from "next/link";
+import { AppBar, Toolbar, IconButton, Avatar, InputBase, Badge } from "@mui/material";
+import { Button, Dropdown, Space, Typography } from "antd";
+import { styled, alpha } from "@mui/material/styles";
+import { Home, Search, Notifications, Mail } from "@mui/icons-material";
+import { useUnmountEffect } from "framer-motion";
 
+// Styled SearchBar component
 const SearchBar = styled('div')(({ theme }) => ({
   position: 'relative',
   borderRadius: 20,
@@ -51,11 +35,13 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export default function Navbar() {
+// Navbar component accepting userId as prop
+export default function Navbar({ userId }) {
+  // Build menu items dynamically
   const items = [
-    { key: '1', label: 'Profile', URL: '/profile' },
-    { key: '2', label: 'Settings', URL: '/settings' },
-    { key: '3', label: 'Logout', danger: true, URL: '/logout' }
+    { key: '1', label: <Link href={`/profile/${userId}`}>Profile</Link> },
+    { key: '2', label: <Link href={`/settings/${userId}`}>Settings</Link> },
+    { key: '3', label: <Link href="/logout">Logout</Link>, danger: true },
   ];
 
   return (
@@ -71,7 +57,7 @@ export default function Navbar() {
       <Toolbar sx={{ justifyContent: 'space-between', px: 3 }}>
         {/* Left Section - Branding */}
         <Space align="center" className="cursor-pointer">
-          <a href="/feed" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <Link href={`/feed/${userId}`} style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
             <Avatar
               variant="rounded"
               sx={{
@@ -90,7 +76,7 @@ export default function Navbar() {
             >
               Dreamdot
             </Typography.Title>
-          </a>
+          </Link>
         </Space>
 
         {/* Center Section - Search/Navigation */}
@@ -98,9 +84,7 @@ export default function Navbar() {
           <StyledInputBase
             placeholder="Search posts, people, topics..."
             inputProps={{ 'aria-label': 'search' }}
-            startAdornment={
-              <Search sx={{ color: 'text.secondary', ml: 1.5, mr: 1 }} />
-            }
+            startAdornment={<Search sx={{ color: 'text.secondary', ml: 1.5, mr: 1 }} />}
           />
         </SearchBar>
 
@@ -109,19 +93,16 @@ export default function Navbar() {
           <IconButton className="hidden sm:inline-flex">
             <Home sx={{ color: 'text.primary' }} />
           </IconButton>
-
           <IconButton>
             <Badge badgeContent={4} color="error">
               <Mail sx={{ color: 'text.primary' }} />
             </Badge>
           </IconButton>
-
           <IconButton>
             <Badge badgeContent={12} color="error">
               <Notifications sx={{ color: 'text.primary' }} />
             </Badge>
           </IconButton>
-
           <Dropdown menu={{ items }} trigger={['click']}>
             <Avatar
               src="https://i.pravatar.cc/150?img=3"

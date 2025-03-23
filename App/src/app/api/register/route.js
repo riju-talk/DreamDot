@@ -1,4 +1,4 @@
-import { register } from "../../../lib/auth/register"; // Adjusted path (see step 2)
+import { register } from "../../../lib/auth/register"; 
 
 export async function POST(req) {
     try {
