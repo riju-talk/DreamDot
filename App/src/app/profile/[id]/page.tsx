@@ -55,13 +55,7 @@ export default function ProfilePage() {
       <div className="relative">
         {/* Cover Photo: Increased height for more space */}
         <div className="h-60 bg-blue-200 relative">
-          <Button
-            shape="round"
-            icon={<EditOutlined />}
-            className="absolute top-4 right-4 bg-white/90 hover:bg-white"
-          >
-            Edit Cover
-          </Button>
+          
         </div>
 
         {/* Profile Info Section */}
@@ -74,22 +68,14 @@ export default function ProfilePage() {
                 icon={<UserOutlined />}
                 className="border-4 border-white bg-gray-200"
               />
-              <Button
-                shape="circle"
-                icon={<EditOutlined />}
-                className="absolute bottom-2 right-2 bg-white shadow-md"
-              />
+              
             </div>
 
             {/* Name, Username, Bio */}
             <div className="flex-1 pt-12">
               <h1 className="text-3xl font-bold leading-tight pt-8">{profile.name}</h1>
               <p className="text-lg text-gray-600 mt-1">{profile.username}</p>
-              <p className="mt-2 text-gray-800">{profile.bio}<span className="px-4"><Button
-                shape="circle"
-                icon={<EditOutlined />}
-                className="bg-white shadow-md px-8  "
-              /></span></p>
+              <p className="mt-2 text-gray-800">{profile.bio}</p>
             </div>
           </div>
         </div>

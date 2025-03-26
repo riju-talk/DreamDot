@@ -186,19 +186,100 @@ exports.Prisma.Reported_contentScalarFieldEnum = {
   created_at: 'created_at'
 };
 
-exports.Prisma.Social_usersScalarFieldEnum = {
-  id: 'id',
-  username: 'username',
-  email: 'email',
-  profile_picture: 'profile_picture',
-  bio: 'bio',
+exports.Prisma.Password_reset_tokensScalarFieldEnum = {
+  token: 'token',
+  user_id: 'user_id',
+  expires_at: 'expires_at',
   created_at: 'created_at',
+  used: 'used'
+};
+
+exports.Prisma.User_analyticsScalarFieldEnum = {
+  user_id: 'user_id',
+  posts_count: 'posts_count',
+  likes_received: 'likes_received',
+  followers_count: 'followers_count',
+  following_count: 'following_count',
+  last_login: 'last_login',
+  activity_score: 'activity_score'
+};
+
+exports.Prisma.User_audit_logsScalarFieldEnum = {
+  audit_id: 'audit_id',
+  user_id: 'user_id',
+  action_type: 'action_type',
+  details: 'details',
+  performed_by: 'performed_by',
+  event_time: 'event_time'
+};
+
+exports.Prisma.User_blocklistScalarFieldEnum = {
+  block_id: 'block_id',
+  user_id: 'user_id',
+  reason: 'reason',
+  blocked_at: 'blocked_at'
+};
+
+exports.Prisma.User_certificatesScalarFieldEnum = {
+  user_id: 'user_id',
+  public_key: 'public_key',
+  certificate: 'certificate',
+  created_at: 'created_at'
+};
+
+exports.Prisma.User_profileScalarFieldEnum = {
+  user_id: 'user_id',
+  username: 'username',
+  display_name: 'display_name',
+  bio: 'bio',
+  avatar_url: 'avatar_url',
+  website: 'website',
+  social_links: 'social_links',
+  updated_at: 'updated_at',
+  dob: 'dob'
+};
+
+exports.Prisma.User_securityScalarFieldEnum = {
+  user_id: 'user_id',
+  failed_attempts: 'failed_attempts',
+  last_failed_login: 'last_failed_login',
+  two_factor_enabled: 'two_factor_enabled',
+  otp_code: 'otp_code',
+  otp_expires_at: 'otp_expires_at',
+  recovery_codes: 'recovery_codes',
   updated_at: 'updated_at'
+};
+
+exports.Prisma.User_sessionsScalarFieldEnum = {
+  session_id: 'session_id',
+  user_id: 'user_id',
+  token: 'token',
+  created_at: 'created_at',
+  is_revoked: 'is_revoked',
+  secret: 'secret'
+};
+
+exports.Prisma.UsersScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  phone: 'phone',
+  password_hash: 'password_hash',
+  created_at: 'created_at',
+  updated_at: 'updated_at',
+  is_verified: 'is_verified',
+  is_active: 'is_active',
+  pass_salts: 'pass_salts',
+  user_type: 'user_type'
 };
 
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
+};
+
+exports.Prisma.NullableJsonNullValueInput = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull
 };
 
 exports.Prisma.QueryMode = {
@@ -211,6 +292,12 @@ exports.Prisma.NullsOrder = {
   last: 'last'
 };
 
+exports.Prisma.JsonNullValueFilter = {
+  DbNull: Prisma.DbNull,
+  JsonNull: Prisma.JsonNull,
+  AnyNull: Prisma.AnyNull
+};
+
 
 exports.Prisma.ModelName = {
   blocking: 'blocking',
@@ -221,7 +308,15 @@ exports.Prisma.ModelName = {
   posts_analytics: 'posts_analytics',
   posts_metadata: 'posts_metadata',
   reported_content: 'reported_content',
-  social_users: 'social_users'
+  password_reset_tokens: 'password_reset_tokens',
+  user_analytics: 'user_analytics',
+  user_audit_logs: 'user_audit_logs',
+  user_blocklist: 'user_blocklist',
+  user_certificates: 'user_certificates',
+  user_profile: 'user_profile',
+  user_security: 'user_security',
+  user_sessions: 'user_sessions',
+  users: 'users'
 };
 
 /**

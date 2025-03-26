@@ -3,10 +3,14 @@
 import os
 import sys
 
-
 def main():
-    """Run administrative tasks."""
+    # Add the project root directory to the Python path
+    project_root = os.path.dirname(os.path.abspath(__file__))
+    sys.path.append(project_root)
+
+    # Set the DJANGO_SETTINGS_MODULE environment variable
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin.settings')
+
     try:
         from django.core.management import execute_from_command_line
     except ImportError as exc:
@@ -16,7 +20,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()

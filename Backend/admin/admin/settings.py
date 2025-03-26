@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
 from pathlib import Path
+import psycopg, dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -74,13 +75,72 @@ WSGI_APPLICATION = 'admin.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'prisma.qugdnavujrpjlflpxotj',
+        'PASSWORD': 'connection_to_database',
+        'HOST': 'aws-0-eu-north-1.pooler.supabase.com',
+        'PORT': '5432',
+    },
+    'users': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'prisma.qugdnavujrpjlflpxotj',
+        'PASSWORD': 'connection_to_database',
+        'HOST': 'aws-0-eu-north-1.pooler.supabase.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=user_d'  # Ensure queries look in the 'social' schema
+        },
+    },
+    'social': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'prisma.qugdnavujrpjlflpxotj',
+        'PASSWORD': 'connection_to_database',
+        'HOST': 'aws-0-eu-north-1.pooler.supabase.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=social'  # Ensure queries look in the 'social' schema
+        },
+    },
+    'items': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'prisma.qugdnavujrpjlflpxotj',
+        'PASSWORD': 'connection_to_database',
+        'HOST': 'aws-0-eu-north-1.pooler.supabase.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=items_d'  # Ensure queries look in the 'social' schema
+        },
+    },
+    'audit': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'prisma.qugdnavujrpjlflpxotj',
+        'PASSWORD': 'connection_to_database',
+        'HOST': 'aws-0-eu-north-1.pooler.supabase.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=audit'  # Ensure queries look in the 'social' schema
+        },
+    },
+    'groups': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'prisma.qugdnavujrpjlflpxotj',
+        'PASSWORD': 'connection_to_database',
+        'HOST': 'aws-0-eu-north-1.pooler.supabase.com',
+        'PORT': '5432',
+        'OPTIONS': {
+            'options': '-c search_path=community'  # Ensure queries look in the 'social' schema
+        },
+    },
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators

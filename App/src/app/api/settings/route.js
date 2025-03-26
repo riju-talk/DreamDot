@@ -1,11 +1,7 @@
-// src/app/api/settings/route.js
 import { prismaUser } from '../../../lib/db/client';
 
-// GET method to fetch settings
 export async function GET(request) {
-    // In the App Router, you’ll typically extract data from request headers or cookies.
-    // For this example, we’ll simulate the userId.
-    const userId = 'some-user-uuid-from-session'; // Replace with your auth logic
+    const userId = 'some-user-uuid-from-session'; 
 
     if (!userId) {
         return new Response(JSON.stringify({ message: 'Unauthorized' }), {
@@ -53,8 +49,7 @@ export async function GET(request) {
 
 // PUT method to update settings
 export async function PUT(request) {
-    // In the App Router, you must parse the body using request.json()
-    const userId = 'some-user-uuid-from-session'; // Replace with your auth logic
+    const userId = 'some-user-uuid-from-session';
 
     if (!userId) {
         return new Response(JSON.stringify({ message: 'Unauthorized' }), {

@@ -8,16 +8,14 @@ datasource db {
   provider  = "postgresql"
   url       = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=social"
   directUrl = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=social"
-  schemas   = ["social"]
+  schemas   = ["social", "user_d"]
 }
 
 model blocking {
-  id                                             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  blocker_id                                     String       @db.Uuid
-  blocked_id                                     String       @db.Uuid
-  created_at                                     DateTime     @default(now()) @db.Timestamp(6)
-  social_users_blocking_blocked_idTosocial_users social_users @relation("blocking_blocked_idTosocial_users", fields: [blocked_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  social_users_blocking_blocker_idTosocial_users social_users @relation("blocking_blocker_idTosocial_users", fields: [blocker_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id         String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  blocker_id String   @db.Uuid
+  blocked_id String   @db.Uuid
+  created_at DateTime @default(now()) @db.Timestamp(6)
 
   @@unique([blocker_id, blocked_id])
   @@schema("social")
@@ -33,18 +31,15 @@ model comments {
   comments          comments?      @relation("commentsTocomments", fields: [parent_comment_id], references: [comment_id], onDelete: Cascade, onUpdate: NoAction)
   other_comments    comments[]     @relation("commentsTocomments")
   posts_metadata    posts_metadata @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  social_users      social_users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@schema("social")
 }
 
 model following {
-  id                                               String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  follower_id                                      String       @db.Uuid
-  followee_id                                      String       @db.Uuid
-  followed_at                                      DateTime?    @default(now()) @db.Timestamp(6)
-  social_users_following_followee_idTosocial_users social_users @relation("following_followee_idTosocial_users", fields: [followee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  social_users_following_follower_idTosocial_users social_users @relation("following_follower_idTosocial_users", fields: [follower_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  follower_id String    @db.Uuid
+  followee_id String    @db.Uuid
+  followed_at DateTime? @default(now()) @db.Timestamp(6)
 
   @@unique([follower_id, followee_id])
   @@schema("social")
@@ -55,20 +50,19 @@ model likes {
   post_id        String         @db.Uuid
   liked_at       DateTime?      @default(now()) @db.Timestamp(6)
   posts_metadata posts_metadata @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  social_users   social_users   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@id([user_id, post_id])
   @@schema("social")
 }
 
 model notifications {
-  notification_id      String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id              String       @db.Uuid
-  notification_type    String?      @db.VarChar(50)
+  notification_id      String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id              String   @db.Uuid
+  notification_type    String?  @db.VarChar(50)
   notification_content String?
-  is_read              Boolean?     @default(false)
-  created_at           DateTime     @default(now()) @db.Timestamp(6)
-  social_users         social_users @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  is_read              Boolean? @default(false)
+  created_at           DateTime @default(now()) @db.Timestamp(6)
+  social_users         users    @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 
   @@schema("social")
 }
@@ -98,45 +92,143 @@ model posts_metadata {
   comments         comments[]
   likes            likes[]
   posts_analytics  posts_analytics?
-  social_users     social_users       @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  social_users     users              @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   reported_content reported_content[]
 
   @@schema("social")
 }
 
 model reported_content {
-  id                                                           String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  reporter_id                                                  String          @db.Uuid
-  reported_user_id                                             String?         @db.Uuid
-  post_id                                                      String?         @db.Uuid
-  reason                                                       String
-  status                                                       String?         @default("pending") @db.VarChar(20)
-  created_at                                                   DateTime        @default(now()) @db.Timestamp(6)
-  posts_metadata                                               posts_metadata? @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  social_users_reported_content_reported_user_idTosocial_users social_users?   @relation("reported_content_reported_user_idTosocial_users", fields: [reported_user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  social_users_reported_content_reporter_idTosocial_users      social_users    @relation("reported_content_reporter_idTosocial_users", fields: [reporter_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  id               String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  reporter_id      String          @db.Uuid
+  reported_user_id String?         @db.Uuid
+  post_id          String?         @db.Uuid
+  reason           String
+  status           String?         @default("pending") @db.VarChar(20)
+  created_at       DateTime        @default(now()) @db.Timestamp(6)
+  posts_metadata   posts_metadata? @relation(fields: [post_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@schema("social")
 }
 
-model social_users {
-  id                                                               String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  username                                                         String             @unique @db.VarChar(50)
-  email                                                            String             @unique @db.VarChar(100)
-  profile_picture                                                  String?
-  bio                                                              String?
-  created_at                                                       DateTime           @default(now()) @db.Timestamp(6)
-  updated_at                                                       DateTime           @default(now()) @db.Timestamp(6)
-  blocking_blocking_blocked_idTosocial_users                       blocking[]         @relation("blocking_blocked_idTosocial_users")
-  blocking_blocking_blocker_idTosocial_users                       blocking[]         @relation("blocking_blocker_idTosocial_users")
-  comments                                                         comments[]
-  following_following_followee_idTosocial_users                    following[]        @relation("following_followee_idTosocial_users")
-  following_following_follower_idTosocial_users                    following[]        @relation("following_follower_idTosocial_users")
-  likes                                                            likes[]
-  notifications                                                    notifications[]
-  posts_metadata                                                   posts_metadata[]
-  reported_content_reported_content_reported_user_idTosocial_users reported_content[] @relation("reported_content_reported_user_idTosocial_users")
-  reported_content_reported_content_reporter_idTosocial_users      reported_content[] @relation("reported_content_reporter_idTosocial_users")
+model password_reset_tokens {
+  token      String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String   @db.Uuid
+  expires_at DateTime @db.Timestamp(6)
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  used       Boolean? @default(false)
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
-  @@schema("social")
+  @@schema("user_d")
+}
+
+model user_analytics {
+  user_id         String    @id @db.Uuid
+  posts_count     Int?      @default(0)
+  likes_received  Int?      @default(0)
+  followers_count Int?      @default(0)
+  following_count Int?      @default(0)
+  last_login      DateTime? @db.Timestamp(6)
+  activity_score  Decimal?  @default(0.00) @db.Decimal(5, 2)
+  users           users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("user_d")
+}
+
+model user_audit_logs {
+  audit_id     String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id      String?  @db.Uuid
+  action_type  String
+  details      Json?    @default("{}")
+  performed_by String?  @db.Uuid
+  event_time   DateTime @default(now()) @db.Timestamp(6)
+  users        users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction)
+
+  @@schema("user_d")
+}
+
+model user_blocklist {
+  block_id   String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String?  @unique @db.Uuid
+  reason     String
+  blocked_at DateTime @default(now()) @db.Timestamp(6)
+  users      users?   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("user_d")
+}
+
+model user_certificates {
+  user_id     String   @id @db.Uuid
+  public_key  String
+  certificate String?
+  created_at  DateTime @default(now()) @db.Timestamp(6)
+  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("user_d")
+}
+
+model user_profile {
+  user_id      String    @id @db.Uuid
+  username     String    @unique
+  display_name String?
+  bio          String?
+  avatar_url   String?
+  website      String?
+  social_links Json?     @default("{}")
+  updated_at   DateTime  @default(now()) @db.Timestamp(6)
+  dob          DateTime? @db.Date
+  users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("user_d")
+}
+
+model user_security {
+  user_id            String    @id @db.Uuid
+  failed_attempts    Int?      @default(0)
+  last_failed_login  DateTime? @db.Timestamp(6)
+  two_factor_enabled Boolean?  @default(false)
+  otp_code           String?
+  otp_expires_at     DateTime? @db.Timestamp(6)
+  recovery_codes     String[]
+  updated_at         DateTime  @default(now()) @db.Timestamp(6)
+  users              users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("user_d")
+}
+
+model user_sessions {
+  session_id String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String   @db.Uuid
+  token      String
+  created_at DateTime @default(now()) @db.Timestamp(6)
+  is_revoked Boolean? @default(false)
+  secret     String?
+  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@schema("user_d")
+}
+
+model users {
+  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                 String                  @unique
+  phone                 String?                 @unique
+  password_hash         String
+  created_at            DateTime                @default(now()) @db.Timestamp(6)
+  updated_at            DateTime                @default(now()) @db.Timestamp(6)
+  is_verified           Boolean?                @default(false)
+  is_active             Boolean?                @default(true)
+  pass_salts            String?
+  user_type             String?                 @default("user")
+  notifications         notifications[]
+  posts_metadata        posts_metadata[]
+  password_reset_tokens password_reset_tokens[]
+  user_analytics        user_analytics?
+  user_audit_logs       user_audit_logs[]
+  user_blocklist        user_blocklist?
+  user_certificates     user_certificates?
+  user_profile          user_profile?
+  user_security         user_security?
+  user_sessions         user_sessions[]
+
+  @@schema("user_d")
 }
