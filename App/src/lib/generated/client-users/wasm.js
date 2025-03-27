@@ -148,7 +148,6 @@ exports.Prisma.User_blocklistScalarFieldEnum = {
   block_id: 'block_id',
   user_id: 'user_id',
   reason: 'reason',
-  blocked_by: 'blocked_by',
   blocked_at: 'blocked_at'
 };
 
@@ -168,7 +167,8 @@ exports.Prisma.User_profileScalarFieldEnum = {
   website: 'website',
   social_links: 'social_links',
   updated_at: 'updated_at',
-  dob: 'dob'
+  dob: 'dob',
+  country: 'country'
 };
 
 exports.Prisma.User_securityScalarFieldEnum = {
@@ -200,7 +200,8 @@ exports.Prisma.UsersScalarFieldEnum = {
   updated_at: 'updated_at',
   is_verified: 'is_verified',
   is_active: 'is_active',
-  pass_salts: 'pass_salts'
+  pass_salts: 'pass_salts',
+  user_type: 'user_type'
 };
 
 exports.Prisma.SortOrder = {

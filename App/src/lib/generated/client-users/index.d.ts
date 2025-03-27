@@ -1599,14 +1599,12 @@ export namespace Prisma {
   export type UsersCountOutputType = {
     password_reset_tokens: number
     user_audit_logs: number
-    user_blocklist_user_blocklist_blocked_byTousers: number
     user_sessions: number
   }
 
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password_reset_tokens?: boolean | UsersCountOutputTypeCountPassword_reset_tokensArgs
     user_audit_logs?: boolean | UsersCountOutputTypeCountUser_audit_logsArgs
-    user_blocklist_user_blocklist_blocked_byTousers?: boolean | UsersCountOutputTypeCountUser_blocklist_user_blocklist_blocked_byTousersArgs
     user_sessions?: boolean | UsersCountOutputTypeCountUser_sessionsArgs
   }
 
@@ -1633,13 +1631,6 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountUser_audit_logsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: user_audit_logsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountUser_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_blocklistWhereInput
   }
 
   /**
@@ -4946,7 +4937,6 @@ export namespace Prisma {
     block_id: string | null
     user_id: string | null
     reason: string | null
-    blocked_by: string | null
     blocked_at: Date | null
   }
 
@@ -4954,7 +4944,6 @@ export namespace Prisma {
     block_id: string | null
     user_id: string | null
     reason: string | null
-    blocked_by: string | null
     blocked_at: Date | null
   }
 
@@ -4962,7 +4951,6 @@ export namespace Prisma {
     block_id: number
     user_id: number
     reason: number
-    blocked_by: number
     blocked_at: number
     _all: number
   }
@@ -4972,7 +4960,6 @@ export namespace Prisma {
     block_id?: true
     user_id?: true
     reason?: true
-    blocked_by?: true
     blocked_at?: true
   }
 
@@ -4980,7 +4967,6 @@ export namespace Prisma {
     block_id?: true
     user_id?: true
     reason?: true
-    blocked_by?: true
     blocked_at?: true
   }
 
@@ -4988,7 +4974,6 @@ export namespace Prisma {
     block_id?: true
     user_id?: true
     reason?: true
-    blocked_by?: true
     blocked_at?: true
     _all?: true
   }
@@ -5069,7 +5054,6 @@ export namespace Prisma {
     block_id: string
     user_id: string | null
     reason: string
-    blocked_by: string | null
     blocked_at: Date
     _count: User_blocklistCountAggregateOutputType | null
     _min: User_blocklistMinAggregateOutputType | null
@@ -5094,9 +5078,7 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }, ExtArgs["result"]["user_blocklist"]>
 
@@ -5104,9 +5086,7 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }, ExtArgs["result"]["user_blocklist"]>
 
@@ -5114,9 +5094,7 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }, ExtArgs["result"]["user_blocklist"]>
 
@@ -5124,35 +5102,29 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
   }
 
-  export type user_blocklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"block_id" | "user_id" | "reason" | "blocked_by" | "blocked_at", ExtArgs["result"]["user_blocklist"]>
+  export type user_blocklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"block_id" | "user_id" | "reason" | "blocked_at", ExtArgs["result"]["user_blocklist"]>
   export type user_blocklistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }
   export type user_blocklistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }
   export type user_blocklistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }
 
   export type $user_blocklistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "user_blocklist"
     objects: {
-      users_user_blocklist_blocked_byTousers: Prisma.$usersPayload<ExtArgs> | null
       users_user_blocklist_user_idTousers: Prisma.$usersPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       block_id: string
       user_id: string | null
       reason: string
-      blocked_by: string | null
       blocked_at: Date
     }, ExtArgs["result"]["user_blocklist"]>
     composites: {}
@@ -5548,7 +5520,6 @@ export namespace Prisma {
    */
   export interface Prisma__user_blocklistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    users_user_blocklist_blocked_byTousers<T extends user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     users_user_blocklist_user_idTousers<T extends user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -5582,7 +5553,6 @@ export namespace Prisma {
     readonly block_id: FieldRef<"user_blocklist", 'String'>
     readonly user_id: FieldRef<"user_blocklist", 'String'>
     readonly reason: FieldRef<"user_blocklist", 'String'>
-    readonly blocked_by: FieldRef<"user_blocklist", 'String'>
     readonly blocked_at: FieldRef<"user_blocklist", 'DateTime'>
   }
     
@@ -5977,25 +5947,6 @@ export namespace Prisma {
      * Limit how many user_blocklists to delete.
      */
     limit?: number
-  }
-
-  /**
-   * user_blocklist.users_user_blocklist_blocked_byTousers
-   */
-  export type user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: usersInclude<ExtArgs> | null
-    where?: usersWhereInput
   }
 
   /**
@@ -7100,6 +7051,7 @@ export namespace Prisma {
     website: string | null
     updated_at: Date | null
     dob: Date | null
+    country: string | null
   }
 
   export type User_profileMaxAggregateOutputType = {
@@ -7111,6 +7063,7 @@ export namespace Prisma {
     website: string | null
     updated_at: Date | null
     dob: Date | null
+    country: string | null
   }
 
   export type User_profileCountAggregateOutputType = {
@@ -7123,6 +7076,7 @@ export namespace Prisma {
     social_links: number
     updated_at: number
     dob: number
+    country: number
     _all: number
   }
 
@@ -7136,6 +7090,7 @@ export namespace Prisma {
     website?: true
     updated_at?: true
     dob?: true
+    country?: true
   }
 
   export type User_profileMaxAggregateInputType = {
@@ -7147,6 +7102,7 @@ export namespace Prisma {
     website?: true
     updated_at?: true
     dob?: true
+    country?: true
   }
 
   export type User_profileCountAggregateInputType = {
@@ -7159,6 +7115,7 @@ export namespace Prisma {
     social_links?: true
     updated_at?: true
     dob?: true
+    country?: true
     _all?: true
   }
 
@@ -7244,6 +7201,7 @@ export namespace Prisma {
     social_links: JsonValue | null
     updated_at: Date
     dob: Date | null
+    country: string | null
     _count: User_profileCountAggregateOutputType | null
     _min: User_profileMinAggregateOutputType | null
     _max: User_profileMaxAggregateOutputType | null
@@ -7273,6 +7231,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -7286,6 +7245,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -7299,6 +7259,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -7312,9 +7273,10 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
   }
 
-  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob", ExtArgs["result"]["user_profile"]>
+  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob" | "country", ExtArgs["result"]["user_profile"]>
   export type user_profileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -7340,6 +7302,7 @@ export namespace Prisma {
       social_links: Prisma.JsonValue | null
       updated_at: Date
       dob: Date | null
+      country: string | null
     }, ExtArgs["result"]["user_profile"]>
     composites: {}
   }
@@ -7773,6 +7736,7 @@ export namespace Prisma {
     readonly social_links: FieldRef<"user_profile", 'Json'>
     readonly updated_at: FieldRef<"user_profile", 'DateTime'>
     readonly dob: FieldRef<"user_profile", 'DateTime'>
+    readonly country: FieldRef<"user_profile", 'String'>
   }
     
 
@@ -10405,6 +10369,7 @@ export namespace Prisma {
     is_verified: boolean | null
     is_active: boolean | null
     pass_salts: string | null
+    user_type: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -10417,6 +10382,7 @@ export namespace Prisma {
     is_verified: boolean | null
     is_active: boolean | null
     pass_salts: string | null
+    user_type: string | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -10429,6 +10395,7 @@ export namespace Prisma {
     is_verified: number
     is_active: number
     pass_salts: number
+    user_type: number
     _all: number
   }
 
@@ -10443,6 +10410,7 @@ export namespace Prisma {
     is_verified?: true
     is_active?: true
     pass_salts?: true
+    user_type?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -10455,6 +10423,7 @@ export namespace Prisma {
     is_verified?: true
     is_active?: true
     pass_salts?: true
+    user_type?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -10467,6 +10436,7 @@ export namespace Prisma {
     is_verified?: true
     is_active?: true
     pass_salts?: true
+    user_type?: true
     _all?: true
   }
 
@@ -10552,6 +10522,7 @@ export namespace Prisma {
     is_verified: boolean | null
     is_active: boolean | null
     pass_salts: string | null
+    user_type: string | null
     _count: UsersCountAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
@@ -10581,10 +10552,10 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
     user_analytics?: boolean | users$user_analyticsArgs<ExtArgs>
     user_audit_logs?: boolean | users$user_audit_logsArgs<ExtArgs>
-    user_blocklist_user_blocklist_blocked_byTousers?: boolean | users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs>
     user_blocklist_user_blocklist_user_idTousers?: boolean | users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs>
     user_certificates?: boolean | users$user_certificatesArgs<ExtArgs>
     user_profile?: boolean | users$user_profileArgs<ExtArgs>
@@ -10603,6 +10574,7 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10615,6 +10587,7 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -10627,14 +10600,14 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
     user_analytics?: boolean | users$user_analyticsArgs<ExtArgs>
     user_audit_logs?: boolean | users$user_audit_logsArgs<ExtArgs>
-    user_blocklist_user_blocklist_blocked_byTousers?: boolean | users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs>
     user_blocklist_user_blocklist_user_idTousers?: boolean | users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs>
     user_certificates?: boolean | users$user_certificatesArgs<ExtArgs>
     user_profile?: boolean | users$user_profileArgs<ExtArgs>
@@ -10651,7 +10624,6 @@ export namespace Prisma {
       password_reset_tokens: Prisma.$password_reset_tokensPayload<ExtArgs>[]
       user_analytics: Prisma.$user_analyticsPayload<ExtArgs> | null
       user_audit_logs: Prisma.$user_audit_logsPayload<ExtArgs>[]
-      user_blocklist_user_blocklist_blocked_byTousers: Prisma.$user_blocklistPayload<ExtArgs>[]
       user_blocklist_user_blocklist_user_idTousers: Prisma.$user_blocklistPayload<ExtArgs> | null
       user_certificates: Prisma.$user_certificatesPayload<ExtArgs> | null
       user_profile: Prisma.$user_profilePayload<ExtArgs> | null
@@ -10668,6 +10640,7 @@ export namespace Prisma {
       is_verified: boolean | null
       is_active: boolean | null
       pass_salts: string | null
+      user_type: string | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -11065,7 +11038,6 @@ export namespace Prisma {
     password_reset_tokens<T extends users$password_reset_tokensArgs<ExtArgs> = {}>(args?: Subset<T, users$password_reset_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$password_reset_tokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_analytics<T extends users$user_analyticsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_analyticsArgs<ExtArgs>>): Prisma__user_analyticsClient<$Result.GetResult<Prisma.$user_analyticsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user_audit_logs<T extends users$user_audit_logsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_audit_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_audit_logsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    user_blocklist_user_blocklist_blocked_byTousers<T extends users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_blocklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_blocklist_user_blocklist_user_idTousers<T extends users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs>>): Prisma__user_blocklistClient<$Result.GetResult<Prisma.$user_blocklistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user_certificates<T extends users$user_certificatesArgs<ExtArgs> = {}>(args?: Subset<T, users$user_certificatesArgs<ExtArgs>>): Prisma__user_certificatesClient<$Result.GetResult<Prisma.$user_certificatesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user_profile<T extends users$user_profileArgs<ExtArgs> = {}>(args?: Subset<T, users$user_profileArgs<ExtArgs>>): Prisma__user_profileClient<$Result.GetResult<Prisma.$user_profilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -11109,6 +11081,7 @@ export namespace Prisma {
     readonly is_verified: FieldRef<"users", 'Boolean'>
     readonly is_active: FieldRef<"users", 'Boolean'>
     readonly pass_salts: FieldRef<"users", 'String'>
+    readonly user_type: FieldRef<"users", 'String'>
   }
     
 
@@ -11564,30 +11537,6 @@ export namespace Prisma {
   }
 
   /**
-   * users.user_blocklist_user_blocklist_blocked_byTousers
-   */
-  export type users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_blocklist
-     */
-    select?: user_blocklistSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_blocklist
-     */
-    omit?: user_blocklistOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_blocklistInclude<ExtArgs> | null
-    where?: user_blocklistWhereInput
-    orderBy?: user_blocklistOrderByWithRelationInput | user_blocklistOrderByWithRelationInput[]
-    cursor?: user_blocklistWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: User_blocklistScalarFieldEnum | User_blocklistScalarFieldEnum[]
-  }
-
-  /**
    * users.user_blocklist_user_blocklist_user_idTousers
    */
   export type users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -11760,7 +11709,6 @@ export namespace Prisma {
     block_id: 'block_id',
     user_id: 'user_id',
     reason: 'reason',
-    blocked_by: 'blocked_by',
     blocked_at: 'blocked_at'
   };
 
@@ -11786,7 +11734,8 @@ export namespace Prisma {
     website: 'website',
     social_links: 'social_links',
     updated_at: 'updated_at',
-    dob: 'dob'
+    dob: 'dob',
+    country: 'country'
   };
 
   export type User_profileScalarFieldEnum = (typeof User_profileScalarFieldEnum)[keyof typeof User_profileScalarFieldEnum]
@@ -11827,7 +11776,8 @@ export namespace Prisma {
     updated_at: 'updated_at',
     is_verified: 'is_verified',
     is_active: 'is_active',
-    pass_salts: 'pass_salts'
+    pass_salts: 'pass_salts',
+    user_type: 'user_type'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -12162,9 +12112,7 @@ export namespace Prisma {
     block_id?: UuidFilter<"user_blocklist"> | string
     user_id?: UuidNullableFilter<"user_blocklist"> | string | null
     reason?: StringFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableFilter<"user_blocklist"> | string | null
     blocked_at?: DateTimeFilter<"user_blocklist"> | Date | string
-    users_user_blocklist_blocked_byTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
     users_user_blocklist_user_idTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }
 
@@ -12172,9 +12120,7 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrderInput | SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrderInput | SortOrder
     blocked_at?: SortOrder
-    users_user_blocklist_blocked_byTousers?: usersOrderByWithRelationInput
     users_user_blocklist_user_idTousers?: usersOrderByWithRelationInput
   }
 
@@ -12185,9 +12131,7 @@ export namespace Prisma {
     OR?: user_blocklistWhereInput[]
     NOT?: user_blocklistWhereInput | user_blocklistWhereInput[]
     reason?: StringFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableFilter<"user_blocklist"> | string | null
     blocked_at?: DateTimeFilter<"user_blocklist"> | Date | string
-    users_user_blocklist_blocked_byTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
     users_user_blocklist_user_idTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }, "block_id" | "user_id">
 
@@ -12195,7 +12139,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrderInput | SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrderInput | SortOrder
     blocked_at?: SortOrder
     _count?: user_blocklistCountOrderByAggregateInput
     _max?: user_blocklistMaxOrderByAggregateInput
@@ -12209,7 +12152,6 @@ export namespace Prisma {
     block_id?: UuidWithAggregatesFilter<"user_blocklist"> | string
     user_id?: UuidNullableWithAggregatesFilter<"user_blocklist"> | string | null
     reason?: StringWithAggregatesFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableWithAggregatesFilter<"user_blocklist"> | string | null
     blocked_at?: DateTimeWithAggregatesFilter<"user_blocklist"> | Date | string
   }
 
@@ -12276,6 +12218,7 @@ export namespace Prisma {
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
+    country?: StringNullableFilter<"user_profile"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -12289,6 +12232,7 @@ export namespace Prisma {
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
     dob?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     users?: usersOrderByWithRelationInput
   }
 
@@ -12305,6 +12249,7 @@ export namespace Prisma {
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
+    country?: StringNullableFilter<"user_profile"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "user_id" | "username">
 
@@ -12318,6 +12263,7 @@ export namespace Prisma {
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
     dob?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     _count?: user_profileCountOrderByAggregateInput
     _max?: user_profileMaxOrderByAggregateInput
     _min?: user_profileMinOrderByAggregateInput
@@ -12336,6 +12282,7 @@ export namespace Prisma {
     social_links?: JsonNullableWithAggregatesFilter<"user_profile">
     updated_at?: DateTimeWithAggregatesFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableWithAggregatesFilter<"user_profile"> | Date | string | null
+    country?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
   }
 
   export type user_securityWhereInput = {
@@ -12483,10 +12430,10 @@ export namespace Prisma {
     is_verified?: BoolNullableFilter<"users"> | boolean | null
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
+    user_type?: StringNullableFilter<"users"> | string | null
     password_reset_tokens?: Password_reset_tokensListRelationFilter
     user_analytics?: XOR<User_analyticsNullableScalarRelationFilter, user_analyticsWhereInput> | null
     user_audit_logs?: User_audit_logsListRelationFilter
-    user_blocklist_user_blocklist_blocked_byTousers?: User_blocklistListRelationFilter
     user_blocklist_user_blocklist_user_idTousers?: XOR<User_blocklistNullableScalarRelationFilter, user_blocklistWhereInput> | null
     user_certificates?: XOR<User_certificatesNullableScalarRelationFilter, user_certificatesWhereInput> | null
     user_profile?: XOR<User_profileNullableScalarRelationFilter, user_profileWhereInput> | null
@@ -12504,10 +12451,10 @@ export namespace Prisma {
     is_verified?: SortOrderInput | SortOrder
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
+    user_type?: SortOrderInput | SortOrder
     password_reset_tokens?: password_reset_tokensOrderByRelationAggregateInput
     user_analytics?: user_analyticsOrderByWithRelationInput
     user_audit_logs?: user_audit_logsOrderByRelationAggregateInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistOrderByRelationAggregateInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistOrderByWithRelationInput
     user_certificates?: user_certificatesOrderByWithRelationInput
     user_profile?: user_profileOrderByWithRelationInput
@@ -12528,10 +12475,10 @@ export namespace Prisma {
     is_verified?: BoolNullableFilter<"users"> | boolean | null
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
+    user_type?: StringNullableFilter<"users"> | string | null
     password_reset_tokens?: Password_reset_tokensListRelationFilter
     user_analytics?: XOR<User_analyticsNullableScalarRelationFilter, user_analyticsWhereInput> | null
     user_audit_logs?: User_audit_logsListRelationFilter
-    user_blocklist_user_blocklist_blocked_byTousers?: User_blocklistListRelationFilter
     user_blocklist_user_blocklist_user_idTousers?: XOR<User_blocklistNullableScalarRelationFilter, user_blocklistWhereInput> | null
     user_certificates?: XOR<User_certificatesNullableScalarRelationFilter, user_certificatesWhereInput> | null
     user_profile?: XOR<User_profileNullableScalarRelationFilter, user_profileWhereInput> | null
@@ -12549,6 +12496,7 @@ export namespace Prisma {
     is_verified?: SortOrderInput | SortOrder
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
+    user_type?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
@@ -12567,6 +12515,7 @@ export namespace Prisma {
     is_verified?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     is_active?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     pass_salts?: StringNullableWithAggregatesFilter<"users"> | string | null
+    user_type?: StringNullableWithAggregatesFilter<"users"> | string | null
   }
 
   export type password_reset_tokensCreateInput = {
@@ -12759,7 +12708,6 @@ export namespace Prisma {
     block_id?: string
     reason: string
     blocked_at?: Date | string
-    users_user_blocklist_blocked_byTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
     users_user_blocklist_user_idTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_user_idTousersInput
   }
 
@@ -12767,7 +12715,6 @@ export namespace Prisma {
     block_id?: string
     user_id?: string | null
     reason: string
-    blocked_by?: string | null
     blocked_at?: Date | string
   }
 
@@ -12775,7 +12722,6 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users_user_blocklist_blocked_byTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_blocked_byTousersNestedInput
     users_user_blocklist_user_idTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_user_idTousersNestedInput
   }
 
@@ -12783,7 +12729,6 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: StringFieldUpdateOperationsInput | string
-    blocked_by?: NullableStringFieldUpdateOperationsInput | string | null
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12791,7 +12736,6 @@ export namespace Prisma {
     block_id?: string
     user_id?: string | null
     reason: string
-    blocked_by?: string | null
     blocked_at?: Date | string
   }
 
@@ -12805,7 +12749,6 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: StringFieldUpdateOperationsInput | string
-    blocked_by?: NullableStringFieldUpdateOperationsInput | string | null
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -12866,6 +12809,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
     users: usersCreateNestedOneWithoutUser_profileInput
   }
 
@@ -12879,6 +12823,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUpdateInput = {
@@ -12890,6 +12835,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: usersUpdateOneRequiredWithoutUser_profileNestedInput
   }
 
@@ -12903,6 +12849,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileCreateManyInput = {
@@ -12915,6 +12862,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUpdateManyMutationInput = {
@@ -12926,6 +12874,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileUncheckedUpdateManyInput = {
@@ -12938,6 +12887,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_securityCreateInput = {
@@ -13088,10 +13038,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -13109,10 +13059,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -13130,10 +13080,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -13151,10 +13101,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -13172,6 +13122,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
   }
 
   export type usersUpdateManyMutationInput = {
@@ -13184,6 +13135,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -13196,6 +13148,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -13565,7 +13518,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrder
     blocked_at?: SortOrder
   }
 
@@ -13573,7 +13525,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrder
     blocked_at?: SortOrder
   }
 
@@ -13581,7 +13532,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrder
     blocked_at?: SortOrder
   }
 
@@ -13649,6 +13599,7 @@ export namespace Prisma {
     social_links?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type user_profileMaxOrderByAggregateInput = {
@@ -13660,6 +13611,7 @@ export namespace Prisma {
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type user_profileMinOrderByAggregateInput = {
@@ -13671,6 +13623,7 @@ export namespace Prisma {
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -13764,12 +13717,6 @@ export namespace Prisma {
     none?: user_audit_logsWhereInput
   }
 
-  export type User_blocklistListRelationFilter = {
-    every?: user_blocklistWhereInput
-    some?: user_blocklistWhereInput
-    none?: user_blocklistWhereInput
-  }
-
   export type User_blocklistNullableScalarRelationFilter = {
     is?: user_blocklistWhereInput | null
     isNot?: user_blocklistWhereInput | null
@@ -13804,10 +13751,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type user_blocklistOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type user_sessionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -13822,6 +13765,7 @@ export namespace Prisma {
     is_verified?: SortOrder
     is_active?: SortOrder
     pass_salts?: SortOrder
+    user_type?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
@@ -13834,6 +13778,7 @@ export namespace Prisma {
     is_verified?: SortOrder
     is_active?: SortOrder
     pass_salts?: SortOrder
+    user_type?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -13846,6 +13791,7 @@ export namespace Prisma {
     is_verified?: SortOrder
     is_active?: SortOrder
     pass_salts?: SortOrder
+    user_type?: SortOrder
   }
 
   export type usersCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -13928,26 +13874,10 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutUser_audit_logsInput, usersUpdateWithoutUser_audit_logsInput>, usersUncheckedUpdateWithoutUser_audit_logsInput>
   }
 
-  export type usersCreateNestedOneWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    create?: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
-    connect?: usersWhereUniqueInput
-  }
-
   export type usersCreateNestedOneWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
     create?: XOR<usersCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput>
     connectOrCreate?: usersCreateOrConnectWithoutUser_blocklist_user_blocklist_user_idTousersInput
     connect?: usersWhereUniqueInput
-  }
-
-  export type usersUpdateOneWithoutUser_blocklist_user_blocklist_blocked_byTousersNestedInput = {
-    create?: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
-    upsert?: usersUpsertWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
-    disconnect?: usersWhereInput | boolean
-    delete?: usersWhereInput | boolean
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>, usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
   }
 
   export type usersUpdateOneWithoutUser_blocklist_user_blocklist_user_idTousersNestedInput = {
@@ -14045,13 +13975,6 @@ export namespace Prisma {
     connect?: user_audit_logsWhereUniqueInput | user_audit_logsWhereUniqueInput[]
   }
 
-  export type user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-  }
-
   export type user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput = {
     create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_user_idTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_user_idTousersInput>
     connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_user_idTousersInput
@@ -14101,13 +14024,6 @@ export namespace Prisma {
     connectOrCreate?: user_audit_logsCreateOrConnectWithoutUsersInput | user_audit_logsCreateOrConnectWithoutUsersInput[]
     createMany?: user_audit_logsCreateManyUsersInputEnvelope
     connect?: user_audit_logsWhereUniqueInput | user_audit_logsWhereUniqueInput[]
-  }
-
-  export type user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
   }
 
   export type user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput = {
@@ -14177,20 +14093,6 @@ export namespace Prisma {
     update?: user_audit_logsUpdateWithWhereUniqueWithoutUsersInput | user_audit_logsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: user_audit_logsUpdateManyWithWhereWithoutUsersInput | user_audit_logsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: user_audit_logsScalarWhereInput | user_audit_logsScalarWhereInput[]
-  }
-
-  export type user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    upsert?: user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    set?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    disconnect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    delete?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    update?: user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    updateMany?: user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    deleteMany?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
   }
 
   export type user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput = {
@@ -14283,20 +14185,6 @@ export namespace Prisma {
     update?: user_audit_logsUpdateWithWhereUniqueWithoutUsersInput | user_audit_logsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: user_audit_logsUpdateManyWithWhereWithoutUsersInput | user_audit_logsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: user_audit_logsScalarWhereInput | user_audit_logsScalarWhereInput[]
-  }
-
-  export type user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    upsert?: user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    set?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    disconnect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    delete?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    update?: user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    updateMany?: user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    deleteMany?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
   }
 
   export type user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput = {
@@ -14637,9 +14525,9 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -14657,9 +14545,9 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -14693,9 +14581,9 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -14713,9 +14601,9 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -14733,9 +14621,9 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -14753,9 +14641,9 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -14789,9 +14677,9 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -14809,9 +14697,9 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -14829,9 +14717,9 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -14849,9 +14737,9 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -14885,9 +14773,9 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -14905,59 +14793,14 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
     user_sessions?: user_sessionsUncheckedUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: string
-    email: string
-    phone?: string | null
-    password_hash: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean | null
-    is_active?: boolean | null
-    pass_salts?: string | null
-    password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
-    user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
-    user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
-    user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
-    user_profile?: user_profileCreateNestedOneWithoutUsersInput
-    user_security?: user_securityCreateNestedOneWithoutUsersInput
-    user_sessions?: user_sessionsCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: string
-    email: string
-    phone?: string | null
-    password_hash: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean | null
-    is_active?: boolean | null
-    pass_salts?: string | null
-    password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
-    user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
-    user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
-    user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
-    user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
-    user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
-    user_sessions?: user_sessionsUncheckedCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersCreateOrConnectWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
   }
 
   export type usersCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
@@ -14970,10 +14813,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
     user_security?: user_securityCreateNestedOneWithoutUsersInput
@@ -14990,10 +14833,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
     user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
@@ -15003,57 +14846,6 @@ export namespace Prisma {
   export type usersCreateOrConnectWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
     where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput>
-  }
-
-  export type usersUpsertWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    update: XOR<usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    create: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
-    password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
-    user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
-    user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
-    user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
-    user_profile?: user_profileUpdateOneWithoutUsersNestedInput
-    user_security?: user_securityUpdateOneWithoutUsersNestedInput
-    user_sessions?: user_sessionsUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
-    password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
-    user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
-    user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
-    user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
-    user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
-    user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
-    user_sessions?: user_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type usersUpsertWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
@@ -15077,10 +14869,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUpdateOneWithoutUsersNestedInput
@@ -15097,10 +14889,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
@@ -15117,10 +14909,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
     user_security?: user_securityCreateNestedOneWithoutUsersInput
@@ -15137,10 +14929,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
     user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
@@ -15173,10 +14965,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUpdateOneWithoutUsersNestedInput
@@ -15193,10 +14985,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
@@ -15213,10 +15005,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_security?: user_securityCreateNestedOneWithoutUsersInput
@@ -15233,10 +15025,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
@@ -15269,10 +15061,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUpdateOneWithoutUsersNestedInput
@@ -15289,10 +15081,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
@@ -15309,10 +15101,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -15329,10 +15121,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -15365,10 +15157,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -15385,10 +15177,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -15405,10 +15197,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -15425,10 +15217,10 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -15461,10 +15253,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -15481,10 +15273,10 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -15564,41 +15356,15 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: string
-    reason: string
-    blocked_at?: Date | string
-    users_user_blocklist_user_idTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_user_idTousersInput
-  }
-
-  export type user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: string
-    user_id?: string | null
-    reason: string
-    blocked_at?: Date | string
-  }
-
-  export type user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistWhereUniqueInput
-    create: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope = {
-    data: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInput[]
-    skipDuplicates?: boolean
-  }
-
   export type user_blocklistCreateWithoutUsers_user_blocklist_user_idTousersInput = {
     block_id?: string
     reason: string
     blocked_at?: Date | string
-    users_user_blocklist_blocked_byTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
   }
 
   export type user_blocklistUncheckedCreateWithoutUsers_user_blocklist_user_idTousersInput = {
     block_id?: string
     reason: string
-    blocked_by?: string | null
     blocked_at?: Date | string
   }
 
@@ -15633,6 +15399,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUncheckedCreateWithoutUsersInput = {
@@ -15644,6 +15411,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileCreateOrConnectWithoutUsersInput = {
@@ -15786,33 +15554,6 @@ export namespace Prisma {
     event_time?: DateTimeFilter<"user_audit_logs"> | Date | string
   }
 
-  export type user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistWhereUniqueInput
-    update: XOR<user_blocklistUpdateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_blocked_byTousersInput>
-    create: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistWhereUniqueInput
-    data: XOR<user_blocklistUpdateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistScalarWhereInput
-    data: XOR<user_blocklistUpdateManyMutationInput, user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistScalarWhereInput = {
-    AND?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
-    OR?: user_blocklistScalarWhereInput[]
-    NOT?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
-    block_id?: UuidFilter<"user_blocklist"> | string
-    user_id?: UuidNullableFilter<"user_blocklist"> | string | null
-    reason?: StringFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableFilter<"user_blocklist"> | string | null
-    blocked_at?: DateTimeFilter<"user_blocklist"> | Date | string
-  }
-
   export type user_blocklistUpsertWithoutUsers_user_blocklist_user_idTousersInput = {
     update: XOR<user_blocklistUpdateWithoutUsers_user_blocklist_user_idTousersInput, user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_user_idTousersInput>
     create: XOR<user_blocklistCreateWithoutUsers_user_blocklist_user_idTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_user_idTousersInput>
@@ -15828,13 +15569,11 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users_user_blocklist_blocked_byTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_blocked_byTousersNestedInput
   }
 
   export type user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_user_idTousersInput = {
     block_id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
-    blocked_by?: NullableStringFieldUpdateOperationsInput | string | null
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -15881,6 +15620,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileUncheckedUpdateWithoutUsersInput = {
@@ -15892,6 +15632,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_securityUpsertWithoutUsersInput = {
@@ -15968,13 +15709,6 @@ export namespace Prisma {
     event_time?: Date | string
   }
 
-  export type user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: string
-    user_id?: string | null
-    reason: string
-    blocked_at?: Date | string
-  }
-
   export type user_sessionsCreateManyUsersInput = {
     session_id?: string
     token: string
@@ -16026,27 +15760,6 @@ export namespace Prisma {
     details?: NullableJsonNullValueInput | InputJsonValue
     performed_by?: NullableStringFieldUpdateOperationsInput | string | null
     event_time?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type user_blocklistUpdateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users_user_blocklist_user_idTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_user_idTousersNestedInput
-  }
-
-  export type user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    reason?: StringFieldUpdateOperationsInput | string
-    blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    reason?: StringFieldUpdateOperationsInput | string
-    blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type user_sessionsUpdateWithoutUsersInput = {

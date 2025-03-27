@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Collections from "./Collections";
 import Items from "./Items";
 import Users from "./Users";
-import { Revenue, Requests } from "./Deliveries";
+import {Requests } from "./Deliveries";
 
 export default function Home() {
     const [activeTab, setActiveTab] = useState("collections");
@@ -15,8 +15,6 @@ export default function Home() {
                 return <Items />;
             case "orders":
                 return <Requests />;
-            case "creators":
-                return <Revenue />;
             case "customers":
                 return <Users />;
             default:
@@ -59,12 +57,6 @@ export default function Home() {
                         className={getButtonClass("orders")}
                     >
                         Blacklisted Users
-                    </button>
-                    <button
-                        onClick={() => setActiveTab("creators")}
-                        className={getButtonClass("creators")}
-                    >
-                        Creators
                     </button>
                     <button
                         onClick={() => setActiveTab("customers")}
