@@ -1,6 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
-  output          = "../generated/client-social"
+  output          = "../generated/client-community"
   previewFeatures = ["multiSchema"]
 }
 

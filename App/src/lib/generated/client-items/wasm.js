@@ -203,7 +203,6 @@ exports.Prisma.User_blocklistScalarFieldEnum = {
   block_id: 'block_id',
   user_id: 'user_id',
   reason: 'reason',
-  blocked_by: 'blocked_by',
   blocked_at: 'blocked_at'
 };
 
@@ -223,7 +222,8 @@ exports.Prisma.User_profileScalarFieldEnum = {
   website: 'website',
   social_links: 'social_links',
   updated_at: 'updated_at',
-  dob: 'dob'
+  dob: 'dob',
+  country: 'country'
 };
 
 exports.Prisma.User_securityScalarFieldEnum = {
@@ -255,7 +255,22 @@ exports.Prisma.UsersScalarFieldEnum = {
   updated_at: 'updated_at',
   is_verified: 'is_verified',
   is_active: 'is_active',
-  pass_salts: 'pass_salts'
+  pass_salts: 'pass_salts',
+  user_type: 'user_type'
+};
+
+exports.Prisma.Collection_itemsScalarFieldEnum = {
+  collection_item_id: 'collection_item_id',
+  collection_id: 'collection_id',
+  item_id: 'item_id'
+};
+
+exports.Prisma.CollectionsScalarFieldEnum = {
+  collection_id: 'collection_id',
+  user_id: 'user_id',
+  name: 'name',
+  description: 'description',
+  created_at: 'created_at'
 };
 
 exports.Prisma.SortOrder = {
@@ -300,7 +315,9 @@ exports.Prisma.ModelName = {
   user_profile: 'user_profile',
   user_security: 'user_security',
   user_sessions: 'user_sessions',
-  users: 'users'
+  users: 'users',
+  collection_items: 'collection_items',
+  collections: 'collections'
 };
 
 /**

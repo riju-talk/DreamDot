@@ -225,7 +225,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/mnt/04B0236AB0236202/dreamdot/App/src/lib/generated/client-users",
+      "value": "/home/r0b1n/Desktop/dreamdot/App/src/lib/generated/client-users",
       "fromEnvVar": null
     },
     "config": {
@@ -241,11 +241,12 @@ const config = {
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "/mnt/04B0236AB0236202/dreamdot/App/src/lib/prisma/schema.user.prisma",
+    "sourceFilePath": "/home/r0b1n/Desktop/dreamdot/App/src/lib/prisma/schema.user.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../../.env"
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.5.0",

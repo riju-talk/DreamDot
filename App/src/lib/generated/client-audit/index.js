@@ -33,11 +33,11 @@ exports.$Enums = {}
 
 /**
  * Prisma Client JS version: 6.5.0
- * Query Engine version: a9055b89e58b4b5bfb59600785423b1db3d0e75d
+ * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
  */
 Prisma.prismaVersion = {
   client: "6.5.0",
-  engine: "a9055b89e58b4b5bfb59600785423b1db3d0e75d"
+  engine: "173f8d54f8d52e692c7e27e72a88314ec7aeff60"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -146,7 +146,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/r0b1n/Desktop/dreamdot/App/src/lib/generated/client-social",
+      "value": "/home/r0b1n/Desktop/dreamdot/App/src/lib/generated/client-audit",
       "fromEnvVar": null
     },
     "config": {
@@ -167,11 +167,11 @@ const config = {
   },
   "relativeEnvPaths": {
     "rootEnvPath": null,
-    "schemaEnvPath": "../../prisma/.env"
+    "schemaEnvPath": "../../../../.env"
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.5.0",
-  "engineVersion": "a9055b89e58b4b5bfb59600785423b1db3d0e75d",
+  "engineVersion": "173f8d54f8d52e692c7e27e72a88314ec7aeff60",
   "datasourceNames": [
     "db"
   ],
@@ -185,8 +185,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-social\"\n  previewFeatures = [\"multiSchema\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=audit\"\n  directUrl = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=audit\"\n  schemas   = [\"audit\"]\n}\n\nmodel admin_actions_log {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  admin_id    String   @db.Uuid\n  action_type String   @db.VarChar(50)\n  target_id   String?  @db.Uuid\n  description String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel notification_log {\n  id           String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  recipient_id String   @db.Uuid\n  message      String\n  is_read      Boolean? @default(false)\n  created_at   DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel system_audit_log {\n  id         String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  event_type String   @db.VarChar(50)\n  details    String?\n  created_at DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n",
-  "inlineSchemaHash": "ef6292560eac4b149248c57537d2066b0d594f1659d21ba7d4992cb721fcc63b",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-audit\"\n  previewFeatures = [\"multiSchema\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=audit\"\n  directUrl = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=audit\"\n  schemas   = [\"audit\"]\n}\n\nmodel admin_actions_log {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  admin_id    String   @db.Uuid\n  action_type String   @db.VarChar(50)\n  target_id   String?  @db.Uuid\n  description String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel notification_log {\n  id           String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  recipient_id String   @db.Uuid\n  message      String\n  is_read      Boolean? @default(false)\n  created_at   DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel system_audit_log {\n  id         String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  event_type String   @db.VarChar(50)\n  details    String?\n  created_at DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n",
+  "inlineSchemaHash": "6a12a06087034cbc244af9bc3de134150c0a4593633918129f57359b6a958e91",
   "copyEngine": true
 }
 
@@ -195,8 +195,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "src/lib/generated/client-social",
-    "lib/generated/client-social",
+    "src/lib/generated/client-audit",
+    "lib/generated/client-audit",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -226,7 +226,7 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "src/lib/generated/client-social/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(process.cwd(), "src/lib/generated/client-audit/libquery_engine-debian-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "src/lib/generated/client-social/schema.prisma")
+path.join(process.cwd(), "src/lib/generated/client-audit/schema.prisma")

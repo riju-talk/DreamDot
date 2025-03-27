@@ -88,6 +88,16 @@ export type user_sessions = $Result.DefaultSelection<Prisma.$user_sessionsPayloa
  * 
  */
 export type users = $Result.DefaultSelection<Prisma.$usersPayload>
+/**
+ * Model collection_items
+ * 
+ */
+export type collection_items = $Result.DefaultSelection<Prisma.$collection_itemsPayload>
+/**
+ * Model collections
+ * 
+ */
+export type collections = $Result.DefaultSelection<Prisma.$collectionsPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -363,6 +373,26 @@ export class PrismaClient<
     * ```
     */
   get users(): Prisma.usersDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.collection_items`: Exposes CRUD operations for the **collection_items** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Collection_items
+    * const collection_items = await prisma.collection_items.findMany()
+    * ```
+    */
+  get collection_items(): Prisma.collection_itemsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.collections`: Exposes CRUD operations for the **collections** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Collections
+    * const collections = await prisma.collections.findMany()
+    * ```
+    */
+  get collections(): Prisma.collectionsDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -817,7 +847,9 @@ export namespace Prisma {
     user_profile: 'user_profile',
     user_security: 'user_security',
     user_sessions: 'user_sessions',
-    users: 'users'
+    users: 'users',
+    collection_items: 'collection_items',
+    collections: 'collections'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -836,7 +868,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "favorites" | "items" | "monetization" | "pay_per_view_access" | "reviews" | "transactions" | "password_reset_tokens" | "user_analytics" | "user_audit_logs" | "user_blocklist" | "user_certificates" | "user_profile" | "user_security" | "user_sessions" | "users"
+      modelProps: "favorites" | "items" | "monetization" | "pay_per_view_access" | "reviews" | "transactions" | "password_reset_tokens" | "user_analytics" | "user_audit_logs" | "user_blocklist" | "user_certificates" | "user_profile" | "user_security" | "user_sessions" | "users" | "collection_items" | "collections"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1950,6 +1982,154 @@ export namespace Prisma {
           }
         }
       }
+      collection_items: {
+        payload: Prisma.$collection_itemsPayload<ExtArgs>
+        fields: Prisma.collection_itemsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.collection_itemsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.collection_itemsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>
+          }
+          findFirst: {
+            args: Prisma.collection_itemsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.collection_itemsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>
+          }
+          findMany: {
+            args: Prisma.collection_itemsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>[]
+          }
+          create: {
+            args: Prisma.collection_itemsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>
+          }
+          createMany: {
+            args: Prisma.collection_itemsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.collection_itemsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>[]
+          }
+          delete: {
+            args: Prisma.collection_itemsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>
+          }
+          update: {
+            args: Prisma.collection_itemsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>
+          }
+          deleteMany: {
+            args: Prisma.collection_itemsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.collection_itemsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.collection_itemsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>[]
+          }
+          upsert: {
+            args: Prisma.collection_itemsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collection_itemsPayload>
+          }
+          aggregate: {
+            args: Prisma.Collection_itemsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCollection_items>
+          }
+          groupBy: {
+            args: Prisma.collection_itemsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Collection_itemsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.collection_itemsCountArgs<ExtArgs>
+            result: $Utils.Optional<Collection_itemsCountAggregateOutputType> | number
+          }
+        }
+      }
+      collections: {
+        payload: Prisma.$collectionsPayload<ExtArgs>
+        fields: Prisma.collectionsFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.collectionsFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.collectionsFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>
+          }
+          findFirst: {
+            args: Prisma.collectionsFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.collectionsFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>
+          }
+          findMany: {
+            args: Prisma.collectionsFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>[]
+          }
+          create: {
+            args: Prisma.collectionsCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>
+          }
+          createMany: {
+            args: Prisma.collectionsCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.collectionsCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>[]
+          }
+          delete: {
+            args: Prisma.collectionsDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>
+          }
+          update: {
+            args: Prisma.collectionsUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>
+          }
+          deleteMany: {
+            args: Prisma.collectionsDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.collectionsUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.collectionsUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>[]
+          }
+          upsert: {
+            args: Prisma.collectionsUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$collectionsPayload>
+          }
+          aggregate: {
+            args: Prisma.CollectionsAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateCollections>
+          }
+          groupBy: {
+            args: Prisma.collectionsGroupByArgs<ExtArgs>
+            result: $Utils.Optional<CollectionsGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.collectionsCountArgs<ExtArgs>
+            result: $Utils.Optional<CollectionsCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2049,6 +2229,8 @@ export namespace Prisma {
     user_security?: user_securityOmit
     user_sessions?: user_sessionsOmit
     users?: usersOmit
+    collection_items?: collection_itemsOmit
+    collections?: collectionsOmit
   }
 
   /* Types for Logging */
@@ -2143,6 +2325,7 @@ export namespace Prisma {
    */
 
   export type ItemsCountOutputType = {
+    collection_items: number
     favorites: number
     monetization: number
     pay_per_view_access: number
@@ -2151,6 +2334,7 @@ export namespace Prisma {
   }
 
   export type ItemsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collection_items?: boolean | ItemsCountOutputTypeCountCollection_itemsArgs
     favorites?: boolean | ItemsCountOutputTypeCountFavoritesArgs
     monetization?: boolean | ItemsCountOutputTypeCountMonetizationArgs
     pay_per_view_access?: boolean | ItemsCountOutputTypeCountPay_per_view_accessArgs
@@ -2167,6 +2351,13 @@ export namespace Prisma {
      * Select specific fields to fetch from the ItemsCountOutputType
      */
     select?: ItemsCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * ItemsCountOutputType without action
+   */
+  export type ItemsCountOutputTypeCountCollection_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: collection_itemsWhereInput
   }
 
   /**
@@ -2217,7 +2408,6 @@ export namespace Prisma {
     transactions: number
     password_reset_tokens: number
     user_audit_logs: number
-    user_blocklist_user_blocklist_blocked_byTousers: number
     user_sessions: number
   }
 
@@ -2229,7 +2419,6 @@ export namespace Prisma {
     transactions?: boolean | UsersCountOutputTypeCountTransactionsArgs
     password_reset_tokens?: boolean | UsersCountOutputTypeCountPassword_reset_tokensArgs
     user_audit_logs?: boolean | UsersCountOutputTypeCountUser_audit_logsArgs
-    user_blocklist_user_blocklist_blocked_byTousers?: boolean | UsersCountOutputTypeCountUser_blocklist_user_blocklist_blocked_byTousersArgs
     user_sessions?: boolean | UsersCountOutputTypeCountUser_sessionsArgs
   }
 
@@ -2296,15 +2485,39 @@ export namespace Prisma {
   /**
    * UsersCountOutputType without action
    */
-  export type UsersCountOutputTypeCountUser_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_blocklistWhereInput
+  export type UsersCountOutputTypeCountUser_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: user_sessionsWhereInput
+  }
+
+
+  /**
+   * Count Type CollectionsCountOutputType
+   */
+
+  export type CollectionsCountOutputType = {
+    collection_items: number
+  }
+
+  export type CollectionsCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collection_items?: boolean | CollectionsCountOutputTypeCountCollection_itemsArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * CollectionsCountOutputType without action
+   */
+  export type CollectionsCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the CollectionsCountOutputType
+     */
+    select?: CollectionsCountOutputTypeSelect<ExtArgs> | null
   }
 
   /**
-   * UsersCountOutputType without action
+   * CollectionsCountOutputType without action
    */
-  export type UsersCountOutputTypeCountUser_sessionsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: user_sessionsWhereInput
+  export type CollectionsCountOutputTypeCountCollection_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: collection_itemsWhereInput
   }
 
 
@@ -3603,6 +3816,7 @@ export namespace Prisma {
     monetization_type?: boolean
     availability?: boolean
     created_at?: boolean
+    collection_items?: boolean | items$collection_itemsArgs<ExtArgs>
     favorites?: boolean | items$favoritesArgs<ExtArgs>
     users?: boolean | usersDefaultArgs<ExtArgs>
     monetization?: boolean | items$monetizationArgs<ExtArgs>
@@ -3655,6 +3869,7 @@ export namespace Prisma {
 
   export type itemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"item_id" | "user_id" | "title" | "description" | "media_url" | "category" | "price" | "monetization_type" | "availability" | "created_at", ExtArgs["result"]["items"]>
   export type itemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collection_items?: boolean | items$collection_itemsArgs<ExtArgs>
     favorites?: boolean | items$favoritesArgs<ExtArgs>
     users?: boolean | usersDefaultArgs<ExtArgs>
     monetization?: boolean | items$monetizationArgs<ExtArgs>
@@ -3673,6 +3888,7 @@ export namespace Prisma {
   export type $itemsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "items"
     objects: {
+      collection_items: Prisma.$collection_itemsPayload<ExtArgs>[]
       favorites: Prisma.$favoritesPayload<ExtArgs>[]
       users: Prisma.$usersPayload<ExtArgs>
       monetization: Prisma.$monetizationPayload<ExtArgs>[]
@@ -4085,6 +4301,7 @@ export namespace Prisma {
    */
   export interface Prisma__itemsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
+    collection_items<T extends items$collection_itemsArgs<ExtArgs> = {}>(args?: Subset<T, items$collection_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     favorites<T extends items$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, items$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$favoritesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     monetization<T extends items$monetizationArgs<ExtArgs> = {}>(args?: Subset<T, items$monetizationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$monetizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -4523,6 +4740,30 @@ export namespace Prisma {
      * Limit how many items to delete.
      */
     limit?: number
+  }
+
+  /**
+   * items.collection_items
+   */
+  export type items$collection_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    where?: collection_itemsWhereInput
+    orderBy?: collection_itemsOrderByWithRelationInput | collection_itemsOrderByWithRelationInput[]
+    cursor?: collection_itemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Collection_itemsScalarFieldEnum | Collection_itemsScalarFieldEnum[]
   }
 
   /**
@@ -12353,7 +12594,6 @@ export namespace Prisma {
     block_id: string | null
     user_id: string | null
     reason: string | null
-    blocked_by: string | null
     blocked_at: Date | null
   }
 
@@ -12361,7 +12601,6 @@ export namespace Prisma {
     block_id: string | null
     user_id: string | null
     reason: string | null
-    blocked_by: string | null
     blocked_at: Date | null
   }
 
@@ -12369,7 +12608,6 @@ export namespace Prisma {
     block_id: number
     user_id: number
     reason: number
-    blocked_by: number
     blocked_at: number
     _all: number
   }
@@ -12379,7 +12617,6 @@ export namespace Prisma {
     block_id?: true
     user_id?: true
     reason?: true
-    blocked_by?: true
     blocked_at?: true
   }
 
@@ -12387,7 +12624,6 @@ export namespace Prisma {
     block_id?: true
     user_id?: true
     reason?: true
-    blocked_by?: true
     blocked_at?: true
   }
 
@@ -12395,7 +12631,6 @@ export namespace Prisma {
     block_id?: true
     user_id?: true
     reason?: true
-    blocked_by?: true
     blocked_at?: true
     _all?: true
   }
@@ -12476,7 +12711,6 @@ export namespace Prisma {
     block_id: string
     user_id: string | null
     reason: string
-    blocked_by: string | null
     blocked_at: Date
     _count: User_blocklistCountAggregateOutputType | null
     _min: User_blocklistMinAggregateOutputType | null
@@ -12501,9 +12735,7 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }, ExtArgs["result"]["user_blocklist"]>
 
@@ -12511,9 +12743,7 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }, ExtArgs["result"]["user_blocklist"]>
 
@@ -12521,9 +12751,7 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }, ExtArgs["result"]["user_blocklist"]>
 
@@ -12531,35 +12759,29 @@ export namespace Prisma {
     block_id?: boolean
     user_id?: boolean
     reason?: boolean
-    blocked_by?: boolean
     blocked_at?: boolean
   }
 
-  export type user_blocklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"block_id" | "user_id" | "reason" | "blocked_by" | "blocked_at", ExtArgs["result"]["user_blocklist"]>
+  export type user_blocklistOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"block_id" | "user_id" | "reason" | "blocked_at", ExtArgs["result"]["user_blocklist"]>
   export type user_blocklistInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }
   export type user_blocklistIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }
   export type user_blocklistIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    users_user_blocklist_blocked_byTousers?: boolean | user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>
     users_user_blocklist_user_idTousers?: boolean | user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>
   }
 
   export type $user_blocklistPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "user_blocklist"
     objects: {
-      users_user_blocklist_blocked_byTousers: Prisma.$usersPayload<ExtArgs> | null
       users_user_blocklist_user_idTousers: Prisma.$usersPayload<ExtArgs> | null
     }
     scalars: $Extensions.GetPayloadResult<{
       block_id: string
       user_id: string | null
       reason: string
-      blocked_by: string | null
       blocked_at: Date
     }, ExtArgs["result"]["user_blocklist"]>
     composites: {}
@@ -12955,7 +13177,6 @@ export namespace Prisma {
    */
   export interface Prisma__user_blocklistClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
-    users_user_blocklist_blocked_byTousers<T extends user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     users_user_blocklist_user_idTousers<T extends user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, user_blocklist$users_user_blocklist_user_idTousersArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -12989,7 +13210,6 @@ export namespace Prisma {
     readonly block_id: FieldRef<"user_blocklist", 'String'>
     readonly user_id: FieldRef<"user_blocklist", 'String'>
     readonly reason: FieldRef<"user_blocklist", 'String'>
-    readonly blocked_by: FieldRef<"user_blocklist", 'String'>
     readonly blocked_at: FieldRef<"user_blocklist", 'DateTime'>
   }
     
@@ -13384,25 +13604,6 @@ export namespace Prisma {
      * Limit how many user_blocklists to delete.
      */
     limit?: number
-  }
-
-  /**
-   * user_blocklist.users_user_blocklist_blocked_byTousers
-   */
-  export type user_blocklist$users_user_blocklist_blocked_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the users
-     */
-    select?: usersSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the users
-     */
-    omit?: usersOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: usersInclude<ExtArgs> | null
-    where?: usersWhereInput
   }
 
   /**
@@ -14507,6 +14708,7 @@ export namespace Prisma {
     website: string | null
     updated_at: Date | null
     dob: Date | null
+    country: string | null
   }
 
   export type User_profileMaxAggregateOutputType = {
@@ -14518,6 +14720,7 @@ export namespace Prisma {
     website: string | null
     updated_at: Date | null
     dob: Date | null
+    country: string | null
   }
 
   export type User_profileCountAggregateOutputType = {
@@ -14530,6 +14733,7 @@ export namespace Prisma {
     social_links: number
     updated_at: number
     dob: number
+    country: number
     _all: number
   }
 
@@ -14543,6 +14747,7 @@ export namespace Prisma {
     website?: true
     updated_at?: true
     dob?: true
+    country?: true
   }
 
   export type User_profileMaxAggregateInputType = {
@@ -14554,6 +14759,7 @@ export namespace Prisma {
     website?: true
     updated_at?: true
     dob?: true
+    country?: true
   }
 
   export type User_profileCountAggregateInputType = {
@@ -14566,6 +14772,7 @@ export namespace Prisma {
     social_links?: true
     updated_at?: true
     dob?: true
+    country?: true
     _all?: true
   }
 
@@ -14651,6 +14858,7 @@ export namespace Prisma {
     social_links: JsonValue | null
     updated_at: Date
     dob: Date | null
+    country: string | null
     _count: User_profileCountAggregateOutputType | null
     _min: User_profileMinAggregateOutputType | null
     _max: User_profileMaxAggregateOutputType | null
@@ -14680,6 +14888,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -14693,6 +14902,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -14706,6 +14916,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -14719,9 +14930,10 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
   }
 
-  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob", ExtArgs["result"]["user_profile"]>
+  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob" | "country", ExtArgs["result"]["user_profile"]>
   export type user_profileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -14747,6 +14959,7 @@ export namespace Prisma {
       social_links: Prisma.JsonValue | null
       updated_at: Date
       dob: Date | null
+      country: string | null
     }, ExtArgs["result"]["user_profile"]>
     composites: {}
   }
@@ -15180,6 +15393,7 @@ export namespace Prisma {
     readonly social_links: FieldRef<"user_profile", 'Json'>
     readonly updated_at: FieldRef<"user_profile", 'DateTime'>
     readonly dob: FieldRef<"user_profile", 'DateTime'>
+    readonly country: FieldRef<"user_profile", 'String'>
   }
     
 
@@ -17812,6 +18026,7 @@ export namespace Prisma {
     is_verified: boolean | null
     is_active: boolean | null
     pass_salts: string | null
+    user_type: string | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -17824,6 +18039,7 @@ export namespace Prisma {
     is_verified: boolean | null
     is_active: boolean | null
     pass_salts: string | null
+    user_type: string | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -17836,6 +18052,7 @@ export namespace Prisma {
     is_verified: number
     is_active: number
     pass_salts: number
+    user_type: number
     _all: number
   }
 
@@ -17850,6 +18067,7 @@ export namespace Prisma {
     is_verified?: true
     is_active?: true
     pass_salts?: true
+    user_type?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -17862,6 +18080,7 @@ export namespace Prisma {
     is_verified?: true
     is_active?: true
     pass_salts?: true
+    user_type?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -17874,6 +18093,7 @@ export namespace Prisma {
     is_verified?: true
     is_active?: true
     pass_salts?: true
+    user_type?: true
     _all?: true
   }
 
@@ -17959,6 +18179,7 @@ export namespace Prisma {
     is_verified: boolean | null
     is_active: boolean | null
     pass_salts: string | null
+    user_type: string | null
     _count: UsersCountAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
@@ -17988,6 +18209,7 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
     favorites?: boolean | users$favoritesArgs<ExtArgs>
     items?: boolean | users$itemsArgs<ExtArgs>
     pay_per_view_access?: boolean | users$pay_per_view_accessArgs<ExtArgs>
@@ -17996,7 +18218,6 @@ export namespace Prisma {
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
     user_analytics?: boolean | users$user_analyticsArgs<ExtArgs>
     user_audit_logs?: boolean | users$user_audit_logsArgs<ExtArgs>
-    user_blocklist_user_blocklist_blocked_byTousers?: boolean | users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs>
     user_blocklist_user_blocklist_user_idTousers?: boolean | users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs>
     user_certificates?: boolean | users$user_certificatesArgs<ExtArgs>
     user_profile?: boolean | users$user_profileArgs<ExtArgs>
@@ -18015,6 +18236,7 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -18027,6 +18249,7 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -18039,9 +18262,10 @@ export namespace Prisma {
     is_verified?: boolean
     is_active?: boolean
     pass_salts?: boolean
+    user_type?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     favorites?: boolean | users$favoritesArgs<ExtArgs>
     items?: boolean | users$itemsArgs<ExtArgs>
@@ -18051,7 +18275,6 @@ export namespace Prisma {
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
     user_analytics?: boolean | users$user_analyticsArgs<ExtArgs>
     user_audit_logs?: boolean | users$user_audit_logsArgs<ExtArgs>
-    user_blocklist_user_blocklist_blocked_byTousers?: boolean | users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs>
     user_blocklist_user_blocklist_user_idTousers?: boolean | users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs>
     user_certificates?: boolean | users$user_certificatesArgs<ExtArgs>
     user_profile?: boolean | users$user_profileArgs<ExtArgs>
@@ -18073,7 +18296,6 @@ export namespace Prisma {
       password_reset_tokens: Prisma.$password_reset_tokensPayload<ExtArgs>[]
       user_analytics: Prisma.$user_analyticsPayload<ExtArgs> | null
       user_audit_logs: Prisma.$user_audit_logsPayload<ExtArgs>[]
-      user_blocklist_user_blocklist_blocked_byTousers: Prisma.$user_blocklistPayload<ExtArgs>[]
       user_blocklist_user_blocklist_user_idTousers: Prisma.$user_blocklistPayload<ExtArgs> | null
       user_certificates: Prisma.$user_certificatesPayload<ExtArgs> | null
       user_profile: Prisma.$user_profilePayload<ExtArgs> | null
@@ -18090,6 +18312,7 @@ export namespace Prisma {
       is_verified: boolean | null
       is_active: boolean | null
       pass_salts: string | null
+      user_type: string | null
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -18492,7 +18715,6 @@ export namespace Prisma {
     password_reset_tokens<T extends users$password_reset_tokensArgs<ExtArgs> = {}>(args?: Subset<T, users$password_reset_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$password_reset_tokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_analytics<T extends users$user_analyticsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_analyticsArgs<ExtArgs>>): Prisma__user_analyticsClient<$Result.GetResult<Prisma.$user_analyticsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user_audit_logs<T extends users$user_audit_logsArgs<ExtArgs> = {}>(args?: Subset<T, users$user_audit_logsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_audit_logsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    user_blocklist_user_blocklist_blocked_byTousers<T extends users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$user_blocklistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     user_blocklist_user_blocklist_user_idTousers<T extends users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs> = {}>(args?: Subset<T, users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs>>): Prisma__user_blocklistClient<$Result.GetResult<Prisma.$user_blocklistPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user_certificates<T extends users$user_certificatesArgs<ExtArgs> = {}>(args?: Subset<T, users$user_certificatesArgs<ExtArgs>>): Prisma__user_certificatesClient<$Result.GetResult<Prisma.$user_certificatesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
     user_profile<T extends users$user_profileArgs<ExtArgs> = {}>(args?: Subset<T, users$user_profileArgs<ExtArgs>>): Prisma__user_profileClient<$Result.GetResult<Prisma.$user_profilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -18536,6 +18758,7 @@ export namespace Prisma {
     readonly is_verified: FieldRef<"users", 'Boolean'>
     readonly is_active: FieldRef<"users", 'Boolean'>
     readonly pass_salts: FieldRef<"users", 'String'>
+    readonly user_type: FieldRef<"users", 'String'>
   }
     
 
@@ -19111,30 +19334,6 @@ export namespace Prisma {
   }
 
   /**
-   * users.user_blocklist_user_blocklist_blocked_byTousers
-   */
-  export type users$user_blocklist_user_blocklist_blocked_byTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the user_blocklist
-     */
-    select?: user_blocklistSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the user_blocklist
-     */
-    omit?: user_blocklistOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: user_blocklistInclude<ExtArgs> | null
-    where?: user_blocklistWhereInput
-    orderBy?: user_blocklistOrderByWithRelationInput | user_blocklistOrderByWithRelationInput[]
-    cursor?: user_blocklistWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: User_blocklistScalarFieldEnum | User_blocklistScalarFieldEnum[]
-  }
-
-  /**
    * users.user_blocklist_user_blocklist_user_idTousers
    */
   export type users$user_blocklist_user_blocklist_user_idTousersArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -19250,6 +19449,2116 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: usersInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model collection_items
+   */
+
+  export type AggregateCollection_items = {
+    _count: Collection_itemsCountAggregateOutputType | null
+    _min: Collection_itemsMinAggregateOutputType | null
+    _max: Collection_itemsMaxAggregateOutputType | null
+  }
+
+  export type Collection_itemsMinAggregateOutputType = {
+    collection_item_id: string | null
+    collection_id: string | null
+    item_id: string | null
+  }
+
+  export type Collection_itemsMaxAggregateOutputType = {
+    collection_item_id: string | null
+    collection_id: string | null
+    item_id: string | null
+  }
+
+  export type Collection_itemsCountAggregateOutputType = {
+    collection_item_id: number
+    collection_id: number
+    item_id: number
+    _all: number
+  }
+
+
+  export type Collection_itemsMinAggregateInputType = {
+    collection_item_id?: true
+    collection_id?: true
+    item_id?: true
+  }
+
+  export type Collection_itemsMaxAggregateInputType = {
+    collection_item_id?: true
+    collection_id?: true
+    item_id?: true
+  }
+
+  export type Collection_itemsCountAggregateInputType = {
+    collection_item_id?: true
+    collection_id?: true
+    item_id?: true
+    _all?: true
+  }
+
+  export type Collection_itemsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which collection_items to aggregate.
+     */
+    where?: collection_itemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collection_items to fetch.
+     */
+    orderBy?: collection_itemsOrderByWithRelationInput | collection_itemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: collection_itemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collection_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collection_items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned collection_items
+    **/
+    _count?: true | Collection_itemsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Collection_itemsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Collection_itemsMaxAggregateInputType
+  }
+
+  export type GetCollection_itemsAggregateType<T extends Collection_itemsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCollection_items]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCollection_items[P]>
+      : GetScalarType<T[P], AggregateCollection_items[P]>
+  }
+
+
+
+
+  export type collection_itemsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: collection_itemsWhereInput
+    orderBy?: collection_itemsOrderByWithAggregationInput | collection_itemsOrderByWithAggregationInput[]
+    by: Collection_itemsScalarFieldEnum[] | Collection_itemsScalarFieldEnum
+    having?: collection_itemsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Collection_itemsCountAggregateInputType | true
+    _min?: Collection_itemsMinAggregateInputType
+    _max?: Collection_itemsMaxAggregateInputType
+  }
+
+  export type Collection_itemsGroupByOutputType = {
+    collection_item_id: string
+    collection_id: string
+    item_id: string
+    _count: Collection_itemsCountAggregateOutputType | null
+    _min: Collection_itemsMinAggregateOutputType | null
+    _max: Collection_itemsMaxAggregateOutputType | null
+  }
+
+  type GetCollection_itemsGroupByPayload<T extends collection_itemsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Collection_itemsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Collection_itemsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Collection_itemsGroupByOutputType[P]>
+            : GetScalarType<T[P], Collection_itemsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type collection_itemsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    collection_item_id?: boolean
+    collection_id?: boolean
+    item_id?: boolean
+    collections?: boolean | collectionsDefaultArgs<ExtArgs>
+    items?: boolean | itemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collection_items"]>
+
+  export type collection_itemsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    collection_item_id?: boolean
+    collection_id?: boolean
+    item_id?: boolean
+    collections?: boolean | collectionsDefaultArgs<ExtArgs>
+    items?: boolean | itemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collection_items"]>
+
+  export type collection_itemsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    collection_item_id?: boolean
+    collection_id?: boolean
+    item_id?: boolean
+    collections?: boolean | collectionsDefaultArgs<ExtArgs>
+    items?: boolean | itemsDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collection_items"]>
+
+  export type collection_itemsSelectScalar = {
+    collection_item_id?: boolean
+    collection_id?: boolean
+    item_id?: boolean
+  }
+
+  export type collection_itemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"collection_item_id" | "collection_id" | "item_id", ExtArgs["result"]["collection_items"]>
+  export type collection_itemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collections?: boolean | collectionsDefaultArgs<ExtArgs>
+    items?: boolean | itemsDefaultArgs<ExtArgs>
+  }
+  export type collection_itemsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collections?: boolean | collectionsDefaultArgs<ExtArgs>
+    items?: boolean | itemsDefaultArgs<ExtArgs>
+  }
+  export type collection_itemsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collections?: boolean | collectionsDefaultArgs<ExtArgs>
+    items?: boolean | itemsDefaultArgs<ExtArgs>
+  }
+
+  export type $collection_itemsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "collection_items"
+    objects: {
+      collections: Prisma.$collectionsPayload<ExtArgs>
+      items: Prisma.$itemsPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      collection_item_id: string
+      collection_id: string
+      item_id: string
+    }, ExtArgs["result"]["collection_items"]>
+    composites: {}
+  }
+
+  type collection_itemsGetPayload<S extends boolean | null | undefined | collection_itemsDefaultArgs> = $Result.GetResult<Prisma.$collection_itemsPayload, S>
+
+  type collection_itemsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<collection_itemsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Collection_itemsCountAggregateInputType | true
+    }
+
+  export interface collection_itemsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['collection_items'], meta: { name: 'collection_items' } }
+    /**
+     * Find zero or one Collection_items that matches the filter.
+     * @param {collection_itemsFindUniqueArgs} args - Arguments to find a Collection_items
+     * @example
+     * // Get one Collection_items
+     * const collection_items = await prisma.collection_items.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends collection_itemsFindUniqueArgs>(args: SelectSubset<T, collection_itemsFindUniqueArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Collection_items that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {collection_itemsFindUniqueOrThrowArgs} args - Arguments to find a Collection_items
+     * @example
+     * // Get one Collection_items
+     * const collection_items = await prisma.collection_items.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends collection_itemsFindUniqueOrThrowArgs>(args: SelectSubset<T, collection_itemsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Collection_items that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collection_itemsFindFirstArgs} args - Arguments to find a Collection_items
+     * @example
+     * // Get one Collection_items
+     * const collection_items = await prisma.collection_items.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends collection_itemsFindFirstArgs>(args?: SelectSubset<T, collection_itemsFindFirstArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Collection_items that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collection_itemsFindFirstOrThrowArgs} args - Arguments to find a Collection_items
+     * @example
+     * // Get one Collection_items
+     * const collection_items = await prisma.collection_items.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends collection_itemsFindFirstOrThrowArgs>(args?: SelectSubset<T, collection_itemsFindFirstOrThrowArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Collection_items that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collection_itemsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Collection_items
+     * const collection_items = await prisma.collection_items.findMany()
+     * 
+     * // Get first 10 Collection_items
+     * const collection_items = await prisma.collection_items.findMany({ take: 10 })
+     * 
+     * // Only select the `collection_item_id`
+     * const collection_itemsWithCollection_item_idOnly = await prisma.collection_items.findMany({ select: { collection_item_id: true } })
+     * 
+     */
+    findMany<T extends collection_itemsFindManyArgs>(args?: SelectSubset<T, collection_itemsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Collection_items.
+     * @param {collection_itemsCreateArgs} args - Arguments to create a Collection_items.
+     * @example
+     * // Create one Collection_items
+     * const Collection_items = await prisma.collection_items.create({
+     *   data: {
+     *     // ... data to create a Collection_items
+     *   }
+     * })
+     * 
+     */
+    create<T extends collection_itemsCreateArgs>(args: SelectSubset<T, collection_itemsCreateArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Collection_items.
+     * @param {collection_itemsCreateManyArgs} args - Arguments to create many Collection_items.
+     * @example
+     * // Create many Collection_items
+     * const collection_items = await prisma.collection_items.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends collection_itemsCreateManyArgs>(args?: SelectSubset<T, collection_itemsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Collection_items and returns the data saved in the database.
+     * @param {collection_itemsCreateManyAndReturnArgs} args - Arguments to create many Collection_items.
+     * @example
+     * // Create many Collection_items
+     * const collection_items = await prisma.collection_items.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Collection_items and only return the `collection_item_id`
+     * const collection_itemsWithCollection_item_idOnly = await prisma.collection_items.createManyAndReturn({
+     *   select: { collection_item_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends collection_itemsCreateManyAndReturnArgs>(args?: SelectSubset<T, collection_itemsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Collection_items.
+     * @param {collection_itemsDeleteArgs} args - Arguments to delete one Collection_items.
+     * @example
+     * // Delete one Collection_items
+     * const Collection_items = await prisma.collection_items.delete({
+     *   where: {
+     *     // ... filter to delete one Collection_items
+     *   }
+     * })
+     * 
+     */
+    delete<T extends collection_itemsDeleteArgs>(args: SelectSubset<T, collection_itemsDeleteArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Collection_items.
+     * @param {collection_itemsUpdateArgs} args - Arguments to update one Collection_items.
+     * @example
+     * // Update one Collection_items
+     * const collection_items = await prisma.collection_items.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends collection_itemsUpdateArgs>(args: SelectSubset<T, collection_itemsUpdateArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Collection_items.
+     * @param {collection_itemsDeleteManyArgs} args - Arguments to filter Collection_items to delete.
+     * @example
+     * // Delete a few Collection_items
+     * const { count } = await prisma.collection_items.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends collection_itemsDeleteManyArgs>(args?: SelectSubset<T, collection_itemsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Collection_items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collection_itemsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Collection_items
+     * const collection_items = await prisma.collection_items.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends collection_itemsUpdateManyArgs>(args: SelectSubset<T, collection_itemsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Collection_items and returns the data updated in the database.
+     * @param {collection_itemsUpdateManyAndReturnArgs} args - Arguments to update many Collection_items.
+     * @example
+     * // Update many Collection_items
+     * const collection_items = await prisma.collection_items.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Collection_items and only return the `collection_item_id`
+     * const collection_itemsWithCollection_item_idOnly = await prisma.collection_items.updateManyAndReturn({
+     *   select: { collection_item_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends collection_itemsUpdateManyAndReturnArgs>(args: SelectSubset<T, collection_itemsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Collection_items.
+     * @param {collection_itemsUpsertArgs} args - Arguments to update or create a Collection_items.
+     * @example
+     * // Update or create a Collection_items
+     * const collection_items = await prisma.collection_items.upsert({
+     *   create: {
+     *     // ... data to create a Collection_items
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Collection_items we want to update
+     *   }
+     * })
+     */
+    upsert<T extends collection_itemsUpsertArgs>(args: SelectSubset<T, collection_itemsUpsertArgs<ExtArgs>>): Prisma__collection_itemsClient<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Collection_items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collection_itemsCountArgs} args - Arguments to filter Collection_items to count.
+     * @example
+     * // Count the number of Collection_items
+     * const count = await prisma.collection_items.count({
+     *   where: {
+     *     // ... the filter for the Collection_items we want to count
+     *   }
+     * })
+    **/
+    count<T extends collection_itemsCountArgs>(
+      args?: Subset<T, collection_itemsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Collection_itemsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Collection_items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Collection_itemsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Collection_itemsAggregateArgs>(args: Subset<T, Collection_itemsAggregateArgs>): Prisma.PrismaPromise<GetCollection_itemsAggregateType<T>>
+
+    /**
+     * Group by Collection_items.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collection_itemsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends collection_itemsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: collection_itemsGroupByArgs['orderBy'] }
+        : { orderBy?: collection_itemsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, collection_itemsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCollection_itemsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the collection_items model
+   */
+  readonly fields: collection_itemsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for collection_items.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__collection_itemsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    collections<T extends collectionsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, collectionsDefaultArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    items<T extends itemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, itemsDefaultArgs<ExtArgs>>): Prisma__itemsClient<$Result.GetResult<Prisma.$itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the collection_items model
+   */ 
+  interface collection_itemsFieldRefs {
+    readonly collection_item_id: FieldRef<"collection_items", 'String'>
+    readonly collection_id: FieldRef<"collection_items", 'String'>
+    readonly item_id: FieldRef<"collection_items", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * collection_items findUnique
+   */
+  export type collection_itemsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * Filter, which collection_items to fetch.
+     */
+    where: collection_itemsWhereUniqueInput
+  }
+
+  /**
+   * collection_items findUniqueOrThrow
+   */
+  export type collection_itemsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * Filter, which collection_items to fetch.
+     */
+    where: collection_itemsWhereUniqueInput
+  }
+
+  /**
+   * collection_items findFirst
+   */
+  export type collection_itemsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * Filter, which collection_items to fetch.
+     */
+    where?: collection_itemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collection_items to fetch.
+     */
+    orderBy?: collection_itemsOrderByWithRelationInput | collection_itemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for collection_items.
+     */
+    cursor?: collection_itemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collection_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collection_items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of collection_items.
+     */
+    distinct?: Collection_itemsScalarFieldEnum | Collection_itemsScalarFieldEnum[]
+  }
+
+  /**
+   * collection_items findFirstOrThrow
+   */
+  export type collection_itemsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * Filter, which collection_items to fetch.
+     */
+    where?: collection_itemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collection_items to fetch.
+     */
+    orderBy?: collection_itemsOrderByWithRelationInput | collection_itemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for collection_items.
+     */
+    cursor?: collection_itemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collection_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collection_items.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of collection_items.
+     */
+    distinct?: Collection_itemsScalarFieldEnum | Collection_itemsScalarFieldEnum[]
+  }
+
+  /**
+   * collection_items findMany
+   */
+  export type collection_itemsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * Filter, which collection_items to fetch.
+     */
+    where?: collection_itemsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collection_items to fetch.
+     */
+    orderBy?: collection_itemsOrderByWithRelationInput | collection_itemsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing collection_items.
+     */
+    cursor?: collection_itemsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collection_items from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collection_items.
+     */
+    skip?: number
+    distinct?: Collection_itemsScalarFieldEnum | Collection_itemsScalarFieldEnum[]
+  }
+
+  /**
+   * collection_items create
+   */
+  export type collection_itemsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a collection_items.
+     */
+    data: XOR<collection_itemsCreateInput, collection_itemsUncheckedCreateInput>
+  }
+
+  /**
+   * collection_items createMany
+   */
+  export type collection_itemsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many collection_items.
+     */
+    data: collection_itemsCreateManyInput | collection_itemsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * collection_items createManyAndReturn
+   */
+  export type collection_itemsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * The data used to create many collection_items.
+     */
+    data: collection_itemsCreateManyInput | collection_itemsCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * collection_items update
+   */
+  export type collection_itemsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a collection_items.
+     */
+    data: XOR<collection_itemsUpdateInput, collection_itemsUncheckedUpdateInput>
+    /**
+     * Choose, which collection_items to update.
+     */
+    where: collection_itemsWhereUniqueInput
+  }
+
+  /**
+   * collection_items updateMany
+   */
+  export type collection_itemsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update collection_items.
+     */
+    data: XOR<collection_itemsUpdateManyMutationInput, collection_itemsUncheckedUpdateManyInput>
+    /**
+     * Filter which collection_items to update
+     */
+    where?: collection_itemsWhereInput
+    /**
+     * Limit how many collection_items to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * collection_items updateManyAndReturn
+   */
+  export type collection_itemsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * The data used to update collection_items.
+     */
+    data: XOR<collection_itemsUpdateManyMutationInput, collection_itemsUncheckedUpdateManyInput>
+    /**
+     * Filter which collection_items to update
+     */
+    where?: collection_itemsWhereInput
+    /**
+     * Limit how many collection_items to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * collection_items upsert
+   */
+  export type collection_itemsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the collection_items to update in case it exists.
+     */
+    where: collection_itemsWhereUniqueInput
+    /**
+     * In case the collection_items found by the `where` argument doesn't exist, create a new collection_items with this data.
+     */
+    create: XOR<collection_itemsCreateInput, collection_itemsUncheckedCreateInput>
+    /**
+     * In case the collection_items was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<collection_itemsUpdateInput, collection_itemsUncheckedUpdateInput>
+  }
+
+  /**
+   * collection_items delete
+   */
+  export type collection_itemsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    /**
+     * Filter which collection_items to delete.
+     */
+    where: collection_itemsWhereUniqueInput
+  }
+
+  /**
+   * collection_items deleteMany
+   */
+  export type collection_itemsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which collection_items to delete
+     */
+    where?: collection_itemsWhereInput
+    /**
+     * Limit how many collection_items to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * collection_items without action
+   */
+  export type collection_itemsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model collections
+   */
+
+  export type AggregateCollections = {
+    _count: CollectionsCountAggregateOutputType | null
+    _min: CollectionsMinAggregateOutputType | null
+    _max: CollectionsMaxAggregateOutputType | null
+  }
+
+  export type CollectionsMinAggregateOutputType = {
+    collection_id: string | null
+    user_id: string | null
+    name: string | null
+    description: string | null
+    created_at: Date | null
+  }
+
+  export type CollectionsMaxAggregateOutputType = {
+    collection_id: string | null
+    user_id: string | null
+    name: string | null
+    description: string | null
+    created_at: Date | null
+  }
+
+  export type CollectionsCountAggregateOutputType = {
+    collection_id: number
+    user_id: number
+    name: number
+    description: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type CollectionsMinAggregateInputType = {
+    collection_id?: true
+    user_id?: true
+    name?: true
+    description?: true
+    created_at?: true
+  }
+
+  export type CollectionsMaxAggregateInputType = {
+    collection_id?: true
+    user_id?: true
+    name?: true
+    description?: true
+    created_at?: true
+  }
+
+  export type CollectionsCountAggregateInputType = {
+    collection_id?: true
+    user_id?: true
+    name?: true
+    description?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type CollectionsAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which collections to aggregate.
+     */
+    where?: collectionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collections to fetch.
+     */
+    orderBy?: collectionsOrderByWithRelationInput | collectionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: collectionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned collections
+    **/
+    _count?: true | CollectionsCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: CollectionsMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: CollectionsMaxAggregateInputType
+  }
+
+  export type GetCollectionsAggregateType<T extends CollectionsAggregateArgs> = {
+        [P in keyof T & keyof AggregateCollections]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateCollections[P]>
+      : GetScalarType<T[P], AggregateCollections[P]>
+  }
+
+
+
+
+  export type collectionsGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: collectionsWhereInput
+    orderBy?: collectionsOrderByWithAggregationInput | collectionsOrderByWithAggregationInput[]
+    by: CollectionsScalarFieldEnum[] | CollectionsScalarFieldEnum
+    having?: collectionsScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: CollectionsCountAggregateInputType | true
+    _min?: CollectionsMinAggregateInputType
+    _max?: CollectionsMaxAggregateInputType
+  }
+
+  export type CollectionsGroupByOutputType = {
+    collection_id: string
+    user_id: string
+    name: string
+    description: string | null
+    created_at: Date | null
+    _count: CollectionsCountAggregateOutputType | null
+    _min: CollectionsMinAggregateOutputType | null
+    _max: CollectionsMaxAggregateOutputType | null
+  }
+
+  type GetCollectionsGroupByPayload<T extends collectionsGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<CollectionsGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof CollectionsGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], CollectionsGroupByOutputType[P]>
+            : GetScalarType<T[P], CollectionsGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type collectionsSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    collection_id?: boolean
+    user_id?: boolean
+    name?: boolean
+    description?: boolean
+    created_at?: boolean
+    collection_items?: boolean | collections$collection_itemsArgs<ExtArgs>
+    _count?: boolean | CollectionsCountOutputTypeDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["collections"]>
+
+  export type collectionsSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    collection_id?: boolean
+    user_id?: boolean
+    name?: boolean
+    description?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["collections"]>
+
+  export type collectionsSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    collection_id?: boolean
+    user_id?: boolean
+    name?: boolean
+    description?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["collections"]>
+
+  export type collectionsSelectScalar = {
+    collection_id?: boolean
+    user_id?: boolean
+    name?: boolean
+    description?: boolean
+    created_at?: boolean
+  }
+
+  export type collectionsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"collection_id" | "user_id" | "name" | "description" | "created_at", ExtArgs["result"]["collections"]>
+  export type collectionsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    collection_items?: boolean | collections$collection_itemsArgs<ExtArgs>
+    _count?: boolean | CollectionsCountOutputTypeDefaultArgs<ExtArgs>
+  }
+  export type collectionsIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+  export type collectionsIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
+
+  export type $collectionsPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "collections"
+    objects: {
+      collection_items: Prisma.$collection_itemsPayload<ExtArgs>[]
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      collection_id: string
+      user_id: string
+      name: string
+      description: string | null
+      created_at: Date | null
+    }, ExtArgs["result"]["collections"]>
+    composites: {}
+  }
+
+  type collectionsGetPayload<S extends boolean | null | undefined | collectionsDefaultArgs> = $Result.GetResult<Prisma.$collectionsPayload, S>
+
+  type collectionsCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<collectionsFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: CollectionsCountAggregateInputType | true
+    }
+
+  export interface collectionsDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['collections'], meta: { name: 'collections' } }
+    /**
+     * Find zero or one Collections that matches the filter.
+     * @param {collectionsFindUniqueArgs} args - Arguments to find a Collections
+     * @example
+     * // Get one Collections
+     * const collections = await prisma.collections.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends collectionsFindUniqueArgs>(args: SelectSubset<T, collectionsFindUniqueArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Collections that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {collectionsFindUniqueOrThrowArgs} args - Arguments to find a Collections
+     * @example
+     * // Get one Collections
+     * const collections = await prisma.collections.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends collectionsFindUniqueOrThrowArgs>(args: SelectSubset<T, collectionsFindUniqueOrThrowArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Collections that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collectionsFindFirstArgs} args - Arguments to find a Collections
+     * @example
+     * // Get one Collections
+     * const collections = await prisma.collections.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends collectionsFindFirstArgs>(args?: SelectSubset<T, collectionsFindFirstArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Collections that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collectionsFindFirstOrThrowArgs} args - Arguments to find a Collections
+     * @example
+     * // Get one Collections
+     * const collections = await prisma.collections.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends collectionsFindFirstOrThrowArgs>(args?: SelectSubset<T, collectionsFindFirstOrThrowArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Collections that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collectionsFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Collections
+     * const collections = await prisma.collections.findMany()
+     * 
+     * // Get first 10 Collections
+     * const collections = await prisma.collections.findMany({ take: 10 })
+     * 
+     * // Only select the `collection_id`
+     * const collectionsWithCollection_idOnly = await prisma.collections.findMany({ select: { collection_id: true } })
+     * 
+     */
+    findMany<T extends collectionsFindManyArgs>(args?: SelectSubset<T, collectionsFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Collections.
+     * @param {collectionsCreateArgs} args - Arguments to create a Collections.
+     * @example
+     * // Create one Collections
+     * const Collections = await prisma.collections.create({
+     *   data: {
+     *     // ... data to create a Collections
+     *   }
+     * })
+     * 
+     */
+    create<T extends collectionsCreateArgs>(args: SelectSubset<T, collectionsCreateArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Collections.
+     * @param {collectionsCreateManyArgs} args - Arguments to create many Collections.
+     * @example
+     * // Create many Collections
+     * const collections = await prisma.collections.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends collectionsCreateManyArgs>(args?: SelectSubset<T, collectionsCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Collections and returns the data saved in the database.
+     * @param {collectionsCreateManyAndReturnArgs} args - Arguments to create many Collections.
+     * @example
+     * // Create many Collections
+     * const collections = await prisma.collections.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Collections and only return the `collection_id`
+     * const collectionsWithCollection_idOnly = await prisma.collections.createManyAndReturn({
+     *   select: { collection_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends collectionsCreateManyAndReturnArgs>(args?: SelectSubset<T, collectionsCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Collections.
+     * @param {collectionsDeleteArgs} args - Arguments to delete one Collections.
+     * @example
+     * // Delete one Collections
+     * const Collections = await prisma.collections.delete({
+     *   where: {
+     *     // ... filter to delete one Collections
+     *   }
+     * })
+     * 
+     */
+    delete<T extends collectionsDeleteArgs>(args: SelectSubset<T, collectionsDeleteArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Collections.
+     * @param {collectionsUpdateArgs} args - Arguments to update one Collections.
+     * @example
+     * // Update one Collections
+     * const collections = await prisma.collections.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends collectionsUpdateArgs>(args: SelectSubset<T, collectionsUpdateArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Collections.
+     * @param {collectionsDeleteManyArgs} args - Arguments to filter Collections to delete.
+     * @example
+     * // Delete a few Collections
+     * const { count } = await prisma.collections.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends collectionsDeleteManyArgs>(args?: SelectSubset<T, collectionsDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Collections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collectionsUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Collections
+     * const collections = await prisma.collections.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends collectionsUpdateManyArgs>(args: SelectSubset<T, collectionsUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Collections and returns the data updated in the database.
+     * @param {collectionsUpdateManyAndReturnArgs} args - Arguments to update many Collections.
+     * @example
+     * // Update many Collections
+     * const collections = await prisma.collections.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Collections and only return the `collection_id`
+     * const collectionsWithCollection_idOnly = await prisma.collections.updateManyAndReturn({
+     *   select: { collection_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends collectionsUpdateManyAndReturnArgs>(args: SelectSubset<T, collectionsUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Collections.
+     * @param {collectionsUpsertArgs} args - Arguments to update or create a Collections.
+     * @example
+     * // Update or create a Collections
+     * const collections = await prisma.collections.upsert({
+     *   create: {
+     *     // ... data to create a Collections
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Collections we want to update
+     *   }
+     * })
+     */
+    upsert<T extends collectionsUpsertArgs>(args: SelectSubset<T, collectionsUpsertArgs<ExtArgs>>): Prisma__collectionsClient<$Result.GetResult<Prisma.$collectionsPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Collections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collectionsCountArgs} args - Arguments to filter Collections to count.
+     * @example
+     * // Count the number of Collections
+     * const count = await prisma.collections.count({
+     *   where: {
+     *     // ... the filter for the Collections we want to count
+     *   }
+     * })
+    **/
+    count<T extends collectionsCountArgs>(
+      args?: Subset<T, collectionsCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], CollectionsCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Collections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {CollectionsAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends CollectionsAggregateArgs>(args: Subset<T, CollectionsAggregateArgs>): Prisma.PrismaPromise<GetCollectionsAggregateType<T>>
+
+    /**
+     * Group by Collections.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {collectionsGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends collectionsGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: collectionsGroupByArgs['orderBy'] }
+        : { orderBy?: collectionsGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, collectionsGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetCollectionsGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the collections model
+   */
+  readonly fields: collectionsFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for collections.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__collectionsClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    collection_items<T extends collections$collection_itemsArgs<ExtArgs> = {}>(args?: Subset<T, collections$collection_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$collection_itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the collections model
+   */ 
+  interface collectionsFieldRefs {
+    readonly collection_id: FieldRef<"collections", 'String'>
+    readonly user_id: FieldRef<"collections", 'String'>
+    readonly name: FieldRef<"collections", 'String'>
+    readonly description: FieldRef<"collections", 'String'>
+    readonly created_at: FieldRef<"collections", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * collections findUnique
+   */
+  export type collectionsFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * Filter, which collections to fetch.
+     */
+    where: collectionsWhereUniqueInput
+  }
+
+  /**
+   * collections findUniqueOrThrow
+   */
+  export type collectionsFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * Filter, which collections to fetch.
+     */
+    where: collectionsWhereUniqueInput
+  }
+
+  /**
+   * collections findFirst
+   */
+  export type collectionsFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * Filter, which collections to fetch.
+     */
+    where?: collectionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collections to fetch.
+     */
+    orderBy?: collectionsOrderByWithRelationInput | collectionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for collections.
+     */
+    cursor?: collectionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of collections.
+     */
+    distinct?: CollectionsScalarFieldEnum | CollectionsScalarFieldEnum[]
+  }
+
+  /**
+   * collections findFirstOrThrow
+   */
+  export type collectionsFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * Filter, which collections to fetch.
+     */
+    where?: collectionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collections to fetch.
+     */
+    orderBy?: collectionsOrderByWithRelationInput | collectionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for collections.
+     */
+    cursor?: collectionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collections.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of collections.
+     */
+    distinct?: CollectionsScalarFieldEnum | CollectionsScalarFieldEnum[]
+  }
+
+  /**
+   * collections findMany
+   */
+  export type collectionsFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * Filter, which collections to fetch.
+     */
+    where?: collectionsWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of collections to fetch.
+     */
+    orderBy?: collectionsOrderByWithRelationInput | collectionsOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing collections.
+     */
+    cursor?: collectionsWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` collections from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` collections.
+     */
+    skip?: number
+    distinct?: CollectionsScalarFieldEnum | CollectionsScalarFieldEnum[]
+  }
+
+  /**
+   * collections create
+   */
+  export type collectionsCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * The data needed to create a collections.
+     */
+    data: XOR<collectionsCreateInput, collectionsUncheckedCreateInput>
+  }
+
+  /**
+   * collections createMany
+   */
+  export type collectionsCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many collections.
+     */
+    data: collectionsCreateManyInput | collectionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * collections createManyAndReturn
+   */
+  export type collectionsCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * The data used to create many collections.
+     */
+    data: collectionsCreateManyInput | collectionsCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * collections update
+   */
+  export type collectionsUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * The data needed to update a collections.
+     */
+    data: XOR<collectionsUpdateInput, collectionsUncheckedUpdateInput>
+    /**
+     * Choose, which collections to update.
+     */
+    where: collectionsWhereUniqueInput
+  }
+
+  /**
+   * collections updateMany
+   */
+  export type collectionsUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update collections.
+     */
+    data: XOR<collectionsUpdateManyMutationInput, collectionsUncheckedUpdateManyInput>
+    /**
+     * Filter which collections to update
+     */
+    where?: collectionsWhereInput
+    /**
+     * Limit how many collections to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * collections updateManyAndReturn
+   */
+  export type collectionsUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * The data used to update collections.
+     */
+    data: XOR<collectionsUpdateManyMutationInput, collectionsUncheckedUpdateManyInput>
+    /**
+     * Filter which collections to update
+     */
+    where?: collectionsWhereInput
+    /**
+     * Limit how many collections to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * collections upsert
+   */
+  export type collectionsUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * The filter to search for the collections to update in case it exists.
+     */
+    where: collectionsWhereUniqueInput
+    /**
+     * In case the collections found by the `where` argument doesn't exist, create a new collections with this data.
+     */
+    create: XOR<collectionsCreateInput, collectionsUncheckedCreateInput>
+    /**
+     * In case the collections was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<collectionsUpdateInput, collectionsUncheckedUpdateInput>
+  }
+
+  /**
+   * collections delete
+   */
+  export type collectionsDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
+    /**
+     * Filter which collections to delete.
+     */
+    where: collectionsWhereUniqueInput
+  }
+
+  /**
+   * collections deleteMany
+   */
+  export type collectionsDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which collections to delete
+     */
+    where?: collectionsWhereInput
+    /**
+     * Limit how many collections to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * collections.collection_items
+   */
+  export type collections$collection_itemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collection_items
+     */
+    select?: collection_itemsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collection_items
+     */
+    omit?: collection_itemsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collection_itemsInclude<ExtArgs> | null
+    where?: collection_itemsWhereInput
+    orderBy?: collection_itemsOrderByWithRelationInput | collection_itemsOrderByWithRelationInput[]
+    cursor?: collection_itemsWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: Collection_itemsScalarFieldEnum | Collection_itemsScalarFieldEnum[]
+  }
+
+  /**
+   * collections without action
+   */
+  export type collectionsDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the collections
+     */
+    select?: collectionsSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the collections
+     */
+    omit?: collectionsOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: collectionsInclude<ExtArgs> | null
   }
 
 
@@ -19380,7 +21689,6 @@ export namespace Prisma {
     block_id: 'block_id',
     user_id: 'user_id',
     reason: 'reason',
-    blocked_by: 'blocked_by',
     blocked_at: 'blocked_at'
   };
 
@@ -19406,7 +21714,8 @@ export namespace Prisma {
     website: 'website',
     social_links: 'social_links',
     updated_at: 'updated_at',
-    dob: 'dob'
+    dob: 'dob',
+    country: 'country'
   };
 
   export type User_profileScalarFieldEnum = (typeof User_profileScalarFieldEnum)[keyof typeof User_profileScalarFieldEnum]
@@ -19447,10 +21756,31 @@ export namespace Prisma {
     updated_at: 'updated_at',
     is_verified: 'is_verified',
     is_active: 'is_active',
-    pass_salts: 'pass_salts'
+    pass_salts: 'pass_salts',
+    user_type: 'user_type'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
+
+
+  export const Collection_itemsScalarFieldEnum: {
+    collection_item_id: 'collection_item_id',
+    collection_id: 'collection_id',
+    item_id: 'item_id'
+  };
+
+  export type Collection_itemsScalarFieldEnum = (typeof Collection_itemsScalarFieldEnum)[keyof typeof Collection_itemsScalarFieldEnum]
+
+
+  export const CollectionsScalarFieldEnum: {
+    collection_id: 'collection_id',
+    user_id: 'user_id',
+    name: 'name',
+    description: 'description',
+    created_at: 'created_at'
+  };
+
+  export type CollectionsScalarFieldEnum = (typeof CollectionsScalarFieldEnum)[keyof typeof CollectionsScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -19660,6 +21990,7 @@ export namespace Prisma {
     monetization_type?: StringNullableFilter<"items"> | string | null
     availability?: BoolNullableFilter<"items"> | boolean | null
     created_at?: DateTimeNullableFilter<"items"> | Date | string | null
+    collection_items?: Collection_itemsListRelationFilter
     favorites?: FavoritesListRelationFilter
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
     monetization?: MonetizationListRelationFilter
@@ -19679,6 +22010,7 @@ export namespace Prisma {
     monetization_type?: SortOrderInput | SortOrder
     availability?: SortOrderInput | SortOrder
     created_at?: SortOrderInput | SortOrder
+    collection_items?: collection_itemsOrderByRelationAggregateInput
     favorites?: favoritesOrderByRelationAggregateInput
     users?: usersOrderByWithRelationInput
     monetization?: monetizationOrderByRelationAggregateInput
@@ -19701,6 +22033,7 @@ export namespace Prisma {
     monetization_type?: StringNullableFilter<"items"> | string | null
     availability?: BoolNullableFilter<"items"> | boolean | null
     created_at?: DateTimeNullableFilter<"items"> | Date | string | null
+    collection_items?: Collection_itemsListRelationFilter
     favorites?: FavoritesListRelationFilter
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
     monetization?: MonetizationListRelationFilter
@@ -20182,9 +22515,7 @@ export namespace Prisma {
     block_id?: UuidFilter<"user_blocklist"> | string
     user_id?: UuidNullableFilter<"user_blocklist"> | string | null
     reason?: StringFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableFilter<"user_blocklist"> | string | null
     blocked_at?: DateTimeFilter<"user_blocklist"> | Date | string
-    users_user_blocklist_blocked_byTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
     users_user_blocklist_user_idTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }
 
@@ -20192,9 +22523,7 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrderInput | SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrderInput | SortOrder
     blocked_at?: SortOrder
-    users_user_blocklist_blocked_byTousers?: usersOrderByWithRelationInput
     users_user_blocklist_user_idTousers?: usersOrderByWithRelationInput
   }
 
@@ -20205,9 +22534,7 @@ export namespace Prisma {
     OR?: user_blocklistWhereInput[]
     NOT?: user_blocklistWhereInput | user_blocklistWhereInput[]
     reason?: StringFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableFilter<"user_blocklist"> | string | null
     blocked_at?: DateTimeFilter<"user_blocklist"> | Date | string
-    users_user_blocklist_blocked_byTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
     users_user_blocklist_user_idTousers?: XOR<UsersNullableScalarRelationFilter, usersWhereInput> | null
   }, "block_id" | "user_id">
 
@@ -20215,7 +22542,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrderInput | SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrderInput | SortOrder
     blocked_at?: SortOrder
     _count?: user_blocklistCountOrderByAggregateInput
     _max?: user_blocklistMaxOrderByAggregateInput
@@ -20229,7 +22555,6 @@ export namespace Prisma {
     block_id?: UuidWithAggregatesFilter<"user_blocklist"> | string
     user_id?: UuidNullableWithAggregatesFilter<"user_blocklist"> | string | null
     reason?: StringWithAggregatesFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableWithAggregatesFilter<"user_blocklist"> | string | null
     blocked_at?: DateTimeWithAggregatesFilter<"user_blocklist"> | Date | string
   }
 
@@ -20296,6 +22621,7 @@ export namespace Prisma {
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
+    country?: StringNullableFilter<"user_profile"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -20309,6 +22635,7 @@ export namespace Prisma {
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
     dob?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     users?: usersOrderByWithRelationInput
   }
 
@@ -20325,6 +22652,7 @@ export namespace Prisma {
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
+    country?: StringNullableFilter<"user_profile"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "user_id" | "username">
 
@@ -20338,6 +22666,7 @@ export namespace Prisma {
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
     dob?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     _count?: user_profileCountOrderByAggregateInput
     _max?: user_profileMaxOrderByAggregateInput
     _min?: user_profileMinOrderByAggregateInput
@@ -20356,6 +22685,7 @@ export namespace Prisma {
     social_links?: JsonNullableWithAggregatesFilter<"user_profile">
     updated_at?: DateTimeWithAggregatesFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableWithAggregatesFilter<"user_profile"> | Date | string | null
+    country?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
   }
 
   export type user_securityWhereInput = {
@@ -20503,6 +22833,7 @@ export namespace Prisma {
     is_verified?: BoolNullableFilter<"users"> | boolean | null
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
+    user_type?: StringNullableFilter<"users"> | string | null
     favorites?: FavoritesListRelationFilter
     items?: ItemsListRelationFilter
     pay_per_view_access?: Pay_per_view_accessListRelationFilter
@@ -20511,7 +22842,6 @@ export namespace Prisma {
     password_reset_tokens?: Password_reset_tokensListRelationFilter
     user_analytics?: XOR<User_analyticsNullableScalarRelationFilter, user_analyticsWhereInput> | null
     user_audit_logs?: User_audit_logsListRelationFilter
-    user_blocklist_user_blocklist_blocked_byTousers?: User_blocklistListRelationFilter
     user_blocklist_user_blocklist_user_idTousers?: XOR<User_blocklistNullableScalarRelationFilter, user_blocklistWhereInput> | null
     user_certificates?: XOR<User_certificatesNullableScalarRelationFilter, user_certificatesWhereInput> | null
     user_profile?: XOR<User_profileNullableScalarRelationFilter, user_profileWhereInput> | null
@@ -20529,6 +22859,7 @@ export namespace Prisma {
     is_verified?: SortOrderInput | SortOrder
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
+    user_type?: SortOrderInput | SortOrder
     favorites?: favoritesOrderByRelationAggregateInput
     items?: itemsOrderByRelationAggregateInput
     pay_per_view_access?: pay_per_view_accessOrderByRelationAggregateInput
@@ -20537,7 +22868,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensOrderByRelationAggregateInput
     user_analytics?: user_analyticsOrderByWithRelationInput
     user_audit_logs?: user_audit_logsOrderByRelationAggregateInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistOrderByRelationAggregateInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistOrderByWithRelationInput
     user_certificates?: user_certificatesOrderByWithRelationInput
     user_profile?: user_profileOrderByWithRelationInput
@@ -20558,6 +22888,7 @@ export namespace Prisma {
     is_verified?: BoolNullableFilter<"users"> | boolean | null
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
+    user_type?: StringNullableFilter<"users"> | string | null
     favorites?: FavoritesListRelationFilter
     items?: ItemsListRelationFilter
     pay_per_view_access?: Pay_per_view_accessListRelationFilter
@@ -20566,7 +22897,6 @@ export namespace Prisma {
     password_reset_tokens?: Password_reset_tokensListRelationFilter
     user_analytics?: XOR<User_analyticsNullableScalarRelationFilter, user_analyticsWhereInput> | null
     user_audit_logs?: User_audit_logsListRelationFilter
-    user_blocklist_user_blocklist_blocked_byTousers?: User_blocklistListRelationFilter
     user_blocklist_user_blocklist_user_idTousers?: XOR<User_blocklistNullableScalarRelationFilter, user_blocklistWhereInput> | null
     user_certificates?: XOR<User_certificatesNullableScalarRelationFilter, user_certificatesWhereInput> | null
     user_profile?: XOR<User_profileNullableScalarRelationFilter, user_profileWhereInput> | null
@@ -20584,6 +22914,7 @@ export namespace Prisma {
     is_verified?: SortOrderInput | SortOrder
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
+    user_type?: SortOrderInput | SortOrder
     _count?: usersCountOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
@@ -20602,6 +22933,111 @@ export namespace Prisma {
     is_verified?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     is_active?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     pass_salts?: StringNullableWithAggregatesFilter<"users"> | string | null
+    user_type?: StringNullableWithAggregatesFilter<"users"> | string | null
+  }
+
+  export type collection_itemsWhereInput = {
+    AND?: collection_itemsWhereInput | collection_itemsWhereInput[]
+    OR?: collection_itemsWhereInput[]
+    NOT?: collection_itemsWhereInput | collection_itemsWhereInput[]
+    collection_item_id?: UuidFilter<"collection_items"> | string
+    collection_id?: UuidFilter<"collection_items"> | string
+    item_id?: UuidFilter<"collection_items"> | string
+    collections?: XOR<CollectionsScalarRelationFilter, collectionsWhereInput>
+    items?: XOR<ItemsScalarRelationFilter, itemsWhereInput>
+  }
+
+  export type collection_itemsOrderByWithRelationInput = {
+    collection_item_id?: SortOrder
+    collection_id?: SortOrder
+    item_id?: SortOrder
+    collections?: collectionsOrderByWithRelationInput
+    items?: itemsOrderByWithRelationInput
+  }
+
+  export type collection_itemsWhereUniqueInput = Prisma.AtLeast<{
+    collection_item_id?: string
+    collection_id_item_id?: collection_itemsCollection_idItem_idCompoundUniqueInput
+    AND?: collection_itemsWhereInput | collection_itemsWhereInput[]
+    OR?: collection_itemsWhereInput[]
+    NOT?: collection_itemsWhereInput | collection_itemsWhereInput[]
+    collection_id?: UuidFilter<"collection_items"> | string
+    item_id?: UuidFilter<"collection_items"> | string
+    collections?: XOR<CollectionsScalarRelationFilter, collectionsWhereInput>
+    items?: XOR<ItemsScalarRelationFilter, itemsWhereInput>
+  }, "collection_item_id" | "collection_id_item_id">
+
+  export type collection_itemsOrderByWithAggregationInput = {
+    collection_item_id?: SortOrder
+    collection_id?: SortOrder
+    item_id?: SortOrder
+    _count?: collection_itemsCountOrderByAggregateInput
+    _max?: collection_itemsMaxOrderByAggregateInput
+    _min?: collection_itemsMinOrderByAggregateInput
+  }
+
+  export type collection_itemsScalarWhereWithAggregatesInput = {
+    AND?: collection_itemsScalarWhereWithAggregatesInput | collection_itemsScalarWhereWithAggregatesInput[]
+    OR?: collection_itemsScalarWhereWithAggregatesInput[]
+    NOT?: collection_itemsScalarWhereWithAggregatesInput | collection_itemsScalarWhereWithAggregatesInput[]
+    collection_item_id?: UuidWithAggregatesFilter<"collection_items"> | string
+    collection_id?: UuidWithAggregatesFilter<"collection_items"> | string
+    item_id?: UuidWithAggregatesFilter<"collection_items"> | string
+  }
+
+  export type collectionsWhereInput = {
+    AND?: collectionsWhereInput | collectionsWhereInput[]
+    OR?: collectionsWhereInput[]
+    NOT?: collectionsWhereInput | collectionsWhereInput[]
+    collection_id?: UuidFilter<"collections"> | string
+    user_id?: UuidFilter<"collections"> | string
+    name?: StringFilter<"collections"> | string
+    description?: StringNullableFilter<"collections"> | string | null
+    created_at?: DateTimeNullableFilter<"collections"> | Date | string | null
+    collection_items?: Collection_itemsListRelationFilter
+  }
+
+  export type collectionsOrderByWithRelationInput = {
+    collection_id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    collection_items?: collection_itemsOrderByRelationAggregateInput
+  }
+
+  export type collectionsWhereUniqueInput = Prisma.AtLeast<{
+    collection_id?: string
+    AND?: collectionsWhereInput | collectionsWhereInput[]
+    OR?: collectionsWhereInput[]
+    NOT?: collectionsWhereInput | collectionsWhereInput[]
+    user_id?: UuidFilter<"collections"> | string
+    name?: StringFilter<"collections"> | string
+    description?: StringNullableFilter<"collections"> | string | null
+    created_at?: DateTimeNullableFilter<"collections"> | Date | string | null
+    collection_items?: Collection_itemsListRelationFilter
+  }, "collection_id">
+
+  export type collectionsOrderByWithAggregationInput = {
+    collection_id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrderInput | SortOrder
+    created_at?: SortOrderInput | SortOrder
+    _count?: collectionsCountOrderByAggregateInput
+    _max?: collectionsMaxOrderByAggregateInput
+    _min?: collectionsMinOrderByAggregateInput
+  }
+
+  export type collectionsScalarWhereWithAggregatesInput = {
+    AND?: collectionsScalarWhereWithAggregatesInput | collectionsScalarWhereWithAggregatesInput[]
+    OR?: collectionsScalarWhereWithAggregatesInput[]
+    NOT?: collectionsScalarWhereWithAggregatesInput | collectionsScalarWhereWithAggregatesInput[]
+    collection_id?: UuidWithAggregatesFilter<"collections"> | string
+    user_id?: UuidWithAggregatesFilter<"collections"> | string
+    name?: StringWithAggregatesFilter<"collections"> | string
+    description?: StringNullableWithAggregatesFilter<"collections"> | string | null
+    created_at?: DateTimeNullableWithAggregatesFilter<"collections"> | Date | string | null
   }
 
   export type favoritesCreateInput = {
@@ -20661,6 +23097,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
@@ -20680,6 +23117,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
@@ -20697,6 +23135,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
@@ -20716,6 +23155,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
@@ -21189,7 +23629,6 @@ export namespace Prisma {
     block_id?: string
     reason: string
     blocked_at?: Date | string
-    users_user_blocklist_blocked_byTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
     users_user_blocklist_user_idTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_user_idTousersInput
   }
 
@@ -21197,7 +23636,6 @@ export namespace Prisma {
     block_id?: string
     user_id?: string | null
     reason: string
-    blocked_by?: string | null
     blocked_at?: Date | string
   }
 
@@ -21205,7 +23643,6 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users_user_blocklist_blocked_byTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_blocked_byTousersNestedInput
     users_user_blocklist_user_idTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_user_idTousersNestedInput
   }
 
@@ -21213,7 +23650,6 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: StringFieldUpdateOperationsInput | string
-    blocked_by?: NullableStringFieldUpdateOperationsInput | string | null
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21221,7 +23657,6 @@ export namespace Prisma {
     block_id?: string
     user_id?: string | null
     reason: string
-    blocked_by?: string | null
     blocked_at?: Date | string
   }
 
@@ -21235,7 +23670,6 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     user_id?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: StringFieldUpdateOperationsInput | string
-    blocked_by?: NullableStringFieldUpdateOperationsInput | string | null
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -21296,6 +23730,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
     users: usersCreateNestedOneWithoutUser_profileInput
   }
 
@@ -21309,6 +23744,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUpdateInput = {
@@ -21320,6 +23756,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: usersUpdateOneRequiredWithoutUser_profileNestedInput
   }
 
@@ -21333,6 +23770,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileCreateManyInput = {
@@ -21345,6 +23783,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUpdateManyMutationInput = {
@@ -21356,6 +23795,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileUncheckedUpdateManyInput = {
@@ -21368,6 +23808,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_securityCreateInput = {
@@ -21518,6 +23959,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -21526,7 +23968,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -21544,6 +23985,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -21552,7 +23994,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -21570,6 +24011,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -21578,7 +24020,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -21596,6 +24037,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -21604,7 +24046,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -21622,6 +24063,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
   }
 
   export type usersUpdateManyMutationInput = {
@@ -21634,6 +24076,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -21646,6 +24089,107 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type collection_itemsCreateInput = {
+    collection_item_id?: string
+    collections: collectionsCreateNestedOneWithoutCollection_itemsInput
+    items: itemsCreateNestedOneWithoutCollection_itemsInput
+  }
+
+  export type collection_itemsUncheckedCreateInput = {
+    collection_item_id?: string
+    collection_id: string
+    item_id: string
+  }
+
+  export type collection_itemsUpdateInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    collections?: collectionsUpdateOneRequiredWithoutCollection_itemsNestedInput
+    items?: itemsUpdateOneRequiredWithoutCollection_itemsNestedInput
+  }
+
+  export type collection_itemsUncheckedUpdateInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    collection_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type collection_itemsCreateManyInput = {
+    collection_item_id?: string
+    collection_id: string
+    item_id: string
+  }
+
+  export type collection_itemsUpdateManyMutationInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type collection_itemsUncheckedUpdateManyInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    collection_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type collectionsCreateInput = {
+    collection_id?: string
+    user_id: string
+    name: string
+    description?: string | null
+    created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutCollectionsInput
+  }
+
+  export type collectionsUncheckedCreateInput = {
+    collection_id?: string
+    user_id: string
+    name: string
+    description?: string | null
+    created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutCollectionsInput
+  }
+
+  export type collectionsUpdateInput = {
+    collection_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutCollectionsNestedInput
+  }
+
+  export type collectionsUncheckedUpdateInput = {
+    collection_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutCollectionsNestedInput
+  }
+
+  export type collectionsCreateManyInput = {
+    collection_id?: string
+    user_id: string
+    name: string
+    description?: string | null
+    created_at?: Date | string | null
+  }
+
+  export type collectionsUpdateManyMutationInput = {
+    collection_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type collectionsUncheckedUpdateManyInput = {
+    collection_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -21782,6 +24326,12 @@ export namespace Prisma {
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
   }
 
+  export type Collection_itemsListRelationFilter = {
+    every?: collection_itemsWhereInput
+    some?: collection_itemsWhereInput
+    none?: collection_itemsWhereInput
+  }
+
   export type FavoritesListRelationFilter = {
     every?: favoritesWhereInput
     some?: favoritesWhereInput
@@ -21810,6 +24360,10 @@ export namespace Prisma {
     every?: transactionsWhereInput
     some?: transactionsWhereInput
     none?: transactionsWhereInput
+  }
+
+  export type collection_itemsOrderByRelationAggregateInput = {
+    _count?: SortOrder
   }
 
   export type favoritesOrderByRelationAggregateInput = {
@@ -22327,7 +24881,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrder
     blocked_at?: SortOrder
   }
 
@@ -22335,7 +24888,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrder
     blocked_at?: SortOrder
   }
 
@@ -22343,7 +24895,6 @@ export namespace Prisma {
     block_id?: SortOrder
     user_id?: SortOrder
     reason?: SortOrder
-    blocked_by?: SortOrder
     blocked_at?: SortOrder
   }
 
@@ -22378,6 +24929,7 @@ export namespace Prisma {
     social_links?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type user_profileMaxOrderByAggregateInput = {
@@ -22389,6 +24941,7 @@ export namespace Prisma {
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type user_profileMinOrderByAggregateInput = {
@@ -22400,6 +24953,7 @@ export namespace Prisma {
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -22499,12 +25053,6 @@ export namespace Prisma {
     none?: user_audit_logsWhereInput
   }
 
-  export type User_blocklistListRelationFilter = {
-    every?: user_blocklistWhereInput
-    some?: user_blocklistWhereInput
-    none?: user_blocklistWhereInput
-  }
-
   export type User_blocklistNullableScalarRelationFilter = {
     is?: user_blocklistWhereInput | null
     isNot?: user_blocklistWhereInput | null
@@ -22543,10 +25091,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type user_blocklistOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type user_sessionsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -22561,6 +25105,7 @@ export namespace Prisma {
     is_verified?: SortOrder
     is_active?: SortOrder
     pass_salts?: SortOrder
+    user_type?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
@@ -22573,6 +25118,7 @@ export namespace Prisma {
     is_verified?: SortOrder
     is_active?: SortOrder
     pass_salts?: SortOrder
+    user_type?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -22585,6 +25131,59 @@ export namespace Prisma {
     is_verified?: SortOrder
     is_active?: SortOrder
     pass_salts?: SortOrder
+    user_type?: SortOrder
+  }
+
+  export type CollectionsScalarRelationFilter = {
+    is?: collectionsWhereInput
+    isNot?: collectionsWhereInput
+  }
+
+  export type collection_itemsCollection_idItem_idCompoundUniqueInput = {
+    collection_id: string
+    item_id: string
+  }
+
+  export type collection_itemsCountOrderByAggregateInput = {
+    collection_item_id?: SortOrder
+    collection_id?: SortOrder
+    item_id?: SortOrder
+  }
+
+  export type collection_itemsMaxOrderByAggregateInput = {
+    collection_item_id?: SortOrder
+    collection_id?: SortOrder
+    item_id?: SortOrder
+  }
+
+  export type collection_itemsMinOrderByAggregateInput = {
+    collection_item_id?: SortOrder
+    collection_id?: SortOrder
+    item_id?: SortOrder
+  }
+
+  export type collectionsCountOrderByAggregateInput = {
+    collection_id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type collectionsMaxOrderByAggregateInput = {
+    collection_id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type collectionsMinOrderByAggregateInput = {
+    collection_id?: SortOrder
+    user_id?: SortOrder
+    name?: SortOrder
+    description?: SortOrder
+    created_at?: SortOrder
   }
 
   export type itemsCreateNestedOneWithoutFavoritesInput = {
@@ -22621,6 +25220,13 @@ export namespace Prisma {
     upsert?: usersUpsertWithoutFavoritesInput
     connect?: usersWhereUniqueInput
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutFavoritesInput, usersUpdateWithoutFavoritesInput>, usersUncheckedUpdateWithoutFavoritesInput>
+  }
+
+  export type collection_itemsCreateNestedManyWithoutItemsInput = {
+    create?: XOR<collection_itemsCreateWithoutItemsInput, collection_itemsUncheckedCreateWithoutItemsInput> | collection_itemsCreateWithoutItemsInput[] | collection_itemsUncheckedCreateWithoutItemsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutItemsInput | collection_itemsCreateOrConnectWithoutItemsInput[]
+    createMany?: collection_itemsCreateManyItemsInputEnvelope
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
   }
 
   export type favoritesCreateNestedManyWithoutItemsInput = {
@@ -22662,6 +25268,13 @@ export namespace Prisma {
     connectOrCreate?: transactionsCreateOrConnectWithoutItemsInput | transactionsCreateOrConnectWithoutItemsInput[]
     createMany?: transactionsCreateManyItemsInputEnvelope
     connect?: transactionsWhereUniqueInput | transactionsWhereUniqueInput[]
+  }
+
+  export type collection_itemsUncheckedCreateNestedManyWithoutItemsInput = {
+    create?: XOR<collection_itemsCreateWithoutItemsInput, collection_itemsUncheckedCreateWithoutItemsInput> | collection_itemsCreateWithoutItemsInput[] | collection_itemsUncheckedCreateWithoutItemsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutItemsInput | collection_itemsCreateOrConnectWithoutItemsInput[]
+    createMany?: collection_itemsCreateManyItemsInputEnvelope
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
   }
 
   export type favoritesUncheckedCreateNestedManyWithoutItemsInput = {
@@ -22713,6 +25326,20 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type collection_itemsUpdateManyWithoutItemsNestedInput = {
+    create?: XOR<collection_itemsCreateWithoutItemsInput, collection_itemsUncheckedCreateWithoutItemsInput> | collection_itemsCreateWithoutItemsInput[] | collection_itemsUncheckedCreateWithoutItemsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutItemsInput | collection_itemsCreateOrConnectWithoutItemsInput[]
+    upsert?: collection_itemsUpsertWithWhereUniqueWithoutItemsInput | collection_itemsUpsertWithWhereUniqueWithoutItemsInput[]
+    createMany?: collection_itemsCreateManyItemsInputEnvelope
+    set?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    disconnect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    delete?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    update?: collection_itemsUpdateWithWhereUniqueWithoutItemsInput | collection_itemsUpdateWithWhereUniqueWithoutItemsInput[]
+    updateMany?: collection_itemsUpdateManyWithWhereWithoutItemsInput | collection_itemsUpdateManyWithWhereWithoutItemsInput[]
+    deleteMany?: collection_itemsScalarWhereInput | collection_itemsScalarWhereInput[]
   }
 
   export type favoritesUpdateManyWithoutItemsNestedInput = {
@@ -22791,6 +25418,20 @@ export namespace Prisma {
     update?: transactionsUpdateWithWhereUniqueWithoutItemsInput | transactionsUpdateWithWhereUniqueWithoutItemsInput[]
     updateMany?: transactionsUpdateManyWithWhereWithoutItemsInput | transactionsUpdateManyWithWhereWithoutItemsInput[]
     deleteMany?: transactionsScalarWhereInput | transactionsScalarWhereInput[]
+  }
+
+  export type collection_itemsUncheckedUpdateManyWithoutItemsNestedInput = {
+    create?: XOR<collection_itemsCreateWithoutItemsInput, collection_itemsUncheckedCreateWithoutItemsInput> | collection_itemsCreateWithoutItemsInput[] | collection_itemsUncheckedCreateWithoutItemsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutItemsInput | collection_itemsCreateOrConnectWithoutItemsInput[]
+    upsert?: collection_itemsUpsertWithWhereUniqueWithoutItemsInput | collection_itemsUpsertWithWhereUniqueWithoutItemsInput[]
+    createMany?: collection_itemsCreateManyItemsInputEnvelope
+    set?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    disconnect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    delete?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    update?: collection_itemsUpdateWithWhereUniqueWithoutItemsInput | collection_itemsUpdateWithWhereUniqueWithoutItemsInput[]
+    updateMany?: collection_itemsUpdateManyWithWhereWithoutItemsInput | collection_itemsUpdateManyWithWhereWithoutItemsInput[]
+    deleteMany?: collection_itemsScalarWhereInput | collection_itemsScalarWhereInput[]
   }
 
   export type favoritesUncheckedUpdateManyWithoutItemsNestedInput = {
@@ -23025,26 +25666,10 @@ export namespace Prisma {
     update?: XOR<XOR<usersUpdateToOneWithWhereWithoutUser_audit_logsInput, usersUpdateWithoutUser_audit_logsInput>, usersUncheckedUpdateWithoutUser_audit_logsInput>
   }
 
-  export type usersCreateNestedOneWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    create?: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
-    connect?: usersWhereUniqueInput
-  }
-
   export type usersCreateNestedOneWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
     create?: XOR<usersCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput>
     connectOrCreate?: usersCreateOrConnectWithoutUser_blocklist_user_blocklist_user_idTousersInput
     connect?: usersWhereUniqueInput
-  }
-
-  export type usersUpdateOneWithoutUser_blocklist_user_blocklist_blocked_byTousersNestedInput = {
-    create?: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    connectOrCreate?: usersCreateOrConnectWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
-    upsert?: usersUpsertWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
-    disconnect?: usersWhereInput | boolean
-    delete?: usersWhereInput | boolean
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>, usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
   }
 
   export type usersUpdateOneWithoutUser_blocklist_user_blocklist_user_idTousersNestedInput = {
@@ -23177,13 +25802,6 @@ export namespace Prisma {
     connect?: user_audit_logsWhereUniqueInput | user_audit_logsWhereUniqueInput[]
   }
 
-  export type user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-  }
-
   export type user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput = {
     create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_user_idTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_user_idTousersInput>
     connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_user_idTousersInput
@@ -23268,13 +25886,6 @@ export namespace Prisma {
     connectOrCreate?: user_audit_logsCreateOrConnectWithoutUsersInput | user_audit_logsCreateOrConnectWithoutUsersInput[]
     createMany?: user_audit_logsCreateManyUsersInputEnvelope
     connect?: user_audit_logsWhereUniqueInput | user_audit_logsWhereUniqueInput[]
-  }
-
-  export type user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
   }
 
   export type user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput = {
@@ -23414,20 +26025,6 @@ export namespace Prisma {
     update?: user_audit_logsUpdateWithWhereUniqueWithoutUsersInput | user_audit_logsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: user_audit_logsUpdateManyWithWhereWithoutUsersInput | user_audit_logsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: user_audit_logsScalarWhereInput | user_audit_logsScalarWhereInput[]
-  }
-
-  export type user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    upsert?: user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    set?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    disconnect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    delete?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    update?: user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    updateMany?: user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    deleteMany?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
   }
 
   export type user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput = {
@@ -23592,20 +26189,6 @@ export namespace Prisma {
     deleteMany?: user_audit_logsScalarWhereInput | user_audit_logsScalarWhereInput[]
   }
 
-  export type user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput = {
-    create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput> | user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput[] | user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    upsert?: user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    createMany?: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope
-    set?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    disconnect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    delete?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    connect?: user_blocklistWhereUniqueInput | user_blocklistWhereUniqueInput[]
-    update?: user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    updateMany?: user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput | user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput[]
-    deleteMany?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
-  }
-
   export type user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput = {
     create?: XOR<user_blocklistCreateWithoutUsers_user_blocklist_user_idTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_user_idTousersInput>
     connectOrCreate?: user_blocklistCreateOrConnectWithoutUsers_user_blocklist_user_idTousersInput
@@ -23658,6 +26241,76 @@ export namespace Prisma {
     update?: user_sessionsUpdateWithWhereUniqueWithoutUsersInput | user_sessionsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: user_sessionsUpdateManyWithWhereWithoutUsersInput | user_sessionsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: user_sessionsScalarWhereInput | user_sessionsScalarWhereInput[]
+  }
+
+  export type collectionsCreateNestedOneWithoutCollection_itemsInput = {
+    create?: XOR<collectionsCreateWithoutCollection_itemsInput, collectionsUncheckedCreateWithoutCollection_itemsInput>
+    connectOrCreate?: collectionsCreateOrConnectWithoutCollection_itemsInput
+    connect?: collectionsWhereUniqueInput
+  }
+
+  export type itemsCreateNestedOneWithoutCollection_itemsInput = {
+    create?: XOR<itemsCreateWithoutCollection_itemsInput, itemsUncheckedCreateWithoutCollection_itemsInput>
+    connectOrCreate?: itemsCreateOrConnectWithoutCollection_itemsInput
+    connect?: itemsWhereUniqueInput
+  }
+
+  export type collectionsUpdateOneRequiredWithoutCollection_itemsNestedInput = {
+    create?: XOR<collectionsCreateWithoutCollection_itemsInput, collectionsUncheckedCreateWithoutCollection_itemsInput>
+    connectOrCreate?: collectionsCreateOrConnectWithoutCollection_itemsInput
+    upsert?: collectionsUpsertWithoutCollection_itemsInput
+    connect?: collectionsWhereUniqueInput
+    update?: XOR<XOR<collectionsUpdateToOneWithWhereWithoutCollection_itemsInput, collectionsUpdateWithoutCollection_itemsInput>, collectionsUncheckedUpdateWithoutCollection_itemsInput>
+  }
+
+  export type itemsUpdateOneRequiredWithoutCollection_itemsNestedInput = {
+    create?: XOR<itemsCreateWithoutCollection_itemsInput, itemsUncheckedCreateWithoutCollection_itemsInput>
+    connectOrCreate?: itemsCreateOrConnectWithoutCollection_itemsInput
+    upsert?: itemsUpsertWithoutCollection_itemsInput
+    connect?: itemsWhereUniqueInput
+    update?: XOR<XOR<itemsUpdateToOneWithWhereWithoutCollection_itemsInput, itemsUpdateWithoutCollection_itemsInput>, itemsUncheckedUpdateWithoutCollection_itemsInput>
+  }
+
+  export type collection_itemsCreateNestedManyWithoutCollectionsInput = {
+    create?: XOR<collection_itemsCreateWithoutCollectionsInput, collection_itemsUncheckedCreateWithoutCollectionsInput> | collection_itemsCreateWithoutCollectionsInput[] | collection_itemsUncheckedCreateWithoutCollectionsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutCollectionsInput | collection_itemsCreateOrConnectWithoutCollectionsInput[]
+    createMany?: collection_itemsCreateManyCollectionsInputEnvelope
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+  }
+
+  export type collection_itemsUncheckedCreateNestedManyWithoutCollectionsInput = {
+    create?: XOR<collection_itemsCreateWithoutCollectionsInput, collection_itemsUncheckedCreateWithoutCollectionsInput> | collection_itemsCreateWithoutCollectionsInput[] | collection_itemsUncheckedCreateWithoutCollectionsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutCollectionsInput | collection_itemsCreateOrConnectWithoutCollectionsInput[]
+    createMany?: collection_itemsCreateManyCollectionsInputEnvelope
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+  }
+
+  export type collection_itemsUpdateManyWithoutCollectionsNestedInput = {
+    create?: XOR<collection_itemsCreateWithoutCollectionsInput, collection_itemsUncheckedCreateWithoutCollectionsInput> | collection_itemsCreateWithoutCollectionsInput[] | collection_itemsUncheckedCreateWithoutCollectionsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutCollectionsInput | collection_itemsCreateOrConnectWithoutCollectionsInput[]
+    upsert?: collection_itemsUpsertWithWhereUniqueWithoutCollectionsInput | collection_itemsUpsertWithWhereUniqueWithoutCollectionsInput[]
+    createMany?: collection_itemsCreateManyCollectionsInputEnvelope
+    set?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    disconnect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    delete?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    update?: collection_itemsUpdateWithWhereUniqueWithoutCollectionsInput | collection_itemsUpdateWithWhereUniqueWithoutCollectionsInput[]
+    updateMany?: collection_itemsUpdateManyWithWhereWithoutCollectionsInput | collection_itemsUpdateManyWithWhereWithoutCollectionsInput[]
+    deleteMany?: collection_itemsScalarWhereInput | collection_itemsScalarWhereInput[]
+  }
+
+  export type collection_itemsUncheckedUpdateManyWithoutCollectionsNestedInput = {
+    create?: XOR<collection_itemsCreateWithoutCollectionsInput, collection_itemsUncheckedCreateWithoutCollectionsInput> | collection_itemsCreateWithoutCollectionsInput[] | collection_itemsUncheckedCreateWithoutCollectionsInput[]
+    connectOrCreate?: collection_itemsCreateOrConnectWithoutCollectionsInput | collection_itemsCreateOrConnectWithoutCollectionsInput[]
+    upsert?: collection_itemsUpsertWithWhereUniqueWithoutCollectionsInput | collection_itemsUpsertWithWhereUniqueWithoutCollectionsInput[]
+    createMany?: collection_itemsCreateManyCollectionsInputEnvelope
+    set?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    disconnect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    delete?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    connect?: collection_itemsWhereUniqueInput | collection_itemsWhereUniqueInput[]
+    update?: collection_itemsUpdateWithWhereUniqueWithoutCollectionsInput | collection_itemsUpdateWithWhereUniqueWithoutCollectionsInput[]
+    updateMany?: collection_itemsUpdateManyWithWhereWithoutCollectionsInput | collection_itemsUpdateManyWithWhereWithoutCollectionsInput[]
+    deleteMany?: collection_itemsScalarWhereInput | collection_itemsScalarWhereInput[]
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -23971,6 +26624,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
@@ -23989,6 +26643,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
@@ -24010,6 +26665,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
@@ -24017,7 +26673,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -24035,6 +26690,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
@@ -24042,7 +26698,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -24076,6 +26731,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
@@ -24094,6 +26750,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
@@ -24121,6 +26778,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
@@ -24128,7 +26786,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -24146,6 +26803,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -24153,12 +26811,31 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
     user_sessions?: user_sessionsUncheckedUpdateManyWithoutUsersNestedInput
+  }
+
+  export type collection_itemsCreateWithoutItemsInput = {
+    collection_item_id?: string
+    collections: collectionsCreateNestedOneWithoutCollection_itemsInput
+  }
+
+  export type collection_itemsUncheckedCreateWithoutItemsInput = {
+    collection_item_id?: string
+    collection_id: string
+  }
+
+  export type collection_itemsCreateOrConnectWithoutItemsInput = {
+    where: collection_itemsWhereUniqueInput
+    create: XOR<collection_itemsCreateWithoutItemsInput, collection_itemsUncheckedCreateWithoutItemsInput>
+  }
+
+  export type collection_itemsCreateManyItemsInputEnvelope = {
+    data: collection_itemsCreateManyItemsInput | collection_itemsCreateManyItemsInput[]
+    skipDuplicates?: boolean
   }
 
   export type favoritesCreateWithoutItemsInput = {
@@ -24193,6 +26870,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
@@ -24200,7 +26878,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -24218,6 +26895,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
@@ -24225,7 +26903,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -24340,6 +27017,31 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type collection_itemsUpsertWithWhereUniqueWithoutItemsInput = {
+    where: collection_itemsWhereUniqueInput
+    update: XOR<collection_itemsUpdateWithoutItemsInput, collection_itemsUncheckedUpdateWithoutItemsInput>
+    create: XOR<collection_itemsCreateWithoutItemsInput, collection_itemsUncheckedCreateWithoutItemsInput>
+  }
+
+  export type collection_itemsUpdateWithWhereUniqueWithoutItemsInput = {
+    where: collection_itemsWhereUniqueInput
+    data: XOR<collection_itemsUpdateWithoutItemsInput, collection_itemsUncheckedUpdateWithoutItemsInput>
+  }
+
+  export type collection_itemsUpdateManyWithWhereWithoutItemsInput = {
+    where: collection_itemsScalarWhereInput
+    data: XOR<collection_itemsUpdateManyMutationInput, collection_itemsUncheckedUpdateManyWithoutItemsInput>
+  }
+
+  export type collection_itemsScalarWhereInput = {
+    AND?: collection_itemsScalarWhereInput | collection_itemsScalarWhereInput[]
+    OR?: collection_itemsScalarWhereInput[]
+    NOT?: collection_itemsScalarWhereInput | collection_itemsScalarWhereInput[]
+    collection_item_id?: UuidFilter<"collection_items"> | string
+    collection_id?: UuidFilter<"collection_items"> | string
+    item_id?: UuidFilter<"collection_items"> | string
+  }
+
   export type favoritesUpsertWithWhereUniqueWithoutItemsInput = {
     where: favoritesWhereUniqueInput
     update: XOR<favoritesUpdateWithoutItemsInput, favoritesUncheckedUpdateWithoutItemsInput>
@@ -24387,6 +27089,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
@@ -24394,7 +27097,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -24412,6 +27114,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -24419,7 +27122,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -24548,6 +27250,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
@@ -24566,6 +27269,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
@@ -24598,6 +27302,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
@@ -24616,6 +27321,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
@@ -24632,6 +27338,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
@@ -24650,6 +27357,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
@@ -24671,6 +27379,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
@@ -24678,7 +27387,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -24696,6 +27404,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
@@ -24703,7 +27412,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -24737,6 +27445,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
@@ -24755,6 +27464,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
@@ -24782,6 +27492,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
@@ -24789,7 +27500,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -24807,6 +27517,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
@@ -24814,7 +27525,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -24832,6 +27542,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
@@ -24850,6 +27561,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
@@ -24871,6 +27583,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -24878,7 +27591,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -24896,6 +27608,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -24903,7 +27616,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -24937,6 +27649,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
@@ -24955,6 +27668,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
@@ -24982,6 +27696,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -24989,7 +27704,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -25007,6 +27721,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25014,7 +27729,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -25032,6 +27746,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25039,7 +27754,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -25057,6 +27771,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25064,7 +27779,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -25087,6 +27801,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
@@ -25105,6 +27820,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
@@ -25137,6 +27853,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25144,7 +27861,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -25162,6 +27878,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25169,7 +27886,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -25198,6 +27914,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
@@ -25216,6 +27933,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
@@ -25232,6 +27950,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25239,7 +27958,6 @@ export namespace Prisma {
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -25257,6 +27975,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25264,7 +27983,6 @@ export namespace Prisma {
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -25298,6 +28016,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25305,7 +28024,6 @@ export namespace Prisma {
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -25323,6 +28041,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25330,7 +28049,6 @@ export namespace Prisma {
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -25348,6 +28066,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25355,7 +28074,6 @@ export namespace Prisma {
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -25373,6 +28091,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25380,7 +28099,6 @@ export namespace Prisma {
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -25414,6 +28132,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25421,7 +28140,6 @@ export namespace Prisma {
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -25439,6 +28157,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25446,7 +28165,6 @@ export namespace Prisma {
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -25464,6 +28182,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25471,7 +28190,6 @@ export namespace Prisma {
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -25489,6 +28207,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25496,7 +28215,6 @@ export namespace Prisma {
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -25530,6 +28248,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25537,7 +28256,6 @@ export namespace Prisma {
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -25555,6 +28273,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25562,67 +28281,11 @@ export namespace Prisma {
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
     user_sessions?: user_sessionsUncheckedUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: string
-    email: string
-    phone?: string | null
-    password_hash: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean | null
-    is_active?: boolean | null
-    pass_salts?: string | null
-    favorites?: favoritesCreateNestedManyWithoutUsersInput
-    items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
-    reviews?: reviewsCreateNestedManyWithoutUsersInput
-    transactions?: transactionsCreateNestedManyWithoutUsersInput
-    password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
-    user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
-    user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
-    user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
-    user_profile?: user_profileCreateNestedOneWithoutUsersInput
-    user_security?: user_securityCreateNestedOneWithoutUsersInput
-    user_sessions?: user_sessionsCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: string
-    email: string
-    phone?: string | null
-    password_hash: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean | null
-    is_active?: boolean | null
-    pass_salts?: string | null
-    favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
-    items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
-    transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
-    password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
-    user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
-    user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
-    user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
-    user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
-    user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
-    user_sessions?: user_sessionsUncheckedCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersCreateOrConnectWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
   }
 
   export type usersCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
@@ -25635,6 +28298,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25643,7 +28307,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
     user_security?: user_securityCreateNestedOneWithoutUsersInput
@@ -25660,6 +28323,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25668,7 +28332,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
     user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
@@ -25678,67 +28341,6 @@ export namespace Prisma {
   export type usersCreateOrConnectWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
     where: usersWhereUniqueInput
     create: XOR<usersCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_user_idTousersInput>
-  }
-
-  export type usersUpsertWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    update: XOR<usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    create: XOR<usersCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedCreateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput, usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type usersUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
-    favorites?: favoritesUpdateManyWithoutUsersNestedInput
-    items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
-    reviews?: reviewsUpdateManyWithoutUsersNestedInput
-    transactions?: transactionsUpdateManyWithoutUsersNestedInput
-    password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
-    user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
-    user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
-    user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
-    user_profile?: user_profileUpdateOneWithoutUsersNestedInput
-    user_security?: user_securityUpdateOneWithoutUsersNestedInput
-    user_sessions?: user_sessionsUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutUser_blocklist_user_blocklist_blocked_byTousersInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
-    favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
-    items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
-    transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
-    password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
-    user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
-    user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
-    user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
-    user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
-    user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
-    user_sessions?: user_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type usersUpsertWithoutUser_blocklist_user_blocklist_user_idTousersInput = {
@@ -25762,6 +28364,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25770,7 +28373,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUpdateOneWithoutUsersNestedInput
@@ -25787,6 +28389,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25795,7 +28398,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
@@ -25812,6 +28414,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25820,7 +28423,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
     user_security?: user_securityCreateNestedOneWithoutUsersInput
@@ -25837,6 +28439,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25845,7 +28448,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
     user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
@@ -25878,6 +28480,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -25886,7 +28489,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUpdateOneWithoutUsersNestedInput
@@ -25903,6 +28505,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -25911,7 +28514,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
@@ -25928,6 +28530,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -25936,7 +28539,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_security?: user_securityCreateNestedOneWithoutUsersInput
@@ -25953,6 +28555,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -25961,7 +28564,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
@@ -25994,6 +28596,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -26002,7 +28605,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUpdateOneWithoutUsersNestedInput
@@ -26019,6 +28621,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -26027,7 +28630,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
@@ -26044,6 +28646,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -26052,7 +28655,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -26069,6 +28671,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -26077,7 +28680,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -26110,6 +28712,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -26118,7 +28721,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -26135,6 +28737,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -26143,7 +28746,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -26160,6 +28762,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
@@ -26168,7 +28771,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
     user_profile?: user_profileCreateNestedOneWithoutUsersInput
@@ -26185,6 +28787,7 @@ export namespace Prisma {
     is_verified?: boolean | null
     is_active?: boolean | null
     pass_salts?: string | null
+    user_type?: string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
@@ -26193,7 +28796,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedCreateNestedManyWithoutUsers_user_blocklist_blocked_byTousersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
     user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
     user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
@@ -26226,6 +28828,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
@@ -26234,7 +28837,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUpdateOneWithoutUsersNestedInput
@@ -26251,6 +28853,7 @@ export namespace Prisma {
     is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
+    user_type?: NullableStringFieldUpdateOperationsInput | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
@@ -26259,7 +28862,6 @@ export namespace Prisma {
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_blocked_byTousers?: user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
     user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
     user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
@@ -26298,6 +28900,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
@@ -26315,6 +28918,7 @@ export namespace Prisma {
     monetization_type?: string | null
     availability?: boolean | null
     created_at?: Date | string | null
+    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
     pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
@@ -26481,41 +29085,15 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
-  export type user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: string
-    reason: string
-    blocked_at?: Date | string
-    users_user_blocklist_user_idTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_user_idTousersInput
-  }
-
-  export type user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: string
-    user_id?: string | null
-    reason: string
-    blocked_at?: Date | string
-  }
-
-  export type user_blocklistCreateOrConnectWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistWhereUniqueInput
-    create: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInputEnvelope = {
-    data: user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInput | user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInput[]
-    skipDuplicates?: boolean
-  }
-
   export type user_blocklistCreateWithoutUsers_user_blocklist_user_idTousersInput = {
     block_id?: string
     reason: string
     blocked_at?: Date | string
-    users_user_blocklist_blocked_byTousers?: usersCreateNestedOneWithoutUser_blocklist_user_blocklist_blocked_byTousersInput
   }
 
   export type user_blocklistUncheckedCreateWithoutUsers_user_blocklist_user_idTousersInput = {
     block_id?: string
     reason: string
-    blocked_by?: string | null
     blocked_at?: Date | string
   }
 
@@ -26550,6 +29128,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUncheckedCreateWithoutUsersInput = {
@@ -26561,6 +29140,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileCreateOrConnectWithoutUsersInput = {
@@ -26799,33 +29379,6 @@ export namespace Prisma {
     event_time?: DateTimeFilter<"user_audit_logs"> | Date | string
   }
 
-  export type user_blocklistUpsertWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistWhereUniqueInput
-    update: XOR<user_blocklistUpdateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_blocked_byTousersInput>
-    create: XOR<user_blocklistCreateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistUpdateWithWhereUniqueWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistWhereUniqueInput
-    data: XOR<user_blocklistUpdateWithoutUsers_user_blocklist_blocked_byTousersInput, user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistUpdateManyWithWhereWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    where: user_blocklistScalarWhereInput
-    data: XOR<user_blocklistUpdateManyMutationInput, user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersInput>
-  }
-
-  export type user_blocklistScalarWhereInput = {
-    AND?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
-    OR?: user_blocklistScalarWhereInput[]
-    NOT?: user_blocklistScalarWhereInput | user_blocklistScalarWhereInput[]
-    block_id?: UuidFilter<"user_blocklist"> | string
-    user_id?: UuidNullableFilter<"user_blocklist"> | string | null
-    reason?: StringFilter<"user_blocklist"> | string
-    blocked_by?: UuidNullableFilter<"user_blocklist"> | string | null
-    blocked_at?: DateTimeFilter<"user_blocklist"> | Date | string
-  }
-
   export type user_blocklistUpsertWithoutUsers_user_blocklist_user_idTousersInput = {
     update: XOR<user_blocklistUpdateWithoutUsers_user_blocklist_user_idTousersInput, user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_user_idTousersInput>
     create: XOR<user_blocklistCreateWithoutUsers_user_blocklist_user_idTousersInput, user_blocklistUncheckedCreateWithoutUsers_user_blocklist_user_idTousersInput>
@@ -26841,13 +29394,11 @@ export namespace Prisma {
     block_id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users_user_blocklist_blocked_byTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_blocked_byTousersNestedInput
   }
 
   export type user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_user_idTousersInput = {
     block_id?: StringFieldUpdateOperationsInput | string
     reason?: StringFieldUpdateOperationsInput | string
-    blocked_by?: NullableStringFieldUpdateOperationsInput | string | null
     blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
@@ -26894,6 +29445,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileUncheckedUpdateWithoutUsersInput = {
@@ -26905,6 +29457,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_securityUpsertWithoutUsersInput = {
@@ -26966,6 +29519,183 @@ export namespace Prisma {
     secret?: StringNullableFilter<"user_sessions"> | string | null
   }
 
+  export type collectionsCreateWithoutCollection_itemsInput = {
+    collection_id?: string
+    user_id: string
+    name: string
+    description?: string | null
+    created_at?: Date | string | null
+  }
+
+  export type collectionsUncheckedCreateWithoutCollection_itemsInput = {
+    collection_id?: string
+    user_id: string
+    name: string
+    description?: string | null
+    created_at?: Date | string | null
+  }
+
+  export type collectionsCreateOrConnectWithoutCollection_itemsInput = {
+    where: collectionsWhereUniqueInput
+    create: XOR<collectionsCreateWithoutCollection_itemsInput, collectionsUncheckedCreateWithoutCollection_itemsInput>
+  }
+
+  export type itemsCreateWithoutCollection_itemsInput = {
+    item_id?: string
+    title: string
+    description?: string | null
+    media_url?: string | null
+    category?: string | null
+    price?: Decimal | DecimalJsLike | number | string | null
+    monetization_type?: string | null
+    availability?: boolean | null
+    created_at?: Date | string | null
+    favorites?: favoritesCreateNestedManyWithoutItemsInput
+    users: usersCreateNestedOneWithoutItemsInput
+    monetization?: monetizationCreateNestedManyWithoutItemsInput
+    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
+    reviews?: reviewsCreateNestedManyWithoutItemsInput
+    transactions?: transactionsCreateNestedManyWithoutItemsInput
+  }
+
+  export type itemsUncheckedCreateWithoutCollection_itemsInput = {
+    item_id?: string
+    user_id: string
+    title: string
+    description?: string | null
+    media_url?: string | null
+    category?: string | null
+    price?: Decimal | DecimalJsLike | number | string | null
+    monetization_type?: string | null
+    availability?: boolean | null
+    created_at?: Date | string | null
+    favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
+    monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
+    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
+    reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
+    transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
+  }
+
+  export type itemsCreateOrConnectWithoutCollection_itemsInput = {
+    where: itemsWhereUniqueInput
+    create: XOR<itemsCreateWithoutCollection_itemsInput, itemsUncheckedCreateWithoutCollection_itemsInput>
+  }
+
+  export type collectionsUpsertWithoutCollection_itemsInput = {
+    update: XOR<collectionsUpdateWithoutCollection_itemsInput, collectionsUncheckedUpdateWithoutCollection_itemsInput>
+    create: XOR<collectionsCreateWithoutCollection_itemsInput, collectionsUncheckedCreateWithoutCollection_itemsInput>
+    where?: collectionsWhereInput
+  }
+
+  export type collectionsUpdateToOneWithWhereWithoutCollection_itemsInput = {
+    where?: collectionsWhereInput
+    data: XOR<collectionsUpdateWithoutCollection_itemsInput, collectionsUncheckedUpdateWithoutCollection_itemsInput>
+  }
+
+  export type collectionsUpdateWithoutCollection_itemsInput = {
+    collection_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type collectionsUncheckedUpdateWithoutCollection_itemsInput = {
+    collection_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  }
+
+  export type itemsUpsertWithoutCollection_itemsInput = {
+    update: XOR<itemsUpdateWithoutCollection_itemsInput, itemsUncheckedUpdateWithoutCollection_itemsInput>
+    create: XOR<itemsCreateWithoutCollection_itemsInput, itemsUncheckedCreateWithoutCollection_itemsInput>
+    where?: itemsWhereInput
+  }
+
+  export type itemsUpdateToOneWithWhereWithoutCollection_itemsInput = {
+    where?: itemsWhereInput
+    data: XOR<itemsUpdateWithoutCollection_itemsInput, itemsUncheckedUpdateWithoutCollection_itemsInput>
+  }
+
+  export type itemsUpdateWithoutCollection_itemsInput = {
+    item_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    media_url?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorites?: favoritesUpdateManyWithoutItemsNestedInput
+    users?: usersUpdateOneRequiredWithoutItemsNestedInput
+    monetization?: monetizationUpdateManyWithoutItemsNestedInput
+    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
+    reviews?: reviewsUpdateManyWithoutItemsNestedInput
+    transactions?: transactionsUpdateManyWithoutItemsNestedInput
+  }
+
+  export type itemsUncheckedUpdateWithoutCollection_itemsInput = {
+    item_id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    title?: StringFieldUpdateOperationsInput | string
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    media_url?: NullableStringFieldUpdateOperationsInput | string | null
+    category?: NullableStringFieldUpdateOperationsInput | string | null
+    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
+    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
+    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
+    monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
+    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
+    reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
+    transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
+  }
+
+  export type collection_itemsCreateWithoutCollectionsInput = {
+    collection_item_id?: string
+    items: itemsCreateNestedOneWithoutCollection_itemsInput
+  }
+
+  export type collection_itemsUncheckedCreateWithoutCollectionsInput = {
+    collection_item_id?: string
+    item_id: string
+  }
+
+  export type collection_itemsCreateOrConnectWithoutCollectionsInput = {
+    where: collection_itemsWhereUniqueInput
+    create: XOR<collection_itemsCreateWithoutCollectionsInput, collection_itemsUncheckedCreateWithoutCollectionsInput>
+  }
+
+  export type collection_itemsCreateManyCollectionsInputEnvelope = {
+    data: collection_itemsCreateManyCollectionsInput | collection_itemsCreateManyCollectionsInput[]
+    skipDuplicates?: boolean
+  }
+
+  export type collection_itemsUpsertWithWhereUniqueWithoutCollectionsInput = {
+    where: collection_itemsWhereUniqueInput
+    update: XOR<collection_itemsUpdateWithoutCollectionsInput, collection_itemsUncheckedUpdateWithoutCollectionsInput>
+    create: XOR<collection_itemsCreateWithoutCollectionsInput, collection_itemsUncheckedCreateWithoutCollectionsInput>
+  }
+
+  export type collection_itemsUpdateWithWhereUniqueWithoutCollectionsInput = {
+    where: collection_itemsWhereUniqueInput
+    data: XOR<collection_itemsUpdateWithoutCollectionsInput, collection_itemsUncheckedUpdateWithoutCollectionsInput>
+  }
+
+  export type collection_itemsUpdateManyWithWhereWithoutCollectionsInput = {
+    where: collection_itemsScalarWhereInput
+    data: XOR<collection_itemsUpdateManyMutationInput, collection_itemsUncheckedUpdateManyWithoutCollectionsInput>
+  }
+
+  export type collection_itemsCreateManyItemsInput = {
+    collection_item_id?: string
+    collection_id: string
+  }
+
   export type favoritesCreateManyItemsInput = {
     favorite_id?: string
     user_id: string
@@ -27001,6 +29731,21 @@ export namespace Prisma {
     amount: Decimal | DecimalJsLike | number | string
     payment_status?: string | null
     transaction_date?: Date | string | null
+  }
+
+  export type collection_itemsUpdateWithoutItemsInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    collections?: collectionsUpdateOneRequiredWithoutCollection_itemsNestedInput
+  }
+
+  export type collection_itemsUncheckedUpdateWithoutItemsInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    collection_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type collection_itemsUncheckedUpdateManyWithoutItemsInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    collection_id?: StringFieldUpdateOperationsInput | string
   }
 
   export type favoritesUpdateWithoutItemsInput = {
@@ -27170,13 +29915,6 @@ export namespace Prisma {
     event_time?: Date | string
   }
 
-  export type user_blocklistCreateManyUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: string
-    user_id?: string | null
-    reason: string
-    blocked_at?: Date | string
-  }
-
   export type user_sessionsCreateManyUsersInput = {
     session_id?: string
     token: string
@@ -27213,6 +29951,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
@@ -27230,6 +29969,7 @@ export namespace Prisma {
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
     pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
@@ -27363,27 +30103,6 @@ export namespace Prisma {
     event_time?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
-  export type user_blocklistUpdateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: StringFieldUpdateOperationsInput | string
-    reason?: StringFieldUpdateOperationsInput | string
-    blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    users_user_blocklist_user_idTousers?: usersUpdateOneWithoutUser_blocklist_user_blocklist_user_idTousersNestedInput
-  }
-
-  export type user_blocklistUncheckedUpdateWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    reason?: StringFieldUpdateOperationsInput | string
-    blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
-  export type user_blocklistUncheckedUpdateManyWithoutUsers_user_blocklist_blocked_byTousersInput = {
-    block_id?: StringFieldUpdateOperationsInput | string
-    user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    reason?: StringFieldUpdateOperationsInput | string
-    blocked_at?: DateTimeFieldUpdateOperationsInput | Date | string
-  }
-
   export type user_sessionsUpdateWithoutUsersInput = {
     session_id?: StringFieldUpdateOperationsInput | string
     token?: StringFieldUpdateOperationsInput | string
@@ -27406,6 +30125,26 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     is_revoked?: NullableBoolFieldUpdateOperationsInput | boolean | null
     secret?: NullableStringFieldUpdateOperationsInput | string | null
+  }
+
+  export type collection_itemsCreateManyCollectionsInput = {
+    collection_item_id?: string
+    item_id: string
+  }
+
+  export type collection_itemsUpdateWithoutCollectionsInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    items?: itemsUpdateOneRequiredWithoutCollection_itemsNestedInput
+  }
+
+  export type collection_itemsUncheckedUpdateWithoutCollectionsInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type collection_itemsUncheckedUpdateManyWithoutCollectionsInput = {
+    collection_item_id?: StringFieldUpdateOperationsInput | string
+    item_id?: StringFieldUpdateOperationsInput | string
   }
 
 

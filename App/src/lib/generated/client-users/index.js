@@ -226,7 +226,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/mnt/04B0236AB0236202/dreamdot/App/src/lib/generated/client-users",
+      "value": "/home/r0b1n/Desktop/dreamdot/App/src/lib/generated/client-users",
       "fromEnvVar": null
     },
     "config": {
@@ -242,11 +242,12 @@ const config = {
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "/mnt/04B0236AB0236202/dreamdot/App/src/lib/prisma/schema.user.prisma",
+    "sourceFilePath": "/home/r0b1n/Desktop/dreamdot/App/src/lib/prisma/schema.user.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null
+    "rootEnvPath": null,
+    "schemaEnvPath": "../../../../.env"
   },
   "relativePath": "../../prisma",
   "clientVersion": "6.5.0",
@@ -274,8 +275,8 @@ const fs = require('fs')
 config.dirname = __dirname
 if (!fs.existsSync(path.join(__dirname, 'schema.prisma'))) {
   const alternativePaths = [
-    "../generated/client-users",
-    "generated/client-users",
+    "src/lib/generated/client-users",
+    "lib/generated/client-users",
   ]
   
   const alternativePath = alternativePaths.find((altPath) => {
@@ -305,7 +306,7 @@ Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
 path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
-path.join(process.cwd(), "../generated/client-users/libquery_engine-debian-openssl-3.0.x.so.node")
+path.join(process.cwd(), "src/lib/generated/client-users/libquery_engine-debian-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
-path.join(process.cwd(), "../generated/client-users/schema.prisma")
+path.join(process.cwd(), "src/lib/generated/client-users/schema.prisma")
