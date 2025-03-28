@@ -11,7 +11,7 @@ export async function GET(request) {
     }
 
     try {
-        const user = await prismaUser.users.findUnique({
+        const user = await prismaUser.users.findFirst({
             where: { id: userId },
             include: { user_profile: true },
         });
