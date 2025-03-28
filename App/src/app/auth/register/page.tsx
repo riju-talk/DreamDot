@@ -16,7 +16,8 @@ export default function Register() {
         gender: '',
         username: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        country: '',
     });
     const [loading, setLoading] = useState(false);
 
@@ -50,6 +51,7 @@ export default function Register() {
                         gender: formData.gender,
                         username: formData.username,
                         password: formData.password,
+                        country: formData.country,
                     }
 
                     // Submit final registration data
@@ -136,6 +138,15 @@ export default function Register() {
                                         size="large"
                                         placeholder="Phone Number"
                                         value={formData.phone}
+                                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                                        className="h-12 rounded-lg"
+                                        required
+                                    />
+
+                                    <Input
+                                        size="large"
+                                        placeholder="Country"
+                                        value={formData.country}
                                         onChange={(e) => handleInputChange('phone', e.target.value)}
                                         className="h-12 rounded-lg"
                                         required
