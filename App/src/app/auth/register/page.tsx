@@ -147,7 +147,7 @@ export default function Register() {
                                         size="large"
                                         placeholder="Country"
                                         value={formData.country}
-                                        onChange={(e) => handleInputChange('phone', e.target.value)}
+                                        onChange={(e) => handleInputChange('country', e.target.value)}
                                         className="h-12 rounded-lg"
                                         required
                                     />

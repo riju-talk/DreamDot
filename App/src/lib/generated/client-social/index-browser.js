@@ -143,7 +143,8 @@ exports.Prisma.FollowingScalarFieldEnum = {
 exports.Prisma.LikesScalarFieldEnum = {
   user_id: 'user_id',
   post_id: 'post_id',
-  liked_at: 'liked_at'
+  liked_at: 'liked_at',
+  serial_no: 'serial_no'
 };
 
 exports.Prisma.NotificationsScalarFieldEnum = {
@@ -169,7 +170,6 @@ exports.Prisma.Posts_metadataScalarFieldEnum = {
   user_id: 'user_id',
   title: 'title',
   summary: 'summary',
-  post_type: 'post_type',
   visibility: 'visibility',
   price: 'price',
   created_at: 'created_at',
@@ -236,7 +236,8 @@ exports.Prisma.User_profileScalarFieldEnum = {
   website: 'website',
   social_links: 'social_links',
   updated_at: 'updated_at',
-  dob: 'dob'
+  dob: 'dob',
+  country: 'country'
 };
 
 exports.Prisma.User_securityScalarFieldEnum = {
@@ -269,7 +270,8 @@ exports.Prisma.UsersScalarFieldEnum = {
   is_verified: 'is_verified',
   is_active: 'is_active',
   pass_salts: 'pass_salts',
-  user_type: 'user_type'
+  user_type: 'user_type',
+  intitial_balance: 'intitial_balance'
 };
 
 exports.Prisma.SortOrder = {

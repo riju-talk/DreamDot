@@ -22,7 +22,7 @@ export default async function Home() {
             <Button 
               type="text" 
               className="text-gray-600 hover:text-indigo-600"
-              href="/auth/register"
+              href="/auth/signin"
             >
               Sign In
             </Button>

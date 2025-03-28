@@ -145,7 +145,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/home/r0b1n/Desktop/dreamdot/App/src/lib/generated/client-audit",
+      "value": "D:\\dreamdot\\DreamDot\\App\\src\\lib\\generated\\client-audit",
       "fromEnvVar": null
     },
     "config": {
@@ -154,14 +154,22 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "debian-openssl-3.0.x",
+        "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
       }
     ],
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "/home/r0b1n/Desktop/dreamdot/App/src/lib/prisma/schema.audit.prisma",
+    "sourceFilePath": "D:\\dreamdot\\DreamDot\\App\\src\\lib\\prisma\\schema.audit.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -184,8 +192,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-audit\"\n  previewFeatures = [\"multiSchema\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=audit\"\n  directUrl = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=audit\"\n  schemas   = [\"audit\"]\n}\n\nmodel admin_actions_log {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  admin_id    String   @db.Uuid\n  action_type String   @db.VarChar(50)\n  target_id   String?  @db.Uuid\n  description String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel notification_log {\n  id           String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  recipient_id String   @db.Uuid\n  message      String\n  is_read      Boolean? @default(false)\n  created_at   DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel system_audit_log {\n  id         String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  event_type String   @db.VarChar(50)\n  details    String?\n  created_at DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n",
-  "inlineSchemaHash": "6a12a06087034cbc244af9bc3de134150c0a4593633918129f57359b6a958e91",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-audit\"\n  previewFeatures = [\"multiSchema\"]\n  binaryTargets   = [\"native\", \"windows\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider  = \"postgresql\"\n  url       = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=audit\"\n  directUrl = \"postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=audit\"\n  schemas   = [\"audit\"]\n}\n\nmodel admin_actions_log {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  admin_id    String   @db.Uuid\n  action_type String   @db.VarChar(50)\n  target_id   String?  @db.Uuid\n  description String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel notification_log {\n  id           String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  recipient_id String   @db.Uuid\n  message      String\n  is_read      Boolean? @default(false)\n  created_at   DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel system_audit_log {\n  id         String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  event_type String   @db.VarChar(50)\n  details    String?\n  created_at DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n",
+  "inlineSchemaHash": "427084b697b26c07a8d612b39aeb374312c196e2861437dfe7ed35d41a630755",
   "copyEngine": true
 }
 config.dirname = '/'

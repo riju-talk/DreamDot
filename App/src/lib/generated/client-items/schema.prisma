@@ -2,6 +2,7 @@ generator client {
   provider        = "prisma-client-js"
   output          = "../generated/client-items"
   previewFeatures = ["multiSchema"]
+  binaryTargets   = ["native", "windows", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -24,23 +25,21 @@ model favorites {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model items {
-  item_id             String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id             String                @db.Uuid
-  title               String                @db.VarChar(255)
-  description         String?
-  media_url           String?
-  category            String?
-  price               Decimal?              @db.Decimal(10, 2)
-  monetization_type   String?
-  availability        Boolean?              @default(true)
-  created_at          DateTime?             @default(now()) @db.Timestamp(6)
-  collection_items    collection_items[]
-  favorites           favorites[]
-  users               users                 @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  monetization        monetization[]
-  pay_per_view_access pay_per_view_access[]
-  reviews             reviews[]
-  transactions        transactions[]
+  item_id           String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id           String             @db.Uuid
+  title             String             @db.VarChar(255)
+  description       String?
+  category          String?
+  price             Decimal?           @db.Decimal(10, 2)
+  monetization_type String?
+  availability      Boolean?           @default(true)
+  created_at        DateTime?          @default(now()) @db.Timestamp(6)
+  collection_items  collection_items[]
+  favorites         favorites[]
+  users             users              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  monetization      monetization[]
+  reviews           reviews[]
+  transactions      transactions[]
 
   @@schema("items_d")
 }
@@ -54,18 +53,6 @@ model monetization {
   currency        String?   @default("USD") @db.VarChar(10)
   created_at      DateTime? @default(now()) @db.Timestamp(6)
   items           items     @relation(fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: NoAction)
-
-  @@schema("items_d")
-}
-
-model pay_per_view_access {
-  access_id     String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id       String    @db.Uuid
-  item_id       String    @db.Uuid
-  access_expiry DateTime  @db.Timestamp(6)
-  created_at    DateTime? @default(now()) @db.Timestamp(6)
-  items         items     @relation(fields: [item_id], references: [item_id], onDelete: Cascade, onUpdate: NoAction)
-  users         users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 
   @@schema("items_d")
 }
@@ -207,9 +194,9 @@ model users {
   is_active                                    Boolean?                @default(true)
   pass_salts                                   String?
   user_type                                    String?                 @default("user")
+  intitial_balance                             Float                   @default(50000) @db.Real
   favorites                                    favorites[]
   items                                        items[]
-  pay_per_view_access                          pay_per_view_access[]
   reviews                                      reviews[]
   transactions                                 transactions[]
   password_reset_tokens                        password_reset_tokens[]

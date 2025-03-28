@@ -10355,8 +10355,18 @@ export namespace Prisma {
 
   export type AggregateUsers = {
     _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
+  }
+
+  export type UsersAvgAggregateOutputType = {
+    intitial_balance: number | null
+  }
+
+  export type UsersSumAggregateOutputType = {
+    intitial_balance: number | null
   }
 
   export type UsersMinAggregateOutputType = {
@@ -10370,6 +10380,7 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -10383,6 +10394,7 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -10396,9 +10408,18 @@ export namespace Prisma {
     is_active: number
     pass_salts: number
     user_type: number
+    intitial_balance: number
     _all: number
   }
 
+
+  export type UsersAvgAggregateInputType = {
+    intitial_balance?: true
+  }
+
+  export type UsersSumAggregateInputType = {
+    intitial_balance?: true
+  }
 
   export type UsersMinAggregateInputType = {
     id?: true
@@ -10411,6 +10432,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -10424,6 +10446,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -10437,6 +10460,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
     _all?: true
   }
 
@@ -10478,6 +10502,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UsersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UsersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UsersMinAggregateInputType
@@ -10508,6 +10544,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UsersCountAggregateInputType | true
+    _avg?: UsersAvgAggregateInputType
+    _sum?: UsersSumAggregateInputType
     _min?: UsersMinAggregateInputType
     _max?: UsersMaxAggregateInputType
   }
@@ -10523,7 +10561,10 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number
     _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
@@ -10553,6 +10594,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
     user_analytics?: boolean | users$user_analyticsArgs<ExtArgs>
     user_audit_logs?: boolean | users$user_audit_logsArgs<ExtArgs>
@@ -10575,6 +10617,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -10588,6 +10631,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -10601,9 +10645,10 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type" | "intitial_balance", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
     user_analytics?: boolean | users$user_analyticsArgs<ExtArgs>
@@ -10641,6 +10686,7 @@ export namespace Prisma {
       is_active: boolean | null
       pass_salts: string | null
       user_type: string | null
+      intitial_balance: number
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -11082,6 +11128,7 @@ export namespace Prisma {
     readonly is_active: FieldRef<"users", 'Boolean'>
     readonly pass_salts: FieldRef<"users", 'String'>
     readonly user_type: FieldRef<"users", 'String'>
+    readonly intitial_balance: FieldRef<"users", 'Float'>
   }
     
 
@@ -11777,7 +11824,8 @@ export namespace Prisma {
     is_verified: 'is_verified',
     is_active: 'is_active',
     pass_salts: 'pass_salts',
-    user_type: 'user_type'
+    user_type: 'user_type',
+    intitial_balance: 'intitial_balance'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -12431,6 +12479,7 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
     user_type?: StringNullableFilter<"users"> | string | null
+    intitial_balance?: FloatFilter<"users"> | number
     password_reset_tokens?: Password_reset_tokensListRelationFilter
     user_analytics?: XOR<User_analyticsNullableScalarRelationFilter, user_analyticsWhereInput> | null
     user_audit_logs?: User_audit_logsListRelationFilter
@@ -12452,6 +12501,7 @@ export namespace Prisma {
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
     user_type?: SortOrderInput | SortOrder
+    intitial_balance?: SortOrder
     password_reset_tokens?: password_reset_tokensOrderByRelationAggregateInput
     user_analytics?: user_analyticsOrderByWithRelationInput
     user_audit_logs?: user_audit_logsOrderByRelationAggregateInput
@@ -12476,6 +12526,7 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
     user_type?: StringNullableFilter<"users"> | string | null
+    intitial_balance?: FloatFilter<"users"> | number
     password_reset_tokens?: Password_reset_tokensListRelationFilter
     user_analytics?: XOR<User_analyticsNullableScalarRelationFilter, user_analyticsWhereInput> | null
     user_audit_logs?: User_audit_logsListRelationFilter
@@ -12497,9 +12548,12 @@ export namespace Prisma {
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
     user_type?: SortOrderInput | SortOrder
+    intitial_balance?: SortOrder
     _count?: usersCountOrderByAggregateInput
+    _avg?: usersAvgOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
+    _sum?: usersSumOrderByAggregateInput
   }
 
   export type usersScalarWhereWithAggregatesInput = {
@@ -12516,6 +12570,7 @@ export namespace Prisma {
     is_active?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     pass_salts?: StringNullableWithAggregatesFilter<"users"> | string | null
     user_type?: StringNullableWithAggregatesFilter<"users"> | string | null
+    intitial_balance?: FloatWithAggregatesFilter<"users"> | number
   }
 
   export type password_reset_tokensCreateInput = {
@@ -13039,6 +13094,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
@@ -13060,6 +13116,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
@@ -13081,6 +13138,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
@@ -13102,6 +13160,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
@@ -13123,6 +13182,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
   }
 
   export type usersUpdateManyMutationInput = {
@@ -13136,6 +13196,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -13149,6 +13210,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -13700,6 +13762,17 @@ export namespace Prisma {
     secret?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type Password_reset_tokensListRelationFilter = {
     every?: password_reset_tokensWhereInput
     some?: password_reset_tokensWhereInput
@@ -13766,6 +13839,11 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
+  }
+
+  export type usersAvgOrderByAggregateInput = {
+    intitial_balance?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
@@ -13779,6 +13857,7 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -13792,6 +13871,27 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
+  }
+
+  export type usersSumOrderByAggregateInput = {
+    intitial_balance?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type usersCreateNestedOneWithoutPassword_reset_tokensInput = {
@@ -14055,6 +14155,14 @@ export namespace Prisma {
     connectOrCreate?: user_sessionsCreateOrConnectWithoutUsersInput | user_sessionsCreateOrConnectWithoutUsersInput[]
     createMany?: user_sessionsCreateManyUsersInputEnvelope
     connect?: user_sessionsWhereUniqueInput | user_sessionsWhereUniqueInput[]
+  }
+
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
   }
 
   export type password_reset_tokensUpdateManyWithoutUsersNestedInput = {
@@ -14515,6 +14623,33 @@ export namespace Prisma {
     _max?: NestedStringNullableFilter<$PrismaModel>
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type usersCreateWithoutPassword_reset_tokensInput = {
     id?: string
     email: string
@@ -14526,6 +14661,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
@@ -14546,6 +14682,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
@@ -14582,6 +14719,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
@@ -14602,6 +14740,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
@@ -14622,6 +14761,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
@@ -14642,6 +14782,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
@@ -14678,6 +14819,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
@@ -14698,6 +14840,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
@@ -14718,6 +14861,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
@@ -14738,6 +14882,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
@@ -14774,6 +14919,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
@@ -14794,6 +14940,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
@@ -14814,6 +14961,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
@@ -14834,6 +14982,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
@@ -14870,6 +15019,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
@@ -14890,6 +15040,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
@@ -14910,6 +15061,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
@@ -14930,6 +15082,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
@@ -14966,6 +15119,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
@@ -14986,6 +15140,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
@@ -15006,6 +15161,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
@@ -15026,6 +15182,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
@@ -15062,6 +15219,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
@@ -15082,6 +15240,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
@@ -15102,6 +15261,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
@@ -15122,6 +15282,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
@@ -15158,6 +15319,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
@@ -15178,6 +15340,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
@@ -15198,6 +15361,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
@@ -15218,6 +15382,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
     user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
@@ -15254,6 +15419,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
@@ -15274,6 +15440,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
     user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput

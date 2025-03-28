@@ -5569,46 +5569,70 @@ export namespace Prisma {
 
   export type AggregateLikes = {
     _count: LikesCountAggregateOutputType | null
+    _avg: LikesAvgAggregateOutputType | null
+    _sum: LikesSumAggregateOutputType | null
     _min: LikesMinAggregateOutputType | null
     _max: LikesMaxAggregateOutputType | null
+  }
+
+  export type LikesAvgAggregateOutputType = {
+    serial_no: number | null
+  }
+
+  export type LikesSumAggregateOutputType = {
+    serial_no: bigint | null
   }
 
   export type LikesMinAggregateOutputType = {
     user_id: string | null
     post_id: string | null
     liked_at: Date | null
+    serial_no: bigint | null
   }
 
   export type LikesMaxAggregateOutputType = {
     user_id: string | null
     post_id: string | null
     liked_at: Date | null
+    serial_no: bigint | null
   }
 
   export type LikesCountAggregateOutputType = {
     user_id: number
     post_id: number
     liked_at: number
+    serial_no: number
     _all: number
   }
 
+
+  export type LikesAvgAggregateInputType = {
+    serial_no?: true
+  }
+
+  export type LikesSumAggregateInputType = {
+    serial_no?: true
+  }
 
   export type LikesMinAggregateInputType = {
     user_id?: true
     post_id?: true
     liked_at?: true
+    serial_no?: true
   }
 
   export type LikesMaxAggregateInputType = {
     user_id?: true
     post_id?: true
     liked_at?: true
+    serial_no?: true
   }
 
   export type LikesCountAggregateInputType = {
     user_id?: true
     post_id?: true
     liked_at?: true
+    serial_no?: true
     _all?: true
   }
 
@@ -5650,6 +5674,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: LikesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: LikesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: LikesMinAggregateInputType
@@ -5680,6 +5716,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: LikesCountAggregateInputType | true
+    _avg?: LikesAvgAggregateInputType
+    _sum?: LikesSumAggregateInputType
     _min?: LikesMinAggregateInputType
     _max?: LikesMaxAggregateInputType
   }
@@ -5688,7 +5726,10 @@ export namespace Prisma {
     user_id: string
     post_id: string
     liked_at: Date | null
+    serial_no: bigint
     _count: LikesCountAggregateOutputType | null
+    _avg: LikesAvgAggregateOutputType | null
+    _sum: LikesSumAggregateOutputType | null
     _min: LikesMinAggregateOutputType | null
     _max: LikesMaxAggregateOutputType | null
   }
@@ -5711,6 +5752,7 @@ export namespace Prisma {
     user_id?: boolean
     post_id?: boolean
     liked_at?: boolean
+    serial_no?: boolean
     posts_metadata?: boolean | posts_metadataDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["likes"]>
 
@@ -5718,6 +5760,7 @@ export namespace Prisma {
     user_id?: boolean
     post_id?: boolean
     liked_at?: boolean
+    serial_no?: boolean
     posts_metadata?: boolean | posts_metadataDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["likes"]>
 
@@ -5725,6 +5768,7 @@ export namespace Prisma {
     user_id?: boolean
     post_id?: boolean
     liked_at?: boolean
+    serial_no?: boolean
     posts_metadata?: boolean | posts_metadataDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["likes"]>
 
@@ -5732,9 +5776,10 @@ export namespace Prisma {
     user_id?: boolean
     post_id?: boolean
     liked_at?: boolean
+    serial_no?: boolean
   }
 
-  export type likesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "post_id" | "liked_at", ExtArgs["result"]["likes"]>
+  export type likesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "post_id" | "liked_at" | "serial_no", ExtArgs["result"]["likes"]>
   export type likesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts_metadata?: boolean | posts_metadataDefaultArgs<ExtArgs>
   }
@@ -5754,6 +5799,7 @@ export namespace Prisma {
       user_id: string
       post_id: string
       liked_at: Date | null
+      serial_no: bigint
     }, ExtArgs["result"]["likes"]>
     composites: {}
   }
@@ -6181,6 +6227,7 @@ export namespace Prisma {
     readonly user_id: FieldRef<"likes", 'String'>
     readonly post_id: FieldRef<"likes", 'String'>
     readonly liked_at: FieldRef<"likes", 'DateTime'>
+    readonly serial_no: FieldRef<"likes", 'BigInt'>
   }
     
 
@@ -8808,7 +8855,6 @@ export namespace Prisma {
     user_id: string | null
     title: string | null
     summary: string | null
-    post_type: string | null
     visibility: string | null
     price: Decimal | null
     created_at: Date | null
@@ -8820,7 +8866,6 @@ export namespace Prisma {
     user_id: string | null
     title: string | null
     summary: string | null
-    post_type: string | null
     visibility: string | null
     price: Decimal | null
     created_at: Date | null
@@ -8832,7 +8877,6 @@ export namespace Prisma {
     user_id: number
     title: number
     summary: number
-    post_type: number
     visibility: number
     price: number
     created_at: number
@@ -8854,7 +8898,6 @@ export namespace Prisma {
     user_id?: true
     title?: true
     summary?: true
-    post_type?: true
     visibility?: true
     price?: true
     created_at?: true
@@ -8866,7 +8909,6 @@ export namespace Prisma {
     user_id?: true
     title?: true
     summary?: true
-    post_type?: true
     visibility?: true
     price?: true
     created_at?: true
@@ -8878,7 +8920,6 @@ export namespace Prisma {
     user_id?: true
     title?: true
     summary?: true
-    post_type?: true
     visibility?: true
     price?: true
     created_at?: true
@@ -8977,7 +9018,6 @@ export namespace Prisma {
     user_id: string
     title: string | null
     summary: string | null
-    post_type: string | null
     visibility: string | null
     price: Decimal | null
     created_at: Date
@@ -9008,7 +9048,6 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     summary?: boolean
-    post_type?: boolean
     visibility?: boolean
     price?: boolean
     created_at?: boolean
@@ -9026,7 +9065,6 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     summary?: boolean
-    post_type?: boolean
     visibility?: boolean
     price?: boolean
     created_at?: boolean
@@ -9039,7 +9077,6 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     summary?: boolean
-    post_type?: boolean
     visibility?: boolean
     price?: boolean
     created_at?: boolean
@@ -9052,14 +9089,13 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     summary?: boolean
-    post_type?: boolean
     visibility?: boolean
     price?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type posts_metadataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "title" | "summary" | "post_type" | "visibility" | "price" | "created_at" | "updated_at", ExtArgs["result"]["posts_metadata"]>
+  export type posts_metadataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "title" | "summary" | "visibility" | "price" | "created_at" | "updated_at", ExtArgs["result"]["posts_metadata"]>
   export type posts_metadataInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | posts_metadata$commentsArgs<ExtArgs>
     likes?: boolean | posts_metadata$likesArgs<ExtArgs>
@@ -9089,7 +9125,6 @@ export namespace Prisma {
       user_id: string
       title: string | null
       summary: string | null
-      post_type: string | null
       visibility: string | null
       price: Prisma.Decimal | null
       created_at: Date
@@ -9526,7 +9561,6 @@ export namespace Prisma {
     readonly user_id: FieldRef<"posts_metadata", 'String'>
     readonly title: FieldRef<"posts_metadata", 'String'>
     readonly summary: FieldRef<"posts_metadata", 'String'>
-    readonly post_type: FieldRef<"posts_metadata", 'String'>
     readonly visibility: FieldRef<"posts_metadata", 'String'>
     readonly price: FieldRef<"posts_metadata", 'Decimal'>
     readonly created_at: FieldRef<"posts_metadata", 'DateTime'>
@@ -16545,6 +16579,7 @@ export namespace Prisma {
     website: string | null
     updated_at: Date | null
     dob: Date | null
+    country: string | null
   }
 
   export type User_profileMaxAggregateOutputType = {
@@ -16556,6 +16591,7 @@ export namespace Prisma {
     website: string | null
     updated_at: Date | null
     dob: Date | null
+    country: string | null
   }
 
   export type User_profileCountAggregateOutputType = {
@@ -16568,6 +16604,7 @@ export namespace Prisma {
     social_links: number
     updated_at: number
     dob: number
+    country: number
     _all: number
   }
 
@@ -16581,6 +16618,7 @@ export namespace Prisma {
     website?: true
     updated_at?: true
     dob?: true
+    country?: true
   }
 
   export type User_profileMaxAggregateInputType = {
@@ -16592,6 +16630,7 @@ export namespace Prisma {
     website?: true
     updated_at?: true
     dob?: true
+    country?: true
   }
 
   export type User_profileCountAggregateInputType = {
@@ -16604,6 +16643,7 @@ export namespace Prisma {
     social_links?: true
     updated_at?: true
     dob?: true
+    country?: true
     _all?: true
   }
 
@@ -16689,6 +16729,7 @@ export namespace Prisma {
     social_links: JsonValue | null
     updated_at: Date
     dob: Date | null
+    country: string | null
     _count: User_profileCountAggregateOutputType | null
     _min: User_profileMinAggregateOutputType | null
     _max: User_profileMaxAggregateOutputType | null
@@ -16718,6 +16759,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -16731,6 +16773,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -16744,6 +16787,7 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
     users?: boolean | usersDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user_profile"]>
 
@@ -16757,9 +16801,10 @@ export namespace Prisma {
     social_links?: boolean
     updated_at?: boolean
     dob?: boolean
+    country?: boolean
   }
 
-  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob", ExtArgs["result"]["user_profile"]>
+  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob" | "country", ExtArgs["result"]["user_profile"]>
   export type user_profileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -16785,6 +16830,7 @@ export namespace Prisma {
       social_links: Prisma.JsonValue | null
       updated_at: Date
       dob: Date | null
+      country: string | null
     }, ExtArgs["result"]["user_profile"]>
     composites: {}
   }
@@ -17218,6 +17264,7 @@ export namespace Prisma {
     readonly social_links: FieldRef<"user_profile", 'Json'>
     readonly updated_at: FieldRef<"user_profile", 'DateTime'>
     readonly dob: FieldRef<"user_profile", 'DateTime'>
+    readonly country: FieldRef<"user_profile", 'String'>
   }
     
 
@@ -19836,8 +19883,18 @@ export namespace Prisma {
 
   export type AggregateUsers = {
     _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
+  }
+
+  export type UsersAvgAggregateOutputType = {
+    intitial_balance: number | null
+  }
+
+  export type UsersSumAggregateOutputType = {
+    intitial_balance: number | null
   }
 
   export type UsersMinAggregateOutputType = {
@@ -19851,6 +19908,7 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -19864,6 +19922,7 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -19877,9 +19936,18 @@ export namespace Prisma {
     is_active: number
     pass_salts: number
     user_type: number
+    intitial_balance: number
     _all: number
   }
 
+
+  export type UsersAvgAggregateInputType = {
+    intitial_balance?: true
+  }
+
+  export type UsersSumAggregateInputType = {
+    intitial_balance?: true
+  }
 
   export type UsersMinAggregateInputType = {
     id?: true
@@ -19892,6 +19960,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -19905,6 +19974,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -19918,6 +19988,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
     _all?: true
   }
 
@@ -19959,6 +20030,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UsersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UsersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UsersMinAggregateInputType
@@ -19989,6 +20072,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UsersCountAggregateInputType | true
+    _avg?: UsersAvgAggregateInputType
+    _sum?: UsersSumAggregateInputType
     _min?: UsersMinAggregateInputType
     _max?: UsersMaxAggregateInputType
   }
@@ -20004,7 +20089,10 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number
     _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
@@ -20034,6 +20122,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
     notifications?: boolean | users$notificationsArgs<ExtArgs>
     posts_metadata?: boolean | users$posts_metadataArgs<ExtArgs>
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
@@ -20058,6 +20147,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -20071,6 +20161,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -20084,9 +20175,10 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type" | "intitial_balance", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     notifications?: boolean | users$notificationsArgs<ExtArgs>
     posts_metadata?: boolean | users$posts_metadataArgs<ExtArgs>
@@ -20128,6 +20220,7 @@ export namespace Prisma {
       is_active: boolean | null
       pass_salts: string | null
       user_type: string | null
+      intitial_balance: number
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -20571,6 +20664,7 @@ export namespace Prisma {
     readonly is_active: FieldRef<"users", 'Boolean'>
     readonly pass_salts: FieldRef<"users", 'String'>
     readonly user_type: FieldRef<"users", 'String'>
+    readonly intitial_balance: FieldRef<"users", 'Float'>
   }
     
 
@@ -21241,7 +21335,8 @@ export namespace Prisma {
   export const LikesScalarFieldEnum: {
     user_id: 'user_id',
     post_id: 'post_id',
-    liked_at: 'liked_at'
+    liked_at: 'liked_at',
+    serial_no: 'serial_no'
   };
 
   export type LikesScalarFieldEnum = (typeof LikesScalarFieldEnum)[keyof typeof LikesScalarFieldEnum]
@@ -21276,7 +21371,6 @@ export namespace Prisma {
     user_id: 'user_id',
     title: 'title',
     summary: 'summary',
-    post_type: 'post_type',
     visibility: 'visibility',
     price: 'price',
     created_at: 'created_at',
@@ -21364,7 +21458,8 @@ export namespace Prisma {
     website: 'website',
     social_links: 'social_links',
     updated_at: 'updated_at',
-    dob: 'dob'
+    dob: 'dob',
+    country: 'country'
   };
 
   export type User_profileScalarFieldEnum = (typeof User_profileScalarFieldEnum)[keyof typeof User_profileScalarFieldEnum]
@@ -21406,7 +21501,8 @@ export namespace Prisma {
     is_verified: 'is_verified',
     is_active: 'is_active',
     pass_salts: 'pass_salts',
-    user_type: 'user_type'
+    user_type: 'user_type',
+    intitial_balance: 'intitial_balance'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -21483,6 +21579,20 @@ export namespace Prisma {
    * Reference to a field of type 'DateTime[]'
    */
   export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
     
 
 
@@ -21721,6 +21831,7 @@ export namespace Prisma {
     user_id?: UuidFilter<"likes"> | string
     post_id?: UuidFilter<"likes"> | string
     liked_at?: DateTimeNullableFilter<"likes"> | Date | string | null
+    serial_no?: BigIntFilter<"likes"> | bigint | number
     posts_metadata?: XOR<Posts_metadataScalarRelationFilter, posts_metadataWhereInput>
   }
 
@@ -21728,11 +21839,12 @@ export namespace Prisma {
     user_id?: SortOrder
     post_id?: SortOrder
     liked_at?: SortOrderInput | SortOrder
+    serial_no?: SortOrder
     posts_metadata?: posts_metadataOrderByWithRelationInput
   }
 
   export type likesWhereUniqueInput = Prisma.AtLeast<{
-    user_id_post_id?: likesUser_idPost_idCompoundUniqueInput
+    serial_no?: bigint | number
     AND?: likesWhereInput | likesWhereInput[]
     OR?: likesWhereInput[]
     NOT?: likesWhereInput | likesWhereInput[]
@@ -21740,15 +21852,18 @@ export namespace Prisma {
     post_id?: UuidFilter<"likes"> | string
     liked_at?: DateTimeNullableFilter<"likes"> | Date | string | null
     posts_metadata?: XOR<Posts_metadataScalarRelationFilter, posts_metadataWhereInput>
-  }, "user_id_post_id">
+  }, "serial_no">
 
   export type likesOrderByWithAggregationInput = {
     user_id?: SortOrder
     post_id?: SortOrder
     liked_at?: SortOrderInput | SortOrder
+    serial_no?: SortOrder
     _count?: likesCountOrderByAggregateInput
+    _avg?: likesAvgOrderByAggregateInput
     _max?: likesMaxOrderByAggregateInput
     _min?: likesMinOrderByAggregateInput
+    _sum?: likesSumOrderByAggregateInput
   }
 
   export type likesScalarWhereWithAggregatesInput = {
@@ -21758,6 +21873,7 @@ export namespace Prisma {
     user_id?: UuidWithAggregatesFilter<"likes"> | string
     post_id?: UuidWithAggregatesFilter<"likes"> | string
     liked_at?: DateTimeNullableWithAggregatesFilter<"likes"> | Date | string | null
+    serial_no?: BigIntWithAggregatesFilter<"likes"> | bigint | number
   }
 
   export type notificationsWhereInput = {
@@ -21890,7 +22006,6 @@ export namespace Prisma {
     user_id?: UuidFilter<"posts_metadata"> | string
     title?: StringNullableFilter<"posts_metadata"> | string | null
     summary?: StringNullableFilter<"posts_metadata"> | string | null
-    post_type?: StringNullableFilter<"posts_metadata"> | string | null
     visibility?: StringNullableFilter<"posts_metadata"> | string | null
     price?: DecimalNullableFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFilter<"posts_metadata"> | Date | string
@@ -21907,7 +22022,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrderInput | SortOrder
     summary?: SortOrderInput | SortOrder
-    post_type?: SortOrderInput | SortOrder
     visibility?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -21927,7 +22041,6 @@ export namespace Prisma {
     user_id?: UuidFilter<"posts_metadata"> | string
     title?: StringNullableFilter<"posts_metadata"> | string | null
     summary?: StringNullableFilter<"posts_metadata"> | string | null
-    post_type?: StringNullableFilter<"posts_metadata"> | string | null
     visibility?: StringNullableFilter<"posts_metadata"> | string | null
     price?: DecimalNullableFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFilter<"posts_metadata"> | Date | string
@@ -21944,7 +22057,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrderInput | SortOrder
     summary?: SortOrderInput | SortOrder
-    post_type?: SortOrderInput | SortOrder
     visibility?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
     created_at?: SortOrder
@@ -21964,7 +22076,6 @@ export namespace Prisma {
     user_id?: UuidWithAggregatesFilter<"posts_metadata"> | string
     title?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
     summary?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
-    post_type?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
     visibility?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
     price?: DecimalNullableWithAggregatesFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeWithAggregatesFilter<"posts_metadata"> | Date | string
@@ -22331,6 +22442,7 @@ export namespace Prisma {
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
+    country?: StringNullableFilter<"user_profile"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }
 
@@ -22344,6 +22456,7 @@ export namespace Prisma {
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
     dob?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     users?: usersOrderByWithRelationInput
   }
 
@@ -22360,6 +22473,7 @@ export namespace Prisma {
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableFilter<"user_profile"> | Date | string | null
+    country?: StringNullableFilter<"user_profile"> | string | null
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
   }, "user_id" | "username">
 
@@ -22373,6 +22487,7 @@ export namespace Prisma {
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
     dob?: SortOrderInput | SortOrder
+    country?: SortOrderInput | SortOrder
     _count?: user_profileCountOrderByAggregateInput
     _max?: user_profileMaxOrderByAggregateInput
     _min?: user_profileMinOrderByAggregateInput
@@ -22391,6 +22506,7 @@ export namespace Prisma {
     social_links?: JsonNullableWithAggregatesFilter<"user_profile">
     updated_at?: DateTimeWithAggregatesFilter<"user_profile"> | Date | string
     dob?: DateTimeNullableWithAggregatesFilter<"user_profile"> | Date | string | null
+    country?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
   }
 
   export type user_securityWhereInput = {
@@ -22539,6 +22655,7 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
     user_type?: StringNullableFilter<"users"> | string | null
+    intitial_balance?: FloatFilter<"users"> | number
     notifications?: NotificationsListRelationFilter
     posts_metadata?: Posts_metadataListRelationFilter
     password_reset_tokens?: Password_reset_tokensListRelationFilter
@@ -22562,6 +22679,7 @@ export namespace Prisma {
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
     user_type?: SortOrderInput | SortOrder
+    intitial_balance?: SortOrder
     notifications?: notificationsOrderByRelationAggregateInput
     posts_metadata?: posts_metadataOrderByRelationAggregateInput
     password_reset_tokens?: password_reset_tokensOrderByRelationAggregateInput
@@ -22588,6 +22706,7 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
     user_type?: StringNullableFilter<"users"> | string | null
+    intitial_balance?: FloatFilter<"users"> | number
     notifications?: NotificationsListRelationFilter
     posts_metadata?: Posts_metadataListRelationFilter
     password_reset_tokens?: Password_reset_tokensListRelationFilter
@@ -22611,9 +22730,12 @@ export namespace Prisma {
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
     user_type?: SortOrderInput | SortOrder
+    intitial_balance?: SortOrder
     _count?: usersCountOrderByAggregateInput
+    _avg?: usersAvgOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
+    _sum?: usersSumOrderByAggregateInput
   }
 
   export type usersScalarWhereWithAggregatesInput = {
@@ -22630,6 +22752,7 @@ export namespace Prisma {
     is_active?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     pass_salts?: StringNullableWithAggregatesFilter<"users"> | string | null
     user_type?: StringNullableWithAggregatesFilter<"users"> | string | null
+    intitial_balance?: FloatWithAggregatesFilter<"users"> | number
   }
 
   export type blockingCreateInput = {
@@ -22798,6 +22921,7 @@ export namespace Prisma {
   export type likesCreateInput = {
     user_id: string
     liked_at?: Date | string | null
+    serial_no?: bigint | number
     posts_metadata: posts_metadataCreateNestedOneWithoutLikesInput
   }
 
@@ -22805,11 +22929,13 @@ export namespace Prisma {
     user_id: string
     post_id: string
     liked_at?: Date | string | null
+    serial_no?: bigint | number
   }
 
   export type likesUpdateInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     liked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serial_no?: BigIntFieldUpdateOperationsInput | bigint | number
     posts_metadata?: posts_metadataUpdateOneRequiredWithoutLikesNestedInput
   }
 
@@ -22817,23 +22943,27 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     post_id?: StringFieldUpdateOperationsInput | string
     liked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serial_no?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
   export type likesCreateManyInput = {
     user_id: string
     post_id: string
     liked_at?: Date | string | null
+    serial_no?: bigint | number
   }
 
   export type likesUpdateManyMutationInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     liked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serial_no?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
   export type likesUncheckedUpdateManyInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     post_id?: StringFieldUpdateOperationsInput | string
     liked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serial_no?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
   export type notificationsCreateInput = {
@@ -22964,7 +23094,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -22981,7 +23110,6 @@ export namespace Prisma {
     user_id: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -22996,7 +23124,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23013,7 +23140,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23029,7 +23155,6 @@ export namespace Prisma {
     user_id: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -23040,7 +23165,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23052,7 +23176,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -23419,6 +23542,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
     users: usersCreateNestedOneWithoutUser_profileInput
   }
 
@@ -23432,6 +23556,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUpdateInput = {
@@ -23443,6 +23568,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
     users?: usersUpdateOneRequiredWithoutUser_profileNestedInput
   }
 
@@ -23456,6 +23582,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileCreateManyInput = {
@@ -23468,6 +23595,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUpdateManyMutationInput = {
@@ -23479,6 +23607,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileUncheckedUpdateManyInput = {
@@ -23491,6 +23620,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_securityCreateInput = {
@@ -23642,6 +23772,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -23665,6 +23796,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -23688,6 +23820,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -23711,6 +23844,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -23734,6 +23868,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
   }
 
   export type usersUpdateManyMutationInput = {
@@ -23747,6 +23882,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -23760,6 +23896,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -24003,27 +24140,60 @@ export namespace Prisma {
     followed_at?: SortOrder
   }
 
-  export type likesUser_idPost_idCompoundUniqueInput = {
-    user_id: string
-    post_id: string
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
   }
 
   export type likesCountOrderByAggregateInput = {
     user_id?: SortOrder
     post_id?: SortOrder
     liked_at?: SortOrder
+    serial_no?: SortOrder
+  }
+
+  export type likesAvgOrderByAggregateInput = {
+    serial_no?: SortOrder
   }
 
   export type likesMaxOrderByAggregateInput = {
     user_id?: SortOrder
     post_id?: SortOrder
     liked_at?: SortOrder
+    serial_no?: SortOrder
   }
 
   export type likesMinOrderByAggregateInput = {
     user_id?: SortOrder
     post_id?: SortOrder
     liked_at?: SortOrder
+    serial_no?: SortOrder
+  }
+
+  export type likesSumOrderByAggregateInput = {
+    serial_no?: SortOrder
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
   }
 
   export type StringNullableFilter<$PrismaModel = never> = {
@@ -24213,7 +24383,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     summary?: SortOrder
-    post_type?: SortOrder
     visibility?: SortOrder
     price?: SortOrder
     created_at?: SortOrder
@@ -24229,7 +24398,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     summary?: SortOrder
-    post_type?: SortOrder
     visibility?: SortOrder
     price?: SortOrder
     created_at?: SortOrder
@@ -24241,7 +24409,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     summary?: SortOrder
-    post_type?: SortOrder
     visibility?: SortOrder
     price?: SortOrder
     created_at?: SortOrder
@@ -24504,6 +24671,7 @@ export namespace Prisma {
     social_links?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type user_profileMaxOrderByAggregateInput = {
@@ -24515,6 +24683,7 @@ export namespace Prisma {
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type user_profileMinOrderByAggregateInput = {
@@ -24526,6 +24695,7 @@ export namespace Prisma {
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
+    country?: SortOrder
   }
 
   export type StringNullableListFilter<$PrismaModel = never> = {
@@ -24600,6 +24770,17 @@ export namespace Prisma {
     created_at?: SortOrder
     is_revoked?: SortOrder
     secret?: SortOrder
+  }
+
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
   export type NotificationsListRelationFilter = {
@@ -24688,6 +24869,11 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
+  }
+
+  export type usersAvgOrderByAggregateInput = {
+    intitial_balance?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
@@ -24701,6 +24887,7 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -24714,6 +24901,27 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
+  }
+
+  export type usersSumOrderByAggregateInput = {
+    intitial_balance?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -24808,6 +25016,14 @@ export namespace Prisma {
     create?: XOR<posts_metadataCreateWithoutLikesInput, posts_metadataUncheckedCreateWithoutLikesInput>
     connectOrCreate?: posts_metadataCreateOrConnectWithoutLikesInput
     connect?: posts_metadataWhereUniqueInput
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
   }
 
   export type posts_metadataUpdateOneRequiredWithoutLikesNestedInput = {
@@ -25309,6 +25525,14 @@ export namespace Prisma {
     connect?: user_sessionsWhereUniqueInput | user_sessionsWhereUniqueInput[]
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type notificationsUpdateManyWithoutSocial_usersNestedInput = {
     create?: XOR<notificationsCreateWithoutSocial_usersInput, notificationsUncheckedCreateWithoutSocial_usersInput> | notificationsCreateWithoutSocial_usersInput[] | notificationsUncheckedCreateWithoutSocial_usersInput[]
     connectOrCreate?: notificationsCreateOrConnectWithoutSocial_usersInput | notificationsCreateOrConnectWithoutSocial_usersInput[]
@@ -25716,6 +25940,44 @@ export namespace Prisma {
     _max?: NestedDateTimeNullableFilter<$PrismaModel>
   }
 
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type NestedBoolNullableFilter<$PrismaModel = never> = {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel> | null
     not?: NestedBoolNullableFilter<$PrismaModel> | boolean | null
@@ -25823,6 +26085,22 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type commentsCreateWithoutOther_commentsInput = {
     comment_id?: string
     user_id: string
@@ -25878,7 +26156,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -25894,7 +26171,6 @@ export namespace Prisma {
     user_id: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -25981,7 +26257,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -25997,7 +26272,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26011,7 +26285,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -26027,7 +26300,6 @@ export namespace Prisma {
     user_id: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -26057,7 +26329,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26073,7 +26344,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26094,6 +26364,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
@@ -26116,6 +26387,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
@@ -26154,6 +26426,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
@@ -26176,6 +26449,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
@@ -26191,7 +26465,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -26207,7 +26480,6 @@ export namespace Prisma {
     user_id: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -26237,7 +26509,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26253,7 +26524,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26294,11 +26564,13 @@ export namespace Prisma {
   export type likesCreateWithoutPosts_metadataInput = {
     user_id: string
     liked_at?: Date | string | null
+    serial_no?: bigint | number
   }
 
   export type likesUncheckedCreateWithoutPosts_metadataInput = {
     user_id: string
     liked_at?: Date | string | null
+    serial_no?: bigint | number
   }
 
   export type likesCreateOrConnectWithoutPosts_metadataInput = {
@@ -26343,6 +26615,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
@@ -26365,6 +26638,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
@@ -26448,6 +26722,7 @@ export namespace Prisma {
     user_id?: UuidFilter<"likes"> | string
     post_id?: UuidFilter<"likes"> | string
     liked_at?: DateTimeNullableFilter<"likes"> | Date | string | null
+    serial_no?: BigIntFilter<"likes"> | bigint | number
   }
 
   export type posts_analyticsUpsertWithoutPosts_metadataInput = {
@@ -26499,6 +26774,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
@@ -26521,6 +26797,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
@@ -26565,7 +26842,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -26581,7 +26857,6 @@ export namespace Prisma {
     user_id: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -26611,7 +26886,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26627,7 +26901,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -26648,6 +26921,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
@@ -26670,6 +26944,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
@@ -26708,6 +26983,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
@@ -26730,6 +27006,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
@@ -26752,6 +27029,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -26774,6 +27052,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -26812,6 +27091,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -26834,6 +27114,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -26856,6 +27137,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -26878,6 +27160,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -26916,6 +27199,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -26938,6 +27222,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -26960,6 +27245,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -26982,6 +27268,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -27020,6 +27307,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -27042,6 +27330,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -27064,6 +27353,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -27086,6 +27376,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -27124,6 +27415,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -27146,6 +27438,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -27168,6 +27461,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -27190,6 +27484,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -27228,6 +27523,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -27250,6 +27546,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -27272,6 +27569,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -27294,6 +27592,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -27332,6 +27631,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -27354,6 +27654,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -27376,6 +27677,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -27398,6 +27700,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     notifications?: notificationsUncheckedCreateNestedManyWithoutSocial_usersInput
     posts_metadata?: posts_metadataUncheckedCreateNestedManyWithoutSocial_usersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -27436,6 +27739,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -27458,6 +27762,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     notifications?: notificationsUncheckedUpdateManyWithoutSocial_usersNestedInput
     posts_metadata?: posts_metadataUncheckedUpdateManyWithoutSocial_usersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -27499,7 +27804,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -27514,7 +27818,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -27651,6 +27954,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileUncheckedCreateWithoutUsersInput = {
@@ -27662,6 +27966,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
     dob?: Date | string | null
+    country?: string | null
   }
 
   export type user_profileCreateOrConnectWithoutUsersInput = {
@@ -27772,7 +28077,6 @@ export namespace Prisma {
     user_id?: UuidFilter<"posts_metadata"> | string
     title?: StringNullableFilter<"posts_metadata"> | string | null
     summary?: StringNullableFilter<"posts_metadata"> | string | null
-    post_type?: StringNullableFilter<"posts_metadata"> | string | null
     visibility?: StringNullableFilter<"posts_metadata"> | string | null
     price?: DecimalNullableFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFilter<"posts_metadata"> | Date | string
@@ -27929,6 +28233,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_profileUncheckedUpdateWithoutUsersInput = {
@@ -27940,6 +28245,7 @@ export namespace Prisma {
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     dob?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    country?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type user_securityUpsertWithoutUsersInput = {
@@ -28046,6 +28352,7 @@ export namespace Prisma {
   export type likesCreateManyPosts_metadataInput = {
     user_id: string
     liked_at?: Date | string | null
+    serial_no?: bigint | number
   }
 
   export type reported_contentCreateManyPosts_metadataInput = {
@@ -28086,16 +28393,19 @@ export namespace Prisma {
   export type likesUpdateWithoutPosts_metadataInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     liked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serial_no?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
   export type likesUncheckedUpdateWithoutPosts_metadataInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     liked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serial_no?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
   export type likesUncheckedUpdateManyWithoutPosts_metadataInput = {
     user_id?: StringFieldUpdateOperationsInput | string
     liked_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    serial_no?: BigIntFieldUpdateOperationsInput | bigint | number
   }
 
   export type reported_contentUpdateWithoutPosts_metadataInput = {
@@ -28137,7 +28447,6 @@ export namespace Prisma {
     id?: string
     title?: string | null
     summary?: string | null
-    post_type?: string | null
     visibility?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     created_at?: Date | string
@@ -28195,7 +28504,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28210,7 +28518,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -28225,7 +28532,6 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     title?: NullableStringFieldUpdateOperationsInput | string | null
     summary?: NullableStringFieldUpdateOperationsInput | string | null
-    post_type?: NullableStringFieldUpdateOperationsInput | string | null
     visibility?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string

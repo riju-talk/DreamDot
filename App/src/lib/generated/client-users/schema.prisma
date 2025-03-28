@@ -2,6 +2,7 @@ generator client {
   provider        = "prisma-client-js"
   output          = "../generated/client-users"
   previewFeatures = ["multiSchema"]
+  binaryTargets   = ["native", "windows", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -120,6 +121,7 @@ model users {
   is_active                                    Boolean?                @default(true)
   pass_salts                                   String?
   user_type                                    String?                 @default("user")
+  intitial_balance                             Float                   @default(50000) @db.Real
   password_reset_tokens                        password_reset_tokens[]
   user_analytics                               user_analytics?
   user_audit_logs                              user_audit_logs[]

@@ -3,17 +3,55 @@ import { useState, useEffect } from 'react';
 import { Layout, Row, Col } from 'antd';
 import Navbar from '../../(components)/Navbar';
 import { Feed, Marketplace, AppSidebar } from './page_components';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { validateToken } from '../../api/middleware/validateToken';
 
 export default function DreamdotLayout() {
   const { uuid } = useParams(); // Extract uuid from the URL
+  const router = useRouter();
+
   const [isMounted, setIsMounted] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
 
-  if (!isMounted) return null;
+    // const validateToken = async () => {
+    //   const token = localStorage.getItem('token');
+    //   if (!token) {
+    //     router.push('/');
+    //     return;
+    //   }
+
+    //   try {
+    //     const res = await fetch('/api/middleware', {
+    //       method: 'POST',
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     });
+
+    //     if (!res.ok) throw new Error('Unauthorized');
+    //     const { user } = await res.json();
+    //     console.log('Authenticated user:', user);
+    //     setIsAuthenticated(true);
+    //   } catch (error) {
+    //     console.error('Token validation failed:', error);
+    //     router.push('/');
+    //   } finally {
+    //     setLoading(false);
+    //   }
+    // };
+
+    validateToken({ setIsAuthenticated, setLoading, router,uuid });
+  }, [router]);
+
+  // Avoid rendering until mounted and authenticated
+  if (!isMounted || loading) return <div className='h-screen flex justify-center items-center'>Loading...</div>;
+
+  // If token is invalid, redirect to /auth/
+  if (!isAuthenticated) return null;
 
   return (
     <Layout className="overflow-hidden">

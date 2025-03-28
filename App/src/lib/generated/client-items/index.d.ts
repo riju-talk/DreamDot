@@ -29,11 +29,6 @@ export type items = $Result.DefaultSelection<Prisma.$itemsPayload>
  */
 export type monetization = $Result.DefaultSelection<Prisma.$monetizationPayload>
 /**
- * Model pay_per_view_access
- * 
- */
-export type pay_per_view_access = $Result.DefaultSelection<Prisma.$pay_per_view_accessPayload>
-/**
  * Model reviews
  * This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
  */
@@ -253,16 +248,6 @@ export class PrismaClient<
     * ```
     */
   get monetization(): Prisma.monetizationDelegate<ExtArgs, ClientOptions>;
-
-  /**
-   * `prisma.pay_per_view_access`: Exposes CRUD operations for the **pay_per_view_access** model.
-    * Example usage:
-    * ```ts
-    * // Fetch zero or more Pay_per_view_accesses
-    * const pay_per_view_accesses = await prisma.pay_per_view_access.findMany()
-    * ```
-    */
-  get pay_per_view_access(): Prisma.pay_per_view_accessDelegate<ExtArgs, ClientOptions>;
 
   /**
    * `prisma.reviews`: Exposes CRUD operations for the **reviews** model.
@@ -836,7 +821,6 @@ export namespace Prisma {
     favorites: 'favorites',
     items: 'items',
     monetization: 'monetization',
-    pay_per_view_access: 'pay_per_view_access',
     reviews: 'reviews',
     transactions: 'transactions',
     password_reset_tokens: 'password_reset_tokens',
@@ -868,7 +852,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "favorites" | "items" | "monetization" | "pay_per_view_access" | "reviews" | "transactions" | "password_reset_tokens" | "user_analytics" | "user_audit_logs" | "user_blocklist" | "user_certificates" | "user_profile" | "user_security" | "user_sessions" | "users" | "collection_items" | "collections"
+      modelProps: "favorites" | "items" | "monetization" | "reviews" | "transactions" | "password_reset_tokens" | "user_analytics" | "user_audit_logs" | "user_blocklist" | "user_certificates" | "user_profile" | "user_security" | "user_sessions" | "users" | "collection_items" | "collections"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1091,80 +1075,6 @@ export namespace Prisma {
           count: {
             args: Prisma.monetizationCountArgs<ExtArgs>
             result: $Utils.Optional<MonetizationCountAggregateOutputType> | number
-          }
-        }
-      }
-      pay_per_view_access: {
-        payload: Prisma.$pay_per_view_accessPayload<ExtArgs>
-        fields: Prisma.pay_per_view_accessFieldRefs
-        operations: {
-          findUnique: {
-            args: Prisma.pay_per_view_accessFindUniqueArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload> | null
-          }
-          findUniqueOrThrow: {
-            args: Prisma.pay_per_view_accessFindUniqueOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>
-          }
-          findFirst: {
-            args: Prisma.pay_per_view_accessFindFirstArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload> | null
-          }
-          findFirstOrThrow: {
-            args: Prisma.pay_per_view_accessFindFirstOrThrowArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>
-          }
-          findMany: {
-            args: Prisma.pay_per_view_accessFindManyArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>[]
-          }
-          create: {
-            args: Prisma.pay_per_view_accessCreateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>
-          }
-          createMany: {
-            args: Prisma.pay_per_view_accessCreateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          createManyAndReturn: {
-            args: Prisma.pay_per_view_accessCreateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>[]
-          }
-          delete: {
-            args: Prisma.pay_per_view_accessDeleteArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>
-          }
-          update: {
-            args: Prisma.pay_per_view_accessUpdateArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>
-          }
-          deleteMany: {
-            args: Prisma.pay_per_view_accessDeleteManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateMany: {
-            args: Prisma.pay_per_view_accessUpdateManyArgs<ExtArgs>
-            result: BatchPayload
-          }
-          updateManyAndReturn: {
-            args: Prisma.pay_per_view_accessUpdateManyAndReturnArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>[]
-          }
-          upsert: {
-            args: Prisma.pay_per_view_accessUpsertArgs<ExtArgs>
-            result: $Utils.PayloadToResult<Prisma.$pay_per_view_accessPayload>
-          }
-          aggregate: {
-            args: Prisma.Pay_per_view_accessAggregateArgs<ExtArgs>
-            result: $Utils.Optional<AggregatePay_per_view_access>
-          }
-          groupBy: {
-            args: Prisma.pay_per_view_accessGroupByArgs<ExtArgs>
-            result: $Utils.Optional<Pay_per_view_accessGroupByOutputType>[]
-          }
-          count: {
-            args: Prisma.pay_per_view_accessCountArgs<ExtArgs>
-            result: $Utils.Optional<Pay_per_view_accessCountAggregateOutputType> | number
           }
         }
       }
@@ -2217,7 +2127,6 @@ export namespace Prisma {
     favorites?: favoritesOmit
     items?: itemsOmit
     monetization?: monetizationOmit
-    pay_per_view_access?: pay_per_view_accessOmit
     reviews?: reviewsOmit
     transactions?: transactionsOmit
     password_reset_tokens?: password_reset_tokensOmit
@@ -2328,7 +2237,6 @@ export namespace Prisma {
     collection_items: number
     favorites: number
     monetization: number
-    pay_per_view_access: number
     reviews: number
     transactions: number
   }
@@ -2337,7 +2245,6 @@ export namespace Prisma {
     collection_items?: boolean | ItemsCountOutputTypeCountCollection_itemsArgs
     favorites?: boolean | ItemsCountOutputTypeCountFavoritesArgs
     monetization?: boolean | ItemsCountOutputTypeCountMonetizationArgs
-    pay_per_view_access?: boolean | ItemsCountOutputTypeCountPay_per_view_accessArgs
     reviews?: boolean | ItemsCountOutputTypeCountReviewsArgs
     transactions?: boolean | ItemsCountOutputTypeCountTransactionsArgs
   }
@@ -2377,13 +2284,6 @@ export namespace Prisma {
   /**
    * ItemsCountOutputType without action
    */
-  export type ItemsCountOutputTypeCountPay_per_view_accessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: pay_per_view_accessWhereInput
-  }
-
-  /**
-   * ItemsCountOutputType without action
-   */
   export type ItemsCountOutputTypeCountReviewsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: reviewsWhereInput
   }
@@ -2403,7 +2303,6 @@ export namespace Prisma {
   export type UsersCountOutputType = {
     favorites: number
     items: number
-    pay_per_view_access: number
     reviews: number
     transactions: number
     password_reset_tokens: number
@@ -2414,7 +2313,6 @@ export namespace Prisma {
   export type UsersCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     favorites?: boolean | UsersCountOutputTypeCountFavoritesArgs
     items?: boolean | UsersCountOutputTypeCountItemsArgs
-    pay_per_view_access?: boolean | UsersCountOutputTypeCountPay_per_view_accessArgs
     reviews?: boolean | UsersCountOutputTypeCountReviewsArgs
     transactions?: boolean | UsersCountOutputTypeCountTransactionsArgs
     password_reset_tokens?: boolean | UsersCountOutputTypeCountPassword_reset_tokensArgs
@@ -2445,13 +2343,6 @@ export namespace Prisma {
    */
   export type UsersCountOutputTypeCountItemsArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: itemsWhereInput
-  }
-
-  /**
-   * UsersCountOutputType without action
-   */
-  export type UsersCountOutputTypeCountPay_per_view_accessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: pay_per_view_accessWhereInput
   }
 
   /**
@@ -3603,7 +3494,6 @@ export namespace Prisma {
     user_id: string | null
     title: string | null
     description: string | null
-    media_url: string | null
     category: string | null
     price: Decimal | null
     monetization_type: string | null
@@ -3616,7 +3506,6 @@ export namespace Prisma {
     user_id: string | null
     title: string | null
     description: string | null
-    media_url: string | null
     category: string | null
     price: Decimal | null
     monetization_type: string | null
@@ -3629,7 +3518,6 @@ export namespace Prisma {
     user_id: number
     title: number
     description: number
-    media_url: number
     category: number
     price: number
     monetization_type: number
@@ -3652,7 +3540,6 @@ export namespace Prisma {
     user_id?: true
     title?: true
     description?: true
-    media_url?: true
     category?: true
     price?: true
     monetization_type?: true
@@ -3665,7 +3552,6 @@ export namespace Prisma {
     user_id?: true
     title?: true
     description?: true
-    media_url?: true
     category?: true
     price?: true
     monetization_type?: true
@@ -3678,7 +3564,6 @@ export namespace Prisma {
     user_id?: true
     title?: true
     description?: true
-    media_url?: true
     category?: true
     price?: true
     monetization_type?: true
@@ -3778,7 +3663,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description: string | null
-    media_url: string | null
     category: string | null
     price: Decimal | null
     monetization_type: string | null
@@ -3810,7 +3694,6 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     description?: boolean
-    media_url?: boolean
     category?: boolean
     price?: boolean
     monetization_type?: boolean
@@ -3820,7 +3703,6 @@ export namespace Prisma {
     favorites?: boolean | items$favoritesArgs<ExtArgs>
     users?: boolean | usersDefaultArgs<ExtArgs>
     monetization?: boolean | items$monetizationArgs<ExtArgs>
-    pay_per_view_access?: boolean | items$pay_per_view_accessArgs<ExtArgs>
     reviews?: boolean | items$reviewsArgs<ExtArgs>
     transactions?: boolean | items$transactionsArgs<ExtArgs>
     _count?: boolean | ItemsCountOutputTypeDefaultArgs<ExtArgs>
@@ -3831,7 +3713,6 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     description?: boolean
-    media_url?: boolean
     category?: boolean
     price?: boolean
     monetization_type?: boolean
@@ -3845,7 +3726,6 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     description?: boolean
-    media_url?: boolean
     category?: boolean
     price?: boolean
     monetization_type?: boolean
@@ -3859,7 +3739,6 @@ export namespace Prisma {
     user_id?: boolean
     title?: boolean
     description?: boolean
-    media_url?: boolean
     category?: boolean
     price?: boolean
     monetization_type?: boolean
@@ -3867,13 +3746,12 @@ export namespace Prisma {
     created_at?: boolean
   }
 
-  export type itemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"item_id" | "user_id" | "title" | "description" | "media_url" | "category" | "price" | "monetization_type" | "availability" | "created_at", ExtArgs["result"]["items"]>
+  export type itemsOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"item_id" | "user_id" | "title" | "description" | "category" | "price" | "monetization_type" | "availability" | "created_at", ExtArgs["result"]["items"]>
   export type itemsInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     collection_items?: boolean | items$collection_itemsArgs<ExtArgs>
     favorites?: boolean | items$favoritesArgs<ExtArgs>
     users?: boolean | usersDefaultArgs<ExtArgs>
     monetization?: boolean | items$monetizationArgs<ExtArgs>
-    pay_per_view_access?: boolean | items$pay_per_view_accessArgs<ExtArgs>
     reviews?: boolean | items$reviewsArgs<ExtArgs>
     transactions?: boolean | items$transactionsArgs<ExtArgs>
     _count?: boolean | ItemsCountOutputTypeDefaultArgs<ExtArgs>
@@ -3892,7 +3770,6 @@ export namespace Prisma {
       favorites: Prisma.$favoritesPayload<ExtArgs>[]
       users: Prisma.$usersPayload<ExtArgs>
       monetization: Prisma.$monetizationPayload<ExtArgs>[]
-      pay_per_view_access: Prisma.$pay_per_view_accessPayload<ExtArgs>[]
       reviews: Prisma.$reviewsPayload<ExtArgs>[]
       transactions: Prisma.$transactionsPayload<ExtArgs>[]
     }
@@ -3901,7 +3778,6 @@ export namespace Prisma {
       user_id: string
       title: string
       description: string | null
-      media_url: string | null
       category: string | null
       price: Prisma.Decimal | null
       monetization_type: string | null
@@ -4305,7 +4181,6 @@ export namespace Prisma {
     favorites<T extends items$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, items$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$favoritesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
     monetization<T extends items$monetizationArgs<ExtArgs> = {}>(args?: Subset<T, items$monetizationArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$monetizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    pay_per_view_access<T extends items$pay_per_view_accessArgs<ExtArgs> = {}>(args?: Subset<T, items$pay_per_view_accessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends items$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, items$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends items$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, items$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$transactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
@@ -4341,7 +4216,6 @@ export namespace Prisma {
     readonly user_id: FieldRef<"items", 'String'>
     readonly title: FieldRef<"items", 'String'>
     readonly description: FieldRef<"items", 'String'>
-    readonly media_url: FieldRef<"items", 'String'>
     readonly category: FieldRef<"items", 'String'>
     readonly price: FieldRef<"items", 'Decimal'>
     readonly monetization_type: FieldRef<"items", 'String'>
@@ -4812,30 +4686,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: MonetizationScalarFieldEnum | MonetizationScalarFieldEnum[]
-  }
-
-  /**
-   * items.pay_per_view_access
-   */
-  export type items$pay_per_view_accessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    where?: pay_per_view_accessWhereInput
-    orderBy?: pay_per_view_accessOrderByWithRelationInput | pay_per_view_accessOrderByWithRelationInput[]
-    cursor?: pay_per_view_accessWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Pay_per_view_accessScalarFieldEnum | Pay_per_view_accessScalarFieldEnum[]
   }
 
   /**
@@ -6007,1072 +5857,6 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: monetizationInclude<ExtArgs> | null
-  }
-
-
-  /**
-   * Model pay_per_view_access
-   */
-
-  export type AggregatePay_per_view_access = {
-    _count: Pay_per_view_accessCountAggregateOutputType | null
-    _min: Pay_per_view_accessMinAggregateOutputType | null
-    _max: Pay_per_view_accessMaxAggregateOutputType | null
-  }
-
-  export type Pay_per_view_accessMinAggregateOutputType = {
-    access_id: string | null
-    user_id: string | null
-    item_id: string | null
-    access_expiry: Date | null
-    created_at: Date | null
-  }
-
-  export type Pay_per_view_accessMaxAggregateOutputType = {
-    access_id: string | null
-    user_id: string | null
-    item_id: string | null
-    access_expiry: Date | null
-    created_at: Date | null
-  }
-
-  export type Pay_per_view_accessCountAggregateOutputType = {
-    access_id: number
-    user_id: number
-    item_id: number
-    access_expiry: number
-    created_at: number
-    _all: number
-  }
-
-
-  export type Pay_per_view_accessMinAggregateInputType = {
-    access_id?: true
-    user_id?: true
-    item_id?: true
-    access_expiry?: true
-    created_at?: true
-  }
-
-  export type Pay_per_view_accessMaxAggregateInputType = {
-    access_id?: true
-    user_id?: true
-    item_id?: true
-    access_expiry?: true
-    created_at?: true
-  }
-
-  export type Pay_per_view_accessCountAggregateInputType = {
-    access_id?: true
-    user_id?: true
-    item_id?: true
-    access_expiry?: true
-    created_at?: true
-    _all?: true
-  }
-
-  export type Pay_per_view_accessAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which pay_per_view_access to aggregate.
-     */
-    where?: pay_per_view_accessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of pay_per_view_accesses to fetch.
-     */
-    orderBy?: pay_per_view_accessOrderByWithRelationInput | pay_per_view_accessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the start position
-     */
-    cursor?: pay_per_view_accessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` pay_per_view_accesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` pay_per_view_accesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Count returned pay_per_view_accesses
-    **/
-    _count?: true | Pay_per_view_accessCountAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the minimum value
-    **/
-    _min?: Pay_per_view_accessMinAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to find the maximum value
-    **/
-    _max?: Pay_per_view_accessMaxAggregateInputType
-  }
-
-  export type GetPay_per_view_accessAggregateType<T extends Pay_per_view_accessAggregateArgs> = {
-        [P in keyof T & keyof AggregatePay_per_view_access]: P extends '_count' | 'count'
-      ? T[P] extends true
-        ? number
-        : GetScalarType<T[P], AggregatePay_per_view_access[P]>
-      : GetScalarType<T[P], AggregatePay_per_view_access[P]>
-  }
-
-
-
-
-  export type pay_per_view_accessGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    where?: pay_per_view_accessWhereInput
-    orderBy?: pay_per_view_accessOrderByWithAggregationInput | pay_per_view_accessOrderByWithAggregationInput[]
-    by: Pay_per_view_accessScalarFieldEnum[] | Pay_per_view_accessScalarFieldEnum
-    having?: pay_per_view_accessScalarWhereWithAggregatesInput
-    take?: number
-    skip?: number
-    _count?: Pay_per_view_accessCountAggregateInputType | true
-    _min?: Pay_per_view_accessMinAggregateInputType
-    _max?: Pay_per_view_accessMaxAggregateInputType
-  }
-
-  export type Pay_per_view_accessGroupByOutputType = {
-    access_id: string
-    user_id: string
-    item_id: string
-    access_expiry: Date
-    created_at: Date | null
-    _count: Pay_per_view_accessCountAggregateOutputType | null
-    _min: Pay_per_view_accessMinAggregateOutputType | null
-    _max: Pay_per_view_accessMaxAggregateOutputType | null
-  }
-
-  type GetPay_per_view_accessGroupByPayload<T extends pay_per_view_accessGroupByArgs> = Prisma.PrismaPromise<
-    Array<
-      PickEnumerable<Pay_per_view_accessGroupByOutputType, T['by']> &
-        {
-          [P in ((keyof T) & (keyof Pay_per_view_accessGroupByOutputType))]: P extends '_count'
-            ? T[P] extends boolean
-              ? number
-              : GetScalarType<T[P], Pay_per_view_accessGroupByOutputType[P]>
-            : GetScalarType<T[P], Pay_per_view_accessGroupByOutputType[P]>
-        }
-      >
-    >
-
-
-  export type pay_per_view_accessSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    access_id?: boolean
-    user_id?: boolean
-    item_id?: boolean
-    access_expiry?: boolean
-    created_at?: boolean
-    items?: boolean | itemsDefaultArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["pay_per_view_access"]>
-
-  export type pay_per_view_accessSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    access_id?: boolean
-    user_id?: boolean
-    item_id?: boolean
-    access_expiry?: boolean
-    created_at?: boolean
-    items?: boolean | itemsDefaultArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["pay_per_view_access"]>
-
-  export type pay_per_view_accessSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
-    access_id?: boolean
-    user_id?: boolean
-    item_id?: boolean
-    access_expiry?: boolean
-    created_at?: boolean
-    items?: boolean | itemsDefaultArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-  }, ExtArgs["result"]["pay_per_view_access"]>
-
-  export type pay_per_view_accessSelectScalar = {
-    access_id?: boolean
-    user_id?: boolean
-    item_id?: boolean
-    access_expiry?: boolean
-    created_at?: boolean
-  }
-
-  export type pay_per_view_accessOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"access_id" | "user_id" | "item_id" | "access_expiry" | "created_at", ExtArgs["result"]["pay_per_view_access"]>
-  export type pay_per_view_accessInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    items?: boolean | itemsDefaultArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-  }
-  export type pay_per_view_accessIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    items?: boolean | itemsDefaultArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-  }
-  export type pay_per_view_accessIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    items?: boolean | itemsDefaultArgs<ExtArgs>
-    users?: boolean | usersDefaultArgs<ExtArgs>
-  }
-
-  export type $pay_per_view_accessPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    name: "pay_per_view_access"
-    objects: {
-      items: Prisma.$itemsPayload<ExtArgs>
-      users: Prisma.$usersPayload<ExtArgs>
-    }
-    scalars: $Extensions.GetPayloadResult<{
-      access_id: string
-      user_id: string
-      item_id: string
-      access_expiry: Date
-      created_at: Date | null
-    }, ExtArgs["result"]["pay_per_view_access"]>
-    composites: {}
-  }
-
-  type pay_per_view_accessGetPayload<S extends boolean | null | undefined | pay_per_view_accessDefaultArgs> = $Result.GetResult<Prisma.$pay_per_view_accessPayload, S>
-
-  type pay_per_view_accessCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
-    Omit<pay_per_view_accessFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
-      select?: Pay_per_view_accessCountAggregateInputType | true
-    }
-
-  export interface pay_per_view_accessDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
-    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['pay_per_view_access'], meta: { name: 'pay_per_view_access' } }
-    /**
-     * Find zero or one Pay_per_view_access that matches the filter.
-     * @param {pay_per_view_accessFindUniqueArgs} args - Arguments to find a Pay_per_view_access
-     * @example
-     * // Get one Pay_per_view_access
-     * const pay_per_view_access = await prisma.pay_per_view_access.findUnique({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUnique<T extends pay_per_view_accessFindUniqueArgs>(args: SelectSubset<T, pay_per_view_accessFindUniqueArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find one Pay_per_view_access that matches the filter or throw an error with `error.code='P2025'`
-     * if no matches were found.
-     * @param {pay_per_view_accessFindUniqueOrThrowArgs} args - Arguments to find a Pay_per_view_access
-     * @example
-     * // Get one Pay_per_view_access
-     * const pay_per_view_access = await prisma.pay_per_view_access.findUniqueOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findUniqueOrThrow<T extends pay_per_view_accessFindUniqueOrThrowArgs>(args: SelectSubset<T, pay_per_view_accessFindUniqueOrThrowArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Pay_per_view_access that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {pay_per_view_accessFindFirstArgs} args - Arguments to find a Pay_per_view_access
-     * @example
-     * // Get one Pay_per_view_access
-     * const pay_per_view_access = await prisma.pay_per_view_access.findFirst({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirst<T extends pay_per_view_accessFindFirstArgs>(args?: SelectSubset<T, pay_per_view_accessFindFirstArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find the first Pay_per_view_access that matches the filter or
-     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {pay_per_view_accessFindFirstOrThrowArgs} args - Arguments to find a Pay_per_view_access
-     * @example
-     * // Get one Pay_per_view_access
-     * const pay_per_view_access = await prisma.pay_per_view_access.findFirstOrThrow({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     */
-    findFirstOrThrow<T extends pay_per_view_accessFindFirstOrThrowArgs>(args?: SelectSubset<T, pay_per_view_accessFindFirstOrThrowArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Find zero or more Pay_per_view_accesses that matches the filter.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {pay_per_view_accessFindManyArgs} args - Arguments to filter and select certain fields only.
-     * @example
-     * // Get all Pay_per_view_accesses
-     * const pay_per_view_accesses = await prisma.pay_per_view_access.findMany()
-     * 
-     * // Get first 10 Pay_per_view_accesses
-     * const pay_per_view_accesses = await prisma.pay_per_view_access.findMany({ take: 10 })
-     * 
-     * // Only select the `access_id`
-     * const pay_per_view_accessWithAccess_idOnly = await prisma.pay_per_view_access.findMany({ select: { access_id: true } })
-     * 
-     */
-    findMany<T extends pay_per_view_accessFindManyArgs>(args?: SelectSubset<T, pay_per_view_accessFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
-
-    /**
-     * Create a Pay_per_view_access.
-     * @param {pay_per_view_accessCreateArgs} args - Arguments to create a Pay_per_view_access.
-     * @example
-     * // Create one Pay_per_view_access
-     * const Pay_per_view_access = await prisma.pay_per_view_access.create({
-     *   data: {
-     *     // ... data to create a Pay_per_view_access
-     *   }
-     * })
-     * 
-     */
-    create<T extends pay_per_view_accessCreateArgs>(args: SelectSubset<T, pay_per_view_accessCreateArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Create many Pay_per_view_accesses.
-     * @param {pay_per_view_accessCreateManyArgs} args - Arguments to create many Pay_per_view_accesses.
-     * @example
-     * // Create many Pay_per_view_accesses
-     * const pay_per_view_access = await prisma.pay_per_view_access.createMany({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     *     
-     */
-    createMany<T extends pay_per_view_accessCreateManyArgs>(args?: SelectSubset<T, pay_per_view_accessCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Create many Pay_per_view_accesses and returns the data saved in the database.
-     * @param {pay_per_view_accessCreateManyAndReturnArgs} args - Arguments to create many Pay_per_view_accesses.
-     * @example
-     * // Create many Pay_per_view_accesses
-     * const pay_per_view_access = await prisma.pay_per_view_access.createManyAndReturn({
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Create many Pay_per_view_accesses and only return the `access_id`
-     * const pay_per_view_accessWithAccess_idOnly = await prisma.pay_per_view_access.createManyAndReturn({
-     *   select: { access_id: true },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    createManyAndReturn<T extends pay_per_view_accessCreateManyAndReturnArgs>(args?: SelectSubset<T, pay_per_view_accessCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Delete a Pay_per_view_access.
-     * @param {pay_per_view_accessDeleteArgs} args - Arguments to delete one Pay_per_view_access.
-     * @example
-     * // Delete one Pay_per_view_access
-     * const Pay_per_view_access = await prisma.pay_per_view_access.delete({
-     *   where: {
-     *     // ... filter to delete one Pay_per_view_access
-     *   }
-     * })
-     * 
-     */
-    delete<T extends pay_per_view_accessDeleteArgs>(args: SelectSubset<T, pay_per_view_accessDeleteArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Update one Pay_per_view_access.
-     * @param {pay_per_view_accessUpdateArgs} args - Arguments to update one Pay_per_view_access.
-     * @example
-     * // Update one Pay_per_view_access
-     * const pay_per_view_access = await prisma.pay_per_view_access.update({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    update<T extends pay_per_view_accessUpdateArgs>(args: SelectSubset<T, pay_per_view_accessUpdateArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-    /**
-     * Delete zero or more Pay_per_view_accesses.
-     * @param {pay_per_view_accessDeleteManyArgs} args - Arguments to filter Pay_per_view_accesses to delete.
-     * @example
-     * // Delete a few Pay_per_view_accesses
-     * const { count } = await prisma.pay_per_view_access.deleteMany({
-     *   where: {
-     *     // ... provide filter here
-     *   }
-     * })
-     * 
-     */
-    deleteMany<T extends pay_per_view_accessDeleteManyArgs>(args?: SelectSubset<T, pay_per_view_accessDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Pay_per_view_accesses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {pay_per_view_accessUpdateManyArgs} args - Arguments to update one or more rows.
-     * @example
-     * // Update many Pay_per_view_accesses
-     * const pay_per_view_access = await prisma.pay_per_view_access.updateMany({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: {
-     *     // ... provide data here
-     *   }
-     * })
-     * 
-     */
-    updateMany<T extends pay_per_view_accessUpdateManyArgs>(args: SelectSubset<T, pay_per_view_accessUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
-
-    /**
-     * Update zero or more Pay_per_view_accesses and returns the data updated in the database.
-     * @param {pay_per_view_accessUpdateManyAndReturnArgs} args - Arguments to update many Pay_per_view_accesses.
-     * @example
-     * // Update many Pay_per_view_accesses
-     * const pay_per_view_access = await prisma.pay_per_view_access.updateManyAndReturn({
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * 
-     * // Update zero or more Pay_per_view_accesses and only return the `access_id`
-     * const pay_per_view_accessWithAccess_idOnly = await prisma.pay_per_view_access.updateManyAndReturn({
-     *   select: { access_id: true },
-     *   where: {
-     *     // ... provide filter here
-     *   },
-     *   data: [
-     *     // ... provide data here
-     *   ]
-     * })
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * 
-     */
-    updateManyAndReturn<T extends pay_per_view_accessUpdateManyAndReturnArgs>(args: SelectSubset<T, pay_per_view_accessUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
-
-    /**
-     * Create or update one Pay_per_view_access.
-     * @param {pay_per_view_accessUpsertArgs} args - Arguments to update or create a Pay_per_view_access.
-     * @example
-     * // Update or create a Pay_per_view_access
-     * const pay_per_view_access = await prisma.pay_per_view_access.upsert({
-     *   create: {
-     *     // ... data to create a Pay_per_view_access
-     *   },
-     *   update: {
-     *     // ... in case it already exists, update
-     *   },
-     *   where: {
-     *     // ... the filter for the Pay_per_view_access we want to update
-     *   }
-     * })
-     */
-    upsert<T extends pay_per_view_accessUpsertArgs>(args: SelectSubset<T, pay_per_view_accessUpsertArgs<ExtArgs>>): Prisma__pay_per_view_accessClient<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
-
-
-    /**
-     * Count the number of Pay_per_view_accesses.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {pay_per_view_accessCountArgs} args - Arguments to filter Pay_per_view_accesses to count.
-     * @example
-     * // Count the number of Pay_per_view_accesses
-     * const count = await prisma.pay_per_view_access.count({
-     *   where: {
-     *     // ... the filter for the Pay_per_view_accesses we want to count
-     *   }
-     * })
-    **/
-    count<T extends pay_per_view_accessCountArgs>(
-      args?: Subset<T, pay_per_view_accessCountArgs>,
-    ): Prisma.PrismaPromise<
-      T extends $Utils.Record<'select', any>
-        ? T['select'] extends true
-          ? number
-          : GetScalarType<T['select'], Pay_per_view_accessCountAggregateOutputType>
-        : number
-    >
-
-    /**
-     * Allows you to perform aggregations operations on a Pay_per_view_access.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {Pay_per_view_accessAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
-     * @example
-     * // Ordered by age ascending
-     * // Where email contains prisma.io
-     * // Limited to the 10 users
-     * const aggregations = await prisma.user.aggregate({
-     *   _avg: {
-     *     age: true,
-     *   },
-     *   where: {
-     *     email: {
-     *       contains: "prisma.io",
-     *     },
-     *   },
-     *   orderBy: {
-     *     age: "asc",
-     *   },
-     *   take: 10,
-     * })
-    **/
-    aggregate<T extends Pay_per_view_accessAggregateArgs>(args: Subset<T, Pay_per_view_accessAggregateArgs>): Prisma.PrismaPromise<GetPay_per_view_accessAggregateType<T>>
-
-    /**
-     * Group by Pay_per_view_access.
-     * Note, that providing `undefined` is treated as the value not being there.
-     * Read more here: https://pris.ly/d/null-undefined
-     * @param {pay_per_view_accessGroupByArgs} args - Group by arguments.
-     * @example
-     * // Group by city, order by createdAt, get count
-     * const result = await prisma.user.groupBy({
-     *   by: ['city', 'createdAt'],
-     *   orderBy: {
-     *     createdAt: true
-     *   },
-     *   _count: {
-     *     _all: true
-     *   },
-     * })
-     * 
-    **/
-    groupBy<
-      T extends pay_per_view_accessGroupByArgs,
-      HasSelectOrTake extends Or<
-        Extends<'skip', Keys<T>>,
-        Extends<'take', Keys<T>>
-      >,
-      OrderByArg extends True extends HasSelectOrTake
-        ? { orderBy: pay_per_view_accessGroupByArgs['orderBy'] }
-        : { orderBy?: pay_per_view_accessGroupByArgs['orderBy'] },
-      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
-      ByFields extends MaybeTupleToUnion<T['by']>,
-      ByValid extends Has<ByFields, OrderFields>,
-      HavingFields extends GetHavingFields<T['having']>,
-      HavingValid extends Has<ByFields, HavingFields>,
-      ByEmpty extends T['by'] extends never[] ? True : False,
-      InputErrors extends ByEmpty extends True
-      ? `Error: "by" must not be empty.`
-      : HavingValid extends False
-      ? {
-          [P in HavingFields]: P extends ByFields
-            ? never
-            : P extends string
-            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
-            : [
-                Error,
-                'Field ',
-                P,
-                ` in "having" needs to be provided in "by"`,
-              ]
-        }[HavingFields]
-      : 'take' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "take", you also need to provide "orderBy"'
-      : 'skip' extends Keys<T>
-      ? 'orderBy' extends Keys<T>
-        ? ByValid extends True
-          ? {}
-          : {
-              [P in OrderFields]: P extends ByFields
-                ? never
-                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-            }[OrderFields]
-        : 'Error: If you provide "skip", you also need to provide "orderBy"'
-      : ByValid extends True
-      ? {}
-      : {
-          [P in OrderFields]: P extends ByFields
-            ? never
-            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
-        }[OrderFields]
-    >(args: SubsetIntersection<T, pay_per_view_accessGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetPay_per_view_accessGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
-  /**
-   * Fields of the pay_per_view_access model
-   */
-  readonly fields: pay_per_view_accessFieldRefs;
-  }
-
-  /**
-   * The delegate class that acts as a "Promise-like" for pay_per_view_access.
-   * Why is this prefixed with `Prisma__`?
-   * Because we want to prevent naming conflicts as mentioned in
-   * https://github.com/prisma/prisma-client-js/issues/707
-   */
-  export interface Prisma__pay_per_view_accessClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
-    readonly [Symbol.toStringTag]: "PrismaPromise"
-    items<T extends itemsDefaultArgs<ExtArgs> = {}>(args?: Subset<T, itemsDefaultArgs<ExtArgs>>): Prisma__itemsClient<$Result.GetResult<Prisma.$itemsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    users<T extends usersDefaultArgs<ExtArgs> = {}>(args?: Subset<T, usersDefaultArgs<ExtArgs>>): Prisma__usersClient<$Result.GetResult<Prisma.$usersPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-    /**
-     * Attaches callbacks for the resolution and/or rejection of the Promise.
-     * @param onfulfilled The callback to execute when the Promise is resolved.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of which ever callback is executed.
-     */
-    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
-    /**
-     * Attaches a callback for only the rejection of the Promise.
-     * @param onrejected The callback to execute when the Promise is rejected.
-     * @returns A Promise for the completion of the callback.
-     */
-    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
-    /**
-     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
-     * resolved value cannot be modified from the callback.
-     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
-     * @returns A Promise for the completion of the callback.
-     */
-    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
-  }
-
-
-
-
-  /**
-   * Fields of the pay_per_view_access model
-   */ 
-  interface pay_per_view_accessFieldRefs {
-    readonly access_id: FieldRef<"pay_per_view_access", 'String'>
-    readonly user_id: FieldRef<"pay_per_view_access", 'String'>
-    readonly item_id: FieldRef<"pay_per_view_access", 'String'>
-    readonly access_expiry: FieldRef<"pay_per_view_access", 'DateTime'>
-    readonly created_at: FieldRef<"pay_per_view_access", 'DateTime'>
-  }
-    
-
-  // Custom InputTypes
-  /**
-   * pay_per_view_access findUnique
-   */
-  export type pay_per_view_accessFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * Filter, which pay_per_view_access to fetch.
-     */
-    where: pay_per_view_accessWhereUniqueInput
-  }
-
-  /**
-   * pay_per_view_access findUniqueOrThrow
-   */
-  export type pay_per_view_accessFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * Filter, which pay_per_view_access to fetch.
-     */
-    where: pay_per_view_accessWhereUniqueInput
-  }
-
-  /**
-   * pay_per_view_access findFirst
-   */
-  export type pay_per_view_accessFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * Filter, which pay_per_view_access to fetch.
-     */
-    where?: pay_per_view_accessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of pay_per_view_accesses to fetch.
-     */
-    orderBy?: pay_per_view_accessOrderByWithRelationInput | pay_per_view_accessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for pay_per_view_accesses.
-     */
-    cursor?: pay_per_view_accessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` pay_per_view_accesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` pay_per_view_accesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of pay_per_view_accesses.
-     */
-    distinct?: Pay_per_view_accessScalarFieldEnum | Pay_per_view_accessScalarFieldEnum[]
-  }
-
-  /**
-   * pay_per_view_access findFirstOrThrow
-   */
-  export type pay_per_view_accessFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * Filter, which pay_per_view_access to fetch.
-     */
-    where?: pay_per_view_accessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of pay_per_view_accesses to fetch.
-     */
-    orderBy?: pay_per_view_accessOrderByWithRelationInput | pay_per_view_accessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for searching for pay_per_view_accesses.
-     */
-    cursor?: pay_per_view_accessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` pay_per_view_accesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` pay_per_view_accesses.
-     */
-    skip?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
-     * 
-     * Filter by unique combinations of pay_per_view_accesses.
-     */
-    distinct?: Pay_per_view_accessScalarFieldEnum | Pay_per_view_accessScalarFieldEnum[]
-  }
-
-  /**
-   * pay_per_view_access findMany
-   */
-  export type pay_per_view_accessFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * Filter, which pay_per_view_accesses to fetch.
-     */
-    where?: pay_per_view_accessWhereInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
-     * 
-     * Determine the order of pay_per_view_accesses to fetch.
-     */
-    orderBy?: pay_per_view_accessOrderByWithRelationInput | pay_per_view_accessOrderByWithRelationInput[]
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
-     * 
-     * Sets the position for listing pay_per_view_accesses.
-     */
-    cursor?: pay_per_view_accessWhereUniqueInput
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Take `±n` pay_per_view_accesses from the position of the cursor.
-     */
-    take?: number
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
-     * 
-     * Skip the first `n` pay_per_view_accesses.
-     */
-    skip?: number
-    distinct?: Pay_per_view_accessScalarFieldEnum | Pay_per_view_accessScalarFieldEnum[]
-  }
-
-  /**
-   * pay_per_view_access create
-   */
-  export type pay_per_view_accessCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * The data needed to create a pay_per_view_access.
-     */
-    data: XOR<pay_per_view_accessCreateInput, pay_per_view_accessUncheckedCreateInput>
-  }
-
-  /**
-   * pay_per_view_access createMany
-   */
-  export type pay_per_view_accessCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to create many pay_per_view_accesses.
-     */
-    data: pay_per_view_accessCreateManyInput | pay_per_view_accessCreateManyInput[]
-    skipDuplicates?: boolean
-  }
-
-  /**
-   * pay_per_view_access createManyAndReturn
-   */
-  export type pay_per_view_accessCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelectCreateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * The data used to create many pay_per_view_accesses.
-     */
-    data: pay_per_view_accessCreateManyInput | pay_per_view_accessCreateManyInput[]
-    skipDuplicates?: boolean
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessIncludeCreateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * pay_per_view_access update
-   */
-  export type pay_per_view_accessUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * The data needed to update a pay_per_view_access.
-     */
-    data: XOR<pay_per_view_accessUpdateInput, pay_per_view_accessUncheckedUpdateInput>
-    /**
-     * Choose, which pay_per_view_access to update.
-     */
-    where: pay_per_view_accessWhereUniqueInput
-  }
-
-  /**
-   * pay_per_view_access updateMany
-   */
-  export type pay_per_view_accessUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * The data used to update pay_per_view_accesses.
-     */
-    data: XOR<pay_per_view_accessUpdateManyMutationInput, pay_per_view_accessUncheckedUpdateManyInput>
-    /**
-     * Filter which pay_per_view_accesses to update
-     */
-    where?: pay_per_view_accessWhereInput
-    /**
-     * Limit how many pay_per_view_accesses to update.
-     */
-    limit?: number
-  }
-
-  /**
-   * pay_per_view_access updateManyAndReturn
-   */
-  export type pay_per_view_accessUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelectUpdateManyAndReturn<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * The data used to update pay_per_view_accesses.
-     */
-    data: XOR<pay_per_view_accessUpdateManyMutationInput, pay_per_view_accessUncheckedUpdateManyInput>
-    /**
-     * Filter which pay_per_view_accesses to update
-     */
-    where?: pay_per_view_accessWhereInput
-    /**
-     * Limit how many pay_per_view_accesses to update.
-     */
-    limit?: number
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessIncludeUpdateManyAndReturn<ExtArgs> | null
-  }
-
-  /**
-   * pay_per_view_access upsert
-   */
-  export type pay_per_view_accessUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * The filter to search for the pay_per_view_access to update in case it exists.
-     */
-    where: pay_per_view_accessWhereUniqueInput
-    /**
-     * In case the pay_per_view_access found by the `where` argument doesn't exist, create a new pay_per_view_access with this data.
-     */
-    create: XOR<pay_per_view_accessCreateInput, pay_per_view_accessUncheckedCreateInput>
-    /**
-     * In case the pay_per_view_access was found with the provided `where` argument, update it with this data.
-     */
-    update: XOR<pay_per_view_accessUpdateInput, pay_per_view_accessUncheckedUpdateInput>
-  }
-
-  /**
-   * pay_per_view_access delete
-   */
-  export type pay_per_view_accessDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    /**
-     * Filter which pay_per_view_access to delete.
-     */
-    where: pay_per_view_accessWhereUniqueInput
-  }
-
-  /**
-   * pay_per_view_access deleteMany
-   */
-  export type pay_per_view_accessDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Filter which pay_per_view_accesses to delete
-     */
-    where?: pay_per_view_accessWhereInput
-    /**
-     * Limit how many pay_per_view_accesses to delete.
-     */
-    limit?: number
-  }
-
-  /**
-   * pay_per_view_access without action
-   */
-  export type pay_per_view_accessDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
   }
 
 
@@ -18012,8 +16796,18 @@ export namespace Prisma {
 
   export type AggregateUsers = {
     _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
+  }
+
+  export type UsersAvgAggregateOutputType = {
+    intitial_balance: number | null
+  }
+
+  export type UsersSumAggregateOutputType = {
+    intitial_balance: number | null
   }
 
   export type UsersMinAggregateOutputType = {
@@ -18027,6 +16821,7 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number | null
   }
 
   export type UsersMaxAggregateOutputType = {
@@ -18040,6 +16835,7 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number | null
   }
 
   export type UsersCountAggregateOutputType = {
@@ -18053,9 +16849,18 @@ export namespace Prisma {
     is_active: number
     pass_salts: number
     user_type: number
+    intitial_balance: number
     _all: number
   }
 
+
+  export type UsersAvgAggregateInputType = {
+    intitial_balance?: true
+  }
+
+  export type UsersSumAggregateInputType = {
+    intitial_balance?: true
+  }
 
   export type UsersMinAggregateInputType = {
     id?: true
@@ -18068,6 +16873,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
   }
 
   export type UsersMaxAggregateInputType = {
@@ -18081,6 +16887,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
   }
 
   export type UsersCountAggregateInputType = {
@@ -18094,6 +16901,7 @@ export namespace Prisma {
     is_active?: true
     pass_salts?: true
     user_type?: true
+    intitial_balance?: true
     _all?: true
   }
 
@@ -18135,6 +16943,18 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
+     * Select which fields to average
+    **/
+    _avg?: UsersAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UsersSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
      * Select which fields to find the minimum value
     **/
     _min?: UsersMinAggregateInputType
@@ -18165,6 +16985,8 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: UsersCountAggregateInputType | true
+    _avg?: UsersAvgAggregateInputType
+    _sum?: UsersSumAggregateInputType
     _min?: UsersMinAggregateInputType
     _max?: UsersMaxAggregateInputType
   }
@@ -18180,7 +17002,10 @@ export namespace Prisma {
     is_active: boolean | null
     pass_salts: string | null
     user_type: string | null
+    intitial_balance: number
     _count: UsersCountAggregateOutputType | null
+    _avg: UsersAvgAggregateOutputType | null
+    _sum: UsersSumAggregateOutputType | null
     _min: UsersMinAggregateOutputType | null
     _max: UsersMaxAggregateOutputType | null
   }
@@ -18210,9 +17035,9 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
     favorites?: boolean | users$favoritesArgs<ExtArgs>
     items?: boolean | users$itemsArgs<ExtArgs>
-    pay_per_view_access?: boolean | users$pay_per_view_accessArgs<ExtArgs>
     reviews?: boolean | users$reviewsArgs<ExtArgs>
     transactions?: boolean | users$transactionsArgs<ExtArgs>
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
@@ -18237,6 +17062,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
@@ -18250,6 +17076,7 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }, ExtArgs["result"]["users"]>
 
   export type usersSelectScalar = {
@@ -18263,13 +17090,13 @@ export namespace Prisma {
     is_active?: boolean
     pass_salts?: boolean
     user_type?: boolean
+    intitial_balance?: boolean
   }
 
-  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type", ExtArgs["result"]["users"]>
+  export type usersOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "email" | "phone" | "password_hash" | "created_at" | "updated_at" | "is_verified" | "is_active" | "pass_salts" | "user_type" | "intitial_balance", ExtArgs["result"]["users"]>
   export type usersInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     favorites?: boolean | users$favoritesArgs<ExtArgs>
     items?: boolean | users$itemsArgs<ExtArgs>
-    pay_per_view_access?: boolean | users$pay_per_view_accessArgs<ExtArgs>
     reviews?: boolean | users$reviewsArgs<ExtArgs>
     transactions?: boolean | users$transactionsArgs<ExtArgs>
     password_reset_tokens?: boolean | users$password_reset_tokensArgs<ExtArgs>
@@ -18290,7 +17117,6 @@ export namespace Prisma {
     objects: {
       favorites: Prisma.$favoritesPayload<ExtArgs>[]
       items: Prisma.$itemsPayload<ExtArgs>[]
-      pay_per_view_access: Prisma.$pay_per_view_accessPayload<ExtArgs>[]
       reviews: Prisma.$reviewsPayload<ExtArgs>[]
       transactions: Prisma.$transactionsPayload<ExtArgs>[]
       password_reset_tokens: Prisma.$password_reset_tokensPayload<ExtArgs>[]
@@ -18313,6 +17139,7 @@ export namespace Prisma {
       is_active: boolean | null
       pass_salts: string | null
       user_type: string | null
+      intitial_balance: number
     }, ExtArgs["result"]["users"]>
     composites: {}
   }
@@ -18709,7 +17536,6 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     favorites<T extends users$favoritesArgs<ExtArgs> = {}>(args?: Subset<T, users$favoritesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$favoritesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     items<T extends users$itemsArgs<ExtArgs> = {}>(args?: Subset<T, users$itemsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$itemsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-    pay_per_view_access<T extends users$pay_per_view_accessArgs<ExtArgs> = {}>(args?: Subset<T, users$pay_per_view_accessArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$pay_per_view_accessPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     reviews<T extends users$reviewsArgs<ExtArgs> = {}>(args?: Subset<T, users$reviewsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$reviewsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     transactions<T extends users$transactionsArgs<ExtArgs> = {}>(args?: Subset<T, users$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$transactionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     password_reset_tokens<T extends users$password_reset_tokensArgs<ExtArgs> = {}>(args?: Subset<T, users$password_reset_tokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$password_reset_tokensPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
@@ -18759,6 +17585,7 @@ export namespace Prisma {
     readonly is_active: FieldRef<"users", 'Boolean'>
     readonly pass_salts: FieldRef<"users", 'String'>
     readonly user_type: FieldRef<"users", 'String'>
+    readonly intitial_balance: FieldRef<"users", 'Float'>
   }
     
 
@@ -19192,30 +18019,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: ItemsScalarFieldEnum | ItemsScalarFieldEnum[]
-  }
-
-  /**
-   * users.pay_per_view_access
-   */
-  export type users$pay_per_view_accessArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
-    /**
-     * Select specific fields to fetch from the pay_per_view_access
-     */
-    select?: pay_per_view_accessSelect<ExtArgs> | null
-    /**
-     * Omit specific fields from the pay_per_view_access
-     */
-    omit?: pay_per_view_accessOmit<ExtArgs> | null
-    /**
-     * Choose, which related nodes to fetch as well
-     */
-    include?: pay_per_view_accessInclude<ExtArgs> | null
-    where?: pay_per_view_accessWhereInput
-    orderBy?: pay_per_view_accessOrderByWithRelationInput | pay_per_view_accessOrderByWithRelationInput[]
-    cursor?: pay_per_view_accessWhereUniqueInput
-    take?: number
-    skip?: number
-    distinct?: Pay_per_view_accessScalarFieldEnum | Pay_per_view_accessScalarFieldEnum[]
   }
 
   /**
@@ -21591,7 +20394,6 @@ export namespace Prisma {
     user_id: 'user_id',
     title: 'title',
     description: 'description',
-    media_url: 'media_url',
     category: 'category',
     price: 'price',
     monetization_type: 'monetization_type',
@@ -21612,17 +20414,6 @@ export namespace Prisma {
   };
 
   export type MonetizationScalarFieldEnum = (typeof MonetizationScalarFieldEnum)[keyof typeof MonetizationScalarFieldEnum]
-
-
-  export const Pay_per_view_accessScalarFieldEnum: {
-    access_id: 'access_id',
-    user_id: 'user_id',
-    item_id: 'item_id',
-    access_expiry: 'access_expiry',
-    created_at: 'created_at'
-  };
-
-  export type Pay_per_view_accessScalarFieldEnum = (typeof Pay_per_view_accessScalarFieldEnum)[keyof typeof Pay_per_view_accessScalarFieldEnum]
 
 
   export const ReviewsScalarFieldEnum: {
@@ -21757,7 +20548,8 @@ export namespace Prisma {
     is_verified: 'is_verified',
     is_active: 'is_active',
     pass_salts: 'pass_salts',
-    user_type: 'user_type'
+    user_type: 'user_type',
+    intitial_balance: 'intitial_balance'
   };
 
   export type UsersScalarFieldEnum = (typeof UsersScalarFieldEnum)[keyof typeof UsersScalarFieldEnum]
@@ -21984,7 +20776,6 @@ export namespace Prisma {
     user_id?: UuidFilter<"items"> | string
     title?: StringFilter<"items"> | string
     description?: StringNullableFilter<"items"> | string | null
-    media_url?: StringNullableFilter<"items"> | string | null
     category?: StringNullableFilter<"items"> | string | null
     price?: DecimalNullableFilter<"items"> | Decimal | DecimalJsLike | number | string | null
     monetization_type?: StringNullableFilter<"items"> | string | null
@@ -21994,7 +20785,6 @@ export namespace Prisma {
     favorites?: FavoritesListRelationFilter
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
     monetization?: MonetizationListRelationFilter
-    pay_per_view_access?: Pay_per_view_accessListRelationFilter
     reviews?: ReviewsListRelationFilter
     transactions?: TransactionsListRelationFilter
   }
@@ -22004,7 +20794,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    media_url?: SortOrderInput | SortOrder
     category?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
     monetization_type?: SortOrderInput | SortOrder
@@ -22014,7 +20803,6 @@ export namespace Prisma {
     favorites?: favoritesOrderByRelationAggregateInput
     users?: usersOrderByWithRelationInput
     monetization?: monetizationOrderByRelationAggregateInput
-    pay_per_view_access?: pay_per_view_accessOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
     transactions?: transactionsOrderByRelationAggregateInput
   }
@@ -22027,7 +20815,6 @@ export namespace Prisma {
     user_id?: UuidFilter<"items"> | string
     title?: StringFilter<"items"> | string
     description?: StringNullableFilter<"items"> | string | null
-    media_url?: StringNullableFilter<"items"> | string | null
     category?: StringNullableFilter<"items"> | string | null
     price?: DecimalNullableFilter<"items"> | Decimal | DecimalJsLike | number | string | null
     monetization_type?: StringNullableFilter<"items"> | string | null
@@ -22037,7 +20824,6 @@ export namespace Prisma {
     favorites?: FavoritesListRelationFilter
     users?: XOR<UsersScalarRelationFilter, usersWhereInput>
     monetization?: MonetizationListRelationFilter
-    pay_per_view_access?: Pay_per_view_accessListRelationFilter
     reviews?: ReviewsListRelationFilter
     transactions?: TransactionsListRelationFilter
   }, "item_id">
@@ -22047,7 +20833,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     description?: SortOrderInput | SortOrder
-    media_url?: SortOrderInput | SortOrder
     category?: SortOrderInput | SortOrder
     price?: SortOrderInput | SortOrder
     monetization_type?: SortOrderInput | SortOrder
@@ -22068,7 +20853,6 @@ export namespace Prisma {
     user_id?: UuidWithAggregatesFilter<"items"> | string
     title?: StringWithAggregatesFilter<"items"> | string
     description?: StringNullableWithAggregatesFilter<"items"> | string | null
-    media_url?: StringNullableWithAggregatesFilter<"items"> | string | null
     category?: StringNullableWithAggregatesFilter<"items"> | string | null
     price?: DecimalNullableWithAggregatesFilter<"items"> | Decimal | DecimalJsLike | number | string | null
     monetization_type?: StringNullableWithAggregatesFilter<"items"> | string | null
@@ -22136,64 +20920,6 @@ export namespace Prisma {
     price?: DecimalNullableWithAggregatesFilter<"monetization"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringNullableWithAggregatesFilter<"monetization"> | string | null
     created_at?: DateTimeNullableWithAggregatesFilter<"monetization"> | Date | string | null
-  }
-
-  export type pay_per_view_accessWhereInput = {
-    AND?: pay_per_view_accessWhereInput | pay_per_view_accessWhereInput[]
-    OR?: pay_per_view_accessWhereInput[]
-    NOT?: pay_per_view_accessWhereInput | pay_per_view_accessWhereInput[]
-    access_id?: UuidFilter<"pay_per_view_access"> | string
-    user_id?: UuidFilter<"pay_per_view_access"> | string
-    item_id?: UuidFilter<"pay_per_view_access"> | string
-    access_expiry?: DateTimeFilter<"pay_per_view_access"> | Date | string
-    created_at?: DateTimeNullableFilter<"pay_per_view_access"> | Date | string | null
-    items?: XOR<ItemsScalarRelationFilter, itemsWhereInput>
-    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
-  }
-
-  export type pay_per_view_accessOrderByWithRelationInput = {
-    access_id?: SortOrder
-    user_id?: SortOrder
-    item_id?: SortOrder
-    access_expiry?: SortOrder
-    created_at?: SortOrderInput | SortOrder
-    items?: itemsOrderByWithRelationInput
-    users?: usersOrderByWithRelationInput
-  }
-
-  export type pay_per_view_accessWhereUniqueInput = Prisma.AtLeast<{
-    access_id?: string
-    AND?: pay_per_view_accessWhereInput | pay_per_view_accessWhereInput[]
-    OR?: pay_per_view_accessWhereInput[]
-    NOT?: pay_per_view_accessWhereInput | pay_per_view_accessWhereInput[]
-    user_id?: UuidFilter<"pay_per_view_access"> | string
-    item_id?: UuidFilter<"pay_per_view_access"> | string
-    access_expiry?: DateTimeFilter<"pay_per_view_access"> | Date | string
-    created_at?: DateTimeNullableFilter<"pay_per_view_access"> | Date | string | null
-    items?: XOR<ItemsScalarRelationFilter, itemsWhereInput>
-    users?: XOR<UsersScalarRelationFilter, usersWhereInput>
-  }, "access_id">
-
-  export type pay_per_view_accessOrderByWithAggregationInput = {
-    access_id?: SortOrder
-    user_id?: SortOrder
-    item_id?: SortOrder
-    access_expiry?: SortOrder
-    created_at?: SortOrderInput | SortOrder
-    _count?: pay_per_view_accessCountOrderByAggregateInput
-    _max?: pay_per_view_accessMaxOrderByAggregateInput
-    _min?: pay_per_view_accessMinOrderByAggregateInput
-  }
-
-  export type pay_per_view_accessScalarWhereWithAggregatesInput = {
-    AND?: pay_per_view_accessScalarWhereWithAggregatesInput | pay_per_view_accessScalarWhereWithAggregatesInput[]
-    OR?: pay_per_view_accessScalarWhereWithAggregatesInput[]
-    NOT?: pay_per_view_accessScalarWhereWithAggregatesInput | pay_per_view_accessScalarWhereWithAggregatesInput[]
-    access_id?: UuidWithAggregatesFilter<"pay_per_view_access"> | string
-    user_id?: UuidWithAggregatesFilter<"pay_per_view_access"> | string
-    item_id?: UuidWithAggregatesFilter<"pay_per_view_access"> | string
-    access_expiry?: DateTimeWithAggregatesFilter<"pay_per_view_access"> | Date | string
-    created_at?: DateTimeNullableWithAggregatesFilter<"pay_per_view_access"> | Date | string | null
   }
 
   export type reviewsWhereInput = {
@@ -22834,9 +21560,9 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
     user_type?: StringNullableFilter<"users"> | string | null
+    intitial_balance?: FloatFilter<"users"> | number
     favorites?: FavoritesListRelationFilter
     items?: ItemsListRelationFilter
-    pay_per_view_access?: Pay_per_view_accessListRelationFilter
     reviews?: ReviewsListRelationFilter
     transactions?: TransactionsListRelationFilter
     password_reset_tokens?: Password_reset_tokensListRelationFilter
@@ -22860,9 +21586,9 @@ export namespace Prisma {
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
     user_type?: SortOrderInput | SortOrder
+    intitial_balance?: SortOrder
     favorites?: favoritesOrderByRelationAggregateInput
     items?: itemsOrderByRelationAggregateInput
-    pay_per_view_access?: pay_per_view_accessOrderByRelationAggregateInput
     reviews?: reviewsOrderByRelationAggregateInput
     transactions?: transactionsOrderByRelationAggregateInput
     password_reset_tokens?: password_reset_tokensOrderByRelationAggregateInput
@@ -22889,9 +21615,9 @@ export namespace Prisma {
     is_active?: BoolNullableFilter<"users"> | boolean | null
     pass_salts?: StringNullableFilter<"users"> | string | null
     user_type?: StringNullableFilter<"users"> | string | null
+    intitial_balance?: FloatFilter<"users"> | number
     favorites?: FavoritesListRelationFilter
     items?: ItemsListRelationFilter
-    pay_per_view_access?: Pay_per_view_accessListRelationFilter
     reviews?: ReviewsListRelationFilter
     transactions?: TransactionsListRelationFilter
     password_reset_tokens?: Password_reset_tokensListRelationFilter
@@ -22915,9 +21641,12 @@ export namespace Prisma {
     is_active?: SortOrderInput | SortOrder
     pass_salts?: SortOrderInput | SortOrder
     user_type?: SortOrderInput | SortOrder
+    intitial_balance?: SortOrder
     _count?: usersCountOrderByAggregateInput
+    _avg?: usersAvgOrderByAggregateInput
     _max?: usersMaxOrderByAggregateInput
     _min?: usersMinOrderByAggregateInput
+    _sum?: usersSumOrderByAggregateInput
   }
 
   export type usersScalarWhereWithAggregatesInput = {
@@ -22934,6 +21663,7 @@ export namespace Prisma {
     is_active?: BoolNullableWithAggregatesFilter<"users"> | boolean | null
     pass_salts?: StringNullableWithAggregatesFilter<"users"> | string | null
     user_type?: StringNullableWithAggregatesFilter<"users"> | string | null
+    intitial_balance?: FloatWithAggregatesFilter<"users"> | number
   }
 
   export type collection_itemsWhereInput = {
@@ -23091,7 +21821,6 @@ export namespace Prisma {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -23101,7 +21830,6 @@ export namespace Prisma {
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
     reviews?: reviewsCreateNestedManyWithoutItemsInput
     transactions?: transactionsCreateNestedManyWithoutItemsInput
   }
@@ -23111,7 +21839,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -23120,7 +21847,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
   }
@@ -23129,7 +21855,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23139,7 +21864,6 @@ export namespace Prisma {
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUpdateManyWithoutItemsNestedInput
   }
@@ -23149,7 +21873,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23158,7 +21881,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
   }
@@ -23168,7 +21890,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -23180,7 +21901,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23193,7 +21913,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -23260,60 +21979,6 @@ export namespace Prisma {
     type?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     currency?: NullableStringFieldUpdateOperationsInput | string | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type pay_per_view_accessCreateInput = {
-    access_id?: string
-    access_expiry: Date | string
-    created_at?: Date | string | null
-    items: itemsCreateNestedOneWithoutPay_per_view_accessInput
-    users: usersCreateNestedOneWithoutPay_per_view_accessInput
-  }
-
-  export type pay_per_view_accessUncheckedCreateInput = {
-    access_id?: string
-    user_id: string
-    item_id: string
-    access_expiry: Date | string
-    created_at?: Date | string | null
-  }
-
-  export type pay_per_view_accessUpdateInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    items?: itemsUpdateOneRequiredWithoutPay_per_view_accessNestedInput
-    users?: usersUpdateOneRequiredWithoutPay_per_view_accessNestedInput
-  }
-
-  export type pay_per_view_accessUncheckedUpdateInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    item_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type pay_per_view_accessCreateManyInput = {
-    access_id?: string
-    user_id: string
-    item_id: string
-    access_expiry: Date | string
-    created_at?: Date | string | null
-  }
-
-  export type pay_per_view_accessUpdateManyMutationInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type pay_per_view_accessUncheckedUpdateManyInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    item_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
@@ -23960,9 +22625,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -23986,9 +22651,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -24012,9 +22677,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -24038,9 +22703,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -24064,6 +22729,7 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
   }
 
   export type usersUpdateManyMutationInput = {
@@ -24077,6 +22743,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type usersUncheckedUpdateManyInput = {
@@ -24090,6 +22757,7 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
   }
 
   export type collection_itemsCreateInput = {
@@ -24344,12 +23012,6 @@ export namespace Prisma {
     none?: monetizationWhereInput
   }
 
-  export type Pay_per_view_accessListRelationFilter = {
-    every?: pay_per_view_accessWhereInput
-    some?: pay_per_view_accessWhereInput
-    none?: pay_per_view_accessWhereInput
-  }
-
   export type ReviewsListRelationFilter = {
     every?: reviewsWhereInput
     some?: reviewsWhereInput
@@ -24374,10 +23036,6 @@ export namespace Prisma {
     _count?: SortOrder
   }
 
-  export type pay_per_view_accessOrderByRelationAggregateInput = {
-    _count?: SortOrder
-  }
-
   export type reviewsOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
@@ -24391,7 +23049,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    media_url?: SortOrder
     category?: SortOrder
     price?: SortOrder
     monetization_type?: SortOrder
@@ -24408,7 +23065,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    media_url?: SortOrder
     category?: SortOrder
     price?: SortOrder
     monetization_type?: SortOrder
@@ -24421,7 +23077,6 @@ export namespace Prisma {
     user_id?: SortOrder
     title?: SortOrder
     description?: SortOrder
-    media_url?: SortOrder
     category?: SortOrder
     price?: SortOrder
     monetization_type?: SortOrder
@@ -24526,55 +23181,6 @@ export namespace Prisma {
 
   export type monetizationSumOrderByAggregateInput = {
     price?: SortOrder
-  }
-
-  export type DateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type pay_per_view_accessCountOrderByAggregateInput = {
-    access_id?: SortOrder
-    user_id?: SortOrder
-    item_id?: SortOrder
-    access_expiry?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type pay_per_view_accessMaxOrderByAggregateInput = {
-    access_id?: SortOrder
-    user_id?: SortOrder
-    item_id?: SortOrder
-    access_expiry?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type pay_per_view_accessMinOrderByAggregateInput = {
-    access_id?: SortOrder
-    user_id?: SortOrder
-    item_id?: SortOrder
-    access_expiry?: SortOrder
-    created_at?: SortOrder
-  }
-
-  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type IntNullableFilter<$PrismaModel = never> = {
@@ -24701,6 +23307,17 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type DateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
   export type password_reset_tokensCountOrderByAggregateInput = {
     token?: SortOrder
     user_id?: SortOrder
@@ -24723,6 +23340,20 @@ export namespace Prisma {
     expires_at?: SortOrder
     created_at?: SortOrder
     used?: SortOrder
+  }
+
+  export type DateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
   }
 
   export type user_analyticsCountOrderByAggregateInput = {
@@ -25030,6 +23661,17 @@ export namespace Prisma {
     secret?: SortOrder
   }
 
+  export type FloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
   export type ItemsListRelationFilter = {
     every?: itemsWhereInput
     some?: itemsWhereInput
@@ -25106,6 +23748,11 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
+  }
+
+  export type usersAvgOrderByAggregateInput = {
+    intitial_balance?: SortOrder
   }
 
   export type usersMaxOrderByAggregateInput = {
@@ -25119,6 +23766,7 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
   }
 
   export type usersMinOrderByAggregateInput = {
@@ -25132,6 +23780,27 @@ export namespace Prisma {
     is_active?: SortOrder
     pass_salts?: SortOrder
     user_type?: SortOrder
+    intitial_balance?: SortOrder
+  }
+
+  export type usersSumOrderByAggregateInput = {
+    intitial_balance?: SortOrder
+  }
+
+  export type FloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
   }
 
   export type CollectionsScalarRelationFilter = {
@@ -25249,13 +23918,6 @@ export namespace Prisma {
     connect?: monetizationWhereUniqueInput | monetizationWhereUniqueInput[]
   }
 
-  export type pay_per_view_accessCreateNestedManyWithoutItemsInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutItemsInput, pay_per_view_accessUncheckedCreateWithoutItemsInput> | pay_per_view_accessCreateWithoutItemsInput[] | pay_per_view_accessUncheckedCreateWithoutItemsInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutItemsInput | pay_per_view_accessCreateOrConnectWithoutItemsInput[]
-    createMany?: pay_per_view_accessCreateManyItemsInputEnvelope
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-  }
-
   export type reviewsCreateNestedManyWithoutItemsInput = {
     create?: XOR<reviewsCreateWithoutItemsInput, reviewsUncheckedCreateWithoutItemsInput> | reviewsCreateWithoutItemsInput[] | reviewsUncheckedCreateWithoutItemsInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutItemsInput | reviewsCreateOrConnectWithoutItemsInput[]
@@ -25289,13 +23951,6 @@ export namespace Prisma {
     connectOrCreate?: monetizationCreateOrConnectWithoutItemsInput | monetizationCreateOrConnectWithoutItemsInput[]
     createMany?: monetizationCreateManyItemsInputEnvelope
     connect?: monetizationWhereUniqueInput | monetizationWhereUniqueInput[]
-  }
-
-  export type pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutItemsInput, pay_per_view_accessUncheckedCreateWithoutItemsInput> | pay_per_view_accessCreateWithoutItemsInput[] | pay_per_view_accessUncheckedCreateWithoutItemsInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutItemsInput | pay_per_view_accessCreateOrConnectWithoutItemsInput[]
-    createMany?: pay_per_view_accessCreateManyItemsInputEnvelope
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
   }
 
   export type reviewsUncheckedCreateNestedManyWithoutItemsInput = {
@@ -25378,20 +24033,6 @@ export namespace Prisma {
     deleteMany?: monetizationScalarWhereInput | monetizationScalarWhereInput[]
   }
 
-  export type pay_per_view_accessUpdateManyWithoutItemsNestedInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutItemsInput, pay_per_view_accessUncheckedCreateWithoutItemsInput> | pay_per_view_accessCreateWithoutItemsInput[] | pay_per_view_accessUncheckedCreateWithoutItemsInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutItemsInput | pay_per_view_accessCreateOrConnectWithoutItemsInput[]
-    upsert?: pay_per_view_accessUpsertWithWhereUniqueWithoutItemsInput | pay_per_view_accessUpsertWithWhereUniqueWithoutItemsInput[]
-    createMany?: pay_per_view_accessCreateManyItemsInputEnvelope
-    set?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    disconnect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    delete?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    update?: pay_per_view_accessUpdateWithWhereUniqueWithoutItemsInput | pay_per_view_accessUpdateWithWhereUniqueWithoutItemsInput[]
-    updateMany?: pay_per_view_accessUpdateManyWithWhereWithoutItemsInput | pay_per_view_accessUpdateManyWithWhereWithoutItemsInput[]
-    deleteMany?: pay_per_view_accessScalarWhereInput | pay_per_view_accessScalarWhereInput[]
-  }
-
   export type reviewsUpdateManyWithoutItemsNestedInput = {
     create?: XOR<reviewsCreateWithoutItemsInput, reviewsUncheckedCreateWithoutItemsInput> | reviewsCreateWithoutItemsInput[] | reviewsUncheckedCreateWithoutItemsInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutItemsInput | reviewsCreateOrConnectWithoutItemsInput[]
@@ -25462,20 +24103,6 @@ export namespace Prisma {
     deleteMany?: monetizationScalarWhereInput | monetizationScalarWhereInput[]
   }
 
-  export type pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutItemsInput, pay_per_view_accessUncheckedCreateWithoutItemsInput> | pay_per_view_accessCreateWithoutItemsInput[] | pay_per_view_accessUncheckedCreateWithoutItemsInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutItemsInput | pay_per_view_accessCreateOrConnectWithoutItemsInput[]
-    upsert?: pay_per_view_accessUpsertWithWhereUniqueWithoutItemsInput | pay_per_view_accessUpsertWithWhereUniqueWithoutItemsInput[]
-    createMany?: pay_per_view_accessCreateManyItemsInputEnvelope
-    set?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    disconnect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    delete?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    update?: pay_per_view_accessUpdateWithWhereUniqueWithoutItemsInput | pay_per_view_accessUpdateWithWhereUniqueWithoutItemsInput[]
-    updateMany?: pay_per_view_accessUpdateManyWithWhereWithoutItemsInput | pay_per_view_accessUpdateManyWithWhereWithoutItemsInput[]
-    deleteMany?: pay_per_view_accessScalarWhereInput | pay_per_view_accessScalarWhereInput[]
-  }
-
   export type reviewsUncheckedUpdateManyWithoutItemsNestedInput = {
     create?: XOR<reviewsCreateWithoutItemsInput, reviewsUncheckedCreateWithoutItemsInput> | reviewsCreateWithoutItemsInput[] | reviewsUncheckedCreateWithoutItemsInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutItemsInput | reviewsCreateOrConnectWithoutItemsInput[]
@@ -25516,38 +24143,6 @@ export namespace Prisma {
     upsert?: itemsUpsertWithoutMonetizationInput
     connect?: itemsWhereUniqueInput
     update?: XOR<XOR<itemsUpdateToOneWithWhereWithoutMonetizationInput, itemsUpdateWithoutMonetizationInput>, itemsUncheckedUpdateWithoutMonetizationInput>
-  }
-
-  export type itemsCreateNestedOneWithoutPay_per_view_accessInput = {
-    create?: XOR<itemsCreateWithoutPay_per_view_accessInput, itemsUncheckedCreateWithoutPay_per_view_accessInput>
-    connectOrCreate?: itemsCreateOrConnectWithoutPay_per_view_accessInput
-    connect?: itemsWhereUniqueInput
-  }
-
-  export type usersCreateNestedOneWithoutPay_per_view_accessInput = {
-    create?: XOR<usersCreateWithoutPay_per_view_accessInput, usersUncheckedCreateWithoutPay_per_view_accessInput>
-    connectOrCreate?: usersCreateOrConnectWithoutPay_per_view_accessInput
-    connect?: usersWhereUniqueInput
-  }
-
-  export type DateTimeFieldUpdateOperationsInput = {
-    set?: Date | string
-  }
-
-  export type itemsUpdateOneRequiredWithoutPay_per_view_accessNestedInput = {
-    create?: XOR<itemsCreateWithoutPay_per_view_accessInput, itemsUncheckedCreateWithoutPay_per_view_accessInput>
-    connectOrCreate?: itemsCreateOrConnectWithoutPay_per_view_accessInput
-    upsert?: itemsUpsertWithoutPay_per_view_accessInput
-    connect?: itemsWhereUniqueInput
-    update?: XOR<XOR<itemsUpdateToOneWithWhereWithoutPay_per_view_accessInput, itemsUpdateWithoutPay_per_view_accessInput>, itemsUncheckedUpdateWithoutPay_per_view_accessInput>
-  }
-
-  export type usersUpdateOneRequiredWithoutPay_per_view_accessNestedInput = {
-    create?: XOR<usersCreateWithoutPay_per_view_accessInput, usersUncheckedCreateWithoutPay_per_view_accessInput>
-    connectOrCreate?: usersCreateOrConnectWithoutPay_per_view_accessInput
-    upsert?: usersUpsertWithoutPay_per_view_accessInput
-    connect?: usersWhereUniqueInput
-    update?: XOR<XOR<usersUpdateToOneWithWhereWithoutPay_per_view_accessInput, usersUpdateWithoutPay_per_view_accessInput>, usersUncheckedUpdateWithoutPay_per_view_accessInput>
   }
 
   export type itemsCreateNestedOneWithoutReviewsInput = {
@@ -25626,6 +24221,10 @@ export namespace Prisma {
     create?: XOR<usersCreateWithoutPassword_reset_tokensInput, usersUncheckedCreateWithoutPassword_reset_tokensInput>
     connectOrCreate?: usersCreateOrConnectWithoutPassword_reset_tokensInput
     connect?: usersWhereUniqueInput
+  }
+
+  export type DateTimeFieldUpdateOperationsInput = {
+    set?: Date | string
   }
 
   export type usersUpdateOneRequiredWithoutPassword_reset_tokensNestedInput = {
@@ -25761,13 +24360,6 @@ export namespace Prisma {
     connect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
   }
 
-  export type pay_per_view_accessCreateNestedManyWithoutUsersInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutUsersInput, pay_per_view_accessUncheckedCreateWithoutUsersInput> | pay_per_view_accessCreateWithoutUsersInput[] | pay_per_view_accessUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutUsersInput | pay_per_view_accessCreateOrConnectWithoutUsersInput[]
-    createMany?: pay_per_view_accessCreateManyUsersInputEnvelope
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-  }
-
   export type reviewsCreateNestedManyWithoutUsersInput = {
     create?: XOR<reviewsCreateWithoutUsersInput, reviewsUncheckedCreateWithoutUsersInput> | reviewsCreateWithoutUsersInput[] | reviewsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutUsersInput | reviewsCreateOrConnectWithoutUsersInput[]
@@ -25847,13 +24439,6 @@ export namespace Prisma {
     connect?: itemsWhereUniqueInput | itemsWhereUniqueInput[]
   }
 
-  export type pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutUsersInput, pay_per_view_accessUncheckedCreateWithoutUsersInput> | pay_per_view_accessCreateWithoutUsersInput[] | pay_per_view_accessUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutUsersInput | pay_per_view_accessCreateOrConnectWithoutUsersInput[]
-    createMany?: pay_per_view_accessCreateManyUsersInputEnvelope
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-  }
-
   export type reviewsUncheckedCreateNestedManyWithoutUsersInput = {
     create?: XOR<reviewsCreateWithoutUsersInput, reviewsUncheckedCreateWithoutUsersInput> | reviewsCreateWithoutUsersInput[] | reviewsUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: reviewsCreateOrConnectWithoutUsersInput | reviewsCreateOrConnectWithoutUsersInput[]
@@ -25919,6 +24504,14 @@ export namespace Prisma {
     connect?: user_sessionsWhereUniqueInput | user_sessionsWhereUniqueInput[]
   }
 
+  export type FloatFieldUpdateOperationsInput = {
+    set?: number
+    increment?: number
+    decrement?: number
+    multiply?: number
+    divide?: number
+  }
+
   export type favoritesUpdateManyWithoutUsersNestedInput = {
     create?: XOR<favoritesCreateWithoutUsersInput, favoritesUncheckedCreateWithoutUsersInput> | favoritesCreateWithoutUsersInput[] | favoritesUncheckedCreateWithoutUsersInput[]
     connectOrCreate?: favoritesCreateOrConnectWithoutUsersInput | favoritesCreateOrConnectWithoutUsersInput[]
@@ -25945,20 +24538,6 @@ export namespace Prisma {
     update?: itemsUpdateWithWhereUniqueWithoutUsersInput | itemsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: itemsUpdateManyWithWhereWithoutUsersInput | itemsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: itemsScalarWhereInput | itemsScalarWhereInput[]
-  }
-
-  export type pay_per_view_accessUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutUsersInput, pay_per_view_accessUncheckedCreateWithoutUsersInput> | pay_per_view_accessCreateWithoutUsersInput[] | pay_per_view_accessUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutUsersInput | pay_per_view_accessCreateOrConnectWithoutUsersInput[]
-    upsert?: pay_per_view_accessUpsertWithWhereUniqueWithoutUsersInput | pay_per_view_accessUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: pay_per_view_accessCreateManyUsersInputEnvelope
-    set?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    disconnect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    delete?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    update?: pay_per_view_accessUpdateWithWhereUniqueWithoutUsersInput | pay_per_view_accessUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: pay_per_view_accessUpdateManyWithWhereWithoutUsersInput | pay_per_view_accessUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: pay_per_view_accessScalarWhereInput | pay_per_view_accessScalarWhereInput[]
   }
 
   export type reviewsUpdateManyWithoutUsersNestedInput = {
@@ -26107,20 +24686,6 @@ export namespace Prisma {
     update?: itemsUpdateWithWhereUniqueWithoutUsersInput | itemsUpdateWithWhereUniqueWithoutUsersInput[]
     updateMany?: itemsUpdateManyWithWhereWithoutUsersInput | itemsUpdateManyWithWhereWithoutUsersInput[]
     deleteMany?: itemsScalarWhereInput | itemsScalarWhereInput[]
-  }
-
-  export type pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput = {
-    create?: XOR<pay_per_view_accessCreateWithoutUsersInput, pay_per_view_accessUncheckedCreateWithoutUsersInput> | pay_per_view_accessCreateWithoutUsersInput[] | pay_per_view_accessUncheckedCreateWithoutUsersInput[]
-    connectOrCreate?: pay_per_view_accessCreateOrConnectWithoutUsersInput | pay_per_view_accessCreateOrConnectWithoutUsersInput[]
-    upsert?: pay_per_view_accessUpsertWithWhereUniqueWithoutUsersInput | pay_per_view_accessUpsertWithWhereUniqueWithoutUsersInput[]
-    createMany?: pay_per_view_accessCreateManyUsersInputEnvelope
-    set?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    disconnect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    delete?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    connect?: pay_per_view_accessWhereUniqueInput | pay_per_view_accessWhereUniqueInput[]
-    update?: pay_per_view_accessUpdateWithWhereUniqueWithoutUsersInput | pay_per_view_accessUpdateWithWhereUniqueWithoutUsersInput[]
-    updateMany?: pay_per_view_accessUpdateManyWithWhereWithoutUsersInput | pay_per_view_accessUpdateManyWithWhereWithoutUsersInput[]
-    deleteMany?: pay_per_view_accessScalarWhereInput | pay_per_view_accessScalarWhereInput[]
   }
 
   export type reviewsUncheckedUpdateManyWithoutUsersNestedInput = {
@@ -26487,31 +25052,6 @@ export namespace Prisma {
     _max?: NestedBoolNullableFilter<$PrismaModel>
   }
 
-  export type NestedDateTimeFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
-  }
-
-  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
-    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
-    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
-    _count?: NestedIntFilter<$PrismaModel>
-    _min?: NestedDateTimeFilter<$PrismaModel>
-    _max?: NestedDateTimeFilter<$PrismaModel>
-  }
-
   export type NestedIntNullableWithAggregatesFilter<$PrismaModel = never> = {
     equals?: number | IntFieldRefInput<$PrismaModel> | null
     in?: number[] | ListIntFieldRefInput<$PrismaModel> | null
@@ -26566,6 +25106,31 @@ export namespace Prisma {
     _max?: NestedDecimalFilter<$PrismaModel>
   }
 
+  export type NestedDateTimeFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeFilter<$PrismaModel> | Date | string
+  }
+
+  export type NestedDateTimeWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    in?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    notIn?: Date[] | string[] | ListDateTimeFieldRefInput<$PrismaModel>
+    lt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    lte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gt?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    gte?: Date | string | DateTimeFieldRefInput<$PrismaModel>
+    not?: NestedDateTimeWithAggregatesFilter<$PrismaModel> | Date | string
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedDateTimeFilter<$PrismaModel>
+    _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
   export type NestedUuidNullableFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel> | null
     in?: string[] | ListStringFieldRefInput<$PrismaModel> | null
@@ -26614,11 +25179,37 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
+  }
+
+  export type NestedFloatWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatWithAggregatesFilter<$PrismaModel> | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedFloatFilter<$PrismaModel>
+    _min?: NestedFloatFilter<$PrismaModel>
+    _max?: NestedFloatFilter<$PrismaModel>
+  }
+
   export type itemsCreateWithoutFavoritesInput = {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -26627,7 +25218,6 @@ export namespace Prisma {
     collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
     reviews?: reviewsCreateNestedManyWithoutItemsInput
     transactions?: transactionsCreateNestedManyWithoutItemsInput
   }
@@ -26637,7 +25227,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -26645,7 +25234,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
   }
@@ -26666,8 +25254,8 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -26691,8 +25279,8 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -26725,7 +25313,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26734,7 +25321,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUpdateManyWithoutItemsNestedInput
   }
@@ -26744,7 +25330,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -26752,7 +25337,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
   }
@@ -26779,8 +25363,8 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -26804,8 +25388,8 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -26871,8 +25455,8 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -26896,8 +25480,8 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -26938,30 +25522,6 @@ export namespace Prisma {
 
   export type monetizationCreateManyItemsInputEnvelope = {
     data: monetizationCreateManyItemsInput | monetizationCreateManyItemsInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type pay_per_view_accessCreateWithoutItemsInput = {
-    access_id?: string
-    access_expiry: Date | string
-    created_at?: Date | string | null
-    users: usersCreateNestedOneWithoutPay_per_view_accessInput
-  }
-
-  export type pay_per_view_accessUncheckedCreateWithoutItemsInput = {
-    access_id?: string
-    user_id: string
-    access_expiry: Date | string
-    created_at?: Date | string | null
-  }
-
-  export type pay_per_view_accessCreateOrConnectWithoutItemsInput = {
-    where: pay_per_view_accessWhereUniqueInput
-    create: XOR<pay_per_view_accessCreateWithoutItemsInput, pay_per_view_accessUncheckedCreateWithoutItemsInput>
-  }
-
-  export type pay_per_view_accessCreateManyItemsInputEnvelope = {
-    data: pay_per_view_accessCreateManyItemsInput | pay_per_view_accessCreateManyItemsInput[]
     skipDuplicates?: boolean
   }
 
@@ -27090,8 +25650,8 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -27115,8 +25675,8 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -27155,33 +25715,6 @@ export namespace Prisma {
     price?: DecimalNullableFilter<"monetization"> | Decimal | DecimalJsLike | number | string | null
     currency?: StringNullableFilter<"monetization"> | string | null
     created_at?: DateTimeNullableFilter<"monetization"> | Date | string | null
-  }
-
-  export type pay_per_view_accessUpsertWithWhereUniqueWithoutItemsInput = {
-    where: pay_per_view_accessWhereUniqueInput
-    update: XOR<pay_per_view_accessUpdateWithoutItemsInput, pay_per_view_accessUncheckedUpdateWithoutItemsInput>
-    create: XOR<pay_per_view_accessCreateWithoutItemsInput, pay_per_view_accessUncheckedCreateWithoutItemsInput>
-  }
-
-  export type pay_per_view_accessUpdateWithWhereUniqueWithoutItemsInput = {
-    where: pay_per_view_accessWhereUniqueInput
-    data: XOR<pay_per_view_accessUpdateWithoutItemsInput, pay_per_view_accessUncheckedUpdateWithoutItemsInput>
-  }
-
-  export type pay_per_view_accessUpdateManyWithWhereWithoutItemsInput = {
-    where: pay_per_view_accessScalarWhereInput
-    data: XOR<pay_per_view_accessUpdateManyMutationInput, pay_per_view_accessUncheckedUpdateManyWithoutItemsInput>
-  }
-
-  export type pay_per_view_accessScalarWhereInput = {
-    AND?: pay_per_view_accessScalarWhereInput | pay_per_view_accessScalarWhereInput[]
-    OR?: pay_per_view_accessScalarWhereInput[]
-    NOT?: pay_per_view_accessScalarWhereInput | pay_per_view_accessScalarWhereInput[]
-    access_id?: UuidFilter<"pay_per_view_access"> | string
-    user_id?: UuidFilter<"pay_per_view_access"> | string
-    item_id?: UuidFilter<"pay_per_view_access"> | string
-    access_expiry?: DateTimeFilter<"pay_per_view_access"> | Date | string
-    created_at?: DateTimeNullableFilter<"pay_per_view_access"> | Date | string | null
   }
 
   export type reviewsUpsertWithWhereUniqueWithoutItemsInput = {
@@ -27244,7 +25777,6 @@ export namespace Prisma {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -27253,7 +25785,6 @@ export namespace Prisma {
     collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
     reviews?: reviewsCreateNestedManyWithoutItemsInput
     transactions?: transactionsCreateNestedManyWithoutItemsInput
   }
@@ -27263,7 +25794,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -27271,7 +25801,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
   }
@@ -27296,7 +25825,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27305,7 +25833,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUpdateManyWithoutItemsNestedInput
   }
@@ -27315,7 +25842,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27323,220 +25849,14 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
-  }
-
-  export type itemsCreateWithoutPay_per_view_accessInput = {
-    item_id?: string
-    title: string
-    description?: string | null
-    media_url?: string | null
-    category?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
-    monetization_type?: string | null
-    availability?: boolean | null
-    created_at?: Date | string | null
-    collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
-    favorites?: favoritesCreateNestedManyWithoutItemsInput
-    users: usersCreateNestedOneWithoutItemsInput
-    monetization?: monetizationCreateNestedManyWithoutItemsInput
-    reviews?: reviewsCreateNestedManyWithoutItemsInput
-    transactions?: transactionsCreateNestedManyWithoutItemsInput
-  }
-
-  export type itemsUncheckedCreateWithoutPay_per_view_accessInput = {
-    item_id?: string
-    user_id: string
-    title: string
-    description?: string | null
-    media_url?: string | null
-    category?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
-    monetization_type?: string | null
-    availability?: boolean | null
-    created_at?: Date | string | null
-    collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
-    favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
-    monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
-    transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
-  }
-
-  export type itemsCreateOrConnectWithoutPay_per_view_accessInput = {
-    where: itemsWhereUniqueInput
-    create: XOR<itemsCreateWithoutPay_per_view_accessInput, itemsUncheckedCreateWithoutPay_per_view_accessInput>
-  }
-
-  export type usersCreateWithoutPay_per_view_accessInput = {
-    id?: string
-    email: string
-    phone?: string | null
-    password_hash: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean | null
-    is_active?: boolean | null
-    pass_salts?: string | null
-    user_type?: string | null
-    favorites?: favoritesCreateNestedManyWithoutUsersInput
-    items?: itemsCreateNestedManyWithoutUsersInput
-    reviews?: reviewsCreateNestedManyWithoutUsersInput
-    transactions?: transactionsCreateNestedManyWithoutUsersInput
-    password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
-    user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
-    user_audit_logs?: user_audit_logsCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
-    user_certificates?: user_certificatesCreateNestedOneWithoutUsersInput
-    user_profile?: user_profileCreateNestedOneWithoutUsersInput
-    user_security?: user_securityCreateNestedOneWithoutUsersInput
-    user_sessions?: user_sessionsCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersUncheckedCreateWithoutPay_per_view_accessInput = {
-    id?: string
-    email: string
-    phone?: string | null
-    password_hash: string
-    created_at?: Date | string
-    updated_at?: Date | string
-    is_verified?: boolean | null
-    is_active?: boolean | null
-    pass_salts?: string | null
-    user_type?: string | null
-    favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
-    items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
-    transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
-    password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
-    user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
-    user_audit_logs?: user_audit_logsUncheckedCreateNestedManyWithoutUsersInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedCreateNestedOneWithoutUsers_user_blocklist_user_idTousersInput
-    user_certificates?: user_certificatesUncheckedCreateNestedOneWithoutUsersInput
-    user_profile?: user_profileUncheckedCreateNestedOneWithoutUsersInput
-    user_security?: user_securityUncheckedCreateNestedOneWithoutUsersInput
-    user_sessions?: user_sessionsUncheckedCreateNestedManyWithoutUsersInput
-  }
-
-  export type usersCreateOrConnectWithoutPay_per_view_accessInput = {
-    where: usersWhereUniqueInput
-    create: XOR<usersCreateWithoutPay_per_view_accessInput, usersUncheckedCreateWithoutPay_per_view_accessInput>
-  }
-
-  export type itemsUpsertWithoutPay_per_view_accessInput = {
-    update: XOR<itemsUpdateWithoutPay_per_view_accessInput, itemsUncheckedUpdateWithoutPay_per_view_accessInput>
-    create: XOR<itemsCreateWithoutPay_per_view_accessInput, itemsUncheckedCreateWithoutPay_per_view_accessInput>
-    where?: itemsWhereInput
-  }
-
-  export type itemsUpdateToOneWithWhereWithoutPay_per_view_accessInput = {
-    where?: itemsWhereInput
-    data: XOR<itemsUpdateWithoutPay_per_view_accessInput, itemsUncheckedUpdateWithoutPay_per_view_accessInput>
-  }
-
-  export type itemsUpdateWithoutPay_per_view_accessInput = {
-    item_id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
-    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
-    favorites?: favoritesUpdateManyWithoutItemsNestedInput
-    users?: usersUpdateOneRequiredWithoutItemsNestedInput
-    monetization?: monetizationUpdateManyWithoutItemsNestedInput
-    reviews?: reviewsUpdateManyWithoutItemsNestedInput
-    transactions?: transactionsUpdateManyWithoutItemsNestedInput
-  }
-
-  export type itemsUncheckedUpdateWithoutPay_per_view_accessInput = {
-    item_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    title?: StringFieldUpdateOperationsInput | string
-    description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
-    category?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
-    monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
-    availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
-    favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
-    monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
-    transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
-  }
-
-  export type usersUpsertWithoutPay_per_view_accessInput = {
-    update: XOR<usersUpdateWithoutPay_per_view_accessInput, usersUncheckedUpdateWithoutPay_per_view_accessInput>
-    create: XOR<usersCreateWithoutPay_per_view_accessInput, usersUncheckedCreateWithoutPay_per_view_accessInput>
-    where?: usersWhereInput
-  }
-
-  export type usersUpdateToOneWithWhereWithoutPay_per_view_accessInput = {
-    where?: usersWhereInput
-    data: XOR<usersUpdateWithoutPay_per_view_accessInput, usersUncheckedUpdateWithoutPay_per_view_accessInput>
-  }
-
-  export type usersUpdateWithoutPay_per_view_accessInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
-    user_type?: NullableStringFieldUpdateOperationsInput | string | null
-    favorites?: favoritesUpdateManyWithoutUsersNestedInput
-    items?: itemsUpdateManyWithoutUsersNestedInput
-    reviews?: reviewsUpdateManyWithoutUsersNestedInput
-    transactions?: transactionsUpdateManyWithoutUsersNestedInput
-    password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
-    user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
-    user_audit_logs?: user_audit_logsUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
-    user_certificates?: user_certificatesUpdateOneWithoutUsersNestedInput
-    user_profile?: user_profileUpdateOneWithoutUsersNestedInput
-    user_security?: user_securityUpdateOneWithoutUsersNestedInput
-    user_sessions?: user_sessionsUpdateManyWithoutUsersNestedInput
-  }
-
-  export type usersUncheckedUpdateWithoutPay_per_view_accessInput = {
-    id?: StringFieldUpdateOperationsInput | string
-    email?: StringFieldUpdateOperationsInput | string
-    phone?: NullableStringFieldUpdateOperationsInput | string | null
-    password_hash?: StringFieldUpdateOperationsInput | string
-    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
-    is_verified?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
-    user_type?: NullableStringFieldUpdateOperationsInput | string | null
-    favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
-    items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
-    transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
-    password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
-    user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
-    user_audit_logs?: user_audit_logsUncheckedUpdateManyWithoutUsersNestedInput
-    user_blocklist_user_blocklist_user_idTousers?: user_blocklistUncheckedUpdateOneWithoutUsers_user_blocklist_user_idTousersNestedInput
-    user_certificates?: user_certificatesUncheckedUpdateOneWithoutUsersNestedInput
-    user_profile?: user_profileUncheckedUpdateOneWithoutUsersNestedInput
-    user_security?: user_securityUncheckedUpdateOneWithoutUsersNestedInput
-    user_sessions?: user_sessionsUncheckedUpdateManyWithoutUsersNestedInput
   }
 
   export type itemsCreateWithoutReviewsInput = {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -27546,7 +25866,6 @@ export namespace Prisma {
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
     transactions?: transactionsCreateNestedManyWithoutItemsInput
   }
 
@@ -27555,7 +25874,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -27564,7 +25882,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
   }
 
@@ -27584,9 +25901,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
@@ -27609,9 +25926,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
@@ -27643,7 +25960,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27653,7 +25969,6 @@ export namespace Prisma {
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUpdateManyWithoutItemsNestedInput
   }
 
@@ -27662,7 +25977,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27671,7 +25985,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
   }
 
@@ -27697,9 +26010,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
@@ -27722,9 +26035,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
@@ -27747,9 +26060,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
@@ -27772,9 +26085,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
@@ -27795,7 +26108,6 @@ export namespace Prisma {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -27805,7 +26117,6 @@ export namespace Prisma {
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
     reviews?: reviewsCreateNestedManyWithoutItemsInput
   }
 
@@ -27814,7 +26125,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -27823,7 +26133,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
   }
 
@@ -27854,9 +26163,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
@@ -27879,9 +26188,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
@@ -27908,7 +26217,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27918,7 +26226,6 @@ export namespace Prisma {
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUpdateManyWithoutItemsNestedInput
   }
 
@@ -27927,7 +26234,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -27936,7 +26242,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
   }
 
@@ -27951,9 +26256,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsCreateNestedOneWithoutUsersInput
@@ -27976,9 +26281,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     user_analytics?: user_analyticsUncheckedCreateNestedOneWithoutUsersInput
@@ -28017,9 +26322,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUpdateOneWithoutUsersNestedInput
@@ -28042,9 +26347,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     user_analytics?: user_analyticsUncheckedUpdateOneWithoutUsersNestedInput
@@ -28067,9 +26372,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -28092,9 +26397,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -28133,9 +26438,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -28158,9 +26463,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -28183,9 +26488,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -28208,9 +26513,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -28249,9 +26554,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -28274,9 +26579,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -28299,9 +26604,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -28324,9 +26629,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -28365,9 +26670,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -28390,9 +26695,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -28415,9 +26720,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -28440,9 +26745,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -28481,9 +26786,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -28506,9 +26811,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -28531,9 +26836,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -28556,9 +26861,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -28597,9 +26902,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -28622,9 +26927,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -28647,9 +26952,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -28672,9 +26977,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -28713,9 +27018,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -28738,9 +27043,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -28763,9 +27068,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesCreateNestedManyWithoutUsersInput
     items?: itemsCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutUsersInput
     reviews?: reviewsCreateNestedManyWithoutUsersInput
     transactions?: transactionsCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensCreateNestedManyWithoutUsersInput
@@ -28788,9 +27093,9 @@ export namespace Prisma {
     is_active?: boolean | null
     pass_salts?: string | null
     user_type?: string | null
+    intitial_balance?: number
     favorites?: favoritesUncheckedCreateNestedManyWithoutUsersInput
     items?: itemsUncheckedCreateNestedManyWithoutUsersInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutUsersInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutUsersInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutUsersInput
     password_reset_tokens?: password_reset_tokensUncheckedCreateNestedManyWithoutUsersInput
@@ -28829,9 +27134,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUpdateManyWithoutUsersNestedInput
     items?: itemsUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUpdateManyWithoutUsersNestedInput
@@ -28854,9 +27159,9 @@ export namespace Prisma {
     is_active?: NullableBoolFieldUpdateOperationsInput | boolean | null
     pass_salts?: NullableStringFieldUpdateOperationsInput | string | null
     user_type?: NullableStringFieldUpdateOperationsInput | string | null
+    intitial_balance?: FloatFieldUpdateOperationsInput | number
     favorites?: favoritesUncheckedUpdateManyWithoutUsersNestedInput
     items?: itemsUncheckedUpdateManyWithoutUsersNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutUsersNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutUsersNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutUsersNestedInput
     password_reset_tokens?: password_reset_tokensUncheckedUpdateManyWithoutUsersNestedInput
@@ -28894,7 +27199,6 @@ export namespace Prisma {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -28903,7 +27207,6 @@ export namespace Prisma {
     collection_items?: collection_itemsCreateNestedManyWithoutItemsInput
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
     reviews?: reviewsCreateNestedManyWithoutItemsInput
     transactions?: transactionsCreateNestedManyWithoutItemsInput
   }
@@ -28912,7 +27215,6 @@ export namespace Prisma {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -28921,7 +27223,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedCreateNestedManyWithoutItemsInput
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
   }
@@ -28933,30 +27234,6 @@ export namespace Prisma {
 
   export type itemsCreateManyUsersInputEnvelope = {
     data: itemsCreateManyUsersInput | itemsCreateManyUsersInput[]
-    skipDuplicates?: boolean
-  }
-
-  export type pay_per_view_accessCreateWithoutUsersInput = {
-    access_id?: string
-    access_expiry: Date | string
-    created_at?: Date | string | null
-    items: itemsCreateNestedOneWithoutPay_per_view_accessInput
-  }
-
-  export type pay_per_view_accessUncheckedCreateWithoutUsersInput = {
-    access_id?: string
-    item_id: string
-    access_expiry: Date | string
-    created_at?: Date | string | null
-  }
-
-  export type pay_per_view_accessCreateOrConnectWithoutUsersInput = {
-    where: pay_per_view_accessWhereUniqueInput
-    create: XOR<pay_per_view_accessCreateWithoutUsersInput, pay_per_view_accessUncheckedCreateWithoutUsersInput>
-  }
-
-  export type pay_per_view_accessCreateManyUsersInputEnvelope = {
-    data: pay_per_view_accessCreateManyUsersInput | pay_per_view_accessCreateManyUsersInput[]
     skipDuplicates?: boolean
   }
 
@@ -29239,28 +27516,11 @@ export namespace Prisma {
     user_id?: UuidFilter<"items"> | string
     title?: StringFilter<"items"> | string
     description?: StringNullableFilter<"items"> | string | null
-    media_url?: StringNullableFilter<"items"> | string | null
     category?: StringNullableFilter<"items"> | string | null
     price?: DecimalNullableFilter<"items"> | Decimal | DecimalJsLike | number | string | null
     monetization_type?: StringNullableFilter<"items"> | string | null
     availability?: BoolNullableFilter<"items"> | boolean | null
     created_at?: DateTimeNullableFilter<"items"> | Date | string | null
-  }
-
-  export type pay_per_view_accessUpsertWithWhereUniqueWithoutUsersInput = {
-    where: pay_per_view_accessWhereUniqueInput
-    update: XOR<pay_per_view_accessUpdateWithoutUsersInput, pay_per_view_accessUncheckedUpdateWithoutUsersInput>
-    create: XOR<pay_per_view_accessCreateWithoutUsersInput, pay_per_view_accessUncheckedCreateWithoutUsersInput>
-  }
-
-  export type pay_per_view_accessUpdateWithWhereUniqueWithoutUsersInput = {
-    where: pay_per_view_accessWhereUniqueInput
-    data: XOR<pay_per_view_accessUpdateWithoutUsersInput, pay_per_view_accessUncheckedUpdateWithoutUsersInput>
-  }
-
-  export type pay_per_view_accessUpdateManyWithWhereWithoutUsersInput = {
-    where: pay_per_view_accessScalarWhereInput
-    data: XOR<pay_per_view_accessUpdateManyMutationInput, pay_per_view_accessUncheckedUpdateManyWithoutUsersInput>
   }
 
   export type reviewsUpsertWithWhereUniqueWithoutUsersInput = {
@@ -29544,7 +27804,6 @@ export namespace Prisma {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -29553,7 +27812,6 @@ export namespace Prisma {
     favorites?: favoritesCreateNestedManyWithoutItemsInput
     users: usersCreateNestedOneWithoutItemsInput
     monetization?: monetizationCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessCreateNestedManyWithoutItemsInput
     reviews?: reviewsCreateNestedManyWithoutItemsInput
     transactions?: transactionsCreateNestedManyWithoutItemsInput
   }
@@ -29563,7 +27821,6 @@ export namespace Prisma {
     user_id: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
@@ -29571,7 +27828,6 @@ export namespace Prisma {
     created_at?: Date | string | null
     favorites?: favoritesUncheckedCreateNestedManyWithoutItemsInput
     monetization?: monetizationUncheckedCreateNestedManyWithoutItemsInput
-    pay_per_view_access?: pay_per_view_accessUncheckedCreateNestedManyWithoutItemsInput
     reviews?: reviewsUncheckedCreateNestedManyWithoutItemsInput
     transactions?: transactionsUncheckedCreateNestedManyWithoutItemsInput
   }
@@ -29623,7 +27879,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29632,7 +27887,6 @@ export namespace Prisma {
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     users?: usersUpdateOneRequiredWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUpdateManyWithoutItemsNestedInput
   }
@@ -29642,7 +27896,6 @@ export namespace Prisma {
     user_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29650,7 +27903,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
   }
@@ -29707,13 +27959,6 @@ export namespace Prisma {
     type?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     currency?: string | null
-    created_at?: Date | string | null
-  }
-
-  export type pay_per_view_accessCreateManyItemsInput = {
-    access_id?: string
-    user_id: string
-    access_expiry: Date | string
     created_at?: Date | string | null
   }
 
@@ -29790,27 +28035,6 @@ export namespace Prisma {
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 
-  export type pay_per_view_accessUpdateWithoutItemsInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    users?: usersUpdateOneRequiredWithoutPay_per_view_accessNestedInput
-  }
-
-  export type pay_per_view_accessUncheckedUpdateWithoutItemsInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type pay_per_view_accessUncheckedUpdateManyWithoutItemsInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    user_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
   export type reviewsUpdateWithoutItemsInput = {
     review_id?: StringFieldUpdateOperationsInput | string
     rating?: NullableIntFieldUpdateOperationsInput | number | null
@@ -29869,18 +28093,10 @@ export namespace Prisma {
     item_id?: string
     title: string
     description?: string | null
-    media_url?: string | null
     category?: string | null
     price?: Decimal | DecimalJsLike | number | string | null
     monetization_type?: string | null
     availability?: boolean | null
-    created_at?: Date | string | null
-  }
-
-  export type pay_per_view_accessCreateManyUsersInput = {
-    access_id?: string
-    item_id: string
-    access_expiry: Date | string
     created_at?: Date | string | null
   }
 
@@ -29945,7 +28161,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29954,7 +28169,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUpdateManyWithoutItemsNestedInput
   }
@@ -29963,7 +28177,6 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
@@ -29972,7 +28185,6 @@ export namespace Prisma {
     collection_items?: collection_itemsUncheckedUpdateManyWithoutItemsNestedInput
     favorites?: favoritesUncheckedUpdateManyWithoutItemsNestedInput
     monetization?: monetizationUncheckedUpdateManyWithoutItemsNestedInput
-    pay_per_view_access?: pay_per_view_accessUncheckedUpdateManyWithoutItemsNestedInput
     reviews?: reviewsUncheckedUpdateManyWithoutItemsNestedInput
     transactions?: transactionsUncheckedUpdateManyWithoutItemsNestedInput
   }
@@ -29981,32 +28193,10 @@ export namespace Prisma {
     item_id?: StringFieldUpdateOperationsInput | string
     title?: StringFieldUpdateOperationsInput | string
     description?: NullableStringFieldUpdateOperationsInput | string | null
-    media_url?: NullableStringFieldUpdateOperationsInput | string | null
     category?: NullableStringFieldUpdateOperationsInput | string | null
     price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
     monetization_type?: NullableStringFieldUpdateOperationsInput | string | null
     availability?: NullableBoolFieldUpdateOperationsInput | boolean | null
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type pay_per_view_accessUpdateWithoutUsersInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-    items?: itemsUpdateOneRequiredWithoutPay_per_view_accessNestedInput
-  }
-
-  export type pay_per_view_accessUncheckedUpdateWithoutUsersInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    item_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
-    created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  }
-
-  export type pay_per_view_accessUncheckedUpdateManyWithoutUsersInput = {
-    access_id?: StringFieldUpdateOperationsInput | string
-    item_id?: StringFieldUpdateOperationsInput | string
-    access_expiry?: DateTimeFieldUpdateOperationsInput | Date | string
     created_at?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   }
 

@@ -129,7 +129,6 @@ exports.Prisma.ItemsScalarFieldEnum = {
   user_id: 'user_id',
   title: 'title',
   description: 'description',
-  media_url: 'media_url',
   category: 'category',
   price: 'price',
   monetization_type: 'monetization_type',
@@ -143,14 +142,6 @@ exports.Prisma.MonetizationScalarFieldEnum = {
   type: 'type',
   price: 'price',
   currency: 'currency',
-  created_at: 'created_at'
-};
-
-exports.Prisma.Pay_per_view_accessScalarFieldEnum = {
-  access_id: 'access_id',
-  user_id: 'user_id',
-  item_id: 'item_id',
-  access_expiry: 'access_expiry',
   created_at: 'created_at'
 };
 
@@ -256,7 +247,8 @@ exports.Prisma.UsersScalarFieldEnum = {
   is_verified: 'is_verified',
   is_active: 'is_active',
   pass_salts: 'pass_salts',
-  user_type: 'user_type'
+  user_type: 'user_type',
+  intitial_balance: 'intitial_balance'
 };
 
 exports.Prisma.Collection_itemsScalarFieldEnum = {
@@ -304,7 +296,6 @@ exports.Prisma.ModelName = {
   favorites: 'favorites',
   items: 'items',
   monetization: 'monetization',
-  pay_per_view_access: 'pay_per_view_access',
   reviews: 'reviews',
   transactions: 'transactions',
   password_reset_tokens: 'password_reset_tokens',

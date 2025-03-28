@@ -201,7 +201,8 @@ exports.Prisma.UsersScalarFieldEnum = {
   is_verified: 'is_verified',
   is_active: 'is_active',
   pass_salts: 'pass_salts',
-  user_type: 'user_type'
+  user_type: 'user_type',
+  intitial_balance: 'intitial_balance'
 };
 
 exports.Prisma.SortOrder = {
