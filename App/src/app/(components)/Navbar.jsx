@@ -35,13 +35,33 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+// Logout handler
+const handleLogout = async () => {
+  const token = localStorage.getItem('token');
+  try {
+    const response = await fetch("/api/logout", { method: "POST",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        // uuid: uuid
+      },
+     });
+    if (response.ok) {
+      window.location.href = "/"; // Redirect to home page after logout
+    } else {
+      console.error("Logout failed:", await response.json());
+    }
+  } catch (error) {
+    console.error("Logout error:", error);
+  }
+};
+
 // Navbar component accepting userId as prop
 export default function Navbar({ userId }) {
   // Build menu items dynamically
   const items = [
     { key: '1', label: <Link href={`/profile/${userId}`}>Profile</Link> },
     { key: '2', label: <Link href={`/settings/${userId}`}>Settings</Link> },
-    { key: '3', label: <Link href="/logout">Logout</Link>, danger: true },
+    { key: '3', label: <span onClick={handleLogout} style={{ color: 'red', cursor: 'pointer' }}>Logout</span>, danger: true },
   ];
 
   return (

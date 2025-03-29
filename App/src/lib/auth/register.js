@@ -98,7 +98,7 @@ async function onRegistrationComplete(userData) {
     try {
         const token = await generateAndStoreToken(userData);
         return token;
-    } catch (error) {
+    } catch (error) { 
         console.error('onRegistrationComplete Error:', error);
         throw error;
     }
