@@ -1,82 +1,93 @@
 "use client";
-import { useState } from 'react';
-import { Modal, Input, Button, Upload, message } from 'antd';
-import { PlusOutlined } from '@ant-design/icons';
+import { useState } from "react";
+import { Modal, Input, Button, Upload, message } from "antd";
+import { PictureOutlined, DollarOutlined } from "@ant-design/icons";
 
-export default function CreatePost() {
-    const [visible, setVisible] = useState(false);
-    const [postText, setPostText] = useState('');
-    const [fileList, setFileList] = useState([]);
+export default function CreatePost({ onClose }) {
+  const [postText, setPostText] = useState("");
+  const [fileList, setFileList] = useState([]);
 
-    const openModal = () => setVisible(true);
-    const closeModal = () => setVisible(false);
+  const handlePostSubmit = async (e) => {
+    e.preventDefault();
+    // Enforce that at least one image is selected (mandatory)
+    if (fileList.length === 0) {
+      message.error("Please select at least one image.");
+      return;
+    }
+    // Build payload using FormData
+    const formData = new FormData();
+    formData.append("text", postText);
+    fileList.forEach((file) => {
+      formData.append("images", file.originFileObj);
+    });
 
-    const handlePostSubmit = async () => {
-        if (!postText && fileList.length === 0) {
-            message.error('Please add some text or select at least one image.');
-            return;
-        }
-        // Here, build your payload. For example, if using FormData:
-        const formData = new FormData();
-        formData.append('text', postText);
-        fileList.forEach((file) => {
-            formData.append('images', file.originFileObj);
-        });
+    try {
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        body: formData,
+      });
+      if (!res.ok) throw new Error("Post submission failed");
+      message.success("Post added successfully!");
+      // Reset fields and close modal
+      setPostText("");
+      setFileList([]);
+      onClose();
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
 
-        // Make your API call to submit the post
-        try {
-            const res = await fetch('/api/posts', {
-                method: 'POST',
-                body: formData,
-            });
-            if (!res.ok) throw new Error('Post submission failed');
-            message.success('Post added successfully!');
-            // Clear fields and close modal
-            setPostText('');
-            setFileList([]);
-            closeModal();
-        } catch (error) {
-            message.error(error.message);
-        }
-    };
+  const uploadProps = {
+    beforeUpload: (file) => {
+      if (!file.type.startsWith("image/")) {
+        message.error("Only image files are allowed!");
+        return Upload.LIST_IGNORE;
+      }
+      return false; // Prevent automatic upload
+    },
+    fileList,
+    onChange: ({ fileList }) => setFileList(fileList),
+    multiple: true,
+  };
 
-    const uploadProps = {
-        beforeUpload: file => {
-            if (!file.type.startsWith('image/')) {
-                message.error('Only image files are allowed!');
-                return Upload.LIST_IGNORE;
-            }
-            return false; // Prevent automatic upload, we'll handle it on submit.
-        },
-        fileList,
-        onChange: ({ fileList }) => setFileList(fileList),
-        multiple: true,
-    };
-
-    return (
-        <div className="p-4">
-            <Button type="primary" onClick={openModal}>
-                Create Post
-            </Button>
-            <Modal
-                title="Create a New Post"
-                open={visible}
-                onCancel={closeModal}
-                onOk={handlePostSubmit}
-                okText="Post"
-                cancelText="Cancel"
-            >
-                <Input.TextArea
-                    rows={4}
-                    placeholder="What's on your mind?"
-                    value={postText}
-                    onChange={(e) => setPostText(e.target.value)}
-                    className="mb-4"
-                />
-                <Upload {...uploadProps}>
-                    <Button icon={<PlusOutlined />}>Upload Images</Button>
-                </Upload>
-            </Modal>
-        </div>
-    );
+  return (
+    <Modal
+      title="Create a New Post"
+      open={true}  // Always open; parent's render controls visibility
+      onCancel={onClose}
+      centered
+      footer={[
+        <Button
+          key="cancel"
+          onClick={onClose}
+          className="bg-gray-300 hover:bg-gray-400 text-gray-800 rounded-md"
+        >
+          Cancel
+        </Button>,
+        <Button
+          key="submit"
+          type="primary"
+          onClick={handlePostSubmit}
+          className="bg-blue-600 hover:bg-blue-700 text-white rounded-md"
+        >
+          Post
+        </Button>,
+      ]}
+    >
+      <form onSubmit={handlePostSubmit} className="space-y-4">
+        <Input.TextArea
+          rows={4}
+          placeholder="What's on your mind?"
+          value={postText}
+          onChange={(e) => setPostText(e.target.value)}
+          className="p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        <Upload {...uploadProps}>
+          <Button icon={<PictureOutlined />} className="flex items-center py-5 my-5">
+            Upload Images
+          </Button>
+        </Upload>
+      </form>
+    </Modal>
+  );
 }

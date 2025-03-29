@@ -1,8 +1,13 @@
 // app/dreamdot/posts/[postId]/page.js
 "use client";
-import { Comment, List, Avatar, Button, Input } from 'antd';
+import { List, Avatar, Button, Input, Layout } from 'antd';
 import { LikeOutlined, MessageOutlined } from '@ant-design/icons';
 import Navbar from '../../../(components)/Navbar';
+import { useState } from 'react';
+import { useParams } from 'next/navigation';
+import { Card } from 'antd';
+import { Image } from 'antd';
+import { Typography } from 'antd';
 
 const { TextArea } = Input;
 
@@ -10,6 +15,7 @@ export default function PostPage() {
   const [comments, setComments] = useState([]);
   const [likes, setLikes] = useState(0);
   const [newComment, setNewComment] = useState('');
+  const { postId, uuid } = useParams();
 
   const handleComment = () => {
     setComments([...comments, {
@@ -22,13 +28,13 @@ export default function PostPage() {
 
   return (
     <Layout>
-      <Navbar />
+      <Navbar userId={uuid}/>
       <div className="max-w-2xl mx-auto p-4">
         <Card>
           <div className="post-content">
             {/* Post content here */}
             <Image src="/post-image.jpg" />
-            <Paragraph>Post caption text...</Paragraph>
+            <Typography.Paragraph>Post caption text...</Typography.Paragraph>
           </div>
 
           <div className="flex gap-4 items-center mb-4">
@@ -47,12 +53,12 @@ export default function PostPage() {
             itemLayout="horizontal"
             dataSource={comments}
             renderItem={comment => (
-              <Comment
-                author={comment.author}
-                content={comment.content}
-                datetime={comment.datetime}
-                avatar={<Avatar src="https://joeschmoe.io/api/v1/random" />}
-              />
+              <Typography.Paragraph><Typography.Text strong>{comment.author}</Typography.Text> {comment.content} <span>{comment.datetime}</span>
+                <br />
+                <span className="text-gray-500">{comment.datetime}</span>
+                <br />
+                <span className="text-gray-500">{comment.content}</span>
+              </Typography.Paragraph>
             )}
           />
 

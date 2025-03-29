@@ -1,9 +1,13 @@
 "use client";
-import { useState } from 'react';
+import { use, useState } from 'react';
 import { Input, Button, message, DatePicker, Select } from 'antd';
 import Image from 'next/image';
 import onboarding_pic from '../../(images)/auth_pic.jpg';
 import { useRouter } from 'next/navigation'
+
+import { useUser } from '../../user_context';
+
+const { login } = useUser(); 
 
 export default function Register() {
     
@@ -56,8 +60,25 @@ export default function Register() {
 
                     // Submit final registration data
                     await submitRegistration(validated_data);
-
+                    
                     message.success('Registration successful!');
+
+                    const userData = {
+                        id: 'uuid',
+                        name: formData.fullName,
+                        user_name: formData.username,
+                        email: formData.email,
+                        profile_picture: '',
+                        bio: '',
+                        website: '',
+                        country: formData.country,
+                        phone: formData.phone,
+                        date_of_birth: formData.dob ? formData.dob.format('YYYY-MM-DD') : null,
+                        website_url: '',
+                        social_links: [],
+                    }
+
+                    login
                 }
             }
         } catch (err) {

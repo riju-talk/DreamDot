@@ -5,7 +5,7 @@ import { Image, Card, Rate, Tabs, Typography, Button, Layout } from 'antd';
 import Navbar from '../../../(components)/Navbar';
 import { useParams } from 'next/navigation';
 
-const { Title, Paragraph } = Typography;
+const { Title, Paragraph, Text } = Typography;
 const { TabPane } = Tabs;
 
 export default function ItemPage() {
@@ -20,6 +20,7 @@ export default function ItemPage() {
         reviews: [
             { user: 'John', rating: 4, comment: 'Great product!' },
         ],
+        thumbnail: 'thumbnail.jpg',
     });
 
     return (
@@ -30,7 +31,7 @@ export default function ItemPage() {
                     <div className="flex gap-6">
                         <div className="w-1/2">
                             {item.isPurchased ? (
-                                item.mediaType === 'image' ? (
+                                item.media === 'image' ? (
                                     <Image src={item.media} className="w-full" />
                                 ) : (
                                     <div className="p-4 bg-gray-100">{item.media}</div>

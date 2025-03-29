@@ -1,12 +1,18 @@
 "use client";
 
-import message from "antd/es/message";
 import { useState, ChangeEvent, FormEvent } from "react";
+import Link from "next/link";
+import message from "antd/es/message";
+
+import { useRouter } from "next/navigation";
 
 export default function SignInPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
+
+  // Extract the login function from your context
+  const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -24,14 +30,15 @@ export default function SignInPage() {
         throw new Error(error || "Sign-in failed");
       }
 
-    //   alert("Sign-in successful!");
       const result = await response.json();
       console.log(result);
-        message.success(result.message);
-        const uuid = result.uuid;
-        const token = result.token;
-        localStorage.setItem('token', token);
-        window.location.href = `/feed/${uuid}`;
+      message.success(result.message);
+      const uuid = result.uuid;
+      const token = result.token;
+      
+      // Update context using the login function
+      localStorage.setItem('authToken', token);
+      window.location.href = `/feed/${uuid}`;
 
     } catch (err) {
       setError((err as Error).message);
@@ -83,9 +90,9 @@ export default function SignInPage() {
 
         <p className="mt-4 text-sm text-gray-500 text-center">
           Don't have an account?{" "}
-          <a href="/auth/register" className="text-blue-600 hover:underline">
+          <Link href="/auth/register" className="text-blue-600 hover:underline">
             Sign up
-          </a>
+          </Link>
         </p>
       </form>
     </main>
