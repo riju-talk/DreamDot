@@ -1,6 +1,6 @@
 // utils/validateToken.js
 export const validateToken = async ({ setIsAuthenticated, setLoading, router,uuid }) => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('authToken');
     if (!token) {
       router.push('/');
       return;
@@ -18,7 +18,6 @@ export const validateToken = async ({ setIsAuthenticated, setLoading, router,uui
       if (!res.ok) throw new Error('Unauthorized');
   
       const { user } = await res.json();
-      console.log('Authenticated user:', user);
       setIsAuthenticated(true);
     } catch (error) {
       console.error('Token validation failed:', error);

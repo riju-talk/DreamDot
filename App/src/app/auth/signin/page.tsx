@@ -3,15 +3,14 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 import message from "antd/es/message";
-
 import { useRouter } from "next/navigation";
+
 
 export default function SignInPage() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [error, setError] = useState<string>("");
 
-  // Extract the login function from your context
   const router = useRouter();
 
   const handleSubmit = async (e: FormEvent) => {
@@ -24,22 +23,19 @@ export default function SignInPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      console.log(response);
       if (!response.ok) {
         const { error } = await response.json();
         throw new Error(error || "Sign-in failed");
       }
 
       const result = await response.json();
-      console.log(result);
       message.success(result.message);
-      const uuid = result.uuid;
-      const token = result.token;
-      
-      // Update context using the login function
-      localStorage.setItem('authToken', token);
-      window.location.href = `/feed/${uuid}`;
 
+      // Set the token in localStorage for future authenticated requests
+      localStorage.setItem("authToken", result.token);
+      localStorage.setItem("user", JSON.stringify(result.user));
+      message.success("Login successful");
+      router.push(`/feed/${result.user.id}`);
     } catch (err) {
       setError((err as Error).message);
     }

@@ -5,6 +5,7 @@ import { Button, Dropdown, Space, Typography } from "antd";
 import { styled, alpha } from "@mui/material/styles";
 import { Home, Search, Notifications, Mail } from "@mui/icons-material";
 import { useUnmountEffect } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 // Styled SearchBar component
 const SearchBar = styled('div')(({ theme }) => ({
@@ -57,6 +58,7 @@ const handleLogout = async () => {
 
 // Navbar component accepting userId as prop
 export default function Navbar({ userId }) {
+  const router = useRouter();
   // Build menu items dynamically
   const items = [
     { key: '1', label: <Link href={`/profile/${userId}`}>Profile</Link> },
@@ -110,9 +112,9 @@ export default function Navbar({ userId }) {
 
         {/* Right Section - Actions */}
         <Space size="middle" align="center">
-          <IconButton className="hidden sm:inline-flex">
+          <IconButton className="hidden sm:inline-flex" onClick={() => router.push(`/feed/${userId}`)}>
             <Home sx={{ color: 'text.primary' }} />
-          </IconButton>
+          </IconButton> 
           <IconButton>
             <Badge badgeContent={4} color="error">
               <Mail sx={{ color: 'text.primary' }} />

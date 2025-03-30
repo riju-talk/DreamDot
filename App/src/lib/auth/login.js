@@ -1,5 +1,4 @@
 // lib/auth/hash.js
-import { useUser } from "../../app/user_context";
 import { createHash } from "crypto";
 
 export function hashWithSalt(password, salt) {
@@ -8,10 +7,8 @@ export function hashWithSalt(password, salt) {
 
 // lib/auth/generateAndStoreToken.js
 import { v4 as uuidv4 } from "uuid";
-import { prismaUser } from "../../db/client";
+import { prismaUser } from "../db/client";
 import { createToken, decodeToken } from "./create_tokens";
-
-const { login } = useUser()
 
 export async function generateAndStoreToken(userData) {
     // 1. Generate token and a random secret
@@ -45,13 +42,6 @@ export async function generateAndStoreToken(userData) {
     }
 }
 
-
-// lib/auth/signIn.js
-import { prismaUser } from "../../db/client";
-import { v4 as uuidv4 } from "uuid";
-import { hashWithSalt } from "./hash";
-import { generateAndStoreToken } from "./generateAndStoreToken";
-
 export async function signIn(data) {
     try {
         const { email, password } = data;
@@ -82,16 +72,16 @@ export async function signIn(data) {
         }
 
         // 3. Create JWT and Session
-        const { token, uuid } = await generateAndStoreToken({
+        const { token } = await generateAndStoreToken({
             id: user.id,
             email: user.email,
             phone: user.phone,
-            username: user.user_profile?.username || "",
-            fullName: user.user_profile?.display_name || "",
+            username: profile_details.username || "",
+            fullName: profile_details.display_name || "",
         });
 
-        // 4. Creating User Context
-        login({
+        // 4. Build the full user context details
+        const userContext = {
             id: user.id,
             name: profile_details.display_name || "",
             user_name: profile_details.username || "",
@@ -104,9 +94,9 @@ export async function signIn(data) {
             date_of_birth: profile_details.dob || "",
             website_url: profile_details.website || "",
             social_links: profile_details.social_links || {},
-        });
+        };
 
-        return { success: true, message: "Sign-in successful", token, uuid };
+        return { success: true, message: "Sign-in successful", token, user: userContext };
     } catch (error) {
         console.error("Sign-in Error:", error.message);
         throw new Error("Sign-in failed: " + error.message);

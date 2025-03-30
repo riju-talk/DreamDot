@@ -1,64 +1,87 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { Layout, Row, Col, Card, Button, Tabs, Modal, Input, Avatar, Divider } from "antd";
-import {
-  UserOutlined,
-  EditOutlined,
-  PlusOutlined,
-  DollarOutlined,
-  MessageOutlined,
-  UploadOutlined,
-  PictureOutlined
-} from "@ant-design/icons";
+import { UserOutlined, PlusOutlined, DollarOutlined, UploadOutlined, PictureOutlined } from "@ant-design/icons";
 import Navbar from "../../(components)/Navbar";
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from "next/navigation";
 
-export default function ProfilePage() {
-  const [activeTab, setActiveTab] = useState("posts");
-  const [showItemModal, setShowItemModal] = useState(false);
-  const [showPostModal, setShowPostModal] = useState(false);
-  const uuid = useParams().id;
+export default function MyProfilePage() {
+  const router = useRouter();
+  const { id } = useParams();
+  const [realuser, setRealuser] = useState(null);
 
-  // Sample data
-  const profile = {
-    name: "Sarah Johnson",
-    username: "@sarahcreative",
-    bio: "Digital artist & educator | Sharing creative process | Premium tutorials available",
-    followers: "124K",
-    following: "892",
-    posts: 42,
-    products: 15
-  };
-
+  // Demo posts and products for display
   const posts = [
     {
       id: 1,
       content: "Check out my new watercolor tutorial!",
       likes: 142,
-      comments: 28
-    }
+      comments: 28,
+    },
+    {
+      id: 2,
+      content: "Loving the new art supplies at the local store.",
+      likes: 87,
+      comments: 14,
+    },
   ];
   const products = [
     {
       id: 1,
       title: "Procreate Masterclass",
       price: "$49.99",
-      preview: "5-hour video course..."
-    }
+      preview: "5-hour video course to master Procreate.",
+    },
+    {
+      id: 2,
+      title: "Watercolor Basics",
+      price: "$29.99",
+      preview: "Learn watercolor techniques for beginners.",
+    },
   ];
+
+  const [activeTab, setActiveTab] = useState("posts");
+  const [showPostModal, setShowPostModal] = useState(false);
+  const [showItemModal, setShowItemModal] = useState(false);
+
+  useEffect(() => {
+    const fetchRealUser = async () => {
+      try {
+        const response = await fetch(`/api/profile/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        const data = await response.json();
+        setRealuser(data);
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    };
+
+    if (!realuser && id) {
+      fetchRealUser();
+    }
+  }, [id, realuser]);
+
+  if (!realuser) {
+    return (
+      <Layout className="min-h-screen bg-gray-100">
+        <Navbar userId={id} />
+        <div className="flex items-center justify-center h-full">
+          No user logged in.
+        </div>
+      </Layout>
+    );
+  }
 
   return (
     <Layout className="min-h-screen bg-gray-100">
-      <Navbar userId={uuid} />
-      
-      {/* Facebook-style Profile Header */}
-      <div className="relative">
-        {/* Cover Photo: Increased height for more space */}
-        <div className="h-60 bg-blue-200 relative">
-          
-        </div>
+      <Navbar userId={id} />
 
-        {/* Profile Info Section */}
+      {/* Cover + Profile Header */}
+      <div className="relative">
+        <div className="h-60 bg-blue-200 relative"></div>
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-start gap-6 -mt-16">
             {/* Avatar Section */}
@@ -66,16 +89,25 @@ export default function ProfilePage() {
               <Avatar
                 size={164}
                 icon={<UserOutlined />}
+                src={realuser.profile_picture || undefined}
                 className="border-4 border-white bg-gray-200"
               />
-              
             </div>
 
             {/* Name, Username, Bio */}
             <div className="flex-1 pt-12">
-              <h1 className="text-3xl font-bold leading-tight pt-8">{profile.name}</h1>
-              <p className="text-lg text-gray-600 mt-1">{profile.username}</p>
-              <p className="mt-2 text-gray-800">{profile.bio}</p>
+              <h1 className="text-3xl font-bold leading-tight pt-8">
+                {realuser.name || "No Name"}
+              </h1>
+              <p className="text-lg text-gray-600 mt-1">
+                {realuser.user_name ? `@${realuser.user_name}` : "@username"}
+              </p>
+              <p className="mt-2 text-gray-800">
+                {realuser.bio || "No bio available"}
+              </p>
+              <div className="mt-4">
+                <Button type="primary" onClick={() => router.push(`/settings/${id}`)}>Edit Profile</Button>
+              </div>
             </div>
           </div>
         </div>
@@ -87,25 +119,29 @@ export default function ProfilePage() {
           <Tabs
             activeKey={activeTab}
             onChange={setActiveTab}
-            className="profile-tabs"
             items={[
               {
                 key: "posts",
                 label: (
                   <span className="flex items-center gap-2 px-4 py-3">
-                    Posts <span className="bg-gray-100 px-2 rounded-full">{profile.posts}</span>
+                    Posts{" "}
+                    <span className="bg-gray-100 px-2 rounded-full">
+                      {posts.length}
+                    </span>
                   </span>
-                )
+                ),
               },
               {
                 key: "products",
                 label: (
                   <span className="flex items-center gap-2 px-4 py-3">
                     <DollarOutlined /> Products{" "}
-                    <span className="bg-gray-100 px-2 rounded-full">{profile.products}</span>
+                    <span className="bg-gray-100 px-2 rounded-full">
+                      {products.length}
+                    </span>
                   </span>
-                )
-              }
+                ),
+              },
             ]}
           />
         </div>
@@ -118,7 +154,7 @@ export default function ProfilePage() {
           <Col xs={24} lg={16}>
             {activeTab === "posts" ? (
               <div className="space-y-4">
-                {/* Create Post */}
+                {/* Create Post Card */}
                 <Card className="shadow-sm rounded-lg">
                   <div className="flex gap-4">
                     <Avatar size={40} icon={<UserOutlined />} />
@@ -137,7 +173,7 @@ export default function ProfilePage() {
                       <Avatar size={48} icon={<UserOutlined />} />
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <h3 className="font-semibold">{profile.name}</h3>
+                          <h3 className="font-semibold">{realuser.name}</h3>
                           <span className="text-gray-500">· 2h</span>
                         </div>
                         <p className="mt-2">{post.content}</p>
@@ -166,7 +202,6 @@ export default function ProfilePage() {
                   <PlusOutlined className="text-3xl text-gray-400 mb-2" />
                   <p className="text-gray-600">Add New Product</p>
                 </Card>
-
                 {products.map((product) => (
                   <Card key={product.id} className="rounded-lg shadow-sm hover:shadow-md">
                     <div className="h-40 bg-gray-100 rounded-lg mb-4" />
@@ -189,15 +224,15 @@ export default function ProfilePage() {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span>Followers</span>
-                  <span className="font-semibold">{profile.followers}</span>
+                  <span className="font-semibold">0</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Following</span>
-                  <span className="font-semibold">{profile.following}</span>
+                  <span className="font-semibold">0</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Total Sales</span>
-                  <span className="font-semibold text-green-600">$12,450</span>
+                  <span className="font-semibold text-green-600">$0</span>
                 </div>
               </div>
 
@@ -222,7 +257,7 @@ export default function ProfilePage() {
         </Row>
       </div>
 
-      {/* Modals */}
+      {/* Post Modal */}
       <Modal
         title="Create Post"
         centered
@@ -231,7 +266,7 @@ export default function ProfilePage() {
         footer={[
           <Button key="post" type="primary">
             Post
-          </Button>
+          </Button>,
         ]}
       >
         <Input.TextArea
@@ -245,6 +280,7 @@ export default function ProfilePage() {
         </div>
       </Modal>
 
+      {/* Item Modal */}
       <Modal
         title="Add New Product"
         centered
@@ -253,7 +289,7 @@ export default function ProfilePage() {
         footer={[
           <Button key="publish" type="primary">
             Publish Product
-          </Button>
+          </Button>,
         ]}
       >
         <div className="space-y-4">

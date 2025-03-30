@@ -40,6 +40,7 @@ export async function register(data) {
                     username: data.username,
                     display_name: data.fullName || '',
                     dob: parsedDob,
+                    country: data.country || null,
                 },
             });
         });
@@ -52,6 +53,22 @@ export async function register(data) {
             username: data.username,
             fullName: data.fullName,
         });
+
+        // 6) Create a complete userContext object and call login with it.
+        const userContext = {
+            id: uuid,
+            name: data.fullName || null,
+            user_name: data.username || null,
+            email: data.email || null,
+            profile_picture: null,
+            bio: null,
+            website: null,
+            country: null,
+            phone: data.phone || null,
+            date_of_birth: parsedDob ? parsedDob.toISOString() : null,
+            website_url: null,
+            social_links: null,
+        };
 
         return { success: true, message: 'User registered successfully', uuid: uuid, token: token };
     } catch (error) {
@@ -98,7 +115,7 @@ async function onRegistrationComplete(userData) {
     try {
         const token = await generateAndStoreToken(userData);
         return token;
-    } catch (error) { 
+    } catch (error) {
         console.error('onRegistrationComplete Error:', error);
         throw error;
     }

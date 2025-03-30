@@ -25,6 +25,7 @@
     "bcryptjs": "^3.0.2",
     "crypto": "^1.0.1",
     "framer-motion": "^12.0.6",
+    "fuse.js": "^7.1.0",
     "iconoir": "^7.10.0",
     "jsonwebtoken": "^9.0.2",
     "next": "^14.2.24",
