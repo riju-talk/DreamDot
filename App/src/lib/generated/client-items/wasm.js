@@ -251,18 +251,13 @@ exports.Prisma.UsersScalarFieldEnum = {
   intitial_balance: 'intitial_balance'
 };
 
-exports.Prisma.Collection_itemsScalarFieldEnum = {
-  collection_item_id: 'collection_item_id',
-  collection_id: 'collection_id',
-  item_id: 'item_id'
-};
-
 exports.Prisma.CollectionsScalarFieldEnum = {
   collection_id: 'collection_id',
   user_id: 'user_id',
   name: 'name',
+  created_at: 'created_at',
   description: 'description',
-  created_at: 'created_at'
+  collection: 'collection'
 };
 
 exports.Prisma.SortOrder = {
@@ -307,7 +302,6 @@ exports.Prisma.ModelName = {
   user_security: 'user_security',
   user_sessions: 'user_sessions',
   users: 'users',
-  collection_items: 'collection_items',
   collections: 'collections'
 };
 

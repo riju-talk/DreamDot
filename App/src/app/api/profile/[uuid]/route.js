@@ -49,6 +49,7 @@ import {
             avatarUrl: user.user_profile?.profile_picture || "",
             website: user.user_profile?.website || "",
             dob: user.user_profile?.date_of_birth || "",
+            user_type: user.user_type || "",
         };
 
         return new Response(JSON.stringify(userData), { status: 200 });

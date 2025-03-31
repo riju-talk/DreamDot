@@ -25,18 +25,17 @@ model favorites {
 
 /// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
 model items {
-  item_id           String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id           String             @db.Uuid
-  title             String             @db.VarChar(255)
+  item_id           String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id           String         @db.Uuid
+  title             String         @db.VarChar(255)
   description       String?
   category          String?
-  price             Decimal?           @db.Decimal(10, 2)
+  price             Decimal?       @db.Decimal(10, 2)
   monetization_type String?
-  availability      Boolean?           @default(true)
-  created_at        DateTime?          @default(now()) @db.Timestamp(6)
-  collection_items  collection_items[]
+  availability      Boolean?       @default(true)
+  created_at        DateTime?      @default(now()) @db.Timestamp(6)
   favorites         favorites[]
-  users             users              @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  users             users          @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
   monetization      monetization[]
   reviews           reviews[]
   transactions      transactions[]
@@ -211,24 +210,13 @@ model users {
   @@schema("user_d")
 }
 
-model collection_items {
-  collection_item_id String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  collection_id      String      @db.Uuid
-  item_id            String      @db.Uuid
-  collections        collections @relation(fields: [collection_id], references: [collection_id], onDelete: NoAction, onUpdate: NoAction)
-  items              items       @relation(fields: [item_id], references: [item_id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@unique([collection_id, item_id])
-  @@schema("items_d")
-}
-
 model collections {
-  collection_id    String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  user_id          String             @db.Uuid
-  name             String             @db.VarChar(255)
-  description      String?
-  created_at       DateTime?          @default(now()) @db.Timestamp(6)
-  collection_items collection_items[]
+  collection_id String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id       String    @db.Uuid
+  name          String    @db.VarChar(255)
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
+  description   String?
+  collection    Float     @default(0)
 
   @@schema("items_d")
 }

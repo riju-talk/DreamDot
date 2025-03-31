@@ -226,7 +226,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\dreamdot\\DreamDot\\App\\src\\lib\\generated\\client-users",
+      "value": "/home/r0b1n/Desktop/dreamdot/App/src/lib/generated/client-users",
       "fromEnvVar": null
     },
     "config": {
@@ -235,7 +235,7 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "debian-openssl-3.0.x",
         "native": true
       },
       {
@@ -250,7 +250,7 @@ const config = {
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "D:\\dreamdot\\DreamDot\\App\\src\\lib\\prisma\\schema.user.prisma",
+    "sourceFilePath": "/home/r0b1n/Desktop/dreamdot/App/src/lib/prisma/schema.user.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -264,7 +264,6 @@ const config = {
     "db"
   ],
   "activeProvider": "postgresql",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {

@@ -62,6 +62,7 @@ export default function OtherAccountPage() {
 
   // Fetch profile data from the backend API
   useEffect(() => {
+    const stored_info = localStorage.getItem("user");
     if (!accounts_id || !uuid) return;
 
     (async () => {

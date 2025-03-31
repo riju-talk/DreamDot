@@ -168,10 +168,8 @@ exports.Prisma.Posts_analyticsScalarFieldEnum = {
 exports.Prisma.Posts_metadataScalarFieldEnum = {
   id: 'id',
   user_id: 'user_id',
-  title: 'title',
-  summary: 'summary',
+  description: 'description',
   visibility: 'visibility',
-  price: 'price',
   created_at: 'created_at',
   updated_at: 'updated_at'
 };
@@ -180,10 +178,10 @@ exports.Prisma.Reported_contentScalarFieldEnum = {
   id: 'id',
   reporter_id: 'reporter_id',
   reported_user_id: 'reported_user_id',
-  post_id: 'post_id',
   reason: 'reason',
   status: 'status',
-  created_at: 'created_at'
+  created_at: 'created_at',
+  post_id: 'post_id'
 };
 
 exports.Prisma.Password_reset_tokensScalarFieldEnum = {
