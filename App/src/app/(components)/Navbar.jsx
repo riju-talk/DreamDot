@@ -14,6 +14,7 @@ import {
   CircularProgress
 } from "@mui/material";
 import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
+import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
 import { useRouter } from "next/navigation";
 import { styled, alpha } from "@mui/material/styles";
 import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
@@ -58,6 +59,7 @@ const handleLogout = async () => {
       },
      });
     if (response.ok) {
+      localStorage.removeItem("authToken");
       localStorage.removeItem("authToken");
       window.location.href = "/"; // Redirect to home page after logout
     } else {
@@ -246,12 +248,6 @@ export default function Navbar({ userId }) {
               <Notifications sx={{ color: "text.primary", fontSize: 24 }} />
             </Badge>
           </IconButton>
-          <IconButton>
-            <Badge badgeContent={0} color="error">
-              <Chat sx={{ color: 'text.primary' }} onClick={handleChatClick}/>
-            </Badge>
-          </IconButton>
-            
           <Link href={`/chat/${userId}`} style={{ textDecoration: "none" }}>
           <IconButton>
           <Badge badgeContent={0} color="error">
