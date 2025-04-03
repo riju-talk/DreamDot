@@ -3,7 +3,6 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import Link from "next/link";
 import message from "antd/es/message";
-
 import { useRouter } from "next/navigation";
 
 
@@ -77,14 +76,12 @@ export default function SignInPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
-      console.log(response);
       if (!response.ok) {
         const { error } = await response.json();
         throw new Error(error || "Sign-in failed");
       }
       
       const result = await response.json();
-      console.log(result);
       message.success(result.message);
       const uuid = result.uuid;
       const token = result.token;

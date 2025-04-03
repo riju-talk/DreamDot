@@ -1,11 +1,21 @@
 import { prismaUser } from '../../../lib/db/client';
+import { validate } from 'uuid';
 
 export async function GET(request) {
-    const userId = 'some-user-uuid-from-session'; 
+    // Instead of a hardcoded string, get the userId from a header.
+    // In a real app, this should come from your session/cookies/JWT.
+    const userId = request.headers.get('x-user-id');
 
     if (!userId) {
         return new Response(JSON.stringify({ message: 'Unauthorized' }), {
             status: 401,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
+    if (!validate(userId)) {
+        return new Response(JSON.stringify({ message: 'Invalid user id' }), {
+            status: 400,
             headers: { 'Content-Type': 'application/json' },
         });
     }
@@ -15,11 +25,13 @@ export async function GET(request) {
             where: { id: userId },
             include: { user_profile: true },
         });
-        if (!user)
+
+        if (!user) {
             return new Response(JSON.stringify({ message: 'User not found' }), {
                 status: 404,
                 headers: { 'Content-Type': 'application/json' },
             });
+        }
 
         const responseData = {
             email: user.email,
@@ -47,9 +59,8 @@ export async function GET(request) {
     }
 }
 
-// PUT method to update settings
 export async function PUT(request) {
-    const userId = 'some-user-uuid-from-session';
+    const userId = request.headers.get('x-user-id');
 
     if (!userId) {
         return new Response(JSON.stringify({ message: 'Unauthorized' }), {
@@ -58,10 +69,17 @@ export async function PUT(request) {
         });
     }
 
+    if (!validate(userId)) {
+        return new Response(JSON.stringify({ message: 'Invalid user id' }), {
+            status: 400,
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
     const { email, phone, username, displayName, bio, avatarUrl, website, dob } = await request.json();
 
     try {
-        // Update basic user fields in users table
+        // Update the users table (basic user fields)
         await prismaUser.users.update({
             where: { id: userId },
             data: { email, phone, updated_at: new Date() },
@@ -81,7 +99,22 @@ export async function PUT(request) {
             },
         });
 
-        return new Response(JSON.stringify({ message: 'Settings updated successfully.' }), {
+        const data = {
+            id: userId,
+            name: displayName,
+            user_name: username,
+            email: email,
+            profile_picture: avatarUrl,
+            bio: bio,
+            website: website,
+            country: '', // Assuming country is not provided in the request, set it to an empty string or fetch it if available
+            phone: phone,
+            date_of_birth: dob ? new Date(dob).toISOString().substr(0, 10) : '',
+            website_url: website,
+            social_links: {}, // Assuming social_links is not provided in the request, set it to an empty object or fetch it if available
+        };
+
+        return new Response(JSON.stringify({ message: 'Settings updated successfully.', user: data }), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });

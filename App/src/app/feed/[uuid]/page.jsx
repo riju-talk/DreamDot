@@ -36,19 +36,17 @@ export default function DreamdotLayout() {
       <Navbar userId={uuid} />
       <Layout>
         <Row className="h-[calc(100vh-4rem)]">
-          {/* Left Sidebar */}
-          <Col flex="0 0 240px" className="h-full">
-            <AppSidebar />
-          </Col>
           {/* Feed Section */}
           <Col flex="1 1 600px" className="h-full overflow-y-auto">
-            <div className="p-4 sticky top-0 bg-white z-10">
+            <div className="p-4 sticky top-0 bg-white z-10 flex justify-between items-center shadow-md">
+              <div>
               <button 
                 className="bg-blue-500 text-white px-4 py-2 rounded" 
                 onClick={() => setShowPostModal(true)}
               >
                 Create Post
               </button>
+              </div>
             </div>
             <div className="p-4">
               <Feed />
@@ -64,7 +62,7 @@ export default function DreamdotLayout() {
       </Layout>
       {/* Render CreatePost modal */}
       {showPostModal && (
-        <CreatePost onClose={() => setShowPostModal(false)} />
+        <CreatePost onClose={() => setShowPostModal(false)} userId={uuid}/>
       )}
     </Layout>
   );

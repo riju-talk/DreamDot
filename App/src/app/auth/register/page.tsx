@@ -3,9 +3,9 @@ import { use, useState } from 'react';
 import { Input, Button, message, DatePicker, Select } from 'antd';
 import Image from 'next/image';
 import onboarding_pic from '../../(images)/auth_pic.jpg';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
-import { useUser } from '../../user_context';
+// import { useUser } from '../../user_context';
 
 // const { login } = useUser(); 
 
@@ -57,7 +57,7 @@ function encryptPrivateKey(privateKey, password) {
 
 
 export default function Register() {
-    
+    const router = useRouter();
     const [currentStep, setCurrentStep] = useState(1);
     const [formData, setFormData] = useState({
         fullName: '',
@@ -120,7 +120,7 @@ export default function Register() {
                     
                     console.log("Validated Data",validated_data);
                     // Submit final registration data
-                    await submitRegistration(validated_data);
+                    await submitRegistration(validated_data, router);
                     
                     message.success('Registration successful!');
 
@@ -283,7 +283,7 @@ export default function Register() {
     );
 }
 
-async function submitRegistration(details) {
+async function submitRegistration(details, router) {
     const registrationData = details;
     try {
         const response = await fetch('/api/register', {
@@ -303,7 +303,7 @@ async function submitRegistration(details) {
         const uuid = result.uuid;
         const token = result.token;
         localStorage.setItem('token', token);
-        window.location.href = `/feed/${uuid}`;
+        router.push(`/feed/${uuid}`);
     } catch (error) {
         message.error(error.message);
         throw error; // Re-throw to handle in handleSubmit

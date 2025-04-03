@@ -8836,27 +8836,15 @@ export namespace Prisma {
 
   export type AggregatePosts_metadata = {
     _count: Posts_metadataCountAggregateOutputType | null
-    _avg: Posts_metadataAvgAggregateOutputType | null
-    _sum: Posts_metadataSumAggregateOutputType | null
     _min: Posts_metadataMinAggregateOutputType | null
     _max: Posts_metadataMaxAggregateOutputType | null
-  }
-
-  export type Posts_metadataAvgAggregateOutputType = {
-    price: Decimal | null
-  }
-
-  export type Posts_metadataSumAggregateOutputType = {
-    price: Decimal | null
   }
 
   export type Posts_metadataMinAggregateOutputType = {
     id: string | null
     user_id: string | null
-    title: string | null
-    summary: string | null
-    visibility: string | null
-    price: Decimal | null
+    description: string | null
+    visibility: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -8864,10 +8852,8 @@ export namespace Prisma {
   export type Posts_metadataMaxAggregateOutputType = {
     id: string | null
     user_id: string | null
-    title: string | null
-    summary: string | null
-    visibility: string | null
-    price: Decimal | null
+    description: string | null
+    visibility: boolean | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -8875,31 +8861,19 @@ export namespace Prisma {
   export type Posts_metadataCountAggregateOutputType = {
     id: number
     user_id: number
-    title: number
-    summary: number
+    description: number
     visibility: number
-    price: number
     created_at: number
     updated_at: number
     _all: number
   }
 
 
-  export type Posts_metadataAvgAggregateInputType = {
-    price?: true
-  }
-
-  export type Posts_metadataSumAggregateInputType = {
-    price?: true
-  }
-
   export type Posts_metadataMinAggregateInputType = {
     id?: true
     user_id?: true
-    title?: true
-    summary?: true
+    description?: true
     visibility?: true
-    price?: true
     created_at?: true
     updated_at?: true
   }
@@ -8907,10 +8881,8 @@ export namespace Prisma {
   export type Posts_metadataMaxAggregateInputType = {
     id?: true
     user_id?: true
-    title?: true
-    summary?: true
+    description?: true
     visibility?: true
-    price?: true
     created_at?: true
     updated_at?: true
   }
@@ -8918,10 +8890,8 @@ export namespace Prisma {
   export type Posts_metadataCountAggregateInputType = {
     id?: true
     user_id?: true
-    title?: true
-    summary?: true
+    description?: true
     visibility?: true
-    price?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -8965,18 +8935,6 @@ export namespace Prisma {
     /**
      * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
      * 
-     * Select which fields to average
-    **/
-    _avg?: Posts_metadataAvgAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
-     * Select which fields to sum
-    **/
-    _sum?: Posts_metadataSumAggregateInputType
-    /**
-     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-     * 
      * Select which fields to find the minimum value
     **/
     _min?: Posts_metadataMinAggregateInputType
@@ -9007,8 +8965,6 @@ export namespace Prisma {
     take?: number
     skip?: number
     _count?: Posts_metadataCountAggregateInputType | true
-    _avg?: Posts_metadataAvgAggregateInputType
-    _sum?: Posts_metadataSumAggregateInputType
     _min?: Posts_metadataMinAggregateInputType
     _max?: Posts_metadataMaxAggregateInputType
   }
@@ -9016,15 +8972,11 @@ export namespace Prisma {
   export type Posts_metadataGroupByOutputType = {
     id: string
     user_id: string
-    title: string | null
-    summary: string | null
-    visibility: string | null
-    price: Decimal | null
+    description: string | null
+    visibility: boolean
     created_at: Date
     updated_at: Date
     _count: Posts_metadataCountAggregateOutputType | null
-    _avg: Posts_metadataAvgAggregateOutputType | null
-    _sum: Posts_metadataSumAggregateOutputType | null
     _min: Posts_metadataMinAggregateOutputType | null
     _max: Posts_metadataMaxAggregateOutputType | null
   }
@@ -9046,10 +8998,8 @@ export namespace Prisma {
   export type posts_metadataSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     user_id?: boolean
-    title?: boolean
-    summary?: boolean
+    description?: boolean
     visibility?: boolean
-    price?: boolean
     created_at?: boolean
     updated_at?: boolean
     comments?: boolean | posts_metadata$commentsArgs<ExtArgs>
@@ -9063,10 +9013,8 @@ export namespace Prisma {
   export type posts_metadataSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     user_id?: boolean
-    title?: boolean
-    summary?: boolean
+    description?: boolean
     visibility?: boolean
-    price?: boolean
     created_at?: boolean
     updated_at?: boolean
     social_users?: boolean | usersDefaultArgs<ExtArgs>
@@ -9075,10 +9023,8 @@ export namespace Prisma {
   export type posts_metadataSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     user_id?: boolean
-    title?: boolean
-    summary?: boolean
+    description?: boolean
     visibility?: boolean
-    price?: boolean
     created_at?: boolean
     updated_at?: boolean
     social_users?: boolean | usersDefaultArgs<ExtArgs>
@@ -9087,15 +9033,13 @@ export namespace Prisma {
   export type posts_metadataSelectScalar = {
     id?: boolean
     user_id?: boolean
-    title?: boolean
-    summary?: boolean
+    description?: boolean
     visibility?: boolean
-    price?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type posts_metadataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "title" | "summary" | "visibility" | "price" | "created_at" | "updated_at", ExtArgs["result"]["posts_metadata"]>
+  export type posts_metadataOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "description" | "visibility" | "created_at" | "updated_at", ExtArgs["result"]["posts_metadata"]>
   export type posts_metadataInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     comments?: boolean | posts_metadata$commentsArgs<ExtArgs>
     likes?: boolean | posts_metadata$likesArgs<ExtArgs>
@@ -9123,10 +9067,8 @@ export namespace Prisma {
     scalars: $Extensions.GetPayloadResult<{
       id: string
       user_id: string
-      title: string | null
-      summary: string | null
-      visibility: string | null
-      price: Prisma.Decimal | null
+      description: string | null
+      visibility: boolean
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["posts_metadata"]>
@@ -9559,10 +9501,8 @@ export namespace Prisma {
   interface posts_metadataFieldRefs {
     readonly id: FieldRef<"posts_metadata", 'String'>
     readonly user_id: FieldRef<"posts_metadata", 'String'>
-    readonly title: FieldRef<"posts_metadata", 'String'>
-    readonly summary: FieldRef<"posts_metadata", 'String'>
-    readonly visibility: FieldRef<"posts_metadata", 'String'>
-    readonly price: FieldRef<"posts_metadata", 'Decimal'>
+    readonly description: FieldRef<"posts_metadata", 'String'>
+    readonly visibility: FieldRef<"posts_metadata", 'Boolean'>
     readonly created_at: FieldRef<"posts_metadata", 'DateTime'>
     readonly updated_at: FieldRef<"posts_metadata", 'DateTime'>
   }
@@ -10084,30 +10024,30 @@ export namespace Prisma {
     id: string | null
     reporter_id: string | null
     reported_user_id: string | null
-    post_id: string | null
     reason: string | null
     status: string | null
     created_at: Date | null
+    post_id: string | null
   }
 
   export type Reported_contentMaxAggregateOutputType = {
     id: string | null
     reporter_id: string | null
     reported_user_id: string | null
-    post_id: string | null
     reason: string | null
     status: string | null
     created_at: Date | null
+    post_id: string | null
   }
 
   export type Reported_contentCountAggregateOutputType = {
     id: number
     reporter_id: number
     reported_user_id: number
-    post_id: number
     reason: number
     status: number
     created_at: number
+    post_id: number
     _all: number
   }
 
@@ -10116,30 +10056,30 @@ export namespace Prisma {
     id?: true
     reporter_id?: true
     reported_user_id?: true
-    post_id?: true
     reason?: true
     status?: true
     created_at?: true
+    post_id?: true
   }
 
   export type Reported_contentMaxAggregateInputType = {
     id?: true
     reporter_id?: true
     reported_user_id?: true
-    post_id?: true
     reason?: true
     status?: true
     created_at?: true
+    post_id?: true
   }
 
   export type Reported_contentCountAggregateInputType = {
     id?: true
     reporter_id?: true
     reported_user_id?: true
-    post_id?: true
     reason?: true
     status?: true
     created_at?: true
+    post_id?: true
     _all?: true
   }
 
@@ -10219,10 +10159,10 @@ export namespace Prisma {
     id: string
     reporter_id: string
     reported_user_id: string | null
-    post_id: string | null
     reason: string
     status: string | null
     created_at: Date
+    post_id: string | null
     _count: Reported_contentCountAggregateOutputType | null
     _min: Reported_contentMinAggregateOutputType | null
     _max: Reported_contentMaxAggregateOutputType | null
@@ -10246,10 +10186,10 @@ export namespace Prisma {
     id?: boolean
     reporter_id?: boolean
     reported_user_id?: boolean
-    post_id?: boolean
     reason?: boolean
     status?: boolean
     created_at?: boolean
+    post_id?: boolean
     posts_metadata?: boolean | reported_content$posts_metadataArgs<ExtArgs>
   }, ExtArgs["result"]["reported_content"]>
 
@@ -10257,10 +10197,10 @@ export namespace Prisma {
     id?: boolean
     reporter_id?: boolean
     reported_user_id?: boolean
-    post_id?: boolean
     reason?: boolean
     status?: boolean
     created_at?: boolean
+    post_id?: boolean
     posts_metadata?: boolean | reported_content$posts_metadataArgs<ExtArgs>
   }, ExtArgs["result"]["reported_content"]>
 
@@ -10268,10 +10208,10 @@ export namespace Prisma {
     id?: boolean
     reporter_id?: boolean
     reported_user_id?: boolean
-    post_id?: boolean
     reason?: boolean
     status?: boolean
     created_at?: boolean
+    post_id?: boolean
     posts_metadata?: boolean | reported_content$posts_metadataArgs<ExtArgs>
   }, ExtArgs["result"]["reported_content"]>
 
@@ -10279,13 +10219,13 @@ export namespace Prisma {
     id?: boolean
     reporter_id?: boolean
     reported_user_id?: boolean
-    post_id?: boolean
     reason?: boolean
     status?: boolean
     created_at?: boolean
+    post_id?: boolean
   }
 
-  export type reported_contentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporter_id" | "reported_user_id" | "post_id" | "reason" | "status" | "created_at", ExtArgs["result"]["reported_content"]>
+  export type reported_contentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "reporter_id" | "reported_user_id" | "reason" | "status" | "created_at" | "post_id", ExtArgs["result"]["reported_content"]>
   export type reported_contentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     posts_metadata?: boolean | reported_content$posts_metadataArgs<ExtArgs>
   }
@@ -10305,10 +10245,10 @@ export namespace Prisma {
       id: string
       reporter_id: string
       reported_user_id: string | null
-      post_id: string | null
       reason: string
       status: string | null
       created_at: Date
+      post_id: string | null
     }, ExtArgs["result"]["reported_content"]>
     composites: {}
   }
@@ -10736,10 +10676,10 @@ export namespace Prisma {
     readonly id: FieldRef<"reported_content", 'String'>
     readonly reporter_id: FieldRef<"reported_content", 'String'>
     readonly reported_user_id: FieldRef<"reported_content", 'String'>
-    readonly post_id: FieldRef<"reported_content", 'String'>
     readonly reason: FieldRef<"reported_content", 'String'>
     readonly status: FieldRef<"reported_content", 'String'>
     readonly created_at: FieldRef<"reported_content", 'DateTime'>
+    readonly post_id: FieldRef<"reported_content", 'String'>
   }
     
 
@@ -21369,10 +21309,8 @@ export namespace Prisma {
   export const Posts_metadataScalarFieldEnum: {
     id: 'id',
     user_id: 'user_id',
-    title: 'title',
-    summary: 'summary',
+    description: 'description',
     visibility: 'visibility',
-    price: 'price',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -21384,10 +21322,10 @@ export namespace Prisma {
     id: 'id',
     reporter_id: 'reporter_id',
     reported_user_id: 'reported_user_id',
-    post_id: 'post_id',
     reason: 'reason',
     status: 'status',
-    created_at: 'created_at'
+    created_at: 'created_at',
+    post_id: 'post_id'
   };
 
   export type Reported_contentScalarFieldEnum = (typeof Reported_contentScalarFieldEnum)[keyof typeof Reported_contentScalarFieldEnum]
@@ -22004,10 +21942,8 @@ export namespace Prisma {
     NOT?: posts_metadataWhereInput | posts_metadataWhereInput[]
     id?: UuidFilter<"posts_metadata"> | string
     user_id?: UuidFilter<"posts_metadata"> | string
-    title?: StringNullableFilter<"posts_metadata"> | string | null
-    summary?: StringNullableFilter<"posts_metadata"> | string | null
-    visibility?: StringNullableFilter<"posts_metadata"> | string | null
-    price?: DecimalNullableFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"posts_metadata"> | string | null
+    visibility?: BoolFilter<"posts_metadata"> | boolean
     created_at?: DateTimeFilter<"posts_metadata"> | Date | string
     updated_at?: DateTimeFilter<"posts_metadata"> | Date | string
     comments?: CommentsListRelationFilter
@@ -22020,10 +21956,8 @@ export namespace Prisma {
   export type posts_metadataOrderByWithRelationInput = {
     id?: SortOrder
     user_id?: SortOrder
-    title?: SortOrderInput | SortOrder
-    summary?: SortOrderInput | SortOrder
-    visibility?: SortOrderInput | SortOrder
-    price?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    visibility?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     comments?: commentsOrderByRelationAggregateInput
@@ -22039,10 +21973,8 @@ export namespace Prisma {
     OR?: posts_metadataWhereInput[]
     NOT?: posts_metadataWhereInput | posts_metadataWhereInput[]
     user_id?: UuidFilter<"posts_metadata"> | string
-    title?: StringNullableFilter<"posts_metadata"> | string | null
-    summary?: StringNullableFilter<"posts_metadata"> | string | null
-    visibility?: StringNullableFilter<"posts_metadata"> | string | null
-    price?: DecimalNullableFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"posts_metadata"> | string | null
+    visibility?: BoolFilter<"posts_metadata"> | boolean
     created_at?: DateTimeFilter<"posts_metadata"> | Date | string
     updated_at?: DateTimeFilter<"posts_metadata"> | Date | string
     comments?: CommentsListRelationFilter
@@ -22055,17 +21987,13 @@ export namespace Prisma {
   export type posts_metadataOrderByWithAggregationInput = {
     id?: SortOrder
     user_id?: SortOrder
-    title?: SortOrderInput | SortOrder
-    summary?: SortOrderInput | SortOrder
-    visibility?: SortOrderInput | SortOrder
-    price?: SortOrderInput | SortOrder
+    description?: SortOrderInput | SortOrder
+    visibility?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: posts_metadataCountOrderByAggregateInput
-    _avg?: posts_metadataAvgOrderByAggregateInput
     _max?: posts_metadataMaxOrderByAggregateInput
     _min?: posts_metadataMinOrderByAggregateInput
-    _sum?: posts_metadataSumOrderByAggregateInput
   }
 
   export type posts_metadataScalarWhereWithAggregatesInput = {
@@ -22074,10 +22002,8 @@ export namespace Prisma {
     NOT?: posts_metadataScalarWhereWithAggregatesInput | posts_metadataScalarWhereWithAggregatesInput[]
     id?: UuidWithAggregatesFilter<"posts_metadata"> | string
     user_id?: UuidWithAggregatesFilter<"posts_metadata"> | string
-    title?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
-    summary?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
-    visibility?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
-    price?: DecimalNullableWithAggregatesFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableWithAggregatesFilter<"posts_metadata"> | string | null
+    visibility?: BoolWithAggregatesFilter<"posts_metadata"> | boolean
     created_at?: DateTimeWithAggregatesFilter<"posts_metadata"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"posts_metadata"> | Date | string
   }
@@ -22089,10 +22015,10 @@ export namespace Prisma {
     id?: UuidFilter<"reported_content"> | string
     reporter_id?: UuidFilter<"reported_content"> | string
     reported_user_id?: UuidNullableFilter<"reported_content"> | string | null
-    post_id?: UuidNullableFilter<"reported_content"> | string | null
     reason?: StringFilter<"reported_content"> | string
     status?: StringNullableFilter<"reported_content"> | string | null
     created_at?: DateTimeFilter<"reported_content"> | Date | string
+    post_id?: UuidNullableFilter<"reported_content"> | string | null
     posts_metadata?: XOR<Posts_metadataNullableScalarRelationFilter, posts_metadataWhereInput> | null
   }
 
@@ -22100,10 +22026,10 @@ export namespace Prisma {
     id?: SortOrder
     reporter_id?: SortOrder
     reported_user_id?: SortOrderInput | SortOrder
-    post_id?: SortOrderInput | SortOrder
     reason?: SortOrder
     status?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    post_id?: SortOrderInput | SortOrder
     posts_metadata?: posts_metadataOrderByWithRelationInput
   }
 
@@ -22114,10 +22040,10 @@ export namespace Prisma {
     NOT?: reported_contentWhereInput | reported_contentWhereInput[]
     reporter_id?: UuidFilter<"reported_content"> | string
     reported_user_id?: UuidNullableFilter<"reported_content"> | string | null
-    post_id?: UuidNullableFilter<"reported_content"> | string | null
     reason?: StringFilter<"reported_content"> | string
     status?: StringNullableFilter<"reported_content"> | string | null
     created_at?: DateTimeFilter<"reported_content"> | Date | string
+    post_id?: UuidNullableFilter<"reported_content"> | string | null
     posts_metadata?: XOR<Posts_metadataNullableScalarRelationFilter, posts_metadataWhereInput> | null
   }, "id">
 
@@ -22125,10 +22051,10 @@ export namespace Prisma {
     id?: SortOrder
     reporter_id?: SortOrder
     reported_user_id?: SortOrderInput | SortOrder
-    post_id?: SortOrderInput | SortOrder
     reason?: SortOrder
     status?: SortOrderInput | SortOrder
     created_at?: SortOrder
+    post_id?: SortOrderInput | SortOrder
     _count?: reported_contentCountOrderByAggregateInput
     _max?: reported_contentMaxOrderByAggregateInput
     _min?: reported_contentMinOrderByAggregateInput
@@ -22141,10 +22067,10 @@ export namespace Prisma {
     id?: UuidWithAggregatesFilter<"reported_content"> | string
     reporter_id?: UuidWithAggregatesFilter<"reported_content"> | string
     reported_user_id?: UuidNullableWithAggregatesFilter<"reported_content"> | string | null
-    post_id?: UuidNullableWithAggregatesFilter<"reported_content"> | string | null
     reason?: StringWithAggregatesFilter<"reported_content"> | string
     status?: StringNullableWithAggregatesFilter<"reported_content"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"reported_content"> | Date | string
+    post_id?: UuidNullableWithAggregatesFilter<"reported_content"> | string | null
   }
 
   export type password_reset_tokensWhereInput = {
@@ -23092,10 +23018,8 @@ export namespace Prisma {
 
   export type posts_metadataCreateInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsCreateNestedManyWithoutPosts_metadataInput
@@ -23108,10 +23032,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedCreateInput = {
     id?: string
     user_id: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsUncheckedCreateNestedManyWithoutPosts_metadataInput
@@ -23122,10 +23044,8 @@ export namespace Prisma {
 
   export type posts_metadataUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUpdateManyWithoutPosts_metadataNestedInput
@@ -23138,10 +23058,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUncheckedUpdateManyWithoutPosts_metadataNestedInput
@@ -23153,20 +23071,16 @@ export namespace Prisma {
   export type posts_metadataCreateManyInput = {
     id?: string
     user_id: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
 
   export type posts_metadataUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23174,10 +23088,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedUpdateManyInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -23196,10 +23108,10 @@ export namespace Prisma {
     id?: string
     reporter_id: string
     reported_user_id?: string | null
-    post_id?: string | null
     reason: string
     status?: string | null
     created_at?: Date | string
+    post_id?: string | null
   }
 
   export type reported_contentUpdateInput = {
@@ -23216,20 +23128,20 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reporter_id?: StringFieldUpdateOperationsInput | string
     reported_user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    post_id?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    post_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type reported_contentCreateManyInput = {
     id?: string
     reporter_id: string
     reported_user_id?: string | null
-    post_id?: string | null
     reason: string
     status?: string | null
     created_at?: Date | string
+    post_id?: string | null
   }
 
   export type reported_contentUpdateManyMutationInput = {
@@ -23245,10 +23157,10 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     reporter_id?: StringFieldUpdateOperationsInput | string
     reported_user_id?: NullableStringFieldUpdateOperationsInput | string | null
-    post_id?: NullableStringFieldUpdateOperationsInput | string | null
     reason?: StringFieldUpdateOperationsInput | string
     status?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    post_id?: NullableStringFieldUpdateOperationsInput | string | null
   }
 
   export type password_reset_tokensCreateInput = {
@@ -24342,15 +24254,9 @@ export namespace Prisma {
     _max?: NestedIntNullableFilter<$PrismaModel>
   }
 
-  export type DecimalNullableFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
   }
 
   export type LikesListRelationFilter = {
@@ -24381,25 +24287,17 @@ export namespace Prisma {
   export type posts_metadataCountOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
-    title?: SortOrder
-    summary?: SortOrder
+    description?: SortOrder
     visibility?: SortOrder
-    price?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
-  }
-
-  export type posts_metadataAvgOrderByAggregateInput = {
-    price?: SortOrder
   }
 
   export type posts_metadataMaxOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
-    title?: SortOrder
-    summary?: SortOrder
+    description?: SortOrder
     visibility?: SortOrder
-    price?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -24407,32 +24305,18 @@ export namespace Prisma {
   export type posts_metadataMinOrderByAggregateInput = {
     id?: SortOrder
     user_id?: SortOrder
-    title?: SortOrder
-    summary?: SortOrder
+    description?: SortOrder
     visibility?: SortOrder
-    price?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
 
-  export type posts_metadataSumOrderByAggregateInput = {
-    price?: SortOrder
-  }
-
-  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
-    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
-    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
-    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
-    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _avg?: NestedDecimalNullableFilter<$PrismaModel>
-    _sum?: NestedDecimalNullableFilter<$PrismaModel>
-    _min?: NestedDecimalNullableFilter<$PrismaModel>
-    _max?: NestedDecimalNullableFilter<$PrismaModel>
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
   }
 
   export type Posts_metadataNullableScalarRelationFilter = {
@@ -24444,30 +24328,30 @@ export namespace Prisma {
     id?: SortOrder
     reporter_id?: SortOrder
     reported_user_id?: SortOrder
-    post_id?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+    post_id?: SortOrder
   }
 
   export type reported_contentMaxOrderByAggregateInput = {
     id?: SortOrder
     reporter_id?: SortOrder
     reported_user_id?: SortOrder
-    post_id?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+    post_id?: SortOrder
   }
 
   export type reported_contentMinOrderByAggregateInput = {
     id?: SortOrder
     reporter_id?: SortOrder
     reported_user_id?: SortOrder
-    post_id?: SortOrder
     reason?: SortOrder
     status?: SortOrder
     created_at?: SortOrder
+    post_id?: SortOrder
   }
 
   export type password_reset_tokensCountOrderByAggregateInput = {
@@ -24492,6 +24376,17 @@ export namespace Prisma {
     expires_at?: SortOrder
     created_at?: SortOrder
     used?: SortOrder
+  }
+
+  export type DecimalNullableFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
   }
 
   export type user_analyticsCountOrderByAggregateInput = {
@@ -24538,6 +24433,22 @@ export namespace Prisma {
     followers_count?: SortOrder
     following_count?: SortOrder
     activity_score?: SortOrder
+  }
+
+  export type DecimalNullableWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
+    in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    notIn?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
+    lt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    lte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gt?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    gte?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel>
+    not?: NestedDecimalNullableWithAggregatesFilter<$PrismaModel> | Decimal | DecimalJsLike | number | string | null
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _avg?: NestedDecimalNullableFilter<$PrismaModel>
+    _sum?: NestedDecimalNullableFilter<$PrismaModel>
+    _min?: NestedDecimalNullableFilter<$PrismaModel>
+    _max?: NestedDecimalNullableFilter<$PrismaModel>
   }
   export type JsonNullableFilter<$PrismaModel = never> = 
     | PatchUndefined<
@@ -25134,12 +25045,8 @@ export namespace Prisma {
     connect?: reported_contentWhereUniqueInput | reported_contentWhereUniqueInput[]
   }
 
-  export type NullableDecimalFieldUpdateOperationsInput = {
-    set?: Decimal | DecimalJsLike | number | string | null
-    increment?: Decimal | DecimalJsLike | number | string
-    decrement?: Decimal | DecimalJsLike | number | string
-    multiply?: Decimal | DecimalJsLike | number | string
-    divide?: Decimal | DecimalJsLike | number | string
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
   }
 
   export type commentsUpdateManyWithoutPosts_metadataNestedInput = {
@@ -25288,6 +25195,14 @@ export namespace Prisma {
     create?: XOR<usersCreateWithoutUser_analyticsInput, usersUncheckedCreateWithoutUser_analyticsInput>
     connectOrCreate?: usersCreateOrConnectWithoutUser_analyticsInput
     connect?: usersWhereUniqueInput
+  }
+
+  export type NullableDecimalFieldUpdateOperationsInput = {
+    set?: Decimal | DecimalJsLike | number | string | null
+    increment?: Decimal | DecimalJsLike | number | string
+    decrement?: Decimal | DecimalJsLike | number | string
+    multiply?: Decimal | DecimalJsLike | number | string
+    divide?: Decimal | DecimalJsLike | number | string
   }
 
   export type usersUpdateOneRequiredWithoutUser_analyticsNestedInput = {
@@ -26035,6 +25950,19 @@ export namespace Prisma {
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+
   export type NestedDecimalNullableFilter<$PrismaModel = never> = {
     equals?: Decimal | DecimalJsLike | number | string | DecimalFieldRefInput<$PrismaModel> | null
     in?: Decimal[] | DecimalJsLike[] | number[] | string[] | ListDecimalFieldRefInput<$PrismaModel> | null
@@ -26154,10 +26082,8 @@ export namespace Prisma {
 
   export type posts_metadataCreateWithoutCommentsInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     likes?: likesCreateNestedManyWithoutPosts_metadataInput
@@ -26169,10 +26095,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedCreateWithoutCommentsInput = {
     id?: string
     user_id: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     likes?: likesUncheckedCreateNestedManyWithoutPosts_metadataInput
@@ -26255,10 +26179,8 @@ export namespace Prisma {
 
   export type posts_metadataUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     likes?: likesUpdateManyWithoutPosts_metadataNestedInput
@@ -26270,10 +26192,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedUpdateWithoutCommentsInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     likes?: likesUncheckedUpdateManyWithoutPosts_metadataNestedInput
@@ -26283,10 +26203,8 @@ export namespace Prisma {
 
   export type posts_metadataCreateWithoutLikesInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsCreateNestedManyWithoutPosts_metadataInput
@@ -26298,10 +26216,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedCreateWithoutLikesInput = {
     id?: string
     user_id: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsUncheckedCreateNestedManyWithoutPosts_metadataInput
@@ -26327,10 +26243,8 @@ export namespace Prisma {
 
   export type posts_metadataUpdateWithoutLikesInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUpdateManyWithoutPosts_metadataNestedInput
@@ -26342,10 +26256,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedUpdateWithoutLikesInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUncheckedUpdateManyWithoutPosts_metadataNestedInput
@@ -26463,10 +26375,8 @@ export namespace Prisma {
 
   export type posts_metadataCreateWithoutPosts_analyticsInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsCreateNestedManyWithoutPosts_metadataInput
@@ -26478,10 +26388,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedCreateWithoutPosts_analyticsInput = {
     id?: string
     user_id: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsUncheckedCreateNestedManyWithoutPosts_metadataInput
@@ -26507,10 +26415,8 @@ export namespace Prisma {
 
   export type posts_metadataUpdateWithoutPosts_analyticsInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUpdateManyWithoutPosts_metadataNestedInput
@@ -26522,10 +26428,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedUpdateWithoutPosts_analyticsInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUncheckedUpdateManyWithoutPosts_metadataNestedInput
@@ -26832,18 +26736,16 @@ export namespace Prisma {
     id?: UuidFilter<"reported_content"> | string
     reporter_id?: UuidFilter<"reported_content"> | string
     reported_user_id?: UuidNullableFilter<"reported_content"> | string | null
-    post_id?: UuidNullableFilter<"reported_content"> | string | null
     reason?: StringFilter<"reported_content"> | string
     status?: StringNullableFilter<"reported_content"> | string | null
     created_at?: DateTimeFilter<"reported_content"> | Date | string
+    post_id?: UuidNullableFilter<"reported_content"> | string | null
   }
 
   export type posts_metadataCreateWithoutReported_contentInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsCreateNestedManyWithoutPosts_metadataInput
@@ -26855,10 +26757,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedCreateWithoutReported_contentInput = {
     id?: string
     user_id: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsUncheckedCreateNestedManyWithoutPosts_metadataInput
@@ -26884,10 +26784,8 @@ export namespace Prisma {
 
   export type posts_metadataUpdateWithoutReported_contentInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUpdateManyWithoutPosts_metadataNestedInput
@@ -26899,10 +26797,8 @@ export namespace Prisma {
   export type posts_metadataUncheckedUpdateWithoutReported_contentInput = {
     id?: StringFieldUpdateOperationsInput | string
     user_id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUncheckedUpdateManyWithoutPosts_metadataNestedInput
@@ -27802,10 +27698,8 @@ export namespace Prisma {
 
   export type posts_metadataCreateWithoutSocial_usersInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsCreateNestedManyWithoutPosts_metadataInput
@@ -27816,10 +27710,8 @@ export namespace Prisma {
 
   export type posts_metadataUncheckedCreateWithoutSocial_usersInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
     comments?: commentsUncheckedCreateNestedManyWithoutPosts_metadataInput
@@ -28075,10 +27967,8 @@ export namespace Prisma {
     NOT?: posts_metadataScalarWhereInput | posts_metadataScalarWhereInput[]
     id?: UuidFilter<"posts_metadata"> | string
     user_id?: UuidFilter<"posts_metadata"> | string
-    title?: StringNullableFilter<"posts_metadata"> | string | null
-    summary?: StringNullableFilter<"posts_metadata"> | string | null
-    visibility?: StringNullableFilter<"posts_metadata"> | string | null
-    price?: DecimalNullableFilter<"posts_metadata"> | Decimal | DecimalJsLike | number | string | null
+    description?: StringNullableFilter<"posts_metadata"> | string | null
+    visibility?: BoolFilter<"posts_metadata"> | boolean
     created_at?: DateTimeFilter<"posts_metadata"> | Date | string
     updated_at?: DateTimeFilter<"posts_metadata"> | Date | string
   }
@@ -28445,10 +28335,8 @@ export namespace Prisma {
 
   export type posts_metadataCreateManySocial_usersInput = {
     id?: string
-    title?: string | null
-    summary?: string | null
-    visibility?: string | null
-    price?: Decimal | DecimalJsLike | number | string | null
+    description?: string | null
+    visibility?: boolean
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -28502,10 +28390,8 @@ export namespace Prisma {
 
   export type posts_metadataUpdateWithoutSocial_usersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUpdateManyWithoutPosts_metadataNestedInput
@@ -28516,10 +28402,8 @@ export namespace Prisma {
 
   export type posts_metadataUncheckedUpdateWithoutSocial_usersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     comments?: commentsUncheckedUpdateManyWithoutPosts_metadataNestedInput
@@ -28530,10 +28414,8 @@ export namespace Prisma {
 
   export type posts_metadataUncheckedUpdateManyWithoutSocial_usersInput = {
     id?: StringFieldUpdateOperationsInput | string
-    title?: NullableStringFieldUpdateOperationsInput | string | null
-    summary?: NullableStringFieldUpdateOperationsInput | string | null
-    visibility?: NullableStringFieldUpdateOperationsInput | string | null
-    price?: NullableDecimalFieldUpdateOperationsInput | Decimal | DecimalJsLike | number | string | null
+    description?: NullableStringFieldUpdateOperationsInput | string | null
+    visibility?: BoolFieldUpdateOperationsInput | boolean
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

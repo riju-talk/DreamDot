@@ -1,64 +1,109 @@
 "use client";
-import { useState } from "react";
-import { Layout, Row, Col, Card, Button, Tabs, Modal, Input, Avatar, Divider } from "antd";
-import {
-  UserOutlined,
-  EditOutlined,
-  PlusOutlined,
-  DollarOutlined,
-  MessageOutlined,
-  UploadOutlined,
-  PictureOutlined
-} from "@ant-design/icons";
+import { useState, useEffect } from "react";
+import { Layout, Row, Col, Card, Button, Tabs, Input, Avatar, Divider, message } from "antd";
+import { DollarOutlined, PlusOutlined, UserOutlined } from "@ant-design/icons";
 import Navbar from "../../(components)/Navbar";
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from "next/navigation";
+import CreatePost from "../../(components)/post_dialogue";
+import CreateItemModal from "../../(components)/item_dialogue";
+import { PostModal, ItemModal } from "../../(components)/Viewer";
 
-export default function ProfilePage() {
+export default function MyProfilePage() {
+  const router = useRouter();
+  const { id } = useParams();
+  const [realuser, setRealuser] = useState(null);
   const [activeTab, setActiveTab] = useState("posts");
-  const [showItemModal, setShowItemModal] = useState(false);
   const [showPostModal, setShowPostModal] = useState(false);
-  const uuid = useParams().id;
+  const [showItemModal, setShowItemModal] = useState(false);
+  
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedItem, setSelectedItem] = useState(null);
 
-  // Sample data
-  const profile = {
-    name: "Sarah Johnson",
-    username: "@sarahcreative",
-    bio: "Digital artist & educator | Sharing creative process | Premium tutorials available",
-    followers: "124K",
-    following: "892",
-    posts: 42,
-    products: 15
-  };
-
-  const posts = [
-    {
-      id: 1,
-      content: "Check out my new watercolor tutorial!",
-      likes: 142,
-      comments: 28
+  // States for posts and items fetched from APIs.
+  const [posts, setPosts] = useState([]);
+  const [items, setItems] = useState([]);
+  
+  // Fetch posts from /api/creation/posts
+  async function fetchPosts() {
+    try {
+      const res = await fetch(`/api/creation/posts/${id}`);
+      if (!res.ok) throw new Error("Failed to fetch posts");
+      const data = await res.json();
+      setPosts(data);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
     }
-  ];
-  const products = [
-    {
-      id: 1,
-      title: "Procreate Masterclass",
-      price: "$49.99",
-      preview: "5-hour video course..."
+  }
+  
+  // Fetch items from /api/creation/items
+  async function fetchItems() {
+    try {
+      const res = await fetch(`/api/creation/items/${id}`);
+      if (!res.ok) throw new Error("Failed to fetch items");
+      const data = await res.json();
+      setItems(data);
+    } catch (error) {
+      console.error("Error fetching items:", error);
     }
-  ];
-
+  }
+  
+  // Fetch real user profile and cache in localStorage
+  useEffect(() => {
+    async function fetchRealUser() {
+      try {
+        const response = await fetch(`/api/profile/${id}`);
+        if (!response.ok) {
+          throw new Error("Failed to fetch user data");
+        }
+        const data = await response.json();
+        setRealuser(data);
+        localStorage.setItem("user", JSON.stringify(data));
+      } catch (error) {
+        console.error("Error fetching user profile:", error);
+      }
+    }
+    if (!realuser && id) {
+      fetchRealUser();
+    }
+  }, [id, realuser]);
+  
+  // Initial fetch for posts and items
+  useEffect(() => {
+    fetchPosts();
+    fetchItems();
+    
+    // Listen for custom events from the modals
+    const handlePostCreated = () => {
+      fetchPosts();
+    };
+    const handleItemCreated = () => {
+      fetchItems();
+    };
+    window.addEventListener("postCreated", handlePostCreated);
+    window.addEventListener("itemCreated", handleItemCreated);
+    
+    return () => {
+      window.removeEventListener("postCreated", handlePostCreated);
+      window.removeEventListener("itemCreated", handleItemCreated);
+    };
+  }, []);
+  
+  if (!realuser) {
+    return (
+      <Layout className="min-h-screen bg-gray-100">
+        <Navbar userId={id} />
+        <div className="flex items-center justify-center h-full">Loading.......</div>
+      </Layout>
+    );
+  }
+  
   return (
     <Layout className="min-h-screen bg-gray-100">
-      <Navbar userId={uuid} />
-      
-      {/* Facebook-style Profile Header */}
+      <Navbar userId={id} />
+  
+      {/* Cover + Profile Header */}
       <div className="relative">
-        {/* Cover Photo: Increased height for more space */}
-        <div className="h-60 bg-blue-200 relative">
-          
-        </div>
-
-        {/* Profile Info Section */}
+        <div className="h-60 bg-blue-200 relative"></div>
         <div className="max-w-5xl mx-auto px-4">
           <div className="flex items-start gap-6 -mt-16">
             {/* Avatar Section */}
@@ -66,51 +111,60 @@ export default function ProfilePage() {
               <Avatar
                 size={164}
                 icon={<UserOutlined />}
+                src={realuser.profile_picture || undefined}
                 className="border-4 border-white bg-gray-200"
               />
-              
             </div>
-
+  
             {/* Name, Username, Bio */}
             <div className="flex-1 pt-12">
-              <h1 className="text-3xl font-bold leading-tight pt-8">{profile.name}</h1>
-              <p className="text-lg text-gray-600 mt-1">{profile.username}</p>
-              <p className="mt-2 text-gray-800">{profile.bio}</p>
+              <h1 className="text-3xl font-bold leading-tight pt-8">
+                {realuser.name || "No Name"}
+              </h1>
+              <p className="text-lg text-gray-600 mt-1">
+                {realuser.user_name ? `@${realuser.user_name}` : "@username"}
+              </p>
+              <p className="mt-2 text-gray-800">
+                {realuser.bio || "No bio available"}
+              </p>
+              <div className="mt-4">
+                <Button type="primary" onClick={() => router.push(`/settings/${id}`)}>
+                  Edit Profile
+                </Button>
+              </div>
             </div>
           </div>
         </div>
       </div>
-
+  
       {/* Profile Navigation Tabs */}
       <div className="bg-white border-t mt-6">
         <div className="max-w-5xl mx-auto px-4">
           <Tabs
             activeKey={activeTab}
             onChange={setActiveTab}
-            className="profile-tabs"
             items={[
               {
                 key: "posts",
                 label: (
                   <span className="flex items-center gap-2 px-4 py-3">
-                    Posts <span className="bg-gray-100 px-2 rounded-full">{profile.posts}</span>
+                    Posts <span className="bg-gray-100 px-2 rounded-full">{posts.length}</span>
                   </span>
-                )
+                ),
               },
               {
                 key: "products",
                 label: (
                   <span className="flex items-center gap-2 px-4 py-3">
-                    <DollarOutlined /> Products{" "}
-                    <span className="bg-gray-100 px-2 rounded-full">{profile.products}</span>
+                    <DollarOutlined /> Products <span className="bg-gray-100 px-2 rounded-full">{items.length}</span>
                   </span>
-                )
-              }
+                ),
+              },
             ]}
           />
         </div>
       </div>
-
+  
       {/* Main Content */}
       <div className="max-w-5xl mx-auto px-4 py-6">
         <Row gutter={[24, 24]}>
@@ -118,7 +172,7 @@ export default function ProfilePage() {
           <Col xs={24} lg={16}>
             {activeTab === "posts" ? (
               <div className="space-y-4">
-                {/* Create Post */}
+                {/* Create Post Card */}
                 <Card className="shadow-sm rounded-lg">
                   <div className="flex gap-4">
                     <Avatar size={40} icon={<UserOutlined />} />
@@ -129,24 +183,26 @@ export default function ProfilePage() {
                     />
                   </div>
                 </Card>
-
+  
                 {/* Posts Feed */}
                 {posts.map((post) => (
-                  <Card key={post.id} className="rounded-lg shadow-sm">
+                  <Card key={post.id} className="rounded-lg shadow-sm" onClick={() => { setSelectedPost(post.id);}}>
                     <div className="flex gap-4">
                       <Avatar size={48} icon={<UserOutlined />} />
                       <div className="flex-1">
                         <div className="flex items-center gap-2">
-                          <h3 className="font-semibold">{profile.name}</h3>
+                          <h3 className="font-semibold">
+                            {post.display_name || "Unknown"}
+                          </h3>
                           <span className="text-gray-500">· 2h</span>
                         </div>
-                        <p className="mt-2">{post.content}</p>
+                        <p className="mt-2">{post.description}</p>
                         <div className="flex gap-6 mt-4 text-gray-500">
                           <button className="hover:text-blue-600">
-                            Like ({post.likes})
+                            Like ({post.posts_analytics?.likes_count || 0})
                           </button>
                           <button className="hover:text-green-600">
-                            Comment ({post.comments})
+                            Comment ({post.posts_analytics?.comments_count || 0})
                           </button>
                           <button className="hover:text-purple-600">
                             Share
@@ -157,52 +213,65 @@ export default function ProfilePage() {
                   </Card>
                 ))}
               </div>
-            ) : (
+            ) : activeTab === "products" && realuser.user_type === "creator" ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Card
-                  className="rounded-lg shadow-sm hover:shadow-md transition-shadow h-48 flex flex-col items-center justify-center cursor-pointer"
+                  className="rounded-lg shadow-sm hover:shadow-md transition-shadow h-48 cursor-pointer flex flex-col items-center justify-center"
                   onClick={() => setShowItemModal(true)}
                 >
                   <PlusOutlined className="text-3xl text-gray-400 mb-2" />
                   <p className="text-gray-600">Add New Product</p>
                 </Card>
-
-                {products.map((product) => (
-                  <Card key={product.id} className="rounded-lg shadow-sm hover:shadow-md">
-                    <div className="h-40 bg-gray-100 rounded-lg mb-4" />
-                    <h3 className="font-semibold text-lg">{product.title}</h3>
-                    <p className="text-gray-600 truncate">{product.preview}</p>
+                {items.map((item) => (
+                    <Card key={item.item_id} className="rounded-lg shadow-sm hover:shadow-md" onClick={() => { setSelectedItem(item.item_id)}}>
+                    <div className="h-40 bg-gray-100 rounded-lg mb-4">
+                      <img
+                      src={item.contentData.thumbnail}
+                      alt={item.title}
+                      className="w-full h-full object-cover rounded-lg" 
+                      />
+                    </div>
+                    <h3 className="font-semibold text-lg">{item.title}</h3>
+                    <p className="text-gray-600 truncate">{item.description}</p>
                     <div className="flex justify-between items-center mt-4">
-                      <span className="font-bold text-blue-600">{product.price}</span>
+                      <span className="font-bold text-blue-600">
+                      {item.price ? `$${item.price}` : "Free"}
+                      </span>
                       <Button type="primary">View Details</Button>
                     </div>
-                  </Card>
+                    </Card>
                 ))}
+              </div>
+            ) : (
+              <div className="flex justify-center items-center h-full">
+                <Button type="primary" size="large" onClick={() => router.push(`/become-creator/${id}`)}>
+                  Become a Creator
+                </Button>
               </div>
             )}
           </Col>
-
+  
           {/* Right Column - Profile Info */}
           <Col xs={24} lg={8}>
-            <Card className="rounded-lg shadow-sm">
+            <Card className="rounded-lg shadow-sm w-full">
               <h2 className="text-lg font-bold mb-4">Profile Information</h2>
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span>Followers</span>
-                  <span className="font-semibold">{profile.followers}</span>
+                  <span className="font-semibold">0</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Following</span>
-                  <span className="font-semibold">{profile.following}</span>
+                  <span className="font-semibold">0</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Total Sales</span>
-                  <span className="font-semibold text-green-600">$12,450</span>
+                  <span className="font-semibold text-green-600">$0</span>
                 </div>
               </div>
-
+  
               <Divider className="my-4" />
-
+  
               <h3 className="text-lg font-bold mb-4">Recent Supporters</h3>
               <div className="space-y-3">
                 {[1, 2, 3].map((_, i) => (
@@ -210,9 +279,7 @@ export default function ProfilePage() {
                     <Avatar size={32} icon={<UserOutlined />} />
                     <div>
                       <p className="font-medium">Supporter Name</p>
-                      <p className="text-sm text-gray-500">
-                        Purchased Procreate Masterclass
-                      </p>
+                      <p className="text-sm text-gray-500">Purchased Procreate Masterclass</p>
                     </div>
                   </div>
                 ))}
@@ -221,50 +288,38 @@ export default function ProfilePage() {
           </Col>
         </Row>
       </div>
-
-      {/* Modals */}
-      <Modal
-        title="Create Post"
-        centered
-        open={showPostModal}
-        onCancel={() => setShowPostModal(false)}
-        footer={[
-          <Button key="post" type="primary">
-            Post
-          </Button>
-        ]}
-      >
-        <Input.TextArea
-          autoSize={{ minRows: 3 }}
-          placeholder="Share your thoughts..."
-          className="rounded-lg"
+  
+      {/* Post Modal */}
+      {showPostModal && (
+        <CreatePost onClose={() => setShowPostModal(false)} userId={id} />
+      )}
+  
+      {/* Item (Product) Modal */}
+      {showItemModal && (
+        <CreateItemModal
+          visible={showItemModal}
+          onCancel={() => setShowItemModal(false)}
+          userId={id}
         />
-        <div className="flex gap-2 mt-4">
-          <Button icon={<PictureOutlined />}>Photo/Video</Button>
-          <Button icon={<DollarOutlined />}>Add Paid Content</Button>
-        </div>
-      </Modal>
+      )}
 
-      <Modal
-        title="Add New Product"
-        centered
-        open={showItemModal}
-        onCancel={() => setShowItemModal(false)}
-        footer={[
-          <Button key="publish" type="primary">
-            Publish Product
-          </Button>
-        ]}
-      >
-        <div className="space-y-4">
-          <div className="h-32 bg-gray-100 rounded-lg flex items-center justify-center cursor-pointer">
-            <UploadOutlined className="text-2xl text-gray-500" />
-          </div>
-          <Input placeholder="Product Title" />
-          <Input.TextArea placeholder="Detailed Description" rows={3} />
-          <Input prefix="$" placeholder="Price" type="number" />
-        </div>
-      </Modal>
+      {selectedPost && (
+        <PostModal
+          postId={selectedPost}
+          onClose={() => { setShowPostModal(false); setSelectedPost(null); }}
+          postObject={posts.find(post => post.id === selectedPost)}
+        />
+      )}
+
+      {selectedItem && (
+        <ItemModal
+          onPurchase={() => {}}
+          itemId={selectedItem}
+          onClose={() => { setShowItemModal(false); setSelectedItem(null); }}
+          itemObject={items.find(item => item.item_id === selectedItem)}
+        />
+
+      )}
     </Layout>
   );
 }
