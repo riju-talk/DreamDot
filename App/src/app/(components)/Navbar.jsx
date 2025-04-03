@@ -3,8 +3,9 @@ import Link from "next/link";
 import { AppBar, Toolbar, IconButton, Avatar, InputBase, Badge } from "@mui/material";
 import { Button, Dropdown, Space, Typography } from "antd";
 import { styled, alpha } from "@mui/material/styles";
-import { Home, Search, Notifications, Mail } from "@mui/icons-material";
+import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
 import { useUnmountEffect } from "framer-motion";
+import { useParams } from "next/navigation";
 
 // Styled SearchBar component
 const SearchBar = styled('div')(({ theme }) => ({
@@ -55,8 +56,17 @@ const handleLogout = async () => {
   }
 };
 
+
+
 // Navbar component accepting userId as prop
 export default function Navbar({ userId }) {
+  // const uuid = useParams();
+  const handleChatClick = () => {
+    // console.log(uuid);
+    const uuid=userId
+    window.location.href = `/chat/${uuid}`;
+  }
+
   // Build menu items dynamically
   const items = [
     { key: '1', label: <Link href={`/profile/${userId}`}>Profile</Link> },
@@ -123,6 +133,12 @@ export default function Navbar({ userId }) {
               <Notifications sx={{ color: 'text.primary' }} />
             </Badge>
           </IconButton>
+          <IconButton>
+            <Badge badgeContent={0} color="error">
+              <Chat sx={{ color: 'text.primary' }} onClick={handleChatClick}/>
+            </Badge>
+          </IconButton>
+            
           <Dropdown menu={{ items }} trigger={['click']}>
             <Avatar
               src="https://i.pravatar.cc/150?img=3"

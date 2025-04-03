@@ -1,6 +1,6 @@
 // File: src/lib/auth/register.js
 import { randomBytes, createHash } from 'crypto';
-import { prismaUser } from '../db/client';
+import { prismaUser, prismaMessaging } from '../db/client';
 import { v4 as uuidv4 } from 'uuid';
 import { createToken, decodeToken } from './create_tokens';
 
@@ -51,6 +51,19 @@ export async function register(data) {
             phone: data.phone,
             username: data.username,
             fullName: data.fullName,
+        });
+
+        await prismaMessaging.user.create({
+            data: {
+                encryptedPrivateKey: data.encryptedPrivateKey,
+                publicKey: data.publicKey,
+                // iv: data.iv,
+                // salt: data.salt,
+                id: uuid,
+                username: data.username,
+                email: data.email,
+                avatar: data.avatarUrl || null,
+            },
         });
 
         return { success: true, message: 'User registered successfully', uuid: uuid, token: token };

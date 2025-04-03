@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/client-messaging"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = "mongodb://localhost:27017,localhost:27018,localhost:27019/Messaging?replicaSet=rs0&retryWrites=true&w=majority"
+}
+
+model User {
+  id            String         @id @map("_id") 
+  username      String         @unique
+  email         String         @unique
+  avatar        String?        // URL to profile picture
+  blockedUsers  UserBlock[]    @relation("UserBlockedBy")
+  blockedBy     UserBlock[]    @relation("BlockedUser")
+  conversations UserConversation[]
+  messages      Message[]
+  adminOfGroups Group[]
+  memberOfGroups GroupMember[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  publicKey     String        // Public key for the user
+  encryptedPrivateKey    String        // Private key for the user (ensure security in storage)
+  iv            String?         // Initialization Vector for encryption (required)
+  salt          String?         // Salt for encryption (required)
+}
+
+model UserBlock {
+  id        String @id @default(uuid()) @map("_id")
+  blocker   User   @relation("UserBlockedBy", fields: [blockerId], references: [id])
+  blockerId String 
+  blocked   User   @relation("BlockedUser", fields: [blockedId], references: [id])
+  blockedId String 
+  createdAt DateTime @default(now())
+}
+
+model Conversation {
+  id            String               @id @default(uuid()) @map("_id") 
+  isGroup       Boolean              @default(false)
+  name          String?              // Only for group chats
+  participants  UserConversation[]
+  messages      Message[]
+  group         Group?
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+}
+
+model UserConversation {
+  id             String       @id @default(uuid()) @map("_id") 
+  user           User         @relation(fields: [userId], references: [id])
+  userId         String       
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String       
+  createdAt      DateTime     @default(now())
+}
+
+model Message {
+  id             String       @id @default(uuid()) @map("_id") 
+  content        String?
+  isRead         Boolean      @default(false)
+  sender         User         @relation(fields: [senderId], references: [id])
+  senderId       String       
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
+  conversationId String       
+  media          Media[]
+  createdAt      DateTime     @default(now())
+}
+
+model Media {
+  id          String       @id @default(uuid()) @map("_id") 
+  type        String       // image, video, file
+  url         String       // Link to the media file
+  message     Message      @relation(fields: [messageId], references: [id])
+  messageId   String       
+  createdAt   DateTime     @default(now())
+}
+
+model Group {
+  id            String         @id @default(uuid()) @map("_id") 
+  name          String
+  admin         User           @relation(fields: [adminId], references: [id])
+  adminId       String         
+  members       GroupMember[]
+  conversation  Conversation   @relation(fields: [conversationId], references: [id])
+  conversationId String       @unique 
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model GroupMember {
+  id        String @id @default(uuid()) @map("_id") 
+  group     Group  @relation(fields: [groupId], references: [id])
+  groupId   String 
+  user      User   @relation(fields: [userId], references: [id])
+  userId    String 
+  createdAt DateTime @default(now())
+}

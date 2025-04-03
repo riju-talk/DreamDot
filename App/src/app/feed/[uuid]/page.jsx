@@ -22,10 +22,15 @@ export default function DreamdotLayout() {
   }, [router]);
 
   // Avoid rendering until mounted and authenticated
-  if (!isMounted || loading) return <div className='h-screen flex justify-center items-center'>Loading...</div>;
+  if (!isMounted || loading) return (
+    <div className="flex justify-center items-center h-screen">
+      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+    </div>
+  );
   // If token is invalid, redirect to /auth/
   if (!isAuthenticated) return null;
 
+ 
   return (
     <Layout className="overflow-hidden">
       <Navbar userId={uuid} />

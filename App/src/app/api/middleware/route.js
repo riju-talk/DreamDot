@@ -4,9 +4,11 @@ import { decodeToken } from '../../../lib/auth/create_tokens';
 export async function POST(req) {
   try {
     // Extract the Authorization header
-    const authHeader = req.headers.get('authorization');
+    const authHeader = req.headers.get('Authorization');
     const uuid=req.headers.get('uuid');
+    console.log(authHeader);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      console.log("here")
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
@@ -15,14 +17,17 @@ export async function POST(req) {
 
     // Get the token from the header
     const token = authHeader.split(' ')[1];
-
+    // console.log(token);
+    
     // Find the session with the matching token
     const session = await prismaUser.user_sessions.findFirst({
       where: { token, is_revoked: false },
       include: { users: true }, // Fetch the related user
     });
 
+
     if (!session) {
+      console.log("here2")
       return new Response(JSON.stringify({ error: 'Session not found or revoked' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },

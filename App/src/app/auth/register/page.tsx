@@ -7,7 +7,54 @@ import { useRouter } from 'next/navigation'
 
 import { useUser } from '../../user_context';
 
-const { login } = useUser(); 
+// const { login } = useUser(); 
+
+
+async function generateECDHKeys() {
+    const keyPair = crypto.subtle.generateKey(
+        {
+            name: "ECDH",
+            namedCurve: "P-256",
+        },
+        true,
+        ["deriveKey", "deriveBits"]
+    );
+
+    
+
+    // Store private key in IndexedDB/localStorage (DO NOT send to server)
+    // localStorage.setItem("privateKey", JSON.stringify(privateKey));
+
+    return keyPair;  // Send this to the server
+}
+
+import CryptoJS from 'crypto-js';
+
+function encryptPrivateKey(privateKey, password) {
+    // Serialize the JWK object to a string
+    const privateKeyString = JSON.stringify(privateKey);
+
+    // Generate a random salt for key derivation
+    const salt = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit salt
+
+    // Derive a key using the password and salt
+    const key = CryptoJS.PBKDF2(password, salt, { keySize: 256 / 32, iterations: 1000 });
+
+    // Generate a random IV for AES encryption
+    const iv = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit IV
+
+    // Encrypt the private key string
+    const encrypted = CryptoJS.AES.encrypt(privateKeyString, key, { iv: iv });
+
+    // Return the encrypted private key, salt, and IV
+    return {
+        encryptedPrivateKey: encrypted.toString(),
+        salt: salt.toString(CryptoJS.enc.Base64),
+        iv: iv.toString(CryptoJS.enc.Base64)
+    };
+}
+
+
 
 export default function Register() {
     
@@ -25,7 +72,7 @@ export default function Register() {
     });
     const [loading, setLoading] = useState(false);
 
-    const handleInputChange = (field, value) => {
+    const handleInputChange = (field: string, value: string) => {
         setFormData(prev => ({ ...prev, [field]: value }));
     };
 
@@ -47,17 +94,31 @@ export default function Register() {
                     throw new Error('Passwords do not match');
                 }
                 else {
-                    const validated_data = {
-                        fullName: formData.fullName,
-                        email: formData.email,
-                        phone: formData.phone,
-                        dob: formData.dob ? formData.dob.format('YYYY-MM-DD') : null,
-                        gender: formData.gender,
-                        username: formData.username,
-                        password: formData.password,
-                        country: formData.country,
-                    }
+                    const keyPair= await generateECDHKeys();
 
+                    const privateKey = await crypto.subtle.exportKey("jwk", keyPair.privateKey);
+                    const publicKey = await crypto.subtle.exportKey("jwk", keyPair.publicKey);
+
+                    console.log("Private Key",privateKey);
+                    // const { encryptedPrivateKey, salt, iv } = await encryptPrivateKey(privateKey, formData.password);
+                    const encryptedPrivateKey=CryptoJS.AES.encrypt(JSON.stringify(privateKey), formData.password).toString();
+
+                const validated_data = {
+                    fullName: formData.fullName,
+                    email: formData.email,
+                    phone: formData.phone,
+                    dob: formData.dob ? formData.dob.format('YYYY-MM-DD') : null,
+                    gender: formData.gender,
+                    username: formData.username,
+                    password: formData.password,
+                    country: formData.country,
+                    publicKey: JSON.stringify(publicKey),
+                    encryptedPrivateKey: encryptedPrivateKey, // Match Prisma model casing
+                    // iv: iv,                                   // Add iv field
+                    // salt: salt
+                };
+                    
+                    console.log("Validated Data",validated_data);
                     // Submit final registration data
                     await submitRegistration(validated_data);
                     
@@ -78,7 +139,7 @@ export default function Register() {
                         social_links: [],
                     }
 
-                    login
+                    // login
                 }
             }
         } catch (err) {

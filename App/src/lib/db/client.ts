@@ -5,6 +5,7 @@ import { PrismaClient as PrismaSocial } from '../generated/client-social';
 import { PrismaClient as PrismaItems } from '../generated/client-items';
 import { PrismaClient as PrismaCommunity } from '../generated/client-community';
 import { PrismaClient as PrismaAudit } from '../generated/client-audit';
+import { PrismaClient as PrismaMessaging } from '../generated/client-messaging';
 
 // In a serverless environment (like Next.js), re-initializing
 // PrismaClient can create multiple connections. We avoid that
@@ -20,6 +21,8 @@ declare global {
     var prismaCommunity: PrismaCommunity | undefined;
     // eslint-disable-next-line no-var
     var prismaAudit: PrismaAudit | undefined;
+    // eslint-disable-next-line no-var
+    var prismaMessaging: PrismaMessaging | undefined;
 }
 
 // Instantiate each client if not already on the global object.
@@ -28,6 +31,7 @@ let prismaSocial: PrismaSocial;
 let prismaItems: PrismaItems;
 let prismaCommunity: PrismaCommunity;
 let prismaAudit: PrismaAudit;
+let prismaMessaging: PrismaMessaging;
 
 if (!global.prismaUser) {
     global.prismaUser = new PrismaUser();
@@ -44,6 +48,9 @@ if (!global.prismaCommunity) {
 if (!global.prismaAudit) {
     global.prismaAudit = new PrismaAudit();
 }
+if (!global.prismaMessaging) {
+    global.prismaMessaging = new PrismaMessaging();
+}
 
 // Now assign them to local variables.
 prismaUser = global.prismaUser;
@@ -51,6 +58,7 @@ prismaSocial = global.prismaSocial;
 prismaItems = global.prismaItems;
 prismaCommunity = global.prismaCommunity;
 prismaAudit = global.prismaAudit;
+prismaMessaging = global.prismaMessaging;
 
 // Export them for use throughout your project
 export {
@@ -58,5 +66,6 @@ export {
     prismaSocial,
     prismaItems,
     prismaCommunity,
-    prismaAudit
+    prismaAudit,
+    prismaMessaging
 };
