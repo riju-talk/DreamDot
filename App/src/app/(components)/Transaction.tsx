@@ -4,6 +4,7 @@ import { CheckCircleOutlined } from "@ant-design/icons";
 
 export default function TransactionModal() {
     const [transactionComplete, setTransactionComplete] = useState(false);
+    console.log(transactionComplete);
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-900">

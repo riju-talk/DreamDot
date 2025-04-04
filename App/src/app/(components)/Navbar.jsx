@@ -4,6 +4,17 @@ import Fuse from "fuse.js";
 import Link from "next/link";
 import { AppBar, Toolbar, IconButton, Avatar, InputBase, Badge } from "@mui/material";
 import { Button, Dropdown, Space, Typography } from "antd";
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Avatar,
+  InputBase,
+  Badge,
+  CircularProgress
+} from "@mui/material";
+import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 import { styled, alpha } from "@mui/material/styles";
 import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
 import { useUnmountEffect } from "framer-motion";
@@ -38,7 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 // Logout handler
 const handleLogout = async () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('authToken');
   try {
     const response = await fetch("/api/logout", { method: "POST",
       headers: {
@@ -47,6 +58,7 @@ const handleLogout = async () => {
       },
      });
     if (response.ok) {
+      localStorage.removeItem("authToken");
       window.location.href = "/"; // Redirect to home page after logout
     } else {
       console.error("Logout failed:", await response.json());
@@ -240,6 +252,13 @@ export default function Navbar({ userId }) {
             </Badge>
           </IconButton>
             
+          <Link href={`/chat/${userId}`} style={{ textDecoration: "none" }}>
+          <IconButton>
+          <Badge badgeContent={0} color="error">
+            <Chat sx={{ color: 'text.primary', fontSize: 24 }}/>
+          </Badge>
+          </IconButton>
+          </Link>
           <Dropdown menu={{ items }} trigger={['click']}>
             <Avatar
               src="https://i.pravatar.cc/150?img=3"

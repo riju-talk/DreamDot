@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Modal, Avatar, Button, Typography, Input } from 'antd';
 import { DollarOutlined, HeartFilled, MessageFilled, ShareAltOutlined, CheckCircleOutlined} from '@ant-design/icons';
+import TransactionModal from './Transaction';
 
 const { Text, Title } = Typography;
 
@@ -57,16 +58,7 @@ const ItemModal = ({ itemId, onClose, itemObject }) => {
             </div>
           </div>
         )
-      ) : (
-        <div className="text-center py-10">
-          <CheckCircleOutlined style={{ fontSize: '48px', color: 'green' }} />
-          <Title level={3} className="mt-4">Transaction Complete</Title>
-          <Text>Your purchase was successful.</Text>
-          <div className="mt-6">
-            <Button type="primary" onClick={onClose}>Close</Button>
-          </div>
-        </div>
-      )}
+      ) : (<TransactionModal />)}
     </Modal>
   );
 };

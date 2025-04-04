@@ -5,6 +5,7 @@ import { useRouter, useParams } from "next/navigation";
 import { Layout, Row, Col, Card, Form, Input, Button, Avatar } from "antd";
 import { CameraOutlined } from "@ant-design/icons";
 import Navbar from "../../(components)/Navbar";
+import SettingsPageSecure from "./security";
 
 export default function SettingsPage() {
   const { id } = useParams(); // User's UUID from the URL
@@ -212,54 +213,7 @@ export default function SettingsPage() {
 
           {/* Right Column - Security Settings */}
           <Col xs={24} lg={12}>
-            <Card className="rounded-xl shadow-lg">
-              <h2 className="text-2xl font-bold mb-6">Security Settings</h2>
-              <form onSubmit={handleResetPassword}>
-                <Form.Item label="Old Password" className="mb-4">
-                  <Input.Password
-                    value={oldPassword}
-                    onChange={(e) => setOldPassword(e.target.value)}
-                    size="large"
-                    required
-                  />
-                </Form.Item>
-                <Form.Item label="New Password" className="mb-4">
-                  <Input.Password
-                    value={newPassword}
-                    onChange={(e) => setNewPassword(e.target.value)}
-                    size="large"
-                    required
-                  />
-                </Form.Item>
-                <Form.Item label="Confirm New Password" className="mb-4">
-                  <Input.Password
-                    value={confirmNewPassword}
-                    onChange={(e) => setConfirmNewPassword(e.target.value)}
-                    size="large"
-                    required
-                  />
-                </Form.Item>
-                <Button type="primary" htmlType="submit" size="large" className="w-full mb-6">
-                  Change Password
-                </Button>
-              </form>
-
-              {/* Additional Security Options */}
-              <div className="border-t pt-6">
-                <h3 className="text-lg font-semibold mb-4">Advanced Settings</h3>
-                <div className="space-y-4">
-                  <Button block size="large">
-                    Two-Factor Authentication
-                  </Button>
-                  <Button block size="large">
-                    Connected Devices
-                  </Button>
-                  <Button block size="large" danger>
-                    Delete Account
-                  </Button>
-                </div>
-              </div>
-            </Card>
+              <SettingsPageSecure/>
           </Col>
         </Row>
 
