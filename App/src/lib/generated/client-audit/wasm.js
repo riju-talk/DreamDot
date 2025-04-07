@@ -141,6 +141,14 @@ exports.Prisma.System_audit_logScalarFieldEnum = {
   created_at: 'created_at'
 };
 
+exports.Prisma.Admin_credScalarFieldEnum = {
+  c_id: 'c_id',
+  created_at: 'created_at',
+  name: 'name',
+  password: 'password',
+  hash: 'hash'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -160,7 +168,8 @@ exports.Prisma.NullsOrder = {
 exports.Prisma.ModelName = {
   admin_actions_log: 'admin_actions_log',
   notification_log: 'notification_log',
-  system_audit_log: 'system_audit_log'
+  system_audit_log: 'system_audit_log',
+  admin_cred: 'admin_cred'
 };
 
 /**

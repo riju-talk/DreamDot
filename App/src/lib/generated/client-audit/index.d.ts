@@ -28,6 +28,11 @@ export type notification_log = $Result.DefaultSelection<Prisma.$notification_log
  * 
  */
 export type system_audit_log = $Result.DefaultSelection<Prisma.$system_audit_logPayload>
+/**
+ * Model admin_cred
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type admin_cred = $Result.DefaultSelection<Prisma.$admin_credPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -183,6 +188,16 @@ export class PrismaClient<
     * ```
     */
   get system_audit_log(): Prisma.system_audit_logDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.admin_cred`: Exposes CRUD operations for the **admin_cred** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Admin_creds
+    * const admin_creds = await prisma.admin_cred.findMany()
+    * ```
+    */
+  get admin_cred(): Prisma.admin_credDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -625,7 +640,8 @@ export namespace Prisma {
   export const ModelName: {
     admin_actions_log: 'admin_actions_log',
     notification_log: 'notification_log',
-    system_audit_log: 'system_audit_log'
+    system_audit_log: 'system_audit_log',
+    admin_cred: 'admin_cred'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -644,7 +660,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "admin_actions_log" | "notification_log" | "system_audit_log"
+      modelProps: "admin_actions_log" | "notification_log" | "system_audit_log" | "admin_cred"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -870,6 +886,80 @@ export namespace Prisma {
           }
         }
       }
+      admin_cred: {
+        payload: Prisma.$admin_credPayload<ExtArgs>
+        fields: Prisma.admin_credFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.admin_credFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.admin_credFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>
+          }
+          findFirst: {
+            args: Prisma.admin_credFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.admin_credFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>
+          }
+          findMany: {
+            args: Prisma.admin_credFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>[]
+          }
+          create: {
+            args: Prisma.admin_credCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>
+          }
+          createMany: {
+            args: Prisma.admin_credCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.admin_credCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>[]
+          }
+          delete: {
+            args: Prisma.admin_credDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>
+          }
+          update: {
+            args: Prisma.admin_credUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>
+          }
+          deleteMany: {
+            args: Prisma.admin_credDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.admin_credUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.admin_credUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>[]
+          }
+          upsert: {
+            args: Prisma.admin_credUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$admin_credPayload>
+          }
+          aggregate: {
+            args: Prisma.Admin_credAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateAdmin_cred>
+          }
+          groupBy: {
+            args: Prisma.admin_credGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Admin_credGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.admin_credCountArgs<ExtArgs>
+            result: $Utils.Optional<Admin_credCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -957,6 +1047,7 @@ export namespace Prisma {
     admin_actions_log?: admin_actions_logOmit
     notification_log?: notification_logOmit
     system_audit_log?: system_audit_logOmit
+    admin_cred?: admin_credOmit
   }
 
   /* Types for Logging */
@@ -4037,6 +4128,1035 @@ export namespace Prisma {
 
 
   /**
+   * Model admin_cred
+   */
+
+  export type AggregateAdmin_cred = {
+    _count: Admin_credCountAggregateOutputType | null
+    _avg: Admin_credAvgAggregateOutputType | null
+    _sum: Admin_credSumAggregateOutputType | null
+    _min: Admin_credMinAggregateOutputType | null
+    _max: Admin_credMaxAggregateOutputType | null
+  }
+
+  export type Admin_credAvgAggregateOutputType = {
+    c_id: number | null
+  }
+
+  export type Admin_credSumAggregateOutputType = {
+    c_id: bigint | null
+  }
+
+  export type Admin_credMinAggregateOutputType = {
+    c_id: bigint | null
+    created_at: Date | null
+    name: string | null
+    password: string | null
+    hash: string | null
+  }
+
+  export type Admin_credMaxAggregateOutputType = {
+    c_id: bigint | null
+    created_at: Date | null
+    name: string | null
+    password: string | null
+    hash: string | null
+  }
+
+  export type Admin_credCountAggregateOutputType = {
+    c_id: number
+    created_at: number
+    name: number
+    password: number
+    hash: number
+    _all: number
+  }
+
+
+  export type Admin_credAvgAggregateInputType = {
+    c_id?: true
+  }
+
+  export type Admin_credSumAggregateInputType = {
+    c_id?: true
+  }
+
+  export type Admin_credMinAggregateInputType = {
+    c_id?: true
+    created_at?: true
+    name?: true
+    password?: true
+    hash?: true
+  }
+
+  export type Admin_credMaxAggregateInputType = {
+    c_id?: true
+    created_at?: true
+    name?: true
+    password?: true
+    hash?: true
+  }
+
+  export type Admin_credCountAggregateInputType = {
+    c_id?: true
+    created_at?: true
+    name?: true
+    password?: true
+    hash?: true
+    _all?: true
+  }
+
+  export type Admin_credAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which admin_cred to aggregate.
+     */
+    where?: admin_credWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of admin_creds to fetch.
+     */
+    orderBy?: admin_credOrderByWithRelationInput | admin_credOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: admin_credWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` admin_creds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` admin_creds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned admin_creds
+    **/
+    _count?: true | Admin_credCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: Admin_credAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: Admin_credSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Admin_credMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Admin_credMaxAggregateInputType
+  }
+
+  export type GetAdmin_credAggregateType<T extends Admin_credAggregateArgs> = {
+        [P in keyof T & keyof AggregateAdmin_cred]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateAdmin_cred[P]>
+      : GetScalarType<T[P], AggregateAdmin_cred[P]>
+  }
+
+
+
+
+  export type admin_credGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: admin_credWhereInput
+    orderBy?: admin_credOrderByWithAggregationInput | admin_credOrderByWithAggregationInput[]
+    by: Admin_credScalarFieldEnum[] | Admin_credScalarFieldEnum
+    having?: admin_credScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Admin_credCountAggregateInputType | true
+    _avg?: Admin_credAvgAggregateInputType
+    _sum?: Admin_credSumAggregateInputType
+    _min?: Admin_credMinAggregateInputType
+    _max?: Admin_credMaxAggregateInputType
+  }
+
+  export type Admin_credGroupByOutputType = {
+    c_id: bigint
+    created_at: Date
+    name: string | null
+    password: string | null
+    hash: string
+    _count: Admin_credCountAggregateOutputType | null
+    _avg: Admin_credAvgAggregateOutputType | null
+    _sum: Admin_credSumAggregateOutputType | null
+    _min: Admin_credMinAggregateOutputType | null
+    _max: Admin_credMaxAggregateOutputType | null
+  }
+
+  type GetAdmin_credGroupByPayload<T extends admin_credGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Admin_credGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Admin_credGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Admin_credGroupByOutputType[P]>
+            : GetScalarType<T[P], Admin_credGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type admin_credSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    c_id?: boolean
+    created_at?: boolean
+    name?: boolean
+    password?: boolean
+    hash?: boolean
+  }, ExtArgs["result"]["admin_cred"]>
+
+  export type admin_credSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    c_id?: boolean
+    created_at?: boolean
+    name?: boolean
+    password?: boolean
+    hash?: boolean
+  }, ExtArgs["result"]["admin_cred"]>
+
+  export type admin_credSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    c_id?: boolean
+    created_at?: boolean
+    name?: boolean
+    password?: boolean
+    hash?: boolean
+  }, ExtArgs["result"]["admin_cred"]>
+
+  export type admin_credSelectScalar = {
+    c_id?: boolean
+    created_at?: boolean
+    name?: boolean
+    password?: boolean
+    hash?: boolean
+  }
+
+  export type admin_credOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"c_id" | "created_at" | "name" | "password" | "hash", ExtArgs["result"]["admin_cred"]>
+
+  export type $admin_credPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "admin_cred"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      c_id: bigint
+      created_at: Date
+      name: string | null
+      password: string | null
+      hash: string
+    }, ExtArgs["result"]["admin_cred"]>
+    composites: {}
+  }
+
+  type admin_credGetPayload<S extends boolean | null | undefined | admin_credDefaultArgs> = $Result.GetResult<Prisma.$admin_credPayload, S>
+
+  type admin_credCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<admin_credFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Admin_credCountAggregateInputType | true
+    }
+
+  export interface admin_credDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['admin_cred'], meta: { name: 'admin_cred' } }
+    /**
+     * Find zero or one Admin_cred that matches the filter.
+     * @param {admin_credFindUniqueArgs} args - Arguments to find a Admin_cred
+     * @example
+     * // Get one Admin_cred
+     * const admin_cred = await prisma.admin_cred.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends admin_credFindUniqueArgs>(args: SelectSubset<T, admin_credFindUniqueArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Admin_cred that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {admin_credFindUniqueOrThrowArgs} args - Arguments to find a Admin_cred
+     * @example
+     * // Get one Admin_cred
+     * const admin_cred = await prisma.admin_cred.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends admin_credFindUniqueOrThrowArgs>(args: SelectSubset<T, admin_credFindUniqueOrThrowArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin_cred that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {admin_credFindFirstArgs} args - Arguments to find a Admin_cred
+     * @example
+     * // Get one Admin_cred
+     * const admin_cred = await prisma.admin_cred.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends admin_credFindFirstArgs>(args?: SelectSubset<T, admin_credFindFirstArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Admin_cred that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {admin_credFindFirstOrThrowArgs} args - Arguments to find a Admin_cred
+     * @example
+     * // Get one Admin_cred
+     * const admin_cred = await prisma.admin_cred.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends admin_credFindFirstOrThrowArgs>(args?: SelectSubset<T, admin_credFindFirstOrThrowArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Admin_creds that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {admin_credFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Admin_creds
+     * const admin_creds = await prisma.admin_cred.findMany()
+     * 
+     * // Get first 10 Admin_creds
+     * const admin_creds = await prisma.admin_cred.findMany({ take: 10 })
+     * 
+     * // Only select the `c_id`
+     * const admin_credWithC_idOnly = await prisma.admin_cred.findMany({ select: { c_id: true } })
+     * 
+     */
+    findMany<T extends admin_credFindManyArgs>(args?: SelectSubset<T, admin_credFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Admin_cred.
+     * @param {admin_credCreateArgs} args - Arguments to create a Admin_cred.
+     * @example
+     * // Create one Admin_cred
+     * const Admin_cred = await prisma.admin_cred.create({
+     *   data: {
+     *     // ... data to create a Admin_cred
+     *   }
+     * })
+     * 
+     */
+    create<T extends admin_credCreateArgs>(args: SelectSubset<T, admin_credCreateArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Admin_creds.
+     * @param {admin_credCreateManyArgs} args - Arguments to create many Admin_creds.
+     * @example
+     * // Create many Admin_creds
+     * const admin_cred = await prisma.admin_cred.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends admin_credCreateManyArgs>(args?: SelectSubset<T, admin_credCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Admin_creds and returns the data saved in the database.
+     * @param {admin_credCreateManyAndReturnArgs} args - Arguments to create many Admin_creds.
+     * @example
+     * // Create many Admin_creds
+     * const admin_cred = await prisma.admin_cred.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Admin_creds and only return the `c_id`
+     * const admin_credWithC_idOnly = await prisma.admin_cred.createManyAndReturn({
+     *   select: { c_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends admin_credCreateManyAndReturnArgs>(args?: SelectSubset<T, admin_credCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Admin_cred.
+     * @param {admin_credDeleteArgs} args - Arguments to delete one Admin_cred.
+     * @example
+     * // Delete one Admin_cred
+     * const Admin_cred = await prisma.admin_cred.delete({
+     *   where: {
+     *     // ... filter to delete one Admin_cred
+     *   }
+     * })
+     * 
+     */
+    delete<T extends admin_credDeleteArgs>(args: SelectSubset<T, admin_credDeleteArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Admin_cred.
+     * @param {admin_credUpdateArgs} args - Arguments to update one Admin_cred.
+     * @example
+     * // Update one Admin_cred
+     * const admin_cred = await prisma.admin_cred.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends admin_credUpdateArgs>(args: SelectSubset<T, admin_credUpdateArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Admin_creds.
+     * @param {admin_credDeleteManyArgs} args - Arguments to filter Admin_creds to delete.
+     * @example
+     * // Delete a few Admin_creds
+     * const { count } = await prisma.admin_cred.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends admin_credDeleteManyArgs>(args?: SelectSubset<T, admin_credDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admin_creds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {admin_credUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Admin_creds
+     * const admin_cred = await prisma.admin_cred.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends admin_credUpdateManyArgs>(args: SelectSubset<T, admin_credUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Admin_creds and returns the data updated in the database.
+     * @param {admin_credUpdateManyAndReturnArgs} args - Arguments to update many Admin_creds.
+     * @example
+     * // Update many Admin_creds
+     * const admin_cred = await prisma.admin_cred.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Admin_creds and only return the `c_id`
+     * const admin_credWithC_idOnly = await prisma.admin_cred.updateManyAndReturn({
+     *   select: { c_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends admin_credUpdateManyAndReturnArgs>(args: SelectSubset<T, admin_credUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Admin_cred.
+     * @param {admin_credUpsertArgs} args - Arguments to update or create a Admin_cred.
+     * @example
+     * // Update or create a Admin_cred
+     * const admin_cred = await prisma.admin_cred.upsert({
+     *   create: {
+     *     // ... data to create a Admin_cred
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Admin_cred we want to update
+     *   }
+     * })
+     */
+    upsert<T extends admin_credUpsertArgs>(args: SelectSubset<T, admin_credUpsertArgs<ExtArgs>>): Prisma__admin_credClient<$Result.GetResult<Prisma.$admin_credPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Admin_creds.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {admin_credCountArgs} args - Arguments to filter Admin_creds to count.
+     * @example
+     * // Count the number of Admin_creds
+     * const count = await prisma.admin_cred.count({
+     *   where: {
+     *     // ... the filter for the Admin_creds we want to count
+     *   }
+     * })
+    **/
+    count<T extends admin_credCountArgs>(
+      args?: Subset<T, admin_credCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Admin_credCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Admin_cred.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Admin_credAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Admin_credAggregateArgs>(args: Subset<T, Admin_credAggregateArgs>): Prisma.PrismaPromise<GetAdmin_credAggregateType<T>>
+
+    /**
+     * Group by Admin_cred.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {admin_credGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends admin_credGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: admin_credGroupByArgs['orderBy'] }
+        : { orderBy?: admin_credGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, admin_credGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetAdmin_credGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the admin_cred model
+   */
+  readonly fields: admin_credFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for admin_cred.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__admin_credClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the admin_cred model
+   */ 
+  interface admin_credFieldRefs {
+    readonly c_id: FieldRef<"admin_cred", 'BigInt'>
+    readonly created_at: FieldRef<"admin_cred", 'DateTime'>
+    readonly name: FieldRef<"admin_cred", 'String'>
+    readonly password: FieldRef<"admin_cred", 'String'>
+    readonly hash: FieldRef<"admin_cred", 'String'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * admin_cred findUnique
+   */
+  export type admin_credFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * Filter, which admin_cred to fetch.
+     */
+    where: admin_credWhereUniqueInput
+  }
+
+  /**
+   * admin_cred findUniqueOrThrow
+   */
+  export type admin_credFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * Filter, which admin_cred to fetch.
+     */
+    where: admin_credWhereUniqueInput
+  }
+
+  /**
+   * admin_cred findFirst
+   */
+  export type admin_credFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * Filter, which admin_cred to fetch.
+     */
+    where?: admin_credWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of admin_creds to fetch.
+     */
+    orderBy?: admin_credOrderByWithRelationInput | admin_credOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for admin_creds.
+     */
+    cursor?: admin_credWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` admin_creds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` admin_creds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of admin_creds.
+     */
+    distinct?: Admin_credScalarFieldEnum | Admin_credScalarFieldEnum[]
+  }
+
+  /**
+   * admin_cred findFirstOrThrow
+   */
+  export type admin_credFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * Filter, which admin_cred to fetch.
+     */
+    where?: admin_credWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of admin_creds to fetch.
+     */
+    orderBy?: admin_credOrderByWithRelationInput | admin_credOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for admin_creds.
+     */
+    cursor?: admin_credWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` admin_creds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` admin_creds.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of admin_creds.
+     */
+    distinct?: Admin_credScalarFieldEnum | Admin_credScalarFieldEnum[]
+  }
+
+  /**
+   * admin_cred findMany
+   */
+  export type admin_credFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * Filter, which admin_creds to fetch.
+     */
+    where?: admin_credWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of admin_creds to fetch.
+     */
+    orderBy?: admin_credOrderByWithRelationInput | admin_credOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing admin_creds.
+     */
+    cursor?: admin_credWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` admin_creds from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` admin_creds.
+     */
+    skip?: number
+    distinct?: Admin_credScalarFieldEnum | Admin_credScalarFieldEnum[]
+  }
+
+  /**
+   * admin_cred create
+   */
+  export type admin_credCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * The data needed to create a admin_cred.
+     */
+    data: XOR<admin_credCreateInput, admin_credUncheckedCreateInput>
+  }
+
+  /**
+   * admin_cred createMany
+   */
+  export type admin_credCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many admin_creds.
+     */
+    data: admin_credCreateManyInput | admin_credCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * admin_cred createManyAndReturn
+   */
+  export type admin_credCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * The data used to create many admin_creds.
+     */
+    data: admin_credCreateManyInput | admin_credCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * admin_cred update
+   */
+  export type admin_credUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * The data needed to update a admin_cred.
+     */
+    data: XOR<admin_credUpdateInput, admin_credUncheckedUpdateInput>
+    /**
+     * Choose, which admin_cred to update.
+     */
+    where: admin_credWhereUniqueInput
+  }
+
+  /**
+   * admin_cred updateMany
+   */
+  export type admin_credUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update admin_creds.
+     */
+    data: XOR<admin_credUpdateManyMutationInput, admin_credUncheckedUpdateManyInput>
+    /**
+     * Filter which admin_creds to update
+     */
+    where?: admin_credWhereInput
+    /**
+     * Limit how many admin_creds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * admin_cred updateManyAndReturn
+   */
+  export type admin_credUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * The data used to update admin_creds.
+     */
+    data: XOR<admin_credUpdateManyMutationInput, admin_credUncheckedUpdateManyInput>
+    /**
+     * Filter which admin_creds to update
+     */
+    where?: admin_credWhereInput
+    /**
+     * Limit how many admin_creds to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * admin_cred upsert
+   */
+  export type admin_credUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * The filter to search for the admin_cred to update in case it exists.
+     */
+    where: admin_credWhereUniqueInput
+    /**
+     * In case the admin_cred found by the `where` argument doesn't exist, create a new admin_cred with this data.
+     */
+    create: XOR<admin_credCreateInput, admin_credUncheckedCreateInput>
+    /**
+     * In case the admin_cred was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<admin_credUpdateInput, admin_credUncheckedUpdateInput>
+  }
+
+  /**
+   * admin_cred delete
+   */
+  export type admin_credDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+    /**
+     * Filter which admin_cred to delete.
+     */
+    where: admin_credWhereUniqueInput
+  }
+
+  /**
+   * admin_cred deleteMany
+   */
+  export type admin_credDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which admin_creds to delete
+     */
+    where?: admin_credWhereInput
+    /**
+     * Limit how many admin_creds to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * admin_cred without action
+   */
+  export type admin_credDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the admin_cred
+     */
+    select?: admin_credSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the admin_cred
+     */
+    omit?: admin_credOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -4081,6 +5201,17 @@ export namespace Prisma {
   };
 
   export type System_audit_logScalarFieldEnum = (typeof System_audit_logScalarFieldEnum)[keyof typeof System_audit_logScalarFieldEnum]
+
+
+  export const Admin_credScalarFieldEnum: {
+    c_id: 'c_id',
+    created_at: 'created_at',
+    name: 'name',
+    password: 'password',
+    hash: 'hash'
+  };
+
+  export type Admin_credScalarFieldEnum = (typeof Admin_credScalarFieldEnum)[keyof typeof Admin_credScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -4148,6 +5279,20 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'BigInt'
+   */
+  export type BigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt'>
+    
+
+
+  /**
+   * Reference to a field of type 'BigInt[]'
+   */
+  export type ListBigIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'BigInt[]'>
+    
+
+
+  /**
    * Reference to a field of type 'Int'
    */
   export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -4158,6 +5303,20 @@ export namespace Prisma {
    * Reference to a field of type 'Int[]'
    */
   export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float'
+   */
+  export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
+    
+
+
+  /**
+   * Reference to a field of type 'Float[]'
+   */
+  export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
     
   /**
    * Deep Input Types
@@ -4318,6 +5477,60 @@ export namespace Prisma {
     event_type?: StringWithAggregatesFilter<"system_audit_log"> | string
     details?: StringNullableWithAggregatesFilter<"system_audit_log"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"system_audit_log"> | Date | string
+  }
+
+  export type admin_credWhereInput = {
+    AND?: admin_credWhereInput | admin_credWhereInput[]
+    OR?: admin_credWhereInput[]
+    NOT?: admin_credWhereInput | admin_credWhereInput[]
+    c_id?: BigIntFilter<"admin_cred"> | bigint | number
+    created_at?: DateTimeFilter<"admin_cred"> | Date | string
+    name?: StringNullableFilter<"admin_cred"> | string | null
+    password?: StringNullableFilter<"admin_cred"> | string | null
+    hash?: StringFilter<"admin_cred"> | string
+  }
+
+  export type admin_credOrderByWithRelationInput = {
+    c_id?: SortOrder
+    created_at?: SortOrder
+    name?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    hash?: SortOrder
+  }
+
+  export type admin_credWhereUniqueInput = Prisma.AtLeast<{
+    c_id?: bigint | number
+    AND?: admin_credWhereInput | admin_credWhereInput[]
+    OR?: admin_credWhereInput[]
+    NOT?: admin_credWhereInput | admin_credWhereInput[]
+    created_at?: DateTimeFilter<"admin_cred"> | Date | string
+    name?: StringNullableFilter<"admin_cred"> | string | null
+    password?: StringNullableFilter<"admin_cred"> | string | null
+    hash?: StringFilter<"admin_cred"> | string
+  }, "c_id">
+
+  export type admin_credOrderByWithAggregationInput = {
+    c_id?: SortOrder
+    created_at?: SortOrder
+    name?: SortOrderInput | SortOrder
+    password?: SortOrderInput | SortOrder
+    hash?: SortOrder
+    _count?: admin_credCountOrderByAggregateInput
+    _avg?: admin_credAvgOrderByAggregateInput
+    _max?: admin_credMaxOrderByAggregateInput
+    _min?: admin_credMinOrderByAggregateInput
+    _sum?: admin_credSumOrderByAggregateInput
+  }
+
+  export type admin_credScalarWhereWithAggregatesInput = {
+    AND?: admin_credScalarWhereWithAggregatesInput | admin_credScalarWhereWithAggregatesInput[]
+    OR?: admin_credScalarWhereWithAggregatesInput[]
+    NOT?: admin_credScalarWhereWithAggregatesInput | admin_credScalarWhereWithAggregatesInput[]
+    c_id?: BigIntWithAggregatesFilter<"admin_cred"> | bigint | number
+    created_at?: DateTimeWithAggregatesFilter<"admin_cred"> | Date | string
+    name?: StringNullableWithAggregatesFilter<"admin_cred"> | string | null
+    password?: StringNullableWithAggregatesFilter<"admin_cred"> | string | null
+    hash?: StringWithAggregatesFilter<"admin_cred"> | string
   }
 
   export type admin_actions_logCreateInput = {
@@ -4486,6 +5699,62 @@ export namespace Prisma {
     event_type?: StringFieldUpdateOperationsInput | string
     details?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type admin_credCreateInput = {
+    c_id?: bigint | number
+    created_at?: Date | string
+    name?: string | null
+    password?: string | null
+    hash: string
+  }
+
+  export type admin_credUncheckedCreateInput = {
+    c_id?: bigint | number
+    created_at?: Date | string
+    name?: string | null
+    password?: string | null
+    hash: string
+  }
+
+  export type admin_credUpdateInput = {
+    c_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type admin_credUncheckedUpdateInput = {
+    c_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type admin_credCreateManyInput = {
+    c_id?: bigint | number
+    created_at?: Date | string
+    name?: string | null
+    password?: string | null
+    hash: string
+  }
+
+  export type admin_credUpdateManyMutationInput = {
+    c_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: StringFieldUpdateOperationsInput | string
+  }
+
+  export type admin_credUncheckedUpdateManyInput = {
+    c_id?: BigIntFieldUpdateOperationsInput | bigint | number
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    password?: NullableStringFieldUpdateOperationsInput | string | null
+    hash?: StringFieldUpdateOperationsInput | string
   }
 
   export type UuidFilter<$PrismaModel = never> = {
@@ -4723,6 +5992,65 @@ export namespace Prisma {
     created_at?: SortOrder
   }
 
+  export type BigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type admin_credCountOrderByAggregateInput = {
+    c_id?: SortOrder
+    created_at?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    hash?: SortOrder
+  }
+
+  export type admin_credAvgOrderByAggregateInput = {
+    c_id?: SortOrder
+  }
+
+  export type admin_credMaxOrderByAggregateInput = {
+    c_id?: SortOrder
+    created_at?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    hash?: SortOrder
+  }
+
+  export type admin_credMinOrderByAggregateInput = {
+    c_id?: SortOrder
+    created_at?: SortOrder
+    name?: SortOrder
+    password?: SortOrder
+    hash?: SortOrder
+  }
+
+  export type admin_credSumOrderByAggregateInput = {
+    c_id?: SortOrder
+  }
+
+  export type BigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
   export type StringFieldUpdateOperationsInput = {
     set?: string
   }
@@ -4737,6 +6065,14 @@ export namespace Prisma {
 
   export type NullableBoolFieldUpdateOperationsInput = {
     set?: boolean | null
+  }
+
+  export type BigIntFieldUpdateOperationsInput = {
+    set?: bigint | number
+    increment?: bigint | number
+    decrement?: bigint | number
+    multiply?: bigint | number
+    divide?: bigint | number
   }
 
   export type NestedUuidFilter<$PrismaModel = never> = {
@@ -4909,6 +6245,44 @@ export namespace Prisma {
     _count?: NestedIntNullableFilter<$PrismaModel>
     _min?: NestedBoolNullableFilter<$PrismaModel>
     _max?: NestedBoolNullableFilter<$PrismaModel>
+  }
+
+  export type NestedBigIntFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntFilter<$PrismaModel> | bigint | number
+  }
+
+  export type NestedBigIntWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    in?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    notIn?: bigint[] | number[] | ListBigIntFieldRefInput<$PrismaModel>
+    lt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    lte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gt?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    gte?: bigint | number | BigIntFieldRefInput<$PrismaModel>
+    not?: NestedBigIntWithAggregatesFilter<$PrismaModel> | bigint | number
+    _count?: NestedIntFilter<$PrismaModel>
+    _avg?: NestedFloatFilter<$PrismaModel>
+    _sum?: NestedBigIntFilter<$PrismaModel>
+    _min?: NestedBigIntFilter<$PrismaModel>
+    _max?: NestedBigIntFilter<$PrismaModel>
+  }
+
+  export type NestedFloatFilter<$PrismaModel = never> = {
+    equals?: number | FloatFieldRefInput<$PrismaModel>
+    in?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    notIn?: number[] | ListFloatFieldRefInput<$PrismaModel>
+    lt?: number | FloatFieldRefInput<$PrismaModel>
+    lte?: number | FloatFieldRefInput<$PrismaModel>
+    gt?: number | FloatFieldRefInput<$PrismaModel>
+    gte?: number | FloatFieldRefInput<$PrismaModel>
+    not?: NestedFloatFilter<$PrismaModel> | number
   }
 
 
