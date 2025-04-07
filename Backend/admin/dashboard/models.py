@@ -283,3 +283,14 @@ class Transactions(models.Model):
     class Meta:
         db_table = '"items_d"."transactions"'
         managed = False  # Table is managed by Supabase
+
+class AdminCred(models.Model):
+    c_id = models.CharField(max_length=255, primary_key=True)
+    created_at = models.DateTimeField()
+    name= models.CharField(max_length=255)
+    passowrd = models.CharField(max_length=255)  # Changed to DecimalField for monetary value
+    hash = models.CharField(max_length=255)
+
+    class Meta:
+        db_table = '"audit"."admin_cred"'
+        managed = False  # Table is managed by Supabase
