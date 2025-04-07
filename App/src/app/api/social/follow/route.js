@@ -2,6 +2,47 @@
 import { prismaSocial } from "../../../../lib/db/client";
 import { validate } from "uuid";
 
+export async function GET(request) {
+  try {
+    const url = new URL(request.url);
+    const follower_id = url.searchParams.get("follower_id");
+    const followee_id = url.searchParams.get("followee_id");
+
+    if (!follower_id || !followee_id) {
+      return new Response(
+        JSON.stringify({ error: "follower_id and followee_id are required" }),
+        { status: 400 }
+      );
+    }
+
+    if (!validate(follower_id) || !validate(followee_id)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid UUID format" }),
+        { status: 400 }
+      );
+    }
+
+    const followRecord = await prismaSocial.following.findFirst({
+      where: {
+        follower_id,
+        followee_id,
+      },
+    });
+
+    const isFollowing = !!followRecord;
+
+    return new Response(
+      JSON.stringify({ isFollowing }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("GET /follow error:", error);
+    return new Response(
+      JSON.stringify({ error: "Internal Server Error" }),
+      { status: 500 }
+    );
+  }
+}
 // POST: Create a follow record (i.e. follow someone)
 export async function POST(request) {
   try {

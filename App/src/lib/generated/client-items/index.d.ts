@@ -88,6 +88,11 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
  * 
  */
 export type collections = $Result.DefaultSelection<Prisma.$collectionsPayload>
+/**
+ * Model item_ownership
+ * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ */
+export type item_ownership = $Result.DefaultSelection<Prisma.$item_ownershipPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -363,6 +368,16 @@ export class PrismaClient<
     * ```
     */
   get collections(): Prisma.collectionsDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.item_ownership`: Exposes CRUD operations for the **item_ownership** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Item_ownerships
+    * const item_ownerships = await prisma.item_ownership.findMany()
+    * ```
+    */
+  get item_ownership(): Prisma.item_ownershipDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -817,7 +832,8 @@ export namespace Prisma {
     user_security: 'user_security',
     user_sessions: 'user_sessions',
     users: 'users',
-    collections: 'collections'
+    collections: 'collections',
+    item_ownership: 'item_ownership'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -836,7 +852,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "favorites" | "items" | "monetization" | "reviews" | "transactions" | "password_reset_tokens" | "user_analytics" | "user_audit_logs" | "user_blocklist" | "user_certificates" | "user_profile" | "user_security" | "user_sessions" | "users" | "collections"
+      modelProps: "favorites" | "items" | "monetization" | "reviews" | "transactions" | "password_reset_tokens" | "user_analytics" | "user_audit_logs" | "user_blocklist" | "user_certificates" | "user_profile" | "user_security" | "user_sessions" | "users" | "collections" | "item_ownership"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1950,6 +1966,80 @@ export namespace Prisma {
           }
         }
       }
+      item_ownership: {
+        payload: Prisma.$item_ownershipPayload<ExtArgs>
+        fields: Prisma.item_ownershipFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.item_ownershipFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.item_ownershipFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>
+          }
+          findFirst: {
+            args: Prisma.item_ownershipFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.item_ownershipFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>
+          }
+          findMany: {
+            args: Prisma.item_ownershipFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>[]
+          }
+          create: {
+            args: Prisma.item_ownershipCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>
+          }
+          createMany: {
+            args: Prisma.item_ownershipCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.item_ownershipCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>[]
+          }
+          delete: {
+            args: Prisma.item_ownershipDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>
+          }
+          update: {
+            args: Prisma.item_ownershipUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>
+          }
+          deleteMany: {
+            args: Prisma.item_ownershipDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.item_ownershipUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.item_ownershipUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>[]
+          }
+          upsert: {
+            args: Prisma.item_ownershipUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$item_ownershipPayload>
+          }
+          aggregate: {
+            args: Prisma.Item_ownershipAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateItem_ownership>
+          }
+          groupBy: {
+            args: Prisma.item_ownershipGroupByArgs<ExtArgs>
+            result: $Utils.Optional<Item_ownershipGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.item_ownershipCountArgs<ExtArgs>
+            result: $Utils.Optional<Item_ownershipCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -2049,6 +2139,7 @@ export namespace Prisma {
     user_sessions?: user_sessionsOmit
     users?: usersOmit
     collections?: collectionsOmit
+    item_ownership?: item_ownershipOmit
   }
 
   /* Types for Logging */
@@ -19139,6 +19230,1001 @@ export namespace Prisma {
 
 
   /**
+   * Model item_ownership
+   */
+
+  export type AggregateItem_ownership = {
+    _count: Item_ownershipCountAggregateOutputType | null
+    _min: Item_ownershipMinAggregateOutputType | null
+    _max: Item_ownershipMaxAggregateOutputType | null
+  }
+
+  export type Item_ownershipMinAggregateOutputType = {
+    ownership_id: string | null
+    item_id: string | null
+    creator_id: string | null
+    customer_id: string | null
+    created_at: Date | null
+  }
+
+  export type Item_ownershipMaxAggregateOutputType = {
+    ownership_id: string | null
+    item_id: string | null
+    creator_id: string | null
+    customer_id: string | null
+    created_at: Date | null
+  }
+
+  export type Item_ownershipCountAggregateOutputType = {
+    ownership_id: number
+    item_id: number
+    creator_id: number
+    customer_id: number
+    created_at: number
+    _all: number
+  }
+
+
+  export type Item_ownershipMinAggregateInputType = {
+    ownership_id?: true
+    item_id?: true
+    creator_id?: true
+    customer_id?: true
+    created_at?: true
+  }
+
+  export type Item_ownershipMaxAggregateInputType = {
+    ownership_id?: true
+    item_id?: true
+    creator_id?: true
+    customer_id?: true
+    created_at?: true
+  }
+
+  export type Item_ownershipCountAggregateInputType = {
+    ownership_id?: true
+    item_id?: true
+    creator_id?: true
+    customer_id?: true
+    created_at?: true
+    _all?: true
+  }
+
+  export type Item_ownershipAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which item_ownership to aggregate.
+     */
+    where?: item_ownershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of item_ownerships to fetch.
+     */
+    orderBy?: item_ownershipOrderByWithRelationInput | item_ownershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: item_ownershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` item_ownerships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` item_ownerships.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned item_ownerships
+    **/
+    _count?: true | Item_ownershipCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: Item_ownershipMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: Item_ownershipMaxAggregateInputType
+  }
+
+  export type GetItem_ownershipAggregateType<T extends Item_ownershipAggregateArgs> = {
+        [P in keyof T & keyof AggregateItem_ownership]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateItem_ownership[P]>
+      : GetScalarType<T[P], AggregateItem_ownership[P]>
+  }
+
+
+
+
+  export type item_ownershipGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: item_ownershipWhereInput
+    orderBy?: item_ownershipOrderByWithAggregationInput | item_ownershipOrderByWithAggregationInput[]
+    by: Item_ownershipScalarFieldEnum[] | Item_ownershipScalarFieldEnum
+    having?: item_ownershipScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: Item_ownershipCountAggregateInputType | true
+    _min?: Item_ownershipMinAggregateInputType
+    _max?: Item_ownershipMaxAggregateInputType
+  }
+
+  export type Item_ownershipGroupByOutputType = {
+    ownership_id: string
+    item_id: string | null
+    creator_id: string | null
+    customer_id: string | null
+    created_at: Date
+    _count: Item_ownershipCountAggregateOutputType | null
+    _min: Item_ownershipMinAggregateOutputType | null
+    _max: Item_ownershipMaxAggregateOutputType | null
+  }
+
+  type GetItem_ownershipGroupByPayload<T extends item_ownershipGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<Item_ownershipGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof Item_ownershipGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], Item_ownershipGroupByOutputType[P]>
+            : GetScalarType<T[P], Item_ownershipGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type item_ownershipSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ownership_id?: boolean
+    item_id?: boolean
+    creator_id?: boolean
+    customer_id?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["item_ownership"]>
+
+  export type item_ownershipSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ownership_id?: boolean
+    item_id?: boolean
+    creator_id?: boolean
+    customer_id?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["item_ownership"]>
+
+  export type item_ownershipSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    ownership_id?: boolean
+    item_id?: boolean
+    creator_id?: boolean
+    customer_id?: boolean
+    created_at?: boolean
+  }, ExtArgs["result"]["item_ownership"]>
+
+  export type item_ownershipSelectScalar = {
+    ownership_id?: boolean
+    item_id?: boolean
+    creator_id?: boolean
+    customer_id?: boolean
+    created_at?: boolean
+  }
+
+  export type item_ownershipOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"ownership_id" | "item_id" | "creator_id" | "customer_id" | "created_at", ExtArgs["result"]["item_ownership"]>
+
+  export type $item_ownershipPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "item_ownership"
+    objects: {}
+    scalars: $Extensions.GetPayloadResult<{
+      ownership_id: string
+      item_id: string | null
+      creator_id: string | null
+      customer_id: string | null
+      created_at: Date
+    }, ExtArgs["result"]["item_ownership"]>
+    composites: {}
+  }
+
+  type item_ownershipGetPayload<S extends boolean | null | undefined | item_ownershipDefaultArgs> = $Result.GetResult<Prisma.$item_ownershipPayload, S>
+
+  type item_ownershipCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<item_ownershipFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: Item_ownershipCountAggregateInputType | true
+    }
+
+  export interface item_ownershipDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['item_ownership'], meta: { name: 'item_ownership' } }
+    /**
+     * Find zero or one Item_ownership that matches the filter.
+     * @param {item_ownershipFindUniqueArgs} args - Arguments to find a Item_ownership
+     * @example
+     * // Get one Item_ownership
+     * const item_ownership = await prisma.item_ownership.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends item_ownershipFindUniqueArgs>(args: SelectSubset<T, item_ownershipFindUniqueArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one Item_ownership that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {item_ownershipFindUniqueOrThrowArgs} args - Arguments to find a Item_ownership
+     * @example
+     * // Get one Item_ownership
+     * const item_ownership = await prisma.item_ownership.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends item_ownershipFindUniqueOrThrowArgs>(args: SelectSubset<T, item_ownershipFindUniqueOrThrowArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Item_ownership that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {item_ownershipFindFirstArgs} args - Arguments to find a Item_ownership
+     * @example
+     * // Get one Item_ownership
+     * const item_ownership = await prisma.item_ownership.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends item_ownershipFindFirstArgs>(args?: SelectSubset<T, item_ownershipFindFirstArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first Item_ownership that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {item_ownershipFindFirstOrThrowArgs} args - Arguments to find a Item_ownership
+     * @example
+     * // Get one Item_ownership
+     * const item_ownership = await prisma.item_ownership.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends item_ownershipFindFirstOrThrowArgs>(args?: SelectSubset<T, item_ownershipFindFirstOrThrowArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more Item_ownerships that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {item_ownershipFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all Item_ownerships
+     * const item_ownerships = await prisma.item_ownership.findMany()
+     * 
+     * // Get first 10 Item_ownerships
+     * const item_ownerships = await prisma.item_ownership.findMany({ take: 10 })
+     * 
+     * // Only select the `ownership_id`
+     * const item_ownershipWithOwnership_idOnly = await prisma.item_ownership.findMany({ select: { ownership_id: true } })
+     * 
+     */
+    findMany<T extends item_ownershipFindManyArgs>(args?: SelectSubset<T, item_ownershipFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a Item_ownership.
+     * @param {item_ownershipCreateArgs} args - Arguments to create a Item_ownership.
+     * @example
+     * // Create one Item_ownership
+     * const Item_ownership = await prisma.item_ownership.create({
+     *   data: {
+     *     // ... data to create a Item_ownership
+     *   }
+     * })
+     * 
+     */
+    create<T extends item_ownershipCreateArgs>(args: SelectSubset<T, item_ownershipCreateArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many Item_ownerships.
+     * @param {item_ownershipCreateManyArgs} args - Arguments to create many Item_ownerships.
+     * @example
+     * // Create many Item_ownerships
+     * const item_ownership = await prisma.item_ownership.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends item_ownershipCreateManyArgs>(args?: SelectSubset<T, item_ownershipCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many Item_ownerships and returns the data saved in the database.
+     * @param {item_ownershipCreateManyAndReturnArgs} args - Arguments to create many Item_ownerships.
+     * @example
+     * // Create many Item_ownerships
+     * const item_ownership = await prisma.item_ownership.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many Item_ownerships and only return the `ownership_id`
+     * const item_ownershipWithOwnership_idOnly = await prisma.item_ownership.createManyAndReturn({
+     *   select: { ownership_id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends item_ownershipCreateManyAndReturnArgs>(args?: SelectSubset<T, item_ownershipCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a Item_ownership.
+     * @param {item_ownershipDeleteArgs} args - Arguments to delete one Item_ownership.
+     * @example
+     * // Delete one Item_ownership
+     * const Item_ownership = await prisma.item_ownership.delete({
+     *   where: {
+     *     // ... filter to delete one Item_ownership
+     *   }
+     * })
+     * 
+     */
+    delete<T extends item_ownershipDeleteArgs>(args: SelectSubset<T, item_ownershipDeleteArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one Item_ownership.
+     * @param {item_ownershipUpdateArgs} args - Arguments to update one Item_ownership.
+     * @example
+     * // Update one Item_ownership
+     * const item_ownership = await prisma.item_ownership.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends item_ownershipUpdateArgs>(args: SelectSubset<T, item_ownershipUpdateArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more Item_ownerships.
+     * @param {item_ownershipDeleteManyArgs} args - Arguments to filter Item_ownerships to delete.
+     * @example
+     * // Delete a few Item_ownerships
+     * const { count } = await prisma.item_ownership.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends item_ownershipDeleteManyArgs>(args?: SelectSubset<T, item_ownershipDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Item_ownerships.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {item_ownershipUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many Item_ownerships
+     * const item_ownership = await prisma.item_ownership.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends item_ownershipUpdateManyArgs>(args: SelectSubset<T, item_ownershipUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more Item_ownerships and returns the data updated in the database.
+     * @param {item_ownershipUpdateManyAndReturnArgs} args - Arguments to update many Item_ownerships.
+     * @example
+     * // Update many Item_ownerships
+     * const item_ownership = await prisma.item_ownership.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more Item_ownerships and only return the `ownership_id`
+     * const item_ownershipWithOwnership_idOnly = await prisma.item_ownership.updateManyAndReturn({
+     *   select: { ownership_id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends item_ownershipUpdateManyAndReturnArgs>(args: SelectSubset<T, item_ownershipUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one Item_ownership.
+     * @param {item_ownershipUpsertArgs} args - Arguments to update or create a Item_ownership.
+     * @example
+     * // Update or create a Item_ownership
+     * const item_ownership = await prisma.item_ownership.upsert({
+     *   create: {
+     *     // ... data to create a Item_ownership
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the Item_ownership we want to update
+     *   }
+     * })
+     */
+    upsert<T extends item_ownershipUpsertArgs>(args: SelectSubset<T, item_ownershipUpsertArgs<ExtArgs>>): Prisma__item_ownershipClient<$Result.GetResult<Prisma.$item_ownershipPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of Item_ownerships.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {item_ownershipCountArgs} args - Arguments to filter Item_ownerships to count.
+     * @example
+     * // Count the number of Item_ownerships
+     * const count = await prisma.item_ownership.count({
+     *   where: {
+     *     // ... the filter for the Item_ownerships we want to count
+     *   }
+     * })
+    **/
+    count<T extends item_ownershipCountArgs>(
+      args?: Subset<T, item_ownershipCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], Item_ownershipCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a Item_ownership.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {Item_ownershipAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends Item_ownershipAggregateArgs>(args: Subset<T, Item_ownershipAggregateArgs>): Prisma.PrismaPromise<GetItem_ownershipAggregateType<T>>
+
+    /**
+     * Group by Item_ownership.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {item_ownershipGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends item_ownershipGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: item_ownershipGroupByArgs['orderBy'] }
+        : { orderBy?: item_ownershipGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, item_ownershipGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetItem_ownershipGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the item_ownership model
+   */
+  readonly fields: item_ownershipFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for item_ownership.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__item_ownershipClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the item_ownership model
+   */ 
+  interface item_ownershipFieldRefs {
+    readonly ownership_id: FieldRef<"item_ownership", 'String'>
+    readonly item_id: FieldRef<"item_ownership", 'String'>
+    readonly creator_id: FieldRef<"item_ownership", 'String'>
+    readonly customer_id: FieldRef<"item_ownership", 'String'>
+    readonly created_at: FieldRef<"item_ownership", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * item_ownership findUnique
+   */
+  export type item_ownershipFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * Filter, which item_ownership to fetch.
+     */
+    where: item_ownershipWhereUniqueInput
+  }
+
+  /**
+   * item_ownership findUniqueOrThrow
+   */
+  export type item_ownershipFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * Filter, which item_ownership to fetch.
+     */
+    where: item_ownershipWhereUniqueInput
+  }
+
+  /**
+   * item_ownership findFirst
+   */
+  export type item_ownershipFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * Filter, which item_ownership to fetch.
+     */
+    where?: item_ownershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of item_ownerships to fetch.
+     */
+    orderBy?: item_ownershipOrderByWithRelationInput | item_ownershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for item_ownerships.
+     */
+    cursor?: item_ownershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` item_ownerships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` item_ownerships.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of item_ownerships.
+     */
+    distinct?: Item_ownershipScalarFieldEnum | Item_ownershipScalarFieldEnum[]
+  }
+
+  /**
+   * item_ownership findFirstOrThrow
+   */
+  export type item_ownershipFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * Filter, which item_ownership to fetch.
+     */
+    where?: item_ownershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of item_ownerships to fetch.
+     */
+    orderBy?: item_ownershipOrderByWithRelationInput | item_ownershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for item_ownerships.
+     */
+    cursor?: item_ownershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` item_ownerships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` item_ownerships.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of item_ownerships.
+     */
+    distinct?: Item_ownershipScalarFieldEnum | Item_ownershipScalarFieldEnum[]
+  }
+
+  /**
+   * item_ownership findMany
+   */
+  export type item_ownershipFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * Filter, which item_ownerships to fetch.
+     */
+    where?: item_ownershipWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of item_ownerships to fetch.
+     */
+    orderBy?: item_ownershipOrderByWithRelationInput | item_ownershipOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing item_ownerships.
+     */
+    cursor?: item_ownershipWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` item_ownerships from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` item_ownerships.
+     */
+    skip?: number
+    distinct?: Item_ownershipScalarFieldEnum | Item_ownershipScalarFieldEnum[]
+  }
+
+  /**
+   * item_ownership create
+   */
+  export type item_ownershipCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * The data needed to create a item_ownership.
+     */
+    data?: XOR<item_ownershipCreateInput, item_ownershipUncheckedCreateInput>
+  }
+
+  /**
+   * item_ownership createMany
+   */
+  export type item_ownershipCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many item_ownerships.
+     */
+    data: item_ownershipCreateManyInput | item_ownershipCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * item_ownership createManyAndReturn
+   */
+  export type item_ownershipCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * The data used to create many item_ownerships.
+     */
+    data: item_ownershipCreateManyInput | item_ownershipCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * item_ownership update
+   */
+  export type item_ownershipUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * The data needed to update a item_ownership.
+     */
+    data: XOR<item_ownershipUpdateInput, item_ownershipUncheckedUpdateInput>
+    /**
+     * Choose, which item_ownership to update.
+     */
+    where: item_ownershipWhereUniqueInput
+  }
+
+  /**
+   * item_ownership updateMany
+   */
+  export type item_ownershipUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update item_ownerships.
+     */
+    data: XOR<item_ownershipUpdateManyMutationInput, item_ownershipUncheckedUpdateManyInput>
+    /**
+     * Filter which item_ownerships to update
+     */
+    where?: item_ownershipWhereInput
+    /**
+     * Limit how many item_ownerships to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * item_ownership updateManyAndReturn
+   */
+  export type item_ownershipUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * The data used to update item_ownerships.
+     */
+    data: XOR<item_ownershipUpdateManyMutationInput, item_ownershipUncheckedUpdateManyInput>
+    /**
+     * Filter which item_ownerships to update
+     */
+    where?: item_ownershipWhereInput
+    /**
+     * Limit how many item_ownerships to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * item_ownership upsert
+   */
+  export type item_ownershipUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * The filter to search for the item_ownership to update in case it exists.
+     */
+    where: item_ownershipWhereUniqueInput
+    /**
+     * In case the item_ownership found by the `where` argument doesn't exist, create a new item_ownership with this data.
+     */
+    create: XOR<item_ownershipCreateInput, item_ownershipUncheckedCreateInput>
+    /**
+     * In case the item_ownership was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<item_ownershipUpdateInput, item_ownershipUncheckedUpdateInput>
+  }
+
+  /**
+   * item_ownership delete
+   */
+  export type item_ownershipDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+    /**
+     * Filter which item_ownership to delete.
+     */
+    where: item_ownershipWhereUniqueInput
+  }
+
+  /**
+   * item_ownership deleteMany
+   */
+  export type item_ownershipDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which item_ownerships to delete
+     */
+    where?: item_ownershipWhereInput
+    /**
+     * Limit how many item_ownerships to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * item_ownership without action
+   */
+  export type item_ownershipDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the item_ownership
+     */
+    select?: item_ownershipSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the item_ownership
+     */
+    omit?: item_ownershipOmit<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -19338,6 +20424,17 @@ export namespace Prisma {
   };
 
   export type CollectionsScalarFieldEnum = (typeof CollectionsScalarFieldEnum)[keyof typeof CollectionsScalarFieldEnum]
+
+
+  export const Item_ownershipScalarFieldEnum: {
+    ownership_id: 'ownership_id',
+    item_id: 'item_id',
+    creator_id: 'creator_id',
+    customer_id: 'customer_id',
+    created_at: 'created_at'
+  };
+
+  export type Item_ownershipScalarFieldEnum = (typeof Item_ownershipScalarFieldEnum)[keyof typeof Item_ownershipScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -20487,6 +21584,58 @@ export namespace Prisma {
     collection?: FloatWithAggregatesFilter<"collections"> | number
   }
 
+  export type item_ownershipWhereInput = {
+    AND?: item_ownershipWhereInput | item_ownershipWhereInput[]
+    OR?: item_ownershipWhereInput[]
+    NOT?: item_ownershipWhereInput | item_ownershipWhereInput[]
+    ownership_id?: UuidFilter<"item_ownership"> | string
+    item_id?: UuidNullableFilter<"item_ownership"> | string | null
+    creator_id?: UuidNullableFilter<"item_ownership"> | string | null
+    customer_id?: UuidNullableFilter<"item_ownership"> | string | null
+    created_at?: DateTimeFilter<"item_ownership"> | Date | string
+  }
+
+  export type item_ownershipOrderByWithRelationInput = {
+    ownership_id?: SortOrder
+    item_id?: SortOrderInput | SortOrder
+    creator_id?: SortOrderInput | SortOrder
+    customer_id?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+  }
+
+  export type item_ownershipWhereUniqueInput = Prisma.AtLeast<{
+    ownership_id?: string
+    AND?: item_ownershipWhereInput | item_ownershipWhereInput[]
+    OR?: item_ownershipWhereInput[]
+    NOT?: item_ownershipWhereInput | item_ownershipWhereInput[]
+    item_id?: UuidNullableFilter<"item_ownership"> | string | null
+    creator_id?: UuidNullableFilter<"item_ownership"> | string | null
+    customer_id?: UuidNullableFilter<"item_ownership"> | string | null
+    created_at?: DateTimeFilter<"item_ownership"> | Date | string
+  }, "ownership_id">
+
+  export type item_ownershipOrderByWithAggregationInput = {
+    ownership_id?: SortOrder
+    item_id?: SortOrderInput | SortOrder
+    creator_id?: SortOrderInput | SortOrder
+    customer_id?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    _count?: item_ownershipCountOrderByAggregateInput
+    _max?: item_ownershipMaxOrderByAggregateInput
+    _min?: item_ownershipMinOrderByAggregateInput
+  }
+
+  export type item_ownershipScalarWhereWithAggregatesInput = {
+    AND?: item_ownershipScalarWhereWithAggregatesInput | item_ownershipScalarWhereWithAggregatesInput[]
+    OR?: item_ownershipScalarWhereWithAggregatesInput[]
+    NOT?: item_ownershipScalarWhereWithAggregatesInput | item_ownershipScalarWhereWithAggregatesInput[]
+    ownership_id?: UuidWithAggregatesFilter<"item_ownership"> | string
+    item_id?: UuidNullableWithAggregatesFilter<"item_ownership"> | string | null
+    creator_id?: UuidNullableWithAggregatesFilter<"item_ownership"> | string | null
+    customer_id?: UuidNullableWithAggregatesFilter<"item_ownership"> | string | null
+    created_at?: DateTimeWithAggregatesFilter<"item_ownership"> | Date | string
+  }
+
   export type favoritesCreateInput = {
     favorite_id?: string
     created_at?: Date | string | null
@@ -21536,6 +22685,62 @@ export namespace Prisma {
     collection?: FloatFieldUpdateOperationsInput | number
   }
 
+  export type item_ownershipCreateInput = {
+    ownership_id?: string
+    item_id?: string | null
+    creator_id?: string | null
+    customer_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type item_ownershipUncheckedCreateInput = {
+    ownership_id?: string
+    item_id?: string | null
+    creator_id?: string | null
+    customer_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type item_ownershipUpdateInput = {
+    ownership_id?: StringFieldUpdateOperationsInput | string
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    creator_id?: NullableStringFieldUpdateOperationsInput | string | null
+    customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type item_ownershipUncheckedUpdateInput = {
+    ownership_id?: StringFieldUpdateOperationsInput | string
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    creator_id?: NullableStringFieldUpdateOperationsInput | string | null
+    customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type item_ownershipCreateManyInput = {
+    ownership_id?: string
+    item_id?: string | null
+    creator_id?: string | null
+    customer_id?: string | null
+    created_at?: Date | string
+  }
+
+  export type item_ownershipUpdateManyMutationInput = {
+    ownership_id?: StringFieldUpdateOperationsInput | string
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    creator_id?: NullableStringFieldUpdateOperationsInput | string | null
+    customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type item_ownershipUncheckedUpdateManyInput = {
+    ownership_id?: StringFieldUpdateOperationsInput | string
+    item_id?: NullableStringFieldUpdateOperationsInput | string | null
+    creator_id?: NullableStringFieldUpdateOperationsInput | string | null
+    customer_id?: NullableStringFieldUpdateOperationsInput | string | null
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type UuidFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -22502,6 +23707,30 @@ export namespace Prisma {
 
   export type collectionsSumOrderByAggregateInput = {
     collection?: SortOrder
+  }
+
+  export type item_ownershipCountOrderByAggregateInput = {
+    ownership_id?: SortOrder
+    item_id?: SortOrder
+    creator_id?: SortOrder
+    customer_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type item_ownershipMaxOrderByAggregateInput = {
+    ownership_id?: SortOrder
+    item_id?: SortOrder
+    creator_id?: SortOrder
+    customer_id?: SortOrder
+    created_at?: SortOrder
+  }
+
+  export type item_ownershipMinOrderByAggregateInput = {
+    ownership_id?: SortOrder
+    item_id?: SortOrder
+    creator_id?: SortOrder
+    customer_id?: SortOrder
+    created_at?: SortOrder
   }
 
   export type itemsCreateNestedOneWithoutFavoritesInput = {

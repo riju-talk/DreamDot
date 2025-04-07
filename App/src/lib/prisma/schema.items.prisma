@@ -220,3 +220,14 @@ model collections {
 
   @@schema("items_d")
 }
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model item_ownership {
+  ownership_id String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  item_id      String?  @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  creator_id   String?  @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  customer_id  String?  @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+
+  @@schema("items_d")
+}

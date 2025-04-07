@@ -6,7 +6,7 @@ export async function POST(req) {
     // Extract the Authorization header
     const authHeader = req.headers.get('Authorization');
     const uuid=req.headers.get('uuid');
-    console.log(authHeader);
+    //console.log(authHeader);
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
       console.log("here")
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
@@ -27,7 +27,7 @@ export async function POST(req) {
 
 
     if (!session) {
-      console.log("here2")
+      //console.log("here2")
       return new Response(JSON.stringify({ error: 'Session not found or revoked' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },

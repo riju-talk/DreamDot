@@ -47,3 +47,46 @@ export async function DELETE(request) {
     return new Response(JSON.stringify({ error: "Internal Server Error" }), { status: 500 });
   }
 }
+
+export async function GET(request) {
+  try {
+    const url = new URL(request.url);
+    const blocker_id = url.searchParams.get("blocker_id");
+    const blocked_id = url.searchParams.get("blocked_id");
+
+    if (!blocker_id || !blocked_id) {
+      return new Response(
+        JSON.stringify({ error: "blocker_id and blocked_id are required" }),
+        { status: 400 }
+      );
+    }
+
+    if (!validate(blocker_id) || !validate(blocked_id)) {
+      return new Response(
+        JSON.stringify({ error: "Invalid UUID format" }),
+        { status: 400 }
+      );
+    }
+
+    // Check if the block relationship exists
+    const blockRecord = await prismaSocial.blocking.findFirst({
+      where: {
+        blocker_id,
+        blocked_id,
+      },
+    });
+
+    const isBlocked = !!blockRecord; // Convert to boolean: true if record exists, false if not
+
+    return new Response(
+      JSON.stringify({ isBlocked }),
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("GET /block error:", error);
+    return new Response(
+      JSON.stringify({ error: "Internal Server Error" }),
+      { status: 500 }
+    );
+  }
+}

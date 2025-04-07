@@ -260,6 +260,14 @@ exports.Prisma.CollectionsScalarFieldEnum = {
   collection: 'collection'
 };
 
+exports.Prisma.Item_ownershipScalarFieldEnum = {
+  ownership_id: 'ownership_id',
+  item_id: 'item_id',
+  creator_id: 'creator_id',
+  customer_id: 'customer_id',
+  created_at: 'created_at'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -302,7 +310,8 @@ exports.Prisma.ModelName = {
   user_security: 'user_security',
   user_sessions: 'user_sessions',
   users: 'users',
-  collections: 'collections'
+  collections: 'collections',
+  item_ownership: 'item_ownership'
 };
 
 /**

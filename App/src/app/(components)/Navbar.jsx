@@ -2,24 +2,10 @@
 import { useState, useEffect, useMemo } from "react";
 import Fuse from "fuse.js";
 import Link from "next/link";
-import { AppBar, Toolbar, IconButton, Avatar, InputBase, Badge } from "@mui/material";
-import { Button, Dropdown, Space, Typography } from "antd";
-import {
-  AppBar,
-  Toolbar,
-  IconButton,
-  Avatar,
-  InputBase,
-  Badge,
-  CircularProgress
-} from "@mui/material";
+import { AppBar, Toolbar, IconButton, Avatar, InputBase, Badge, CircularProgress } from "@mui/material";
+import { Dropdown, Space, Typography } from "antd";
 import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
-import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
-import { useRouter } from "next/navigation";
-import { styled, alpha } from "@mui/material/styles";
-import { Home, Search, Notifications, Mail, Chat } from "@mui/icons-material";
-import { useUnmountEffect } from "framer-motion";
-import { useParams } from "next/navigation";
+import { styled } from "@mui/material/styles";
 
 const SearchBar = styled("div")(({ theme }) => ({
   position: "relative",
@@ -88,7 +74,6 @@ export default function Navbar({ userId }) {
     { key: '3', label: <span onClick={handleLogout} style={{ color: 'red', cursor: 'pointer' }}>Logout</span>, danger: true },
   ];
 
-  const router = useRouter();
   const [searchInput, setSearchInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [allData, setAllData] = useState([]);

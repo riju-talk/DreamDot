@@ -6,7 +6,7 @@ import Navbar from "../../(components)/Navbar";
 import { useParams, useRouter } from "next/navigation";
 import CreatePost from "../../(components)/post_dialogue";
 import CreateItemModal from "../../(components)/item_dialogue";
-import { PostModal, ItemModal } from "../../(components)/Viewer";
+import { PostModal, ItemModalLook } from "../../(components)/Viewer";
 
 export default function MyProfilePage() {
   const router = useRouter();
@@ -258,15 +258,15 @@ export default function MyProfilePage() {
               <div className="space-y-3">
                 <div className="flex justify-between">
                   <span>Followers</span>
-                  <span className="font-semibold">0</span>
+                  <span className="font-semibold">{realuser.followers}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Following</span>
-                  <span className="font-semibold">0</span>
+                  <span className="font-semibold">{realuser.following}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Total Sales</span>
-                  <span className="font-semibold text-green-600">$0</span>
+                  <span className="font-semibold text-green-600">{realuser.collection}</span>
                 </div>
               </div>
   
@@ -312,8 +312,7 @@ export default function MyProfilePage() {
       )}
 
       {selectedItem && (
-        <ItemModal
-          onPurchase={() => {}}
+        <ItemModalLook
           itemId={selectedItem}
           onClose={() => { setShowItemModal(false); setSelectedItem(null); }}
           itemObject={items.find(item => item.item_id === selectedItem)}
