@@ -165,17 +165,16 @@ const config = {
     "db"
   ],
   "activeProvider": "mongodb",
-  "postinstall": false,
   "inlineDatasources": {
     "db": {
       "url": {
         "fromEnvVar": null,
-        "value": "mongodb://admin:root@127.0.0.1:27017/mydatabase?directConnection=true&authSource=admin"
+        "value": "mongodb://admin:root@192.168.2.234:27017/posts?directConnection=true&authSource=admin"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-content\"\n  previewFeatures = [\"mongoDb\"] // note: use the proper preview feature name (could be \"mongodb\" or \"mongoDb\")\n  binaryTargets   = [\"native\", \"windows\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = \"mongodb://admin:root@127.0.0.1:27017/mydatabase?directConnection=true&authSource=admin\"\n}\n\n// This model stores posts with image URLs coming from Cloudinary\nmodel Post {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  postID    String // links to your relational post metadata if needed\n  content   String\n  imageURLs String[] // Array of image URLs\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\n// This model stores additional items (example: products, attachments, etc.)\nmodel Item {\n  id           String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  item_d       String\n  text_content String\n  art_urls     String[]\n  thumbnail    String // Ensure this field is declared\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  @@map(\"Item\")\n}\n",
-  "inlineSchemaHash": "ed2af7ab2c690a393452a57402145b258804a378482299a8bc42627240bf216f",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-content\"\n  previewFeatures = [\"mongoDb\"] // note: use the proper preview feature name (could be \"mongodb\" or \"mongoDb\")\n  binaryTargets   = [\"native\", \"windows\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"mongodb\"\n  url      = \"mongodb://admin:root@192.168.2.234:27017/posts?directConnection=true&authSource=admin\"\n}\n\n// This model stores posts with image URLs coming from Cloudinary\nmodel Post {\n  id        String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  postID    String // links to your relational post metadata if needed\n  content   String\n  imageURLs String[] // Array of image URLs\n  createdAt DateTime @default(now())\n  updatedAt DateTime @updatedAt\n}\n\n// This model stores additional items (example: products, attachments, etc.)\nmodel Item {\n  id           String   @id @default(auto()) @map(\"_id\") @db.ObjectId\n  item_d       String\n  text_content String\n  art_urls     String[]\n  thumbnail    String // Ensure this field is declared\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n\n  @@map(\"Item\")\n}\n",
+  "inlineSchemaHash": "1030de9082794216fbbb779d0aabf218c9f11eeb5c4fc08382d6191c6d51c7b0",
   "copyEngine": true
 }
 config.dirname = '/'
