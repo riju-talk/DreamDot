@@ -113,7 +113,7 @@ export default function CreateItemModal({
     fileList,
     onChange: ({ fileList: newFileList }) => setFileList(newFileList),
     multiple: false,
-    listType: "picture-card",
+    listType: "picture-card" as const,
     accept: "image/*",
   };
 
@@ -129,7 +129,7 @@ export default function CreateItemModal({
     fileList: thumbnail ? [thumbnail] : [],
     onChange: ({ fileList }) => setThumbnail(fileList[0] || null),
     multiple: false,
-    listType: "picture-card",
+    listType: "picture-card" as const,
     accept: "image/*",
   };
 

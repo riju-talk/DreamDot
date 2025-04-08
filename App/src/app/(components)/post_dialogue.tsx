@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { Modal, Input, Button, Upload, message } from "antd";
 import { PictureOutlined, VideoCameraOutlined } from "@ant-design/icons";
+import type { UploadProps } from "antd"; // Import UploadProps type
 
 export default function CreatePost({ onClose, userId }) {
   const [postText, setPostText] = useState("");
@@ -41,7 +42,7 @@ export default function CreatePost({ onClose, userId }) {
         body: JSON.stringify(payload),
       });
       if (!res.ok) throw new Error("Post submission failed");
-      
+
       const newPostData = await res.json();
       message.success("Post added successfully!");
 
@@ -57,7 +58,8 @@ export default function CreatePost({ onClose, userId }) {
     }
   };
 
-  const uploadProps = {
+  // Define uploadProps with proper typing
+  const uploadProps: UploadProps = {
     beforeUpload: (file) => {
       const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
       if (!isMedia) {
@@ -69,12 +71,12 @@ export default function CreatePost({ onClose, userId }) {
         message.error("File must be smaller than 500MB!");
         return Upload.LIST_IGNORE;
       }
-      return false;
+      return false; // Prevent automatic upload
     },
     fileList,
     onChange: ({ fileList }) => setFileList(fileList),
     multiple: true,
-    listType: "picture-card",
+    listType: "picture-card", // Explicitly set as UploadListType
     accept: "image/*,video/*",
     showUploadList: {
       showPreviewIcon: false,
@@ -128,7 +130,7 @@ export default function CreatePost({ onClose, userId }) {
             </div>
             <p className="font-semibold">Click or drag media to upload</p>
             <p className="text-gray-500 text-sm">
-              Supports images (JPEG, PNG) and videos (MP4, MOV) up to 500MB
+              Supports images (JPEG, PNG) and videos (MP4, MOV) up to 10MB
             </p>
           </div>
         </Upload.Dragger>

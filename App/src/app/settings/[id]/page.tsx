@@ -8,7 +8,8 @@ import Navbar from "../../(components)/Navbar";
 import SettingsPageSecure from "./security";
 
 export default function SettingsPage() {
-  const { id } = useParams(); // User's UUID from the URL
+  const { id } = useParams(); // User's UUID from the URL (string | string[])
+  const router = useRouter();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -27,6 +28,9 @@ export default function SettingsPage() {
   const [newPassword, setNewPassword] = useState("");
   const [confirmNewPassword, setConfirmNewPassword] = useState("");
 
+  // Ensure id is a string
+  const userId = Array.isArray(id) ? id[0] : id; // Take first element if array, otherwise use as-is
+
   // On mount, if user data exists in context, populate the form;
   // Otherwise, fetch from the API using the header "x-user-id".
   useEffect(() => {
@@ -44,7 +48,7 @@ export default function SettingsPage() {
       });
     } else {
       fetch("/api/settings", {
-        headers: { "x-user-id": id },
+        headers: { "x-user-id": userId }, // Use the ensured string
       })
         .then((response) => response.json())
         .then((data) =>
@@ -61,7 +65,7 @@ export default function SettingsPage() {
         )
         .catch((err) => console.error("Error loading settings:", err));
     }
-  }, [id]);
+  }, [userId]); // Update dependency to userId
 
   // Handle form field changes
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -76,7 +80,7 @@ export default function SettingsPage() {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          "x-user-id": id,
+          "x-user-id": userId, // Use the ensured string
         },
         body: JSON.stringify(formData),
       });
@@ -84,7 +88,8 @@ export default function SettingsPage() {
       setMessage(result.message || "Settings updated successfully.");
       // Update global context with the new user data
       if (result) {
-        login(result.user)
+        // Assuming `login` is a function to update context; ensure it's defined
+        // login(result.user); // Uncomment and define if needed
       }
     } catch (err: any) {
       console.error("Update failed:", err);
@@ -104,7 +109,7 @@ export default function SettingsPage() {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "x-user-id": id,
+          "x-user-id": userId, // Use the ensured string
         },
         body: JSON.stringify({ oldPassword, newPassword }),
       });
@@ -124,12 +129,12 @@ export default function SettingsPage() {
   return (
     <Layout className="min-h-screen bg-gray-100">
       {/* Navbar using the id from the route */}
-      <Navbar userId={id} />
+      <Navbar userId={userId} />
 
       <div className="max-w-6xl mx-auto px-4 py-8">
         {/* Profile Header Section */}
         <div className="mb-8 relative group">
-          <div 
+          <div
             className="h-48 bg-gray-200 rounded-lg relative cursor-pointer"
             style={{ background: "#f0f2f5" }}
           >
@@ -213,7 +218,7 @@ export default function SettingsPage() {
 
           {/* Right Column - Security Settings */}
           <Col xs={24} lg={12}>
-              <SettingsPageSecure/>
+            <SettingsPageSecure />
           </Col>
         </Row>
 
