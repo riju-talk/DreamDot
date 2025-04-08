@@ -15,41 +15,41 @@ interface DecryptPrivateKeyParams {
   iv: string;
 }
 
-function decryptPrivateKey(
-  encryptedPrivateKey: DecryptPrivateKeyParams["encryptedPrivateKey"],
-  password: DecryptPrivateKeyParams["password"],
-  salt: DecryptPrivateKeyParams["salt"],
-  iv: DecryptPrivateKeyParams["iv"]
-): string {
+// function decryptPrivateKey(
+//   encryptedPrivateKey: DecryptPrivateKeyParams["encryptedPrivateKey"],
+//   password: DecryptPrivateKeyParams["password"],
+//   salt: DecryptPrivateKeyParams["salt"],
+//   iv: DecryptPrivateKeyParams["iv"]
+// ): string {
 
-  try {
-  // Convert the salt from Base64 back to WordArray
-  const saltWordArray = CryptoJS.enc.Base64.parse(salt);
+//   try {
+//   // Convert the salt from Base64 back to WordArray
+//   const saltWordArray = CryptoJS.enc.Base64.parse(salt);
   
-  // Convert the iv from Base64 back to WordArray
-  const ivWordArray = CryptoJS.enc.Base64.parse(iv);
+//   // Convert the iv from Base64 back to WordArray
+//   const ivWordArray = CryptoJS.enc.Base64.parse(iv);
   
-  // Derive the key using the password and salt
-  const key = CryptoJS.PBKDF2(password, saltWordArray, { keySize: 256 / 8, iterations: 1000 });
+//   // Derive the key using the password and salt
+//   const key = CryptoJS.PBKDF2(password, saltWordArray, { keySize: 256 / 8, iterations: 1000 });
 
   
-  const decrypted = CryptoJS.AES.decrypt(
-    encryptedPrivateKey,
-    key,
-    { iv: ivWordArray, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
-  );
-  const decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
+//   const decrypted = CryptoJS.AES.decrypt(
+//     encryptedPrivateKey,
+//     key,
+//     { iv: ivWordArray, mode: CryptoJS.mode.CBC, padding: CryptoJS.pad.Pkcs7 }
+//   );
+//   const decryptedString = decrypted.toString(CryptoJS.enc.Utf8);
   
-  if (!decryptedString) {
-    throw new Error("Decryption failed: empty result.");
-  }
+//   if (!decryptedString) {
+//     throw new Error("Decryption failed: empty result.");
+//   }
   
-  console.log("Decrypted Private Key:", decryptedString);
-  return decryptedString;
-  } catch (error) {
+//   console.log("Decrypted Private Key:", decryptedString);
+//   return decryptedString;
+//   } catch (error) {
     
-  }  
-}
+//   }  
+// }
 
 // Example: Fetch and decrypt private key on login
 // const response = await fetch(`/api/getPrivateKey?userId=${userId}`);

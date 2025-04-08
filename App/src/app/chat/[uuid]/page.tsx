@@ -66,7 +66,7 @@ export default function ChatPage() {
     if (!socket || !currentUser || !chatId) return;
   
     // Join the current conversation
-    socket.emit("joinConversation", { userId: currentUser.id, conversationId: chatId });
+    socket.emit("register", { userId: currentUser.id, conversationId: chatId });
   
     return () => {
       // Leave the conversation when the component unmounts or chatId changes

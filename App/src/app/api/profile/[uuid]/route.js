@@ -57,10 +57,10 @@ export async function GET(request, { params }) {
       bio: user.user_profile?.bio || "",
       avatarUrl: user.user_profile?.profile_picture || "",
       website: user.user_profile?.website || "",
-      user_type: user.user_type || "",
-      followers: followers.length || 0,
-      following: following.length || 0,
-      collection: collection.collection || 0,
+      user_type: user?.user_type || "",
+      followers: followers?.length || 0,
+      following: following?.length || 0,
+      collection: collection?.collection || 0,
     };
 
     return new Response(JSON.stringify(userData), { status: 200 });

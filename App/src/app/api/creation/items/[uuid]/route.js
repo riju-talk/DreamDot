@@ -4,7 +4,7 @@ import { prismaItems, prismaContent, prismaUser } from "../../../../../lib/db/cl
 export async function GET(request, { params }) {
     try {
         const { uuid } = params; // Extract user_id (UUID) from the dynamic route
-
+        //console.log("Fetching items for user ID:", uuid);
         if (!uuid) {
             return NextResponse.json({ error: "User ID is required" }, { status: 400 });
         }
@@ -14,9 +14,6 @@ export async function GET(request, { params }) {
             where: { user_id: uuid },
         });
 
-        if (!metadata.length) {
-            return NextResponse.json({ error: "No items found for this user" }, { status: 404 });
-        }
 
         // Extract item IDs
         const itemIDs = metadata.map((meta) => meta.item_id);
@@ -27,6 +24,7 @@ export async function GET(request, { params }) {
         });
 
         // Fetch user details from PostgreSQL
+        //console.log("Fetching user details...", uuid);
         const user = await prismaUser.users.findUnique({
             where: { id: uuid },
             select: {

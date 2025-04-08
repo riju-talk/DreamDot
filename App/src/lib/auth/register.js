@@ -56,8 +56,8 @@ export async function register(data) {
 
         await prismaMessaging.user.create({
             data: {
-                encryptedPrivateKey: data.encryptedPrivateKey,
-                publicKey: data.publicKey,
+                // encryptedPrivateKey: data.encryptedPrivateKey,
+                // publicKey: data.publicKey,
                 // iv: data.iv,
                 // salt: data.salt,
                 id: uuid,

@@ -21,8 +21,8 @@ model User {
   memberOfGroups      GroupMember[]
   createdAt           DateTime           @default(now())
   updatedAt           DateTime           @updatedAt
-  publicKey           String // Public key for the user
-  encryptedPrivateKey String // Private key for the user (ensure security in storage)
+  publicKey           String? // Public key for the user
+  encryptedPrivateKey String? // Private key for the user (ensure security in storage)
   iv                  String? // Initialization Vector for encryption (required)
   salt                String? // Salt for encryption (required)
 }

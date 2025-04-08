@@ -15,10 +15,6 @@ export async function GET(request, { params }) {
             include: { posts_analytics: true },
         });
 
-        if (!metadata.length) {
-            return NextResponse.json({ error: "No posts found for this user" }, { status: 404 });
-        }
-
         // Retrieve post content from MongoDB (content)
         const postIDs = metadata.map((meta) => meta.id);
         const postsContent = await prismaContent.Post.findMany({

@@ -10,49 +10,48 @@ import { useRouter } from 'next/navigation';
 // const { login } = useUser(); 
 
 
-async function generateECDHKeys() {
-    const keyPair = crypto.subtle.generateKey(
-        {
-            name: "ECDH",
-            namedCurve: "P-256",
-        },
-        true,
-        ["deriveKey", "deriveBits"]
-    );
+// async function generateECDHKeys() {
+//     const keyPair = crypto.subtle.generateKey(
+//         {
+//             name: "ECDH",
+//             namedCurve: "P-256",
+//         },
+//         true,
+//         ["deriveKey", "deriveBits"]
+//     );
 
     
 
-    // Store private key in IndexedDB/localStorage (DO NOT send to server)
-    // localStorage.setItem("privateKey", JSON.stringify(privateKey));
+//     // Store private key in IndexedDB/localStorage (DO NOT send to server)
+//     // localStorage.setItem("privateKey", JSON.stringify(privateKey));
 
-    return keyPair;  // Send this to the server
-}
+//     return keyPair;  // Send this to the server
+// }
 
 import CryptoJS from 'crypto-js';
 
-function encryptPrivateKey(privateKey, password) {
-    // Serialize the JWK object to a string
-    const privateKeyString = JSON.stringify(privateKey);
+// function encryptPrivateKey(privateKey, password) {
+//     // Serialize the JWK object to a string
+//     const privateKeyString = JSON.stringify(privateKey);
 
-    // Generate a random salt for key derivation
-    const salt = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit salt
+//     // Generate a random salt for key derivation
+//     const salt = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit salt
 
-    // Derive a key using the password and salt
-    const key = CryptoJS.PBKDF2(password, salt, { keySize: 256 / 32, iterations: 1000 });
+//     // Derive a key using the password and salt
+//     const key = CryptoJS.PBKDF2(password, salt, { keySize: 256 / 32, iterations: 1000 });
 
-    // Generate a random IV for AES encryption
-    const iv = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit IV
+//     // Generate a random IV for AES encryption
+//     const iv = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit IV
 
-    // Encrypt the private key string
-    const encrypted = CryptoJS.AES.encrypt(privateKeyString, key, { iv: iv });
+//     // Encrypt the private key string
+//     const encrypted = CryptoJS.AES.encrypt(privateKeyString, key, { iv: iv });
 
-    // Return the encrypted private key, salt, and IV
-    return {
-        encryptedPrivateKey: encrypted.toString(),
-        salt: salt.toString(CryptoJS.enc.Base64),
-        iv: iv.toString(CryptoJS.enc.Base64)
-    };
-}
+//     // Return the encrypted private key, salt, and IV
+//     return {
+//         encryptedPrivateKey: encrypted.toString(),
+//         salt: salt.toString(CryptoJS.enc.Base64),
+//         iv: iv.toString(CryptoJS.enc.Base64)
+    // };/
 
 
 
@@ -77,77 +76,62 @@ export default function Register() {
     };
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
-        setLoading(true);
+    e.preventDefault();
+    setLoading(true);
 
-        try {
-            if (currentStep === 1) {
-                // Validate first step fields
-                if (!formData.fullName || !formData.username || !formData.gender ||
-                    !formData.email || !formData.phone || !formData.dob) {
-                    throw new Error('Please fill all required fields');
-                }
-                setCurrentStep(2);
-            } else {
-                // Validate passwords
-                if (formData.password !== formData.confirmPassword) {
-                    throw new Error('Passwords do not match');
-                }
-                else {
-                    const keyPair= await generateECDHKeys();
-
-                    const privateKey = await crypto.subtle.exportKey("jwk", keyPair.privateKey);
-                    const publicKey = await crypto.subtle.exportKey("jwk", keyPair.publicKey);
-
-                    console.log("Private Key",privateKey);
-                    // const { encryptedPrivateKey, salt, iv } = await encryptPrivateKey(privateKey, formData.password);
-                    const encryptedPrivateKey=CryptoJS.AES.encrypt(JSON.stringify(privateKey), formData.password).toString();
-
-                const validated_data = {
-                    fullName: formData.fullName,
-                    email: formData.email,
-                    phone: formData.phone,
-                    dob: formData.dob ? formData.dob.format('YYYY-MM-DD') : null,
-                    gender: formData.gender,
-                    username: formData.username,
-                    password: formData.password,
-                    country: formData.country,
-                    publicKey: JSON.stringify(publicKey),
-                    encryptedPrivateKey: encryptedPrivateKey, // Match Prisma model casing
-                    // iv: iv,                                   // Add iv field
-                    // salt: salt
-                };
-                    
-                    console.log("Validated Data",validated_data);
-                    // Submit final registration data
-                    await submitRegistration(validated_data, router);
-                    
-                    message.success('Registration successful!');
-
-                    const userData = {
-                        id: 'uuid',
-                        name: formData.fullName,
-                        user_name: formData.username,
-                        email: formData.email,
-                        profile_picture: '',
-                        bio: '',
-                        website: '',
-                        country: formData.country,
-                        phone: formData.phone,
-                        date_of_birth: formData.dob ? formData.dob.format('YYYY-MM-DD') : null,
-                        website_url: '',
-                        social_links: [],
-                    }
-
-                    // login
-                }
+    try {
+        if (currentStep === 1) {
+            // Validate first step fields
+            if (!formData.fullName || !formData.username || !formData.gender ||
+                !formData.email || !formData.phone || !formData.dob) {
+                throw new Error('Please fill all required fields');
             }
-        } catch (err) {
-            message.error(err.message);
-        } finally {
-            setLoading(false);
+            setCurrentStep(2);
+        } else {
+            // Validate passwords
+            if (formData.password !== formData.confirmPassword) {
+                throw new Error('Passwords do not match');
+            }
+
+            // Modern password pattern validation
+            const passwordPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&])[A-Za-z\d!@#$%^&]{12,}$/;
+            if (!passwordPattern.test(formData.password)) {
+                throw new Error(
+                    'Password must be at least 12 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character (!@#$%^&*).'
+                );
+            }
+
+            // Generate ECDH keys and proceed
+            // const keyPair = await generateECDHKeys();
+            // const privateKey = await crypto.subtle.exportKey("jwk", keyPair.privateKey);
+            // const publicKey = await crypto.subtle.exportKey("jwk", keyPair.publicKey);
+
+            // // Encrypt private key with the user's password
+            // const encryptedPrivateKey = CryptoJS.AES.encrypt(JSON.stringify(privateKey), formData.password).toString();
+
+            const validated_data = {
+                fullName: formData.fullName,
+                email: formData.email,
+                phone: formData.phone,
+                dob: formData.dob ? formData.dob.format('YYYY-MM-DD') : null,
+                gender: formData.gender,
+                username: formData.username,
+                password: formData.password,
+                country: formData.country,
+                // publicKey: JSON.stringify(publicKey),
+                // encryptedPrivateKey: encryptedPrivateKey,
+            };
+
+            console.log("Validated Data", validated_data);
+            await submitRegistration(validated_data, router);
+            message.success('Registration successful!');
         }
-    };
+    } catch (err) {
+        message.error(err.message);
+    } finally {
+        setLoading(false);
+    }
+};
 
     return (
         <div className="flex items-center justify-center min-h-screen bg-gray-100">

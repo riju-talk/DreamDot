@@ -1807,8 +1807,8 @@ export namespace Prisma {
     avatar: string | null
     createdAt: Date
     updatedAt: Date
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey: string | null
+    encryptedPrivateKey: string | null
     iv: string | null
     salt: string | null
     _count: UserCountAggregateOutputType | null
@@ -1893,8 +1893,8 @@ export namespace Prisma {
       avatar: string | null
       createdAt: Date
       updatedAt: Date
-      publicKey: string
-      encryptedPrivateKey: string
+      publicKey: string | null
+      encryptedPrivateKey: string | null
       iv: string | null
       salt: string | null
     }, ExtArgs["result"]["user"]>
@@ -10015,8 +10015,8 @@ export namespace Prisma {
     avatar?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    publicKey?: StringFilter<"User"> | string
-    encryptedPrivateKey?: StringFilter<"User"> | string
+    publicKey?: StringNullableFilter<"User"> | string | null
+    encryptedPrivateKey?: StringNullableFilter<"User"> | string | null
     iv?: StringNullableFilter<"User"> | string | null
     salt?: StringNullableFilter<"User"> | string | null
     blockedUsers?: UserBlockListRelationFilter
@@ -10056,8 +10056,8 @@ export namespace Prisma {
     avatar?: StringNullableFilter<"User"> | string | null
     createdAt?: DateTimeFilter<"User"> | Date | string
     updatedAt?: DateTimeFilter<"User"> | Date | string
-    publicKey?: StringFilter<"User"> | string
-    encryptedPrivateKey?: StringFilter<"User"> | string
+    publicKey?: StringNullableFilter<"User"> | string | null
+    encryptedPrivateKey?: StringNullableFilter<"User"> | string | null
     iv?: StringNullableFilter<"User"> | string | null
     salt?: StringNullableFilter<"User"> | string | null
     blockedUsers?: UserBlockListRelationFilter
@@ -10094,8 +10094,8 @@ export namespace Prisma {
     avatar?: StringNullableWithAggregatesFilter<"User"> | string | null
     createdAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
-    publicKey?: StringWithAggregatesFilter<"User"> | string
-    encryptedPrivateKey?: StringWithAggregatesFilter<"User"> | string
+    publicKey?: StringNullableWithAggregatesFilter<"User"> | string | null
+    encryptedPrivateKey?: StringNullableWithAggregatesFilter<"User"> | string | null
     iv?: StringNullableWithAggregatesFilter<"User"> | string | null
     salt?: StringNullableWithAggregatesFilter<"User"> | string | null
   }
@@ -10514,8 +10514,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockCreateNestedManyWithoutBlockerInput
@@ -10533,8 +10533,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockUncheckedCreateNestedManyWithoutBlockerInput
@@ -10551,8 +10551,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUpdateManyWithoutBlockerNestedInput
@@ -10569,8 +10569,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
@@ -10588,8 +10588,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
   }
@@ -10600,8 +10600,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -10612,8 +10612,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
   }
@@ -12422,8 +12422,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedBy?: UserBlockCreateNestedManyWithoutBlockedInput
@@ -12440,8 +12440,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedBy?: UserBlockUncheckedCreateNestedManyWithoutBlockedInput
@@ -12463,8 +12463,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockCreateNestedManyWithoutBlockerInput
@@ -12481,8 +12481,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockUncheckedCreateNestedManyWithoutBlockerInput
@@ -12514,8 +12514,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedBy?: UserBlockUpdateManyWithoutBlockedNestedInput
@@ -12531,8 +12531,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedBy?: UserBlockUncheckedUpdateManyWithoutBlockedNestedInput
@@ -12559,8 +12559,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUpdateManyWithoutBlockerNestedInput
@@ -12576,8 +12576,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
@@ -12724,8 +12724,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockCreateNestedManyWithoutBlockerInput
@@ -12742,8 +12742,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockUncheckedCreateNestedManyWithoutBlockerInput
@@ -12800,8 +12800,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUpdateManyWithoutBlockerNestedInput
@@ -12817,8 +12817,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
@@ -12864,8 +12864,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockCreateNestedManyWithoutBlockerInput
@@ -12882,8 +12882,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockUncheckedCreateNestedManyWithoutBlockerInput
@@ -12963,8 +12963,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUpdateManyWithoutBlockerNestedInput
@@ -12980,8 +12980,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
@@ -13104,8 +13104,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockCreateNestedManyWithoutBlockerInput
@@ -13122,8 +13122,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockUncheckedCreateNestedManyWithoutBlockerInput
@@ -13201,8 +13201,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUpdateManyWithoutBlockerNestedInput
@@ -13218,8 +13218,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUncheckedUpdateManyWithoutBlockerNestedInput
@@ -13304,8 +13304,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockCreateNestedManyWithoutBlockerInput
@@ -13322,8 +13322,8 @@ export namespace Prisma {
     avatar?: string | null
     createdAt?: Date | string
     updatedAt?: Date | string
-    publicKey: string
-    encryptedPrivateKey: string
+    publicKey?: string | null
+    encryptedPrivateKey?: string | null
     iv?: string | null
     salt?: string | null
     blockedUsers?: UserBlockUncheckedCreateNestedManyWithoutBlockerInput
@@ -13382,8 +13382,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUpdateManyWithoutBlockerNestedInput
@@ -13399,8 +13399,8 @@ export namespace Prisma {
     avatar?: NullableStringFieldUpdateOperationsInput | string | null
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
-    publicKey?: StringFieldUpdateOperationsInput | string
-    encryptedPrivateKey?: StringFieldUpdateOperationsInput | string
+    publicKey?: NullableStringFieldUpdateOperationsInput | string | null
+    encryptedPrivateKey?: NullableStringFieldUpdateOperationsInput | string | null
     iv?: NullableStringFieldUpdateOperationsInput | string | null
     salt?: NullableStringFieldUpdateOperationsInput | string | null
     blockedUsers?: UserBlockUncheckedUpdateManyWithoutBlockerNestedInput

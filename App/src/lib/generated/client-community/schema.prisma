@@ -6,10 +6,9 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:6543/postgres?pgbouncer=true&search_path=community"
-  directUrl = "postgresql://prisma.qugdnavujrpjlflpxotj:connection_to_database@aws-0-eu-north-1.pooler.supabase.com:5432/postgres?search_path=community"
-  schemas   = ["community", "user_d"]
+  provider = "postgresql"
+  url      = "postgresql://dreamdot074:root@192.168.2.234:5432/postgresdb?search_path=community"
+  schemas  = ["community", "user_d"]
 }
 
 model communities {

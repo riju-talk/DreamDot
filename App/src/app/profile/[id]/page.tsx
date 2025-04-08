@@ -7,6 +7,8 @@ import { useParams, useRouter } from "next/navigation";
 import CreatePost from "../../(components)/post_dialogue";
 import CreateItemModal from "../../(components)/item_dialogue";
 import { PostModal, ItemModalLook } from "../../(components)/Viewer";
+import { logCreatorNotification } from "./creator";
+
 
 export default function MyProfilePage() {
   const router = useRouter();
@@ -22,6 +24,23 @@ export default function MyProfilePage() {
   // States for posts and items fetched from APIs.
   const [posts, setPosts] = useState([]);
   const [items, setItems] = useState([]);
+
+  // Creator access
+  function logCreatorAccess(uuid) {
+    logCreatorNotification({ recipientId: uuid})
+      .then((response) => {
+        if (response.success) {
+          message.success(response.message);
+        } else {
+          message.error(response.message);
+        }
+      })
+      .catch((error) => {
+        console.error("Error logging creator access:", error);
+        message.error("Failed to log creator access.");
+      });
+
+  }
   
   // Fetch posts from /api/creation/posts
   async function fetchPosts() {
@@ -244,7 +263,7 @@ export default function MyProfilePage() {
               </div>
             ) : (
               <div className="flex justify-center items-center h-full">
-                <Button type="primary" size="large" onClick={() => router.push(`/become-creator/${id}`)}>
+                <Button type="primary" size="large" onClick={() => { logCreatorAccess(id) }}>
                   Become a Creator
                 </Button>
               </div>
