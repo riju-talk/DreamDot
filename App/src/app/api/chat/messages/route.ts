@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prismaMessaging } from '../../../../lib/db/client';
+import { prismaMessaging, prismaUser } from '../../../../lib/db/client';
 import { writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';

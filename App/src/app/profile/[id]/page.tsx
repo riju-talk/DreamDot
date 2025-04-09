@@ -310,7 +310,7 @@ export default function MyProfilePage() {
   
       {/* Post Modal */}
       {showPostModal && (
-        <CreatePost onClose={() => setShowPostModal(false)} userId={id} />
+        <CreatePost onClose={() => setShowPostModal(false)} userId={Array.isArray(id) ? id[0] : id} />
       )}
   
       {/* Item (Product) Modal */}
@@ -318,7 +318,7 @@ export default function MyProfilePage() {
         <CreateItemModal
           visible={showItemModal}
           onCancel={() => setShowItemModal(false)}
-          userId={id}
+          userId={Array.isArray(id) ? id[0] : id}
         />
       )}
 

@@ -500,7 +500,7 @@ export default function OtherAccountPage() {
 
       {/* Create Post Modal (for owner creation) */}
       {isOwner && showCreatePostModal && (
-        <CreatePost onClose={() => setShowCreatePostModal(false)} userId={accounts_id} />
+        <CreatePost onClose={() => setShowCreatePostModal(false)} userId={accounts_id as string} />
       )}
 
       {/* Item Modal for creation/viewing */}
@@ -508,14 +508,14 @@ export default function OtherAccountPage() {
         <CreateItemModal
           visible={showItemModal}
           onCancel={() => setShowItemModal(false)}
-          userId={accounts_id}
+          userId={Array.isArray(accounts_id) ? accounts_id[0] : accounts_id}
         />
       )}
 
       {/* Post Viewer Modal */}
       {selectedPost && (
         <PostModal
-          postId={selectedPost}
+          postId={selectedPost?.toString() || null}
           onClose={() => setSelectedPost(null)}
           postObject={posts.find((post) => post.id === selectedPost)}
         />
@@ -524,13 +524,16 @@ export default function OtherAccountPage() {
       {/* Item Viewer Modal */}
       {selectedItem && (
         <ItemModal
-        itemObject={items.filter((item) => item.item_id === selectedItem)[0]}
-        itemId={selectedItem}
+        itemObject={{
+          ...items.filter((item) => item.item_id === selectedItem)[0],
+          price: parseFloat(items.filter((item) => item.item_id === selectedItem)[0].price),
+        }}
+        itemId={selectedItem?.toString()}
         onClose={() => setSelectedItem(null)}
         transaction_packet={{
-          buyer_id: uuid,
-          creator_id: accounts_id,
-          item_id: selectedItem,
+          buyer_id: Array.isArray(uuid) ? uuid[0] : uuid,
+          creator_id: Array.isArray(accounts_id) ? accounts_id[0] : accounts_id,
+          item_id: selectedItem.toString(),
         }} 
       />
       )}

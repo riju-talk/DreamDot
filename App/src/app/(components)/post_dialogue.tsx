@@ -2,34 +2,37 @@
 import { useState } from "react";
 import { Modal, Input, Button, Upload, message } from "antd";
 import { PictureOutlined, VideoCameraOutlined } from "@ant-design/icons";
-import type { UploadProps } from "antd"; // Import UploadProps type
+import type { UploadProps, UploadFile } from "antd";
 
-export default function CreatePost({ onClose, userId }) {
-  const [postText, setPostText] = useState("");
-  const [fileList, setFileList] = useState([]);
+// Define props explicitly
+interface CreatePostProps {
+  onClose: () => void;
+  userId: string;
+}
 
-  // Helper to convert a File object to a base64 string.
-  const toBase64 = (file) =>
+export default function CreatePost({ onClose, userId }: CreatePostProps) {
+  const [postText, setPostText] = useState<string>("");
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  const toBase64 = (file: File): Promise<string> =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
       reader.readAsDataURL(file);
-      reader.onload = () => resolve(reader.result);
+      reader.onload = () => resolve(reader.result as string);
       reader.onerror = (error) => reject(error);
     });
 
-  const handlePostSubmit = async (e) => {
+  const handlePostSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!postText.trim() && fileList.length === 0) {
       message.error("Please add text or upload at least one media file.");
       return;
     }
     try {
-      // Convert files to base64 strings.
       const base64Images = await Promise.all(
-        fileList.map(async (file) => await toBase64(file.originFileObj))
+        fileList.map(async (file) => await toBase64(file.originFileObj as File))
       );
 
-      // Prepare payload as JSON.
       const payload = {
         user_id: userId,
         content: postText,
@@ -41,24 +44,22 @@ export default function CreatePost({ onClose, userId }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
+
       if (!res.ok) throw new Error("Post submission failed");
 
       const newPostData = await res.json();
       message.success("Post added successfully!");
-
-      // Dispatch a custom event with the new post data
       window.dispatchEvent(new CustomEvent("postCreated", { detail: newPostData }));
 
       setPostText("");
       setFileList([]);
       onClose();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Error in CreatePost:", error);
       message.error(error.message);
     }
   };
 
-  // Define uploadProps with proper typing
   const uploadProps: UploadProps = {
     beforeUpload: (file) => {
       const isMedia = file.type.startsWith("image/") || file.type.startsWith("video/");
@@ -71,18 +72,18 @@ export default function CreatePost({ onClose, userId }) {
         message.error("File must be smaller than 500MB!");
         return Upload.LIST_IGNORE;
       }
-      return false; // Prevent automatic upload
+      return false;
     },
     fileList,
     onChange: ({ fileList }) => setFileList(fileList),
     multiple: true,
-    listType: "picture-card", // Explicitly set as UploadListType
+    listType: "picture-card",
     accept: "image/*,video/*",
     showUploadList: {
       showPreviewIcon: false,
       showRemoveIcon: true,
       previewIcon: (file) =>
-        file.type.startsWith("video/") ? (
+        file.type?.startsWith("video/") ? (
           <VideoCameraOutlined className="text-white" />
         ) : null,
     },
@@ -140,7 +141,7 @@ export default function CreatePost({ onClose, userId }) {
             <div key={file.uid} className="relative group">
               {file.type?.startsWith("image/") ? (
                 <img
-                  src={file.thumbUrl || URL.createObjectURL(file.originFileObj)}
+                  src={file.thumbUrl || URL.createObjectURL(file.originFileObj as File)}
                   alt="preview"
                   className="w-full h-32 object-cover rounded-lg"
                 />

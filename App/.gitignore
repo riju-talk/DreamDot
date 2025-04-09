@@ -10,11 +10,10 @@
 /coverage
 
 # next.js
-/.next/
 /out/
 
 # production
-/build
+/.next
 
 # misc
 .DS_Store
@@ -32,8 +31,6 @@ yarn-error.log*
 .vercel
 
 # typescript
-*.tsbuildinfo
-next-env.d.ts
 
 ## Panda
 styled-system

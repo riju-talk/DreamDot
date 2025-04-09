@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "target": "es2017",
+    "target": "ESNext",
     "lib": [
       "dom",
       "dom.iterable",
@@ -11,25 +11,32 @@
     "strict": false,
     "noEmit": true,
     "incremental": true,
-    "module": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "esModuleInterop": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "isolatedModules": true,
     "jsx": "preserve",
+    "rootDir": "./",
+    "sourceMap": true,
     "plugins": [
       {
         "name": "next"
       }
-    ],
-    
+    ]
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
   },
   "include": [
     "next-env.d.ts",
     ".next/types/**/*.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src"
+    "src",
+    "server.ts"
   ],
   "exclude": [
     "node_modules"

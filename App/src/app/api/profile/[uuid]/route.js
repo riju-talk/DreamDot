@@ -1,7 +1,8 @@
 import { prismaUser, prismaSocial, prismaItems } from "../../../../lib/db/client";
 import { validate } from "uuid";
 
-export async function GET(request, { params }) {
+export async function GET(request, props) {
+  const params = await props.params;
   try {
     const { uuid } = params || {};
 

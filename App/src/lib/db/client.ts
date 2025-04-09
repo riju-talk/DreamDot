@@ -1,12 +1,12 @@
 // src/lib/prismaClients.ts
 
-import { PrismaClient as PrismaUser } from '../generated/client-users';
-import { PrismaClient as PrismaSocial } from '../generated/client-social';
-import { PrismaClient as PrismaItems } from '../generated/client-items';
-import { PrismaClient as PrismaCommunity } from '../generated/client-community';
-import { PrismaClient as PrismaAudit } from '../generated/client-audit';
-import { PrismaClient as PrismaMessaging } from '../generated/client-messaging';
-import { PrismaClient as PrismaContent } from '../generated/client-content';
+import { PrismaClient as PrismaUser } from '../generated/client-users/index.js';
+import { PrismaClient as PrismaSocial } from '../generated/client-social/index.js';
+import { PrismaClient as PrismaItems } from '../generated/client-items/index.js';
+import { PrismaClient as PrismaCommunity } from '../generated/client-community/index.js';
+import { PrismaClient as PrismaAudit } from '../generated/client-audit/index.js';
+import { PrismaClient as PrismaMessaging } from '../generated/client-messaging/index.js';
+import { PrismaClient as PrismaContent } from '../generated/client-content/index.js';
 // In a serverless environment (like Next.js), re-initializing
 // PrismaClient can create multiple connections. We avoid that
 // by caching them on the global object.
