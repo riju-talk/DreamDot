@@ -1,34 +1,19 @@
 generator client {
   provider        = "prisma-client-js"
   output          = "../generated/client-content"
-  previewFeatures = ["mongoDb"] // note: use the proper preview feature name (could be "mongodb" or "mongoDb")
+  previewFeatures = ["mongoDb"]
   binaryTargets   = ["native", "windows", "debian-openssl-3.0.x"]
 }
 
 datasource db {
   provider = "mongodb"
-  url      = "mongodb://admin:root@192.168.2.234:27017/posts?directConnection=true&authSource=admin"
+  url      = "mongodb://admin:root@localhost:27017/posts?directConnection=true&authSource=admin"
 }
 
-// This model stores posts with image URLs coming from Cloudinary
-model Post {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  postID    String   // links to your relational post metadata if needed
-  content   String
-  imageURLs String[] // Array of image URLs
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-// This model stores additional items (example: products, attachments, etc.)
 model Item {
-  id           String   @id @default(auto()) @map("_id") @db.ObjectId
-  item_d       String
-  text_content String
-  art_urls     String[]
-  thumbnail    String   // Ensure this field is declared
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+}
 
-  @@map("Item")
+model Post {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
 }

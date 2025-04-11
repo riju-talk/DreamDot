@@ -42,6 +42,7 @@
     "pg": "^8.13.1",
     "react": "19.1.0",
     "react-simple-keyboard": "^3.8.58",
+    "resend": "^4.2.0",
     "sharp": "^0.33.5",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",

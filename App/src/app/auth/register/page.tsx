@@ -4,56 +4,7 @@ import { Input, Button, message, DatePicker, Select } from 'antd';
 import Image from 'next/image';
 import onboarding_pic from '../../(images)/auth_pic.jpg';
 import { useRouter } from 'next/navigation';
-
-// import { useUser } from '../../user_context';
-
-// const { login } = useUser(); 
-
-
-// async function generateECDHKeys() {
-//     const keyPair = crypto.subtle.generateKey(
-//         {
-//             name: "ECDH",
-//             namedCurve: "P-256",
-//         },
-//         true,
-//         ["deriveKey", "deriveBits"]
-//     );
-
-    
-
-//     // Store private key in IndexedDB/localStorage (DO NOT send to server)
-//     // localStorage.setItem("privateKey", JSON.stringify(privateKey));
-
-//     return keyPair;  // Send this to the server
-// }
-
 import CryptoJS from 'crypto-js';
-
-// function encryptPrivateKey(privateKey, password) {
-//     // Serialize the JWK object to a string
-//     const privateKeyString = JSON.stringify(privateKey);
-
-//     // Generate a random salt for key derivation
-//     const salt = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit salt
-
-//     // Derive a key using the password and salt
-//     const key = CryptoJS.PBKDF2(password, salt, { keySize: 256 / 32, iterations: 1000 });
-
-//     // Generate a random IV for AES encryption
-//     const iv = CryptoJS.lib.WordArray.random(128 / 8); // 128-bit IV
-
-//     // Encrypt the private key string
-//     const encrypted = CryptoJS.AES.encrypt(privateKeyString, key, { iv: iv });
-
-//     // Return the encrypted private key, salt, and IV
-//     return {
-//         encryptedPrivateKey: encrypted.toString(),
-//         salt: salt.toString(CryptoJS.enc.Base64),
-//         iv: iv.toString(CryptoJS.enc.Base64)
-    // };/
-
-
 
 export default function Register() {
     const router = useRouter();
@@ -284,10 +235,7 @@ async function submitRegistration(details, router) {
 
         const result = await response.json();
         message.success(result.message);
-        const uuid = result.uuid;
-        const token = result.token;
-        localStorage.setItem('token', token);
-        router.push(`/feed/${uuid}`);
+        router.push(`/auth/signing`);
     } catch (error) {
         message.error(error.message);
         throw error; // Re-throw to handle in handleSubmit
