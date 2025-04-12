@@ -1,13 +1,12 @@
 import { NextResponse } from 'next/server';
 import { prismaMessaging } from '../../../../lib/db/client';
 
-// const prisma = new PrismaClient();
-
 // GET handler to fetch all conversations for a user
-export async function GET(request: Request) {
+export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const userId = searchParams.get('userId');
   console.log(userId);
+
   if (!userId) {
     return NextResponse.json({ error: 'User ID is required' }, { status: 400 });
   }
@@ -54,7 +53,7 @@ export async function GET(request: Request) {
         updatedAt: 'desc',
       },
     });
-    // console.log("Conversations",conversations);
+
     // Format conversations data for the frontend
     const formattedConversations = conversations.map(conv => {
       if (conv.isGroup) {
@@ -67,7 +66,7 @@ export async function GET(request: Request) {
         };
       } else {
         // For direct messages, get the other user
-        const otherUser = conv.participants.find((p) => p.user.id !== userId)?.user;
+        const otherUser = conv.participants.find(p => p.user.id !== userId)?.user;
         return {
           id: conv.id,
           isGroup: false,
@@ -77,7 +76,7 @@ export async function GET(request: Request) {
         };
       }
     });
-    console.log("formattedConversations",formattedConversations);
+    console.log("formattedConversations", formattedConversations);
     return NextResponse.json(formattedConversations);
   } catch (error) {
     console.error('Error fetching conversations:', error);
@@ -86,7 +85,8 @@ export async function GET(request: Request) {
 }
 
 
-export async function POST(request: Request) {
+// POST handler to create a new conversation
+export async function POST(request) {
   console.log("inside post");
   const body = await request.json();
   const { participants, isGroup, name } = body;
@@ -128,9 +128,8 @@ export async function POST(request: Request) {
         }
       });
       
-      if (existingConversation && 
-          existingConversation.participants.length === 2) {
-            console.log("conversation exists")
+      if (existingConversation && existingConversation.participants.length === 2) {
+        console.log("conversation exists");
         return NextResponse.json(existingConversation);
       }
     }
@@ -170,7 +169,7 @@ export async function POST(request: Request) {
           adminId: participants[0], // First participant is the admin
           members: {
             create: participants.map(userId => ({
-              user: { connect: { id: userId } }, // Connect each user to a new GroupMember
+              user: { connect: { id: userId } },
             })),
           },
           conversationId: newConversation.id,

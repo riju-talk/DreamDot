@@ -125,7 +125,7 @@ export async function POST(req) {
             success: true,
             message: 'OTP verified successfully',
             token,
-            id: uuid,
+            id: user_id,
         }), { status: 200, headers: { 'Content-Type': 'application/json' } });
     }
     catch (error) {

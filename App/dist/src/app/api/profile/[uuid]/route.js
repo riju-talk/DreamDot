@@ -45,7 +45,7 @@ export async function GET(request, props) {
             following: following?.length || 0,
             collection: collection?.collection || 0,
         };
-        return new Response(JSON.stringify(userData), { status: 200 });
+        return new Response(JSON.stringify({ ...userData, uuid }), { status: 200 });
     }
     catch (error) {
         console.error("GET /profile/[uuid] Error:", error);

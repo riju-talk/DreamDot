@@ -80,7 +80,7 @@ export default function MyProfilePage() {
         console.log((data));
         console.log("\n\n\n\n");
         setRealuser(data);
-        localStorage.setItem("user", JSON.stringify(data.uuid));
+        localStorage.setItem("user", data.uuid);
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }
