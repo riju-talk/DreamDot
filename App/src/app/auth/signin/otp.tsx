@@ -1,21 +1,19 @@
 "use client";
-
-import { useState, useEffect } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
-import Image from 'next/image';
-import { Button, message } from 'antd';
+import React from "react";
+import { useState, useEffect } from "react";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
+import { Button, message } from "antd";
 import Keyboard from "react-simple-keyboard";
 import "react-simple-keyboard/build/css/index.css";
-import otp_pic from '../../(images)/otp_pic.jpg';
-import "@ant-design/v5-patch-for-react-19";
+import otp_pic from "../../(images)/otp_pic.jpg";
 
-export default function OtpVerification() {
-  const [otp, setOtp] = useState<string>('');
+export default function OtpVerification({ email, uuid }: { email: string, uuid: string }) {
+  const [otp, setOtp] = useState<string>("");
   const [loading, setLoading] = useState(false);
   const [layout, setLayout] = useState("default");
+  const [attemptCount, setAttemptCount] = useState<number>(0);
   const router = useRouter();
-  const searchParams = useSearchParams();
-  const email = searchParams.get("email");
 
   useEffect(() => {
     if (!email) router.push("/auth/signin");
@@ -36,24 +34,49 @@ export default function OtpVerification() {
     setLoading(true);
     
     try {
-      const res = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, otp }),
+      const res = await fetch("/api/signin/otp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: uuid, otp }),
       });
+
+      console.log("Response from OTP verification:", res);
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.error || 'OTP verification failed');
+        throw new Error(errorData.error || "OTP verification failed");
       }
 
-      const { token, user } = await res.json();
-      message.success('OTP verified successfully!');
-      localStorage.setItem('authToken', token);
-      localStorage.setItem('user', JSON.stringify(user));
-      router.push("/feed");
+      // Successful verification: Save token and user data.
+      const { token, id } = await res.json();
+
+      message.success("OTP verified successfully!");
+      localStorage.setItem("authToken", token);
+      localStorage.setItem("user", JSON.stringify(id));
+      router.push(`/feed/${id}`);
+      
     } catch (err: any) {
+      // Increment attempt count if verification fails.
+      setAttemptCount(prev => prev + 1);
       message.error(err.message);
+      
+      // If this was the third failed attempt, send DELETE request.
+      if (attemptCount + 1 >= 3) {
+        try {
+          await fetch("/api/signin/otp", {
+            method: "DELETE",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ user_id: uuid }),
+          });
+          message.info("Maximum attempts reached. OTP has been reset. Please request a new OTP.");
+          // Optionally reset the OTP field and attempt counter.
+          setOtp("");
+          setAttemptCount(0);
+          router.refresh()
+        } catch (deleteError: any) {
+          message.error("Error resetting OTP. Please try resending OTP.");
+        }
+      }
     } finally {
       setLoading(false);
     }
@@ -62,18 +85,21 @@ export default function OtpVerification() {
   const handleResendOtp = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/auth/resend-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
+      const res = await fetch("/api/signin/otp", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: uuid, email, display_name: email }),
       });
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.error || 'Failed to resend OTP');
+        throw new Error(errorData.error || "Failed to resend OTP");
       }
 
-      message.success('New OTP sent to your email!');
+      message.success("New OTP sent to your email!");
+      // Reset attempt counter when a new OTP is sent.
+      setAttemptCount(0);
+      setOtp("");
     } catch (err: any) {
       message.error(err.message);
     } finally {
@@ -109,10 +135,11 @@ export default function OtpVerification() {
                 {Array.from({ length: 6 }).map((_, i) => (
                   <div
                     key={i}
-                    className="w-12 h-12 border-2 rounded-lg flex items-center justify-center text-xl font-bold
-                    ${otp[i] ? 'border-blue-500 bg-blue-50' : 'border-gray-300'}"
+                    className={`w-12 h-12 border-2 rounded-lg flex items-center justify-center text-xl font-bold ${
+                      otp[i] ? "border-blue-500 bg-blue-50" : "border-gray-300"
+                    }`}
                   >
-                    {otp[i] || ''}
+                    {otp[i] || ""}
                   </div>
                 ))}
               </div>

@@ -71,12 +71,16 @@ export default function MyProfilePage() {
     async function fetchRealUser() {
       try {
         const response = await fetch(`/api/profile/${id}`);
+        //console.log(response);
         if (!response.ok) {
           throw new Error("Failed to fetch user data");
         }
         const data = await response.json();
+        console.log("\n\n\n\n");
+        console.log((data));
+        console.log("\n\n\n\n");
         setRealuser(data);
-        localStorage.setItem("user", JSON.stringify(data));
+        localStorage.setItem("user", JSON.stringify(data.uuid));
       } catch (error) {
         console.error("Error fetching user profile:", error);
       }

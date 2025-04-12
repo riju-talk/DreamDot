@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = "postgresql://dreamdot074:root@192.168.2.234:5432/postgresdb?search_path=community"
+  url      = "postgresql://dreamdot074:root@localhost:5432/postgresdb?search_path=community"
   schemas  = ["community", "user_d"]
 }
 

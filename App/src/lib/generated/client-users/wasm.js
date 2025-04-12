@@ -167,18 +167,14 @@ exports.Prisma.User_profileScalarFieldEnum = {
   website: 'website',
   social_links: 'social_links',
   updated_at: 'updated_at',
-  dob: 'dob',
-  country: 'country'
+  country: 'country',
+  dob: 'dob'
 };
 
 exports.Prisma.User_securityScalarFieldEnum = {
   user_id: 'user_id',
-  failed_attempts: 'failed_attempts',
-  last_failed_login: 'last_failed_login',
-  two_factor_enabled: 'two_factor_enabled',
   otp_code: 'otp_code',
   otp_expires_at: 'otp_expires_at',
-  recovery_codes: 'recovery_codes',
   updated_at: 'updated_at'
 };
 
@@ -200,9 +196,9 @@ exports.Prisma.UsersScalarFieldEnum = {
   updated_at: 'updated_at',
   is_verified: 'is_verified',
   is_active: 'is_active',
+  intitial_balance: 'intitial_balance',
   pass_salts: 'pass_salts',
-  user_type: 'user_type',
-  intitial_balance: 'intitial_balance'
+  user_type: 'user_type'
 };
 
 exports.Prisma.SortOrder = {

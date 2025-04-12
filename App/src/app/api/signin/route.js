@@ -1,28 +1,57 @@
 import { createHash } from 'crypto';
-import { prismaUser, prismaMessaging } from '../../../lib/db/client';
-import { v4 as uuidv4 } from 'uuid';
-import { createToken, decodeToken } from '../../../lib/auth/create_tokens';
+import { prismaUser } from '../../../lib/db/client';
+import { EmailTemplate } from '../../(components)/email_template';
+import { Resend } from 'resend';
 
+// Instantiate the Resend client using your environment variable
+const resend = new Resend(process.env.OTP_ONLY);
+
+/**
+ * Hashes the given password together with a salt using SHA-256.
+ */
 function hashWithSalt(password, salt) {
     return createHash('sha256').update(password + salt).digest('hex');
 }
 
+/**
+ * Sends an OTP email using the EmailTemplate as a React email.
+ */
+async function sendEmail(email, otp, display_name) {
+    try {
+        const { data, error } = await resend.emails.send({
+            from: 'DreamDot <onboarding@resend.dev>',
+            to: [email],
+            subject: 'Welcome to DreamDot: OTP Verification',
+            react: EmailTemplate({ firstName: display_name, OTP: otp }),
+        });
+
+        if (error) {
+            return Response.json({ error }, { status: 500 });
+        }
+        return Response.json(data);
+    } catch (error) {
+        return Response.json({ error: error.message }, { status: 500 });
+    }
+}
+
+/**
+ * Validates the sign-in data.
+ * - Looks up the user by email.
+ * - Verifies that the account is active and the provided password matches.
+ * - Generates a 6-digit OTP, creates a new record in the user_security table,
+ *   and sends the OTP email.
+ * - Returns a response object with a success flag, message, and the user's uuid.
+ */
 async function signIn(data) {
     try {
         const { email, password } = data;
-        // 1. Find the user by email
+
+        // 1. Find the user by email.
         const user = await prismaUser.users.findFirst({
-          where: { email },
-          include: { user_profile: true },
+            where: { email },
+            include: { user_profile: true },
         });
 
-        // const userKeys = await prismaMessaging.user.findFirst({
-        //     where: { email },
-        //     select: { encryptedPrivateKey: true, iv: true, salt: true }
-        // });
-
-        // console.log(user)
-        // console.log(data)
         if (!user) {
             throw new Error('User not found');
         }
@@ -31,93 +60,62 @@ async function signIn(data) {
             throw new Error('User account is inactive');
         }
 
-        // 2. Validate the password
+        // 2. Validate the password.
         const hashedPassword = hashWithSalt(password, user.pass_salts);
         if (hashedPassword !== user.password_hash) {
             throw new Error('Invalid credentials');
         }
 
-        // 3. Create JWT and Session
-        const { token, uuid } = await generateAndStoreToken({
-          id: user.id,
-          email: user.email,
-          phone: user.phone,
-          username: user.user_profile?.username || '',
-          fullName: user.user_profile?.display_name || '',
-      });
+        // 3. Generate a 6-digit OTP and its expiration time (10 minutes later).
+        const otp = (Math.floor(100000 + Math.random() * 900000)).toString();
+        const otpExpires = new Date(Date.now() + 10 * 60 * 1000);
 
-    //   console.log("UserKeys", userKeys)
+        // 4. Create the OTP record in the user_security table.
+        await prismaUser.user_security.upsert({
+            where: { user_id: user.id },
+            update: {
+                otp_code: otp,
+                otp_expires_at: otpExpires,
+                updated_at: new Date(),
+            },
+            create: {
+                user_id: user.id,
+                otp_code: otp,
+                otp_expires_at: otpExpires,
+                updated_at: new Date(),
+            },
+        });
 
-      const userData = {
-        id: user.id,
-        email: user.email,
-        username: user.user_profile?.username || '',
-        fullName: user.user_profile?.display_name || '',
-        avatar: user.user_profile?.avatar_url || '',
-        // encryptedPrivateKey: userKeys.encryptedPrivateKey,
-        // iv: userKeys.iv,
-        // salt: userKeys.salt,
-    };
-      
-      return { success: true, message: 'Sign-in successful', token, uuid, user: userData};
-      
 
+        // 5. Send OTP to the user's email.
+        await sendEmail(user.email, otp, user.user_profile?.display_name || '');
+
+        // 6. Return a successful response (no token generated here).
+        return { success: true, message: 'Sign-in successful', uuid: user.id };
     } catch (error) {
         console.error('Sign-in Error:', error.message);
         throw new Error('Sign-in failed: ' + error.message);
     }
 }
 
-async function generateAndStoreToken(userData) {
-    // 1. Generate token and a random secret
-    const { token, randomSecret } = createToken(userData);
-
-    // 2. Decode the token to retrieve the user ID
-    const decodedData = decodeToken(token, randomSecret);
-    const uuid = decodedData.sub || decodedData.id;
-
-    const sessionId = uuidv4();
-
-    try {
-        // 3. Store the session in the `user_sessions` table
-        await prismaUser.$transaction(async (prisma) => {
-            await prisma.user_sessions.create({
-                data: {
-                    session_id: sessionId, // Fixed typo: was ses_uuid
-                    token: token,
-                    created_at: new Date(),
-                    is_revoked: false,
-                    secret: randomSecret,
-                    users: { connect: { id: uuid } },
-                },
-            });
-        });
-        console.log("token and session id set")
-        return { token, uuid };
-    } catch (error) {
-        console.error('Error in generateAndStoreToken:', error);
-        throw error;
-    }
-}
-
-// Export the POST handler for the /api/signin route
+// Export the POST handler for the /api/signin route.
 export async function POST(req) {
     try {
-        // Parse the request body
+        // Parse the request body.
         const data = await req.json();
 
-        // Call the signIn function
+        // Validate sign-in data.
         const result = await signIn(data);
 
-        // Return a success response
+        // Return a success response as JSON.
         return new Response(JSON.stringify(result), {
             status: 200,
             headers: { 'Content-Type': 'application/json' },
         });
     } catch (error) {
-        // Return an error response
+        // Return an error response as JSON.
         return new Response(JSON.stringify({ error: error.message }), {
-            status: 400, // Bad Request for user errors, or 500 for server errors
+            status: 400,
             headers: { 'Content-Type': 'application/json' },
         });
     }

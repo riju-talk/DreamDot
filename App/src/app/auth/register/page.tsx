@@ -1,5 +1,5 @@
 "use client";
-import { use, useState } from 'react';
+import { useState } from 'react';
 import { Input, Button, message, DatePicker, Select } from 'antd';
 import Image from 'next/image';
 import onboarding_pic from '../../(images)/auth_pic.jpg';
