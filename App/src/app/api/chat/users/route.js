@@ -1,4 +1,5 @@
-const { prismaMessaging, prismaUser } = require('../../../../lib/db/client');
+import { prismaMessaging, prismaUser } from '../../../../lib/db/client';
+import { NextResponse } from 'next/server';
 
 async function verifySession(token) {
   const session = await prismaUser.user_sessions.findFirst({
@@ -13,38 +14,36 @@ async function verifySession(token) {
   return session.users;
 }
 
-async function getUsers(request, response) {
-  try {
-    const token = request.headers['authorization']?.replace('Bearer ', '');
 
-    console.log("Token:", token);
+export async function GET(request) {
+  try {
+    const token = request.headers.get('authorization')?.replace('Bearer ', '');
+
+    //console.log("Token:", token);
     if (!token) {
-      response.status(401).json({ error: 'Unauthorized' });
-      return;
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const user = await verifySession(token);
-    console.log("User:", user);
-    console.log("User2:", user.id);
+    //console.log("User:", user);
+    //console.log("User2:", user.id);
 
-    const url = new URL(request.url, `http://${request.headers.host}`);
-    const query = url.searchParams.get('search');
+    const { searchParams } = new URL(request.url);
+    const query = searchParams.get('search');
 
-    console.log("Search Params:", url.searchParams);
+    //console.log("Search Params:", searchParams);
     const currentUser = await prismaUser.users.findUnique({
       where: { id: user.id },
     });
 
     if (!currentUser) {
       console.log(currentUser);
-      response.status(404).json({ error: 'User not found' });
-      return;
+      return NextResponse.json({ error: 'User not found' }, { status: 404 });
     }
 
     console.log("Query:", query);
-    if (query === undefined || query === null) {
-      response.status(200).json([]);
-      return;
+    if (!query) {
+      return NextResponse.json([], { status: 200 });
     }
 
     const users = await prismaUser.users.findMany({
@@ -71,12 +70,11 @@ async function getUsers(request, response) {
     });
 
     console.log(users);
-    response.status(200).json(users);
+    return NextResponse.json(users, { status: 200 });
 
   } catch (error) {
     console.error('Error fetching users:', error);
-    response.status(500).json({ error: error.message });
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
 
-module.exports = { getUsers };

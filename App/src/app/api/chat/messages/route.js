@@ -140,7 +140,7 @@ export async function POST(request) {
 
     console.log("Media URLs:", mediaUrls);
     // Create message with media (if any)
-    const message = await prismaMessaging.message.create({
+    const message = prismaMessaging.message.create({
       data: {
         content,
         senderId,

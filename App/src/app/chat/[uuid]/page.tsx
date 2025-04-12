@@ -284,7 +284,7 @@ export default function ChatPage() {
         }
         return prev;
       });
-      router.push(`/chat/${newConversation.id}`);
+      router.push(`/chat/${currentUser.id}`);
     } catch (error) {
       console.error("Error creating conversation:", error);
     }

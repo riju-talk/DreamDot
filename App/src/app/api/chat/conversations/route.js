@@ -13,7 +13,7 @@ export async function GET(request) {
   
   try {
     // Get all conversations where the user is a participant
-    const conversations = await prismaMessaging.conversation.findMany({
+    const conversations = prismaMessaging.conversation.findMany({
       where: {
         participants: {
           some: {
@@ -76,6 +76,7 @@ export async function GET(request) {
         };
       }
     });
+    
     console.log("formattedConversations", formattedConversations);
     return NextResponse.json(formattedConversations);
   } catch (error) {
@@ -99,7 +100,7 @@ export async function POST(request) {
   try {
     // For direct messages (non-group), check if a conversation already exists
     if (!isGroup && participants.length === 2) {
-      const existingConversation = await prismaMessaging.conversation.findFirst({
+      const existingConversation = prismaMessaging.conversation.findFirst({
         where: {
           isGroup: false,
           AND: [
@@ -136,7 +137,7 @@ export async function POST(request) {
 
     console.log("creating conversation");
     // Create a new conversation
-    const newConversation = await prismaMessaging.conversation.create({
+    const newConversation = prismaMessaging.conversation.create({
       data: {
         isGroup: isGroup || false,
         name: isGroup ? name : null,
