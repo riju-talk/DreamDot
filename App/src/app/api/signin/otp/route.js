@@ -1,17 +1,20 @@
 import { prismaUser } from '../../../../lib/db/client';
-import { Resend } from 'resend';
-import { EmailTemplate } from '../../../(components)/email_template';
+import { EmailTemplate } from '../render';
 import { createToken, decodeToken } from '../../../../lib/auth/create_tokens';
 import { v4 as uuidv4 } from 'uuid';
+import nodemailer from 'nodemailer';
 
-// Instantiate the Resend client using your environment variable.
-const resend = new Resend(process.env.OTP_ONLY);
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,  // true for port 465, false for other ports
+    auth: {
+        user: "dreamdot609@gmail.com",
+        pass: "lxls icmt klfw zuff",
+    }
+});
 
-/**
- * Helper: Generate a new token from user data and store the session record.
- * The token payload uses the uuid (user id) and other necessary details,
- * making it compatible with your middleware validateToken function.
- */
+
 async function generateAndStoreToken(userData) {
     // 1. Generate token and a random secret.
     const { token, randomSecret } = createToken(userData);
@@ -48,28 +51,23 @@ async function generateAndStoreToken(userData) {
  */
 async function sendEmail(email, otp, display_name) {
     try {
-        const { data, error } = await resend.emails.send({
-            from: 'DreamDot <onboarding@resend.dev>',
-            to: [email],
-            subject: 'Welcome to DreamDot: OTP Verification',
-            react: EmailTemplate({ firstName: display_name, OTP: otp }),
-        });
+        const htmlContent = renderToStaticMarkup(
+            EmailTemplate({ firstName: display_name, OTP: otp })
+        );
 
-        if (error) {
-            return new Response(JSON.stringify({ error }), {
-                status: 500,
-                headers: { 'Content-Type': 'application/json' },
-            });
-        }
-        return new Response(JSON.stringify(data), {
-            status: 200,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        const mailOptions = {
+            from: 'DreamDot <no-reply@yourdomain.com>',
+            to: email,
+            subject: 'Welcome to DreamDot: OTP Verification',
+            html: htmlContent,
+        };
+
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent:', info.messageId);
+        return info.messageId;
     } catch (error) {
-        return new Response(JSON.stringify({ error: error.message }), {
-            status: 500,
-            headers: { 'Content-Type': 'application/json' },
-        });
+        console.error('Error sending email:', error);
+        throw new Error('Failed to send email');
     }
 }
 
@@ -204,7 +202,6 @@ export async function PUT(req) {
                 user_id,
                 otp_code: otp,
                 otp_expires_at: otpExpires,
-                created_at: new Date(),
                 updated_at: new Date(),
             },
         });

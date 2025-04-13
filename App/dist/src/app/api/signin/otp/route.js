@@ -165,7 +165,6 @@ export async function PUT(req) {
                 user_id,
                 otp_code: otp,
                 otp_expires_at: otpExpires,
-                created_at: new Date(),
                 updated_at: new Date(),
             },
         });

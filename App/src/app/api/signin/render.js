@@ -1,14 +1,7 @@
-import * as React from 'react';
+import React from 'react';
 
-interface EmailTemplateProps {
-    firstName: string;
-    OTP: string;
-}
-
-export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
-    firstName,
-    OTP,
-}) => (
+export function EmailTemplate ({ firstName, OTP }){
+    return(
     <div
         style={{
             fontFamily: "'Helvetica Neue', Helvetica, Arial, sans-serif",
@@ -74,10 +67,10 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
                         </tr>
                     </table>
                     <p style={{ fontSize: "12px", color: "#999", marginTop: "20px" }}>
-                        © {new Date().getFullYear()} Your Company Name. All rights reserved.
+                        © {new Date().getFullYear()} DreamDot. All rights reserved.
                     </p>
                 </td>
             </tr>
         </table>
     </div>
-);
+)};
