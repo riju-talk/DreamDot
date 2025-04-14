@@ -21,6 +21,7 @@
     "@mui/styled-engine-sc": "^6.1.5",
     "@prisma/client": "^6.6.0",
     "@supabase/supabase-js": "^2.49.1",
+    "@types/streamifier": "^0.1.2",
     "antd": "^5.22.7",
     "bcrypt": "^5.1.1",
     "bcryptjs": "^3.0.2",
@@ -49,6 +50,7 @@
     "sharp": "^0.33.5",
     "socket.io": "^4.8.1",
     "socket.io-client": "^4.8.1",
+    "streamifier": "^0.1.1",
     "styled-components": "^6.1.13",
     "supabase": "^2.9.6",
     "uuid": "^11.1.0"

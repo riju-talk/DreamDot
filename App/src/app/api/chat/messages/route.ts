@@ -4,6 +4,8 @@ import { writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import CryptoJS from 'crypto-js';
+import { uploadImageToCloudinary } from '../../../../lib/media_upload';
+
 
 async function verifySession(token: string) {
     const session = await prismaUser.user_sessions.findFirst({
@@ -26,7 +28,25 @@ async function verifySession(token: string) {
 }
 
 
+async function uploadFileToCloudinary(file: File): Promise<string> {
+    // Read file data and create a temporary file name
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+    const filename = `${uuidv4()}-${file.name}`;
+    
+    // Define a temporary local path (using a temporary directory)
+    const tempPath = join(process.cwd(), 'tmp', filename);
+    
+    // Ensure the 'tmp' directory exists, or use another known temporary directory
+    await writeFile(tempPath, new Uint8Array(buffer));
+    
+    // Upload the file to Cloudinary
+    const secureUrl = await uploadImageToCloudinary(tempPath);    
+    return secureUrl;
+}
+
 // Helper to handle media uploads
+/*
 async function saveMedia(file: File): Promise<string> {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
@@ -40,6 +60,8 @@ async function saveMedia(file: File): Promise<string> {
     await writeFile(path, new Uint8Array(buffer));
     return `/uploads/${filename}`; // Return the relative URL
 }
+*/
+
 
 // GET handler to fetch messages for a conversation
 export async function GET(request: Request) {
@@ -135,7 +157,7 @@ export async function POST(request: Request) {
         const mediaUrls = [];
         for (const file of mediaFiles) {
             console.log("file:Media");
-            const url = await saveMedia(file);
+            const url = await uploadFileToCloudinary(file);
             mediaUrls.push({
                 type: file.type.startsWith('image/') ? 'image' : 'file',
                 url,

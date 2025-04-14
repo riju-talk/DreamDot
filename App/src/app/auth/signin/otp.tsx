@@ -13,11 +13,22 @@ export default function OtpVerification({ email, uuid }: { email: string, uuid: 
   const [loading, setLoading] = useState(false);
   const [layout, setLayout] = useState("default");
   const [attemptCount, setAttemptCount] = useState<number>(0);
+  const [timer, setTimer] = useState<number>(60);
   const router = useRouter();
 
   useEffect(() => {
     if (!email) router.push("/auth/signin");
   }, [email, router]);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout;
+    if (timer > 0) {
+      interval = setInterval(() => setTimer(prev => prev - 1), 1000);
+    }
+    return () => clearInterval(interval);
+  }, [timer]);
+
+
 
   const handleKeyPress = (button: string) => {
     if (button === "{bksp}") {
@@ -85,6 +96,7 @@ export default function OtpVerification({ email, uuid }: { email: string, uuid: 
   const handleResendOtp = async () => {
     setLoading(true);
     try {
+      setTimer(60); 
       const res = await fetch("/api/signin/otp", {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
@@ -178,13 +190,20 @@ export default function OtpVerification({ email, uuid }: { email: string, uuid: 
             <div className="text-center mt-4">
               <p className="text-gray-600">
                 Didn't receive code?{" "}
-                <button
-                  onClick={handleResendOtp}
-                  className="text-indigo-600 font-semibold hover:underline ml-1"
-                  disabled={loading}
-                >
-                  Resend OTP
-                </button>
+                {timer === 0 ? (
+                  <button
+                    onClick={handleResendOtp}
+                    className="text-indigo-600 font-semibold hover:underline ml-1"
+                    disabled={loading}
+                  >
+                    Resend OTP
+                  </button>
+                ) : (
+                  <span className="text-gray-500">
+                    Resend OTP in {Math.floor(timer / 60).toString().padStart(2, "0")}:
+                    {(timer % 60).toString().padStart(2, "0")} seconds
+                  </span>
+                )}
               </p>
             </div>
           </div>

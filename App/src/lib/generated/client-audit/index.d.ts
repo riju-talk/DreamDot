@@ -256,8 +256,8 @@ export namespace Prisma {
   export import Exact = $Public.Exact
 
   /**
-   * Prisma Client JS version: 6.5.0
-   * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+   * Prisma Client JS version: 6.6.0
+   * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
    */
   export type PrismaVersion = {
     client: string
@@ -1776,7 +1776,7 @@ export namespace Prisma {
 
   /**
    * Fields of the admin_actions_log model
-   */ 
+   */
   interface admin_actions_logFieldRefs {
     readonly id: FieldRef<"admin_actions_log", 'String'>
     readonly admin_id: FieldRef<"admin_actions_log", 'String'>
@@ -2772,7 +2772,7 @@ export namespace Prisma {
 
   /**
    * Fields of the notification_log model
-   */ 
+   */
   interface notification_logFieldRefs {
     readonly id: FieldRef<"notification_log", 'String'>
     readonly recipient_id: FieldRef<"notification_log", 'String'>
@@ -3755,7 +3755,7 @@ export namespace Prisma {
 
   /**
    * Fields of the system_audit_log model
-   */ 
+   */
   interface system_audit_logFieldRefs {
     readonly id: FieldRef<"system_audit_log", 'String'>
     readonly event_type: FieldRef<"system_audit_log", 'String'>
@@ -4783,7 +4783,7 @@ export namespace Prisma {
 
   /**
    * Fields of the admin_cred model
-   */ 
+   */
   interface admin_credFieldRefs {
     readonly c_id: FieldRef<"admin_cred", 'BigInt'>
     readonly created_at: FieldRef<"admin_cred", 'DateTime'>
@@ -5239,7 +5239,7 @@ export namespace Prisma {
 
 
   /**
-   * Field references 
+   * Field references
    */
 
 

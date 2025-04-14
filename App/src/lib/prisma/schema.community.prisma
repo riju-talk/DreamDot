@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url = "postgresql://postgres:connectdbserver@localhost:5432/mydb?search_path=community"
+  url = "postgresql://pdreamdot074:root@localhost:5432/postgresdb?search_path=community"
   schemas   = ["community", "user_d"]
 }
 

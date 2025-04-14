@@ -34,37 +34,24 @@ export default function SettingsPage() {
   // On mount, if user data exists in context, populate the form;
   // Otherwise, fetch from the API using the header "x-user-id".
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem("user") || "{}");
-    if (user) {
-      setFormData({
-        email: user.email || "",
-        phone: user.phone || "",
-        username: user.user_name || "",
-        displayName: user.name || "",
-        bio: user.bio || "",
-        avatarUrl: user.profile_picture || "",
-        website: user.website || "",
-        dob: user.date_of_birth || "",
-      });
-    } else {
-      fetch("/api/settings", {
-        headers: { "x-user-id": userId }, // Use the ensured string
+    const user = localStorage.getItem("user");
+      fetch(`/api/settings/`, {
+        headers: { "x-user-id": user}, // Use the ensured string
       })
         .then((response) => response.json())
         .then((data) =>
           setFormData({
-            email: data.email || "",
-            phone: data.phone || "",
-            username: data.username || "",
-            displayName: data.displayName || "",
-            bio: data.bio || "",
-            avatarUrl: data.avatarUrl || "",
-            website: data.website || "",
-            dob: data.dob || "",
+        email: data.email || "",
+        phone: data.phone || "",
+        username: data.username || "",
+        displayName: data.displayName || "",
+        bio: data.bio || null,
+        avatarUrl: data.avatarUrl === "" ? null : data.avatarUrl,
+        website: data.website || "",
+        dob: data.dob || "",
           })
         )
         .catch((err) => console.error("Error loading settings:", err));
-    }
   }, [userId]); // Update dependency to userId
 
   // Handle form field changes
@@ -147,7 +134,7 @@ export default function SettingsPage() {
           <div className="absolute -bottom-16 left-8 group">
             <Avatar
               size={128}
-              src={formData.avatarUrl}
+              src={null}
               className="border-4 border-white cursor-pointer"
             >
               {!formData.avatarUrl && formData.displayName?.[0]}

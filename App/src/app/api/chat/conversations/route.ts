@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prismaMessaging, prismaUser } from '../../../../lib/db/client';
+import { prismaMessaging } from '../../../../lib/db/client';
 
 // const prisma = new PrismaClient();
 

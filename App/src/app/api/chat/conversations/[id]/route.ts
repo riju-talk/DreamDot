@@ -1,7 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import getServerSession  from 'next-auth';
 import { prismaMessaging, prismaUser } from '../../../../../lib/db/client';
-import { use } from 'react';
 
 async function verifySession(token: string) {
   const session = await prismaUser.user_sessions.findFirst({

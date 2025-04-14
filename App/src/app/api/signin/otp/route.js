@@ -5,13 +5,15 @@ import { v4 as uuidv4 } from 'uuid';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-    host: "smtp.gmail.com",
-    port: 587,
-    secure: false,  // true for port 465, false for other ports
+    service: "gmail",
     auth: {
         user: "dreamdot609@gmail.com",
         pass: "lxls icmt klfw zuff",
-    }
+    },
+    tls: {
+        rejectUnauthorized: false
+    },
+    connectionTimeout: 10000
 });
 
 
@@ -51,6 +53,7 @@ async function generateAndStoreToken(userData) {
  */
 async function sendEmail(email, otp, display_name) {
     try {
+        const { renderToStaticMarkup } = await import('react-dom/server');
         const htmlContent = renderToStaticMarkup(
             EmailTemplate({ firstName: display_name, OTP: otp })
         );
