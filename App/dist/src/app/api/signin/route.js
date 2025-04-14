@@ -1,51 +1,57 @@
 import { createHash } from 'crypto';
 import { prismaUser } from '../../../lib/db/client';
-import { EmailTemplate } from '../../(components)/email_template';
-import { Resend } from 'resend';
-// Instantiate the Resend client using your environment variable
-const resend = new Resend(process.env.OTP_ONLY);
-/**
- * Hashes the given password together with a salt using SHA-256.
- */
+import { EmailTemplate } from './render';
+import nodemailer from 'nodemailer';
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, // true for port 465, false for other ports
+    auth: {
+        user: "dreamdot609@gmail.com",
+        pass: "lxls icmt klfw zuff",
+    }
+});
 function hashWithSalt(password, salt) {
     return createHash('sha256').update(password + salt).digest('hex');
 }
-/**
- * Sends an OTP email using the EmailTemplate as a React email.
- */
 async function sendEmail(email, otp, display_name) {
     try {
-        const { data, error } = await resend.emails.send({
-            from: 'DreamDot <onboarding@resend.dev>',
-            to: [email],
+        console.log('Sending OTP to:', email);
+        // Use the EmailTemplate to generate HTML content.
+        const { renderToStaticMarkup } = await import('react-dom/server');
+        const htmlContent = renderToStaticMarkup(EmailTemplate({ firstName: display_name, OTP: otp }));
+        const mailOptions = {
+            from: 'DreamDot <no-reply@yourdomain.com>', // Use a valid sender address
+            to: email,
             subject: 'Welcome to DreamDot: OTP Verification',
-            react: EmailTemplate({ firstName: display_name, OTP: otp }),
+            html: htmlContent,
+        };
+        // Send the email via NodeMailer.
+        const info = await transporter.sendMail(mailOptions);
+        console.log('Email sent:', info.messageId);
+        return new Response(JSON.stringify({ messageId: info.messageId }), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
         });
-        if (error) {
-            return Response.json({ error }, { status: 500 });
-        }
-        return Response.json(data);
     }
     catch (error) {
-        return Response.json({ error: error.message }, { status: 500 });
+        console.error('Error sending email:', error);
+        return new Response(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 }
-/**
- * Validates the sign-in data.
- * - Looks up the user by email.
- * - Verifies that the account is active and the provided password matches.
- * - Generates a 6-digit OTP, creates a new record in the user_security table,
- *   and sends the OTP email.
- * - Returns a response object with a success flag, message, and the user's uuid.
- */
 async function signIn(data) {
     try {
         const { email, password } = data;
         // 1. Find the user by email.
+        // console.log('Finding user by email:', email);
         const user = await prismaUser.users.findFirst({
             where: { email },
             include: { user_profile: true },
         });
+        c; // onsole.log('User found:', user);
         if (!user) {
             throw new Error('User not found');
         }

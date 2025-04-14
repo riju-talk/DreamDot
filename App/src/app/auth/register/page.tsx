@@ -235,7 +235,7 @@ async function submitRegistration(details, router) {
 
         const result = await response.json();
         message.success(result.message);
-        router.push(`/auth/signing`);
+        router.push(`/auth/signin`);
     } catch (error) {
         message.error(error.message);
         throw error; // Re-throw to handle in handleSubmit

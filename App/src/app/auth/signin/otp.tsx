@@ -52,7 +52,7 @@ export default function OtpVerification({ email, uuid }: { email: string, uuid: 
 
       message.success("OTP verified successfully!");
       localStorage.setItem("authToken", token);
-      localStorage.setItem("user", JSON.stringify(id));
+      localStorage.setItem("user", id)
       router.push(`/feed/${id}`);
       
     } catch (err: any) {

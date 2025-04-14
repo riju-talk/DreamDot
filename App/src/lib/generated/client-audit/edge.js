@@ -154,7 +154,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "/mnt/04B0236AB0236202/DreamDot/App/src/lib/generated/client-audit",
+      "value": "/home/iiitd/Desktop/fcs02/DreamDot/App/src/lib/generated/client-audit",
       "fromEnvVar": null
     },
     "config": {
@@ -178,7 +178,7 @@ const config = {
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "/mnt/04B0236AB0236202/DreamDot/App/src/lib/prisma/schema.audit.prisma",
+    "sourceFilePath": "/home/iiitd/Desktop/fcs02/DreamDot/App/src/lib/prisma/schema.audit.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -197,12 +197,12 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": null,
-        "value": "postgresql://dreamdot074:root@localhost:5432/postgresdb?search_path=audit"
+        "value": "postgresql://postgres:connectdbserver@localhost:5432/mydb?search_path=audit"
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-audit\"\n  previewFeatures = [\"multiSchema\"]\n  binaryTargets   = [\"native\", \"windows\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://dreamdot074:root@localhost:5432/postgresdb?search_path=audit\"\n  schemas  = [\"audit\"]\n}\n\nmodel admin_actions_log {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  admin_id    String   @db.Uuid\n  action_type String   @db.VarChar(50)\n  target_id   String?  @db.Uuid\n  description String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel notification_log {\n  id           String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  recipient_id String   @db.Uuid\n  message      String\n  is_read      Boolean? @default(false)\n  created_at   DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel system_audit_log {\n  id         String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  event_type String   @db.VarChar(50)\n  details    String?\n  created_at DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\n/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.\nmodel admin_cred {\n  c_id       BigInt   @id @default(autoincrement())\n  created_at DateTime @default(now()) @db.Timestamptz(6)\n  name       String?\n  password   String?\n  hash       String\n\n  @@schema(\"audit\")\n}\n",
-  "inlineSchemaHash": "7498fa1a55bc310e0d8ef601e013f4c8e157e6618ca6e128bb34aebbedf3873b",
+  "inlineSchema": "generator client {\n  provider        = \"prisma-client-js\"\n  output          = \"../generated/client-audit\"\n  previewFeatures = [\"multiSchema\"]\n  binaryTargets   = [\"native\", \"windows\", \"debian-openssl-3.0.x\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = \"postgresql://postgres:connectdbserver@localhost:5432/mydb?search_path=audit\"\n  schemas  = [\"audit\"]\n}\n\nmodel admin_actions_log {\n  id          String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  admin_id    String   @db.Uuid\n  action_type String   @db.VarChar(50)\n  target_id   String?  @db.Uuid\n  description String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel notification_log {\n  id           String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  recipient_id String   @db.Uuid\n  message      String\n  is_read      Boolean? @default(false)\n  created_at   DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\nmodel system_audit_log {\n  id         String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  event_type String   @db.VarChar(50)\n  details    String?\n  created_at DateTime @default(now()) @db.Timestamp(6)\n\n  @@schema(\"audit\")\n}\n\n/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.\nmodel admin_cred {\n  c_id       BigInt   @id @default(autoincrement())\n  created_at DateTime @default(now()) @db.Timestamptz(6)\n  name       String?\n  password   String?\n  hash       String\n\n  @@schema(\"audit\")\n}\n",
+  "inlineSchemaHash": "ca0cd8253360f536e6ebb57970ac90f4aa233c71179b7c1a2117a059833944cd",
   "copyEngine": true
 }
 config.dirname = '/'
