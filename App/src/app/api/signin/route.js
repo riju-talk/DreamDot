@@ -62,7 +62,7 @@ async function signIn(data) {
       where: { email },
       include: { user_profile: true },
     });
-    c// onsole.log('User found:', user);
+    // console.log('User found:', user);
     if (!user) {
       throw new Error('User not found');
     }
