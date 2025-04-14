@@ -4,13 +4,17 @@ import { EmailTemplate } from './render';
 import nodemailer from 'nodemailer';
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",              
-  port: 587,
-  secure: false,  // true for port 465, false for other ports
+  service: "gmail",              
+  //port: 587,
+  //secure: false,  // true for port 465, false for other ports
   auth: {
     user: "dreamdot609@gmail.com",
     pass: "lxls icmt klfw zuff",
-  }
+  },
+  tls:{
+  rejectUnauthorized:false
+  },
+  connectionTimeout:10000
 });
 
 
@@ -20,7 +24,6 @@ function hashWithSalt(password, salt) {
 
 
 async function sendEmail(email, otp, display_name) {
-  try {
     console.log('Sending OTP to:', email);
     // Use the EmailTemplate to generate HTML content.
     const { renderToStaticMarkup } = await import('react-dom/server');
@@ -35,6 +38,14 @@ async function sendEmail(email, otp, display_name) {
       html: htmlContent,
     };
 
+      try {
+      transporter.verify((error, success) => {
+      if (error) {
+        console.log("SMTP Error:", error);
+      } else {
+        console.log("SMTP is ready to send emails");
+      }
+    });
     // Send the email via NodeMailer.
     const info = await transporter.sendMail(mailOptions);
     console.log('Email sent:', info.messageId);
@@ -62,7 +73,7 @@ async function signIn(data) {
       where: { email },
       include: { user_profile: true },
     });
-    // console.log('User found:', user);
+    // onsole.log('User found:', user);
     if (!user) {
       throw new Error('User not found');
     }

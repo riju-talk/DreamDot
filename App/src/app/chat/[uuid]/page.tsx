@@ -62,53 +62,44 @@ export default function ChatPage() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const socket = useSocket();
 
-  // Initialize currentUser using localStorage
+  // Fetch full user profile on mount. Do nothing else until currentUser is set.
   useEffect(() => {
-    const localUuid = localStorage.getItem("user");
-    if (!localUuid) {
-      router.push("/auth/signin");
-      return;
-    }
-
-    setCurrentUser({
-      id: localUuid,
-      username: "User-" + localUuid.slice(0, 5), // Placeholder username
-    });
-    setLoading(false);
-  }, [router]);
-
-  // Fetch full user profile (optional)
-  useEffect(() => {
-    const fetchFullUserProfile = async (uuid: string) => {
+    const fetchFullUserProfile = async () => {
+      const localUuid = localStorage.getItem("user");
+      if (!localUuid) {
+        router.push("/auth/signin");
+        return;
+      }
       try {
-        const response = await fetch(`/profile/${uuid}`);
+        const response = await fetch(`/api/profile/${localUuid}`);
         if (!response.ok) {
           console.error("Error fetching full user profile:", response.status);
           return;
         }
         const data = await response.json();
-        setCurrentUser((prev) => ({
-          ...prev!,
-          username: data.user_name || prev!.username,
-          email: data.email || prev!.email,
-        }));
+        if(data){
+          console.log(data);
+        }
+        setCurrentUser({
+          id: localUuid,
+          username: data.user_name,
+          email: data.email,
+          avatar: data.avatar,
+        });
       } catch (err) {
         console.error("Error fetching user profile:", err);
+      } finally {
+        setLoading(false);
       }
     };
+  
+    fetchFullUserProfile();
+  }, [router]);
 
-    if (currentUser?.id) {
-      const needFullProfile = false; // Set to true if full profile is needed
-      if (needFullProfile) {
-        fetchFullUserProfile(currentUser.id);
-      }
-    }
-  }, [currentUser]);
-
-  // Join/Leave conversation using the socket
+  // Join/Leave conversation via the socket only once currentUser is set
   useEffect(() => {
     if (!socket || !paramUuid || !currentUser?.id) return;
-
+  
     socket.emit("register", { userId: currentUser.id, conversationId: paramUuid });
     return () => {
       socket.emit("leaveConversation", {
@@ -117,11 +108,11 @@ export default function ChatPage() {
       });
     };
   }, [socket, paramUuid, currentUser?.id]);
-
+  
   // Handle receiving messages
   useEffect(() => {
     if (!socket || !paramUuid) return;
-
+  
     function handleReceiveMessage(msg: Message) {
       console.log("Received message:", msg);
       if (msg["conversationId"] === paramUuid) {
@@ -138,14 +129,14 @@ export default function ChatPage() {
         );
       }
     }
-
+  
     socket.on("receiveMessage", handleReceiveMessage);
     return () => {
       socket.off("receiveMessage", handleReceiveMessage);
     };
   }, [socket, paramUuid]);
-
-  // Fetch conversations
+  
+  // Fetch conversations after currentUser is set
   useEffect(() => {
     async function fetchConversations() {
       try {
@@ -171,7 +162,7 @@ export default function ChatPage() {
       fetchConversations();
     }
   }, [currentUser?.id]);
-
+  
   // Fetch messages for selected chat
   useEffect(() => {
     async function fetchMessages() {
@@ -194,12 +185,12 @@ export default function ChatPage() {
     }
     fetchMessages();
   }, [paramUuid]);
-
-  // Send message
+  
+  // Send message handler
   const handleSendMessage = async (content: string, mediaFiles?: File[]) => {
     if (!content.trim() && (!mediaFiles || mediaFiles.length === 0)) return;
     if (!paramUuid || !currentUser?.id) return;
-
+  
     const tempId = `temp-${Date.now()}`;
     const newMessage: Message = {
       id: tempId,
@@ -220,7 +211,7 @@ export default function ChatPage() {
       },
     };
     setMessages((prev) => [...prev, newMessage]);
-
+  
     try {
       const token = localStorage.getItem("authToken");
       const formData = new FormData();
@@ -228,7 +219,7 @@ export default function ChatPage() {
       mediaFiles?.forEach((file) => formData.append("media", file));
       formData.append("senderId", currentUser.id);
       formData.append("chatId", paramUuid);
-
+  
       const response = await fetch("/api/chat/messages", {
         method: "POST",
         headers: {
@@ -240,7 +231,7 @@ export default function ChatPage() {
         throw new Error("Failed to send message");
       }
       const savedMessage = await response.json();
-
+  
       setMessages((prev) =>
         prev.map((msg) => (msg.id === tempId ? savedMessage : msg))
       );
@@ -249,7 +240,7 @@ export default function ChatPage() {
           conv.id === paramUuid ? { ...conv, lastMessage: savedMessage } : conv
         )
       );
-
+  
       if (socket) {
         socket.emit("sendMessage", savedMessage);
       }
@@ -258,13 +249,13 @@ export default function ChatPage() {
       setMessages((prev) => prev.filter((msg) => msg.id !== tempId));
     }
   };
-
+  
   // Create one-on-one conversation
   const handleCreateConversation = async (userId: string) => {
     if (!currentUser) return;
     try {
       const token = localStorage.getItem("authToken");
-      const response = await fetch("/api/chat/conversations", {
+      const response = await fetch(`/api/chat/conversations`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -284,12 +275,12 @@ export default function ChatPage() {
         }
         return prev;
       });
-      router.push(`/chat/${currentUser.id}`);
+      router.push(`/chat/${newConversation.id}`); // Updated to use new conversation ID
     } catch (error) {
       console.error("Error creating conversation:", error);
     }
   };
-
+  
   // Create a group conversation
   const handleCreateGroup = async (name: string, participantIds: string[]) => {
     if (!currentUser) return;
@@ -319,16 +310,16 @@ export default function ChatPage() {
       console.error("Error creating group:", error);
     }
   };
-
-  // Logout
+  
+  // Logout handler
   const handleLogout = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("authToken");
     Cookies.remove("authToken");
     router.push("/auth/signin");
   };
-
-  // Render logic
+  
+  // Render logic: Block render until the currentUser is set and loading is false.
   if (loading || !currentUser) {
     return (
       <div className="flex justify-center items-center h-screen">
@@ -336,7 +327,7 @@ export default function ChatPage() {
       </div>
     );
   }
-
+  
   return (
     <div className="flex flex-col h-screen">
       <ChatNavbar
@@ -364,7 +355,7 @@ export default function ChatPage() {
             onCreateGroup={handleCreateGroup}
           />
         )}
-
+  
         {!paramUuid && (
           <div className="flex-1 flex items-center justify-center bg-gray-100">
             <h1 className="text-2xl font-bold text-gray-500">
