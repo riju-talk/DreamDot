@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prismaMessaging } from '../../../../lib/db/client';
+// const prisma = new PrismaClient();
 // GET handler to fetch all conversations for a user
 export async function GET(request) {
     const { searchParams } = new URL(request.url);
@@ -10,7 +11,7 @@ export async function GET(request) {
     }
     try {
         // Get all conversations where the user is a participant
-        const conversations = prismaMessaging.conversation.findMany({
+        const conversations = await prismaMessaging.conversation.findMany({
             where: {
                 participants: {
                     some: {
@@ -50,6 +51,7 @@ export async function GET(request) {
                 updatedAt: 'desc',
             },
         });
+        // console.log("Conversations",conversations);
         // Format conversations data for the frontend
         const formattedConversations = conversations.map(conv => {
             if (conv.isGroup) {
@@ -63,7 +65,7 @@ export async function GET(request) {
             }
             else {
                 // For direct messages, get the other user
-                const otherUser = conv.participants.find(p => p.user.id !== userId)?.user;
+                const otherUser = conv.participants.find((p) => p.user.id !== userId)?.user;
                 return {
                     id: conv.id,
                     isGroup: false,
@@ -81,7 +83,6 @@ export async function GET(request) {
         return NextResponse.json({ error: 'Failed to fetch conversations' }, { status: 500 });
     }
 }
-// POST handler to create a new conversation
 export async function POST(request) {
     console.log("inside post");
     const body = await request.json();
@@ -93,7 +94,7 @@ export async function POST(request) {
     try {
         // For direct messages (non-group), check if a conversation already exists
         if (!isGroup && participants.length === 2) {
-            const existingConversation = prismaMessaging.conversation.findFirst({
+            const existingConversation = await prismaMessaging.conversation.findFirst({
                 where: {
                     isGroup: false,
                     AND: [
@@ -121,14 +122,15 @@ export async function POST(request) {
                     },
                 }
             });
-            if (existingConversation && existingConversation.participants.length === 2) {
+            if (existingConversation &&
+                existingConversation.participants.length === 2) {
                 console.log("conversation exists");
                 return NextResponse.json(existingConversation);
             }
         }
         console.log("creating conversation");
         // Create a new conversation
-        const newConversation = prismaMessaging.conversation.create({
+        const newConversation = await prismaMessaging.conversation.create({
             data: {
                 isGroup: isGroup || false,
                 name: isGroup ? name : null,
@@ -160,7 +162,7 @@ export async function POST(request) {
                     adminId: participants[0], // First participant is the admin
                     members: {
                         create: participants.map(userId => ({
-                            user: { connect: { id: userId } },
+                            user: { connect: { id: userId } }, // Connect each user to a new GroupMember
                         })),
                     },
                     conversationId: newConversation.id,

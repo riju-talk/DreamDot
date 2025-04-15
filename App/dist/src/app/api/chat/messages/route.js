@@ -4,6 +4,7 @@ import { writeFile } from 'fs/promises';
 import { join } from 'path';
 import { v4 as uuidv4 } from 'uuid';
 import CryptoJS from 'crypto-js';
+import { uploadImageToCloudinary } from '../../../../lib/media_upload';
 async function verifySession(token) {
     const session = await prismaUser.user_sessions.findFirst({
         where: { token },
@@ -13,40 +14,56 @@ async function verifySession(token) {
         throw new Error('Invalid or revoked session');
     }
     // Optional: Check session expiry (if applicable)
-    // const sessionExpiry = new Date(session.created_at);
-    // sessionExpiry.setHours(sessionExpiry.getHours() + 24); // Example: 24-hour expiry
-    // if (new Date() > sessionExpiry) {
-    //   throw new Error('Session expired');
-    // }
+    //   const sessionExpiry = new Date(session.created_at);
+    //   sessionExpiry.setHours(sessionExpiry.getHours() + 24); // Example: 24-hour expiry
+    //   if (new Date() > sessionExpiry) {
+    //     throw new Error('Session expired');
+    //   }
     return session.users;
 }
-// Helper to handle media uploads
-async function saveMedia(file) {
+async function uploadFileToCloudinary(file) {
+    // Read file data and create a temporary file name
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
+    const filename = `${uuidv4()}-${file.name}`;
+    // Define a temporary local path (using a temporary directory)
+    const tempPath = join(process.cwd(), 'tmp', filename);
+    // Ensure the 'tmp' directory exists, or use another known temporary directory
+    await writeFile(tempPath, new Uint8Array(buffer));
+    // Upload the file to Cloudinary
+    const secureUrl = await uploadImageToCloudinary(tempPath);
+    return secureUrl;
+}
+// Helper to handle media uploads
+/*
+async function saveMedia(file: File): Promise<string> {
+    const bytes = await file.arrayBuffer();
+    const buffer = Buffer.from(bytes);
+
     // Create unique filename
     const filename = `${uuidv4()}-${file.name}`;
-    const filePath = join(process.cwd(), 'public', 'uploads', filename);
-    console.log("Saving media to:", filePath);
+    const path = join(process.cwd(), 'public', 'uploads', filename);
+    console.log("error here",path)
+
     // Save file
-    await writeFile(filePath, new Uint8Array(buffer));
+    await writeFile(path, new Uint8Array(buffer));
     return `/uploads/${filename}`; // Return the relative URL
 }
+*/
 // GET handler to fetch messages for a conversation
 export async function GET(request) {
     const token = request.headers.get('Authorization')?.replace('Bearer ', '');
     console.log("Token:", token);
     if (!token) {
-        return NextResponse.json({ error: 'Unauthorized' }, {
+        return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), {
             status: 401,
             headers: { 'Content-Type': 'application/json' },
         });
     }
-    // Verify session and get user details; note that if you don't use these details later,
-    // you might only use this to confirm the token.
-    await verifySession(token);
+    const verifyingUser = await verifySession(token);
     const { searchParams } = new URL(request.url);
     const chatId = searchParams.get('chatId');
+    //   console.log(chatId)
     if (!chatId) {
         return NextResponse.json({ error: 'Chat ID is required' }, { status: 400 });
     }
@@ -92,13 +109,15 @@ export async function GET(request) {
 // POST handler to create a new message
 export async function POST(request) {
     const token = request.headers.get('Authorization')?.replace('Bearer ', '');
+    // console.log("Token:", token);
     if (!token) {
-        return NextResponse.json({ error: 'Unauthorized' }, {
+        return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), {
             status: 401,
             headers: { 'Content-Type': 'application/json' },
         });
     }
-    await verifySession(token);
+    const verifyingUser = await verifySession(token);
+    console.log("in");
     const formData = await request.formData();
     const content = formData.get('content');
     const senderId = formData.get('senderId');
@@ -111,16 +130,16 @@ export async function POST(request) {
         // Save any media files first
         const mediaUrls = [];
         for (const file of mediaFiles) {
-            console.log("Processing media file:", file.name);
-            const url = await saveMedia(file);
+            console.log("file:Media");
+            const url = await uploadFileToCloudinary(file);
             mediaUrls.push({
                 type: file.type.startsWith('image/') ? 'image' : 'file',
-                url: url,
+                url,
             });
         }
-        console.log("Media URLs:", mediaUrls);
+        console.log("skipped, mediaUrls:", mediaUrls);
         // Create message with media (if any)
-        const message = prismaMessaging.message.create({
+        const message = await prismaMessaging.message.create({
             data: {
                 content,
                 senderId,
@@ -143,7 +162,7 @@ export async function POST(request) {
                 },
             },
         });
-        // Update conversation's updatedAt timestamp
+        // Update conversation's updatedAt
         await prismaMessaging.conversation.update({
             where: { id: chatId },
             data: { updatedAt: new Date() },

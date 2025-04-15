@@ -1,5 +1,5 @@
-import { prismaMessaging, prismaUser } from '../../../../lib/db/client';
 import { NextResponse } from 'next/server';
+import { prismaUser } from '../../../../lib/db/client';
 async function verifySession(token) {
     const session = await prismaUser.user_sessions.findFirst({
         where: { token },
@@ -8,31 +8,47 @@ async function verifySession(token) {
     if (!session || session.is_revoked) {
         throw new Error('Invalid or revoked session');
     }
+    // Optional: Check session expiry (if applicable)
+    //   const sessionExpiry = new Date(session.created_at);
+    //   sessionExpiry.setHours(sessionExpiry.getHours() + 24); // Example: 24-hour expiry
+    //   if (new Date() > sessionExpiry) {
+    //     throw new Error('Session expired');
+    //   }
     return session.users;
 }
 export async function GET(request) {
     try {
-        const token = request.headers.get('authorization')?.replace('Bearer ', '');
-        //console.log("Token:", token);
+        const token = request.headers.get('Authorization')?.replace('Bearer ', '');
+        console.log("Token:", token);
         if (!token) {
-            return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+            return new NextResponse(JSON.stringify({ error: 'Unauthorized' }), {
+                status: 401,
+                headers: { 'Content-Type': 'application/json' },
+            });
         }
         const user = await verifySession(token);
-        //console.log("User:", user);
-        //console.log("User2:", user.id);
+        console.log("User:", user);
+        console.log("User2:", user.id);
         const { searchParams } = new URL(request.url);
+        console.log("Search Params:", searchParams);
         const query = searchParams.get('search');
-        //console.log("Search Params:", searchParams);
         const currentUser = await prismaUser.users.findUnique({
             where: { id: user.id },
+            //   include: { blockedUsers: true },
         });
         if (!currentUser) {
             console.log(currentUser);
-            return NextResponse.json({ error: 'User not found' }, { status: 404 });
+            return new NextResponse(JSON.stringify({ error: 'User not found' }), {
+                status: 404,
+                headers: { 'Content-Type': 'application/json' },
+            });
         }
         console.log("Query:", query);
-        if (!query) {
-            return NextResponse.json([], { status: 200 });
+        if (query === undefined || query === null) {
+            return new NextResponse(JSON.stringify([]), {
+                status: 200,
+                headers: { 'Content-Type': 'application/json' },
+            });
         }
         const users = await prismaUser.users.findMany({
             where: {
@@ -57,11 +73,17 @@ export async function GET(request) {
             take: 20,
         });
         console.log(users);
-        return NextResponse.json(users, { status: 200 });
+        return new NextResponse(JSON.stringify(users), {
+            status: 200,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
     catch (error) {
         console.error('Error fetching users:', error);
-        return NextResponse.json({ error: error.message }, { status: 500 });
+        return new NextResponse(JSON.stringify({ error: error.message }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+        });
     }
 }
 //# sourceMappingURL=route.js.map

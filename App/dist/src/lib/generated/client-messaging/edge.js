@@ -4,12 +4,12 @@ const Prisma = {};
 exports.Prisma = Prisma;
 exports.$Enums = {};
 /**
- * Prisma Client JS version: 6.5.0
- * Query Engine version: 173f8d54f8d52e692c7e27e72a88314ec7aeff60
+ * Prisma Client JS version: 6.6.0
+ * Query Engine version: f676762280b54cd07c770017ed3711ddde35f37a
  */
 Prisma.prismaVersion = {
-    client: "6.5.0",
-    engine: "173f8d54f8d52e692c7e27e72a88314ec7aeff60"
+    client: "6.6.0",
+    engine: "f676762280b54cd07c770017ed3711ddde35f37a"
 };
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
 Prisma.PrismaClientUnknownRequestError = PrismaClientUnknownRequestError;
@@ -133,7 +133,7 @@ const config = {
             "value": "prisma-client-js"
         },
         "output": {
-            "value": "/mnt/04B0236AB0236202/DreamDot/App/src/lib/generated/client-messaging",
+            "value": "/home/iiitd/Desktop/fcs02/DreamDot/App/src/lib/generated/client-messaging",
             "fromEnvVar": null
         },
         "config": {
@@ -147,7 +147,7 @@ const config = {
             }
         ],
         "previewFeatures": [],
-        "sourceFilePath": "/mnt/04B0236AB0236202/DreamDot/App/src/lib/prisma/schema.messaging.prisma",
+        "sourceFilePath": "/home/iiitd/Desktop/fcs02/DreamDot/App/src/lib/prisma/schema.messaging.prisma",
         "isCustomOutput": true
     },
     "relativeEnvPaths": {
@@ -155,8 +155,8 @@ const config = {
         "schemaEnvPath": "../../../../.env"
     },
     "relativePath": "../../prisma",
-    "clientVersion": "6.5.0",
-    "engineVersion": "173f8d54f8d52e692c7e27e72a88314ec7aeff60",
+    "clientVersion": "6.6.0",
+    "engineVersion": "f676762280b54cd07c770017ed3711ddde35f37a",
     "datasourceNames": [
         "db"
     ],
