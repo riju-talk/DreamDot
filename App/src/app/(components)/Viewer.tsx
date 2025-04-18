@@ -89,6 +89,31 @@ const PostModal: React.FC<PostModalProps> = ({ postId, onClose, postObject }) =>
 // --------------------
 // ItemModal Component
 // --------------------
+interface ContentData {
+  imageURLs?: string[];
+  thumbnail?: string;
+}
+
+interface ItemObject {
+  title: string;
+  description?: string;
+  price?: number;
+  contentData?: ContentData;
+}
+
+interface TransactionPacket {
+  buyer_id: string;
+  creator_id: string;
+  item_id: string;
+}
+
+interface ItemModalProps {
+  itemId: string | null;
+  onClose: () => void;
+  itemObject: ItemObject;
+  transaction_packet: TransactionPacket;
+}
+
 const ItemModal: React.FC<ItemModalProps> = ({ itemId, onClose, itemObject, transaction_packet }) => {
   const [item] = useState(itemObject);
   const [showTransactionContent, setShowTransactionContent] = useState(false);
@@ -97,8 +122,26 @@ const ItemModal: React.FC<ItemModalProps> = ({ itemId, onClose, itemObject, tran
   const [amount, setAmount] = useState<number>(0);
   const router = useRouter();
 
-  const handlePurchaseClick = () => {
-    setShowTransactionContent(true);
+  const handlePurchaseClick = async () => {
+    if (item.price === 0) {
+      // Free item: Process transaction directly
+      setIsTransactionLoading(true);
+      try {
+        const res = await ProcessTransaction({
+          ...transaction_packet,
+          amount: 0,
+        });
+        if (!res) throw new Error("Transaction failed");
+        setIsTransactionComplete(true);
+      } catch (error) {
+        console.error("Transaction error:", error);
+      } finally {
+        setIsTransactionLoading(false);
+      }
+    } else {
+      // Paid item: Show payment portal
+      setShowTransactionContent(true);
+    }
   };
 
   const handleTransactionCancel = () => {
@@ -127,7 +170,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ itemId, onClose, itemObject, tran
   return (
     <Modal
       title={
-        showTransactionContent
+        showTransactionContent || isTransactionComplete
           ? isTransactionComplete
             ? "Transaction Complete"
             : "Confirm Purchase"
@@ -139,13 +182,13 @@ const ItemModal: React.FC<ItemModalProps> = ({ itemId, onClose, itemObject, tran
       centered
       width={800}
     >
-      {showTransactionContent ? (
+      {showTransactionContent || isTransactionComplete ? (
         isTransactionComplete ? (
           <div className="flex flex-col items-center gap-4">
             <div className="text-green-500 text-5xl">✓</div>
             <Title level={4}>Transaction Complete</Title>
             <Text className="text-lg">
-              You have successfully purchased <strong>{item.title}</strong>.
+              You have successfully {item.price === 0 ? "claimed" : "purchased"} <strong>{item.title}</strong>.
             </Text>
             <Button type="primary" onClick={onClose}>
               Close
@@ -213,7 +256,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ itemId, onClose, itemObject, tran
             <div>
               <Text strong>Price:</Text>
               <Title level={4} className="!mt-1 !mb-0 text-blue-600">
-                {`$${item.price}`}
+                {item.price ? `$${item.price}` : 'Free'}
               </Title>
             </div>
             <Button
@@ -222,7 +265,7 @@ const ItemModal: React.FC<ItemModalProps> = ({ itemId, onClose, itemObject, tran
               icon={<DollarOutlined />}
               onClick={handlePurchaseClick}
             >
-              Purchase Now
+              {item.price === 0 ? 'Claim Now' : 'Purchase Now'}
             </Button>
           </div>
         </div>

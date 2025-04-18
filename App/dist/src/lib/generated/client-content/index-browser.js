@@ -101,6 +101,7 @@ exports.Prisma.ItemScalarFieldEnum = {
     item_d: 'item_d',
     text_content: 'text_content',
     art_urls: 'art_urls',
+    owners: 'owners',
     thumbnail: 'thumbnail',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'

@@ -1,0 +1,5 @@
+CREATE SCHEMA audit;
+CREATE SCHEMA social;
+CREATE SCHEMA items_d;
+CREATE SCHEMA user_d;
+CREATE SCHEMA community;

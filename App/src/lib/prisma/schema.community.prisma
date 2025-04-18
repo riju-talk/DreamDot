@@ -8,7 +8,7 @@ generator client {
 
 datasource db {
   provider  = "postgresql"
-  url = "postgresql://pdreamdot074:root@localhost:5432/postgresdb?search_path=community"
+  url = "postgresql://dreamdot074:root@localhost:5432/postgresdb?search_path=community"
   schemas   = ["community", "user_d"]
 }
 
@@ -158,6 +158,7 @@ model users {
   updated_at                                      DateTime                @default(now()) @db.Timestamp(6)
   is_verified                                     Boolean?                @default(false)
   is_active                                       Boolean?                @default(true)
+  intitial_balance                                Decimal                 @default(50000) 
   password_reset_tokens                           password_reset_tokens[]
   user_analytics                                  user_analytics?
   user_audit_logs                                 user_audit_logs[]

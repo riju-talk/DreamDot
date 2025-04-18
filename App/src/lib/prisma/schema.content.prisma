@@ -26,6 +26,7 @@ model Item {
   item_d       String
   text_content String
   art_urls     String[]
+  owners       String[]
   thumbnail    String   // Ensure this field is declared
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt

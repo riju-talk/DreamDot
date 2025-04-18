@@ -90,6 +90,11 @@ export default function OtherAccountPage() {
 
   // Determine if the viewed profile belongs to the current user.
   const isOwner = uuid === accounts_id;
+  useEffect(()=>{
+    if(isOwner){
+      router.replace(`/profile/${uuid}`);
+    }
+  });
 
   useEffect(() => {
     if (!accounts_id || !uuid) return;

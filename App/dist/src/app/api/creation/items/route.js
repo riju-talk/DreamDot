@@ -4,6 +4,7 @@ import { prismaItems, prismaContent, prismaUser } from "../../../../lib/db/clien
 export async function POST(request) {
     try {
         // Parse the JSON body
+        console.log(request);
         const body = await request.json();
         const { user_id, title, description, category, price, monetization_type, text_content, images, thumbnail, // For capturing thumbnail
          } = body;
@@ -65,6 +66,7 @@ export async function POST(request) {
                 thumbnail: thumbnail_url,
             },
         });
+        console.log("Item created successfully");
         //console.log("Item created successfully:", itemMetadata, itemContent);
         return NextResponse.json({ itemMetadata, itemContent }, { status: 200 });
     }

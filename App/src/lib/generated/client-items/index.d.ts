@@ -90,7 +90,7 @@ export type users = $Result.DefaultSelection<Prisma.$usersPayload>
 export type collections = $Result.DefaultSelection<Prisma.$collectionsPayload>
 /**
  * Model item_ownership
- * This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+ * 
  */
 export type item_ownership = $Result.DefaultSelection<Prisma.$item_ownershipPayload>
 

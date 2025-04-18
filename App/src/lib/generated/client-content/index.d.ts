@@ -1886,6 +1886,7 @@ export namespace Prisma {
     item_d: number
     text_content: number
     art_urls: number
+    owners: number
     thumbnail: number
     createdAt: number
     updatedAt: number
@@ -1916,6 +1917,7 @@ export namespace Prisma {
     item_d?: true
     text_content?: true
     art_urls?: true
+    owners?: true
     thumbnail?: true
     createdAt?: true
     updatedAt?: true
@@ -1999,6 +2001,7 @@ export namespace Prisma {
     item_d: string
     text_content: string
     art_urls: string[]
+    owners: string[]
     thumbnail: string
     createdAt: Date
     updatedAt: Date
@@ -2026,6 +2029,7 @@ export namespace Prisma {
     item_d?: boolean
     text_content?: boolean
     art_urls?: boolean
+    owners?: boolean
     thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
@@ -2038,12 +2042,13 @@ export namespace Prisma {
     item_d?: boolean
     text_content?: boolean
     art_urls?: boolean
+    owners?: boolean
     thumbnail?: boolean
     createdAt?: boolean
     updatedAt?: boolean
   }
 
-  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "item_d" | "text_content" | "art_urls" | "thumbnail" | "createdAt" | "updatedAt", ExtArgs["result"]["item"]>
+  export type ItemOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "item_d" | "text_content" | "art_urls" | "owners" | "thumbnail" | "createdAt" | "updatedAt", ExtArgs["result"]["item"]>
 
   export type $ItemPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     name: "Item"
@@ -2053,6 +2058,7 @@ export namespace Prisma {
       item_d: string
       text_content: string
       art_urls: string[]
+      owners: string[]
       thumbnail: string
       createdAt: Date
       updatedAt: Date
@@ -2452,6 +2458,7 @@ export namespace Prisma {
     readonly item_d: FieldRef<"Item", 'String'>
     readonly text_content: FieldRef<"Item", 'String'>
     readonly art_urls: FieldRef<"Item", 'String[]'>
+    readonly owners: FieldRef<"Item", 'String[]'>
     readonly thumbnail: FieldRef<"Item", 'String'>
     readonly createdAt: FieldRef<"Item", 'DateTime'>
     readonly updatedAt: FieldRef<"Item", 'DateTime'>
@@ -2824,6 +2831,7 @@ export namespace Prisma {
     item_d: 'item_d',
     text_content: 'text_content',
     art_urls: 'art_urls',
+    owners: 'owners',
     thumbnail: 'thumbnail',
     createdAt: 'createdAt',
     updatedAt: 'updatedAt'
@@ -2963,6 +2971,7 @@ export namespace Prisma {
     item_d?: StringFilter<"Item"> | string
     text_content?: StringFilter<"Item"> | string
     art_urls?: StringNullableListFilter<"Item">
+    owners?: StringNullableListFilter<"Item">
     thumbnail?: StringFilter<"Item"> | string
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeFilter<"Item"> | Date | string
@@ -2973,6 +2982,7 @@ export namespace Prisma {
     item_d?: SortOrder
     text_content?: SortOrder
     art_urls?: SortOrder
+    owners?: SortOrder
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -2986,6 +2996,7 @@ export namespace Prisma {
     item_d?: StringFilter<"Item"> | string
     text_content?: StringFilter<"Item"> | string
     art_urls?: StringNullableListFilter<"Item">
+    owners?: StringNullableListFilter<"Item">
     thumbnail?: StringFilter<"Item"> | string
     createdAt?: DateTimeFilter<"Item"> | Date | string
     updatedAt?: DateTimeFilter<"Item"> | Date | string
@@ -2996,6 +3007,7 @@ export namespace Prisma {
     item_d?: SortOrder
     text_content?: SortOrder
     art_urls?: SortOrder
+    owners?: SortOrder
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -3012,6 +3024,7 @@ export namespace Prisma {
     item_d?: StringWithAggregatesFilter<"Item"> | string
     text_content?: StringWithAggregatesFilter<"Item"> | string
     art_urls?: StringNullableListFilter<"Item">
+    owners?: StringNullableListFilter<"Item">
     thumbnail?: StringWithAggregatesFilter<"Item"> | string
     createdAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
     updatedAt?: DateTimeWithAggregatesFilter<"Item"> | Date | string
@@ -3081,6 +3094,7 @@ export namespace Prisma {
     item_d: string
     text_content: string
     art_urls?: ItemCreateart_urlsInput | string[]
+    owners?: ItemCreateownersInput | string[]
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -3091,6 +3105,7 @@ export namespace Prisma {
     item_d: string
     text_content: string
     art_urls?: ItemCreateart_urlsInput | string[]
+    owners?: ItemCreateownersInput | string[]
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -3100,6 +3115,7 @@ export namespace Prisma {
     item_d?: StringFieldUpdateOperationsInput | string
     text_content?: StringFieldUpdateOperationsInput | string
     art_urls?: ItemUpdateart_urlsInput | string[]
+    owners?: ItemUpdateownersInput | string[]
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3109,6 +3125,7 @@ export namespace Prisma {
     item_d?: StringFieldUpdateOperationsInput | string
     text_content?: StringFieldUpdateOperationsInput | string
     art_urls?: ItemUpdateart_urlsInput | string[]
+    owners?: ItemUpdateownersInput | string[]
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3119,6 +3136,7 @@ export namespace Prisma {
     item_d: string
     text_content: string
     art_urls?: ItemCreateart_urlsInput | string[]
+    owners?: ItemCreateownersInput | string[]
     thumbnail: string
     createdAt?: Date | string
     updatedAt?: Date | string
@@ -3128,6 +3146,7 @@ export namespace Prisma {
     item_d?: StringFieldUpdateOperationsInput | string
     text_content?: StringFieldUpdateOperationsInput | string
     art_urls?: ItemUpdateart_urlsInput | string[]
+    owners?: ItemUpdateownersInput | string[]
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3137,6 +3156,7 @@ export namespace Prisma {
     item_d?: StringFieldUpdateOperationsInput | string
     text_content?: StringFieldUpdateOperationsInput | string
     art_urls?: ItemUpdateart_urlsInput | string[]
+    owners?: ItemUpdateownersInput | string[]
     thumbnail?: StringFieldUpdateOperationsInput | string
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -3238,6 +3258,7 @@ export namespace Prisma {
     item_d?: SortOrder
     text_content?: SortOrder
     art_urls?: SortOrder
+    owners?: SortOrder
     thumbnail?: SortOrder
     createdAt?: SortOrder
     updatedAt?: SortOrder
@@ -3282,7 +3303,16 @@ export namespace Prisma {
     set: string[]
   }
 
+  export type ItemCreateownersInput = {
+    set: string[]
+  }
+
   export type ItemUpdateart_urlsInput = {
+    set?: string[]
+    push?: string | string[]
+  }
+
+  export type ItemUpdateownersInput = {
     set?: string[]
     push?: string | string[]
   }
