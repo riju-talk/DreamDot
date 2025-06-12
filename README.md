@@ -1,4 +1,4 @@
-# 🌌 DreamDot
+# DreamDot
 
 **DreamDot** is a next-generation social media marketplace that empowers creators to publish and monetize their art, writings, and thoughts in one unified platform. Whether you're a digital artist, indie author, blogger, or creative thinker — DreamDot offers the tools to connect, share, and earn from your creativity.
 
