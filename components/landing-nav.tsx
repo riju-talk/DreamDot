@@ -3,11 +3,12 @@
 import { Button } from "@/components/ui/button"
 import { Sparkles, Menu, X } from "lucide-react"
 import Link from "next/link"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { redirectToFeed } from "@/lib/route-protection"
 
 export function LandingNav() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
 
   const handleExploreClick = (section: string) => {
     const element = document.getElementById(section)
@@ -17,8 +18,26 @@ export function LandingNav() {
     setIsMenuOpen(false)
   }
 
+  // Detect scroll to toggle fixed positioning and background
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 0)
+    }
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[teal-50]/95 backdrop-blur-md border-b border-[teal-200]">
+    <nav
+      className={`${
+        isScrolled
+          ? "fixed top-0 left-0 right-0 z-50 bg-[teal-50]/95"
+          : "relative bg-white"
+      } backdrop-blur-md transition-all duration-500 ease-in-out`}
+      style={{
+        backgroundColor: isScrolled ? "rgba(128, 182, 151, 0.95)" : "#ffffff", // Teal-50/95 as rgba
+      }}
+    >
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">

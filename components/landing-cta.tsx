@@ -29,7 +29,7 @@ export function LandingCTA() {
             <Button
               size="lg"
               variant="outline"
-              className="text-lg px-8 border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10"
+              className="text-lg px-8 border-primary-foreground text-teal-900 hover:bg-primary-foreground/10 hover:text-teal-50"
             >
               Explore Features
             </Button>
