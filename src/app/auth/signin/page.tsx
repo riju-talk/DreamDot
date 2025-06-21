@@ -1,109 +1,104 @@
-"use client";
+"use client"
 
-import { useState, ChangeEvent, FormEvent } from "react";
-import Link from "next/link";
-import message from "antd/es/message";
-import { useRouter } from "next/navigation";
-import OtpVerification from "./otp";
+import type React from "react"
+
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Sparkles, Loader2 } from "lucide-react"
+import Link from "next/link"
+import { useState } from "react"
+import { useAuth } from "@/lib/auth"
+import { useRouter } from "next/navigation"
+import { useToast } from "@/hooks/use-toast"
 
 export default function SignInPage() {
-  const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [showOtp, setShowOtp] = useState<boolean>(false);
-  const [uuid, setUuid] = useState<string>("");
-  const router = useRouter();
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const { signIn } = useAuth()
+  const router = useRouter()
+  const { toast } = useToast()
 
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError("");
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
 
     try {
-      // Send credentials to sign-in API endpoint
-      const response = await fetch("/api/signin", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-
-      if (!response.ok) {
-        const { error } = await response.json();
-        throw new Error(error || "Sign-in failed");
-      }
-
-      const result = await response.json();
-      message.success("Sign-in successful! Please check your email for the OTP.");
-
-      // Save the user uuid if returned from the API so that the OTP component can use it.
-      if (result.uuid) {
-        setUuid(result.uuid);
-      }
-
-      // Toggle the OTP component. No further processing is done here.
-      setShowOtp(true);
-    } catch (err: any) {
-      setError(err.message);
+      await signIn(email, password)
+      toast({
+        title: "Welcome back!",
+        description: "You've successfully signed in to DreamDOT.",
+      })
+      router.push("/feed")
+    } catch (error) {
+      toast({
+        title: "Sign in failed",
+        description: "Please check your credentials and try again.",
+        variant: "destructive",
+      })
+    } finally {
+      setIsLoading(false)
     }
-  };
+  }
 
   return (
-    <>
-      {!showOtp ? (
-        <main className="flex items-center justify-center min-h-screen bg-gray-100">
-          <form
-            onSubmit={handleSubmit}
-            className="w-full max-w-md p-8 bg-white rounded-xl shadow-lg"
-          >
-            <h2 className="text-3xl font-bold text-center mb-8">Sign In</h2>
-
-            {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-
-            <label className="block mb-4">
-              <span className="text-gray-700">Email:</span>
-              <input
+    <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
+      <Card className="w-full max-w-md dream-card">
+        <CardHeader className="text-center">
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <div className="relative overflow-hidden rounded-lg p-1.5 bg-primary">
+              <Sparkles className="h-6 w-6 text-primary-foreground" />
+            </div>
+            <span className="font-bold text-xl text-primary">DreamDOT</span>
+          </div>
+          <CardTitle>Welcome Back</CardTitle>
+          <CardDescription>Sign in to your account to continue creating</CardDescription>
+        </CardHeader>
+        <form onSubmit={handleSubmit}>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <Input
+                id="email"
                 type="email"
-                name="email"
-                value={email}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
-                required
-                className="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
                 placeholder="Enter your email"
-              />
-            </label>
-
-            <label className="block mb-6">
-              <span className="text-gray-700">Password:</span>
-              <input
-                type="password"
-                name="password"
-                value={password}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
-                className="w-full mt-1 p-3 border rounded-lg focus:ring-2 focus:ring-blue-400"
-                placeholder="Enter your password"
               />
-            </label>
-
-            <button
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="Enter your password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+          </CardContent>
+          <CardFooter className="flex flex-col space-y-4">
+            <Button
               type="submit"
-              className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+              className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+              disabled={isLoading}
             >
+              {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
               Sign In
-            </button>
-
-            <p className="mt-4 text-sm text-gray-500 text-center">
+            </Button>
+            <p className="text-sm text-center text-muted-foreground">
               Don't have an account?{" "}
-              <Link href="/auth/register" className="text-blue-600 hover:underline">
+              <Link href="/auth/register" className="text-primary hover:underline">
                 Sign up
               </Link>
             </p>
-          </form>
-        </main>
-      ) : (
-        <main>
-          <OtpVerification email={email} uuid={uuid} />
-        </main>
-      )}
-    </>
-  );
+          </CardFooter>
+        </form>
+      </Card>
+    </div>
+  )
 }
