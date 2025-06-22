@@ -1,9 +1,7 @@
 import { LandingNav } from "../../components/landing-nav"
 import { LandingHero } from "../../components/landing-hero"
 import { LandingFeatures } from "../../components/landing-features"
-import { LandingStats } from "../../components/landing-stats"
-import { LandingTestimonials } from "../../components/landing-testimonials"
-import { LandingCTA } from "../../components/landing-cta"
+import { LandingDetails } from "../../components/landing-details"
 import { LandingFooter } from "../../components/landing-footer"
 
 const videoUrls: string[] = [
@@ -20,9 +18,7 @@ export default function HomePage() {
       <LandingNav />
       <LandingHero videoUrls={videoUrls} />
       <LandingFeatures />
-      <LandingStats />
-      <LandingTestimonials />
-      <LandingCTA />
+      <LandingDetails />
       <LandingFooter />
     </div>
   )

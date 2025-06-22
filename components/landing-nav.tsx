@@ -35,7 +35,7 @@ export function LandingNav() {
           : "relative bg-white"
       } backdrop-blur-md transition-all duration-500 ease-in-out`}
       style={{
-        backgroundColor: isScrolled ? "rgba(128, 182, 151, 0.95)" : "#ffffff", // Teal-50/95 as rgba
+        backgroundColor: isScrolled ? "rgba(212, 212, 212, 0.77)" : "#ffffff", // Teal-50/95 as rgba
       }}
     >
       <div className="container mx-auto px-4 py-4">
@@ -49,7 +49,7 @@ export function LandingNav() {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {["features", "community", "testimonials"].map((item) => (
+            {["features", "questions", "explore"].map((item) => (
               <button
                 key={item}
                 onClick={() => handleExploreClick(item)}
@@ -58,12 +58,6 @@ export function LandingNav() {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </button>
             ))}
-            <button
-              onClick={() => redirectToFeed()}
-              className="text-sm font-medium hover:text-emerald-700 transition-colors"
-            >
-              Explore
-            </button>
           </div>
 
           {/* Desktop Buttons */}

@@ -3,7 +3,7 @@ import { Sparkles, Facebook, Twitter, Instagram, Github, Linkedin } from "lucide
 
 export function LandingFooter() {
   return (
-    <footer className="bg-blue-cyan-900 text-blue-aqua-50 py-16">
+    <footer className="bg-blue-aqua-900 text-blue-aqua-50 py-16">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           <div className="space-y-4">
@@ -22,17 +22,17 @@ export function LandingFooter() {
             <h4 className="text-background/90 font-semibold mb-4">Platform</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/features" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/#features" className="text-background/70 hover:text-background transition-colors">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="/pricing" className="text-background/70 hover:text-background transition-colors">
-                  Pricing
+                <Link href="/#questions" className="text-background/70 hover:text-background transition-colors">
+                  Questions
                 </Link>
               </li>
               <li>
-                <Link href="/blog" className="text-background/70 hover:text-background transition-colors">
+                <Link href="" className="text-background/70 hover:text-background transition-colors">
                   Blog
                 </Link>
               </li>
