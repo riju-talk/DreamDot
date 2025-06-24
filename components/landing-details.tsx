@@ -16,6 +16,10 @@ export function LandingDetails() {
     const handleStart = () => {
         router.push("/signup");
     };
+    const handleExplore = () => {
+        router.push("/feed");
+    };
+
 
     return (
         <section className="bg-green-900 text-white">
@@ -115,7 +119,7 @@ export function LandingDetails() {
                 <Button
                     size="lg"
                     className="bg-blue-400 text-black hover:bg-blue-400/90 px-10 py-6 text-lg font-semibold"
-                    onClick={handleStart}
+                    onClick={handleExplore}
                 >
                     Explore The Platform
                 </Button>
