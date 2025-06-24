@@ -9,11 +9,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import { Upload, ImageIcon, FileText, Music } from "lucide-react"
-import { ProtectedRoute } from "@/components/protected-route"
+import { ProtectedRoute } from "../../../components/protected-route"
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
-import { TopNav } from "@/components/top-nav"
-import { MobileNav } from "@/components/mobile-nav"
+import { AppSidebar } from "../../../components/app-sidebar"
+import { TopNav } from "../../../components/top-nav"
+import { MobileNav } from "../../../components/mobile-nav"
 
 export default function CreatePage() {
   return (

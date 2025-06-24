@@ -31,8 +31,8 @@ import Link from "next/link"
 
 export function AppSidebar() {
   return (
-    <Sidebar>
-      <SidebarHeader className="p-4">
+    <Sidebar className="h-screen flex flex-col overflow-hidden">
+      <SidebarHeader className="p-4 overflow-hidden flex-shrink-0">
         <Link href="/" className="flex items-center gap-2">
           <div className="relative overflow-hidden rounded-lg p-1.5 bg-gradient-to-r from-primary via-secondary to-accent">
             <Sparkles className="h-6 w-6 text-primary-foreground" />
@@ -43,14 +43,14 @@ export function AppSidebar() {
         </Link>
       </SidebarHeader>
       <SidebarSeparator />
-      <SidebarContent>
+      <SidebarContent className="flex-1 overflow-hidden">
         <SidebarGroup>
           <SidebarGroupLabel>Explore</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild isActive>
-                  <Link href="/">
+                  <Link href="/feed">
                     <Home />
                     <span>Home</span>
                   </Link>
@@ -138,9 +138,9 @@ export function AppSidebar() {
               </SidebarMenuItem>
               <SidebarMenuItem>
                 <SidebarMenuButton asChild>
-                  <Link href="/help">
+                  <Link href="/about">
                     <HelpCircle />
-                    <span>Help Center</span>
+                    <span>About Author</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -148,7 +148,7 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter className="p-4">
+      <SidebarFooter className="p-4 overflow-hidden flex-shrink-0">
         <Button className="w-full dream-button" size="lg">
           <PlusSquare className="mr-2 h-4 w-4" />
           Create New Dream

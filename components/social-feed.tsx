@@ -1,6 +1,6 @@
 "use client"
 
-import { SocialPost } from "@/components/social-post"
+import { SocialPost } from "./social-post"
 import { Button } from "@/components/ui/button"
 import { RefreshCw } from "lucide-react"
 

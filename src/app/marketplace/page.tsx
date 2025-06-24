@@ -1,7 +1,11 @@
-import { MarketplaceHero } from "@/components/marketplace-hero"
+import { MarketplaceHero } from "../../../components/marketplace-hero"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { SidebarProvider } from "@/components/ui/sidebar"
+import { AppSidebar } from "../../../components/app-sidebar"
+import { TopNav } from "../../../components/top-nav"
+import { MobileNav } from "../../../components/mobile-nav"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
 import { Search, Filter, SlidersHorizontal, Star, ShoppingCart } from "lucide-react"
@@ -73,9 +77,14 @@ const products = [
 
 export default function MarketplacePage() {
   return (
-    <div className="container mx-auto px-4 py-6">
+    <SidebarProvider>
+      <div className="min-h-screen flex w-full">
+        <AppSidebar />
+        <div className="flex-1 flex flex-col">
+          <TopNav />
+          <main className="flex-1 container mx-auto px-4 py-6">
+          <div className="container mx-auto px-4 py-6">
       <MarketplaceHero />
-
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between mb-8">
         <div className="flex items-center gap-2">
           <div className="relative flex-1">
@@ -165,5 +174,10 @@ export default function MarketplacePage() {
         </TabsContent>
       </Tabs>
     </div>
+          </main>
+          <MobileNav />
+        </div>
+      </div>
+    </SidebarProvider>
   )
 }

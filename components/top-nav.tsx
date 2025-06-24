@@ -21,11 +21,11 @@ export function TopNav() {
             variant="link"
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary",
-              pathname === "/" ? "text-primary" : "text-muted-foreground",
+              pathname === "/feed" ? "text-primary" : "text-muted-foreground",
             )}
             asChild
           >
-            <a href="/">Home</a>
+            <a href="/feed">Home</a>
           </Button>
           <Button
             variant="link"

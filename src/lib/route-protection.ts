@@ -1,11 +1,13 @@
 "use client"
 
-import { useAuth } from "@/app/AuthContextProvider"
+//import { useAuth } from "@/app/AuthContextProvider"
 import { useRouter } from "next/navigation"
 import { useEffect } from "react"
 
 export function useRequireAuth() {
-  const { isAuthenticated, isLoading } = useAuth()
+  //const { isAuthenticated, isLoading } = useAuth()
+  const isAuthenticated = false;
+  const isLoading = false;
   const router = useRouter()
 
   useEffect(() => {

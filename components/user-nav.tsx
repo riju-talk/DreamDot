@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
-//import { useAuth } from "@/"
+import { useAuth } from "@/lib/auth"
 import { useRouter } from "next/navigation"
 
 export function UserNav() {
