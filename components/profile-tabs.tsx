@@ -2,9 +2,9 @@
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
-import { SocialPost } from "@/components/social-post"
-import { ProductCard } from "@/components/product-card"
-import { SubscriptionTier } from "@/components/subscription-tier"
+import { SocialPost } from "./social-post"
+import { ProductCard } from "./product-card"
+import { SubscriptionTier } from "./subscription-tier"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Star, Users, Calendar, Award, Target } from "lucide-react"

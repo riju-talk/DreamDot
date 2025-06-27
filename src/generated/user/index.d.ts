@@ -7048,6 +7048,7 @@ export namespace Prisma {
     display_name: string | null
     bio: string | null
     avatar_url: string | null
+    banner_url: string | null
     website: string | null
     updated_at: Date | null
     dob: Date | null
@@ -7060,6 +7061,7 @@ export namespace Prisma {
     display_name: string | null
     bio: string | null
     avatar_url: string | null
+    banner_url: string | null
     website: string | null
     updated_at: Date | null
     dob: Date | null
@@ -7072,6 +7074,7 @@ export namespace Prisma {
     display_name: number
     bio: number
     avatar_url: number
+    banner_url: number
     website: number
     social_links: number
     updated_at: number
@@ -7087,6 +7090,7 @@ export namespace Prisma {
     display_name?: true
     bio?: true
     avatar_url?: true
+    banner_url?: true
     website?: true
     updated_at?: true
     dob?: true
@@ -7099,6 +7103,7 @@ export namespace Prisma {
     display_name?: true
     bio?: true
     avatar_url?: true
+    banner_url?: true
     website?: true
     updated_at?: true
     dob?: true
@@ -7111,6 +7116,7 @@ export namespace Prisma {
     display_name?: true
     bio?: true
     avatar_url?: true
+    banner_url?: true
     website?: true
     social_links?: true
     updated_at?: true
@@ -7197,6 +7203,7 @@ export namespace Prisma {
     display_name: string | null
     bio: string | null
     avatar_url: string | null
+    banner_url: string | null
     website: string | null
     social_links: JsonValue | null
     updated_at: Date
@@ -7227,6 +7234,7 @@ export namespace Prisma {
     display_name?: boolean
     bio?: boolean
     avatar_url?: boolean
+    banner_url?: boolean
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
@@ -7241,6 +7249,7 @@ export namespace Prisma {
     display_name?: boolean
     bio?: boolean
     avatar_url?: boolean
+    banner_url?: boolean
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
@@ -7255,6 +7264,7 @@ export namespace Prisma {
     display_name?: boolean
     bio?: boolean
     avatar_url?: boolean
+    banner_url?: boolean
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
@@ -7269,6 +7279,7 @@ export namespace Prisma {
     display_name?: boolean
     bio?: boolean
     avatar_url?: boolean
+    banner_url?: boolean
     website?: boolean
     social_links?: boolean
     updated_at?: boolean
@@ -7276,7 +7287,7 @@ export namespace Prisma {
     country?: boolean
   }
 
-  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "website" | "social_links" | "updated_at" | "dob" | "country", ExtArgs["result"]["user_profile"]>
+  export type user_profileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"user_id" | "username" | "display_name" | "bio" | "avatar_url" | "banner_url" | "website" | "social_links" | "updated_at" | "dob" | "country", ExtArgs["result"]["user_profile"]>
   export type user_profileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     users?: boolean | usersDefaultArgs<ExtArgs>
   }
@@ -7298,6 +7309,7 @@ export namespace Prisma {
       display_name: string | null
       bio: string | null
       avatar_url: string | null
+      banner_url: string | null
       website: string | null
       social_links: Prisma.JsonValue | null
       updated_at: Date
@@ -7732,6 +7744,7 @@ export namespace Prisma {
     readonly display_name: FieldRef<"user_profile", 'String'>
     readonly bio: FieldRef<"user_profile", 'String'>
     readonly avatar_url: FieldRef<"user_profile", 'String'>
+    readonly banner_url: FieldRef<"user_profile", 'String'>
     readonly website: FieldRef<"user_profile", 'String'>
     readonly social_links: FieldRef<"user_profile", 'Json'>
     readonly updated_at: FieldRef<"user_profile", 'DateTime'>
@@ -11765,6 +11778,7 @@ export namespace Prisma {
     display_name: 'display_name',
     bio: 'bio',
     avatar_url: 'avatar_url',
+    banner_url: 'banner_url',
     website: 'website',
     social_links: 'social_links',
     updated_at: 'updated_at',
@@ -12248,6 +12262,7 @@ export namespace Prisma {
     display_name?: StringNullableFilter<"user_profile"> | string | null
     bio?: StringNullableFilter<"user_profile"> | string | null
     avatar_url?: StringNullableFilter<"user_profile"> | string | null
+    banner_url?: StringNullableFilter<"user_profile"> | string | null
     website?: StringNullableFilter<"user_profile"> | string | null
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
@@ -12262,6 +12277,7 @@ export namespace Prisma {
     display_name?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     avatar_url?: SortOrderInput | SortOrder
+    banner_url?: SortOrderInput | SortOrder
     website?: SortOrderInput | SortOrder
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -12279,6 +12295,7 @@ export namespace Prisma {
     display_name?: StringNullableFilter<"user_profile"> | string | null
     bio?: StringNullableFilter<"user_profile"> | string | null
     avatar_url?: StringNullableFilter<"user_profile"> | string | null
+    banner_url?: StringNullableFilter<"user_profile"> | string | null
     website?: StringNullableFilter<"user_profile"> | string | null
     social_links?: JsonNullableFilter<"user_profile">
     updated_at?: DateTimeFilter<"user_profile"> | Date | string
@@ -12293,6 +12310,7 @@ export namespace Prisma {
     display_name?: SortOrderInput | SortOrder
     bio?: SortOrderInput | SortOrder
     avatar_url?: SortOrderInput | SortOrder
+    banner_url?: SortOrderInput | SortOrder
     website?: SortOrderInput | SortOrder
     social_links?: SortOrderInput | SortOrder
     updated_at?: SortOrder
@@ -12312,6 +12330,7 @@ export namespace Prisma {
     display_name?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
     bio?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
     avatar_url?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
+    banner_url?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
     website?: StringNullableWithAggregatesFilter<"user_profile"> | string | null
     social_links?: JsonNullableWithAggregatesFilter<"user_profile">
     updated_at?: DateTimeWithAggregatesFilter<"user_profile"> | Date | string
@@ -12841,6 +12860,7 @@ export namespace Prisma {
     display_name?: string | null
     bio?: string | null
     avatar_url?: string | null
+    banner_url?: string | null
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
@@ -12855,6 +12875,7 @@ export namespace Prisma {
     display_name?: string | null
     bio?: string | null
     avatar_url?: string | null
+    banner_url?: string | null
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
@@ -12867,6 +12888,7 @@ export namespace Prisma {
     display_name?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    banner_url?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12881,6 +12903,7 @@ export namespace Prisma {
     display_name?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    banner_url?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12894,6 +12917,7 @@ export namespace Prisma {
     display_name?: string | null
     bio?: string | null
     avatar_url?: string | null
+    banner_url?: string | null
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
@@ -12906,6 +12930,7 @@ export namespace Prisma {
     display_name?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    banner_url?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12919,6 +12944,7 @@ export namespace Prisma {
     display_name?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    banner_url?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13631,6 +13657,7 @@ export namespace Prisma {
     display_name?: SortOrder
     bio?: SortOrder
     avatar_url?: SortOrder
+    banner_url?: SortOrder
     website?: SortOrder
     social_links?: SortOrder
     updated_at?: SortOrder
@@ -13644,6 +13671,7 @@ export namespace Prisma {
     display_name?: SortOrder
     bio?: SortOrder
     avatar_url?: SortOrder
+    banner_url?: SortOrder
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
@@ -13656,6 +13684,7 @@ export namespace Prisma {
     display_name?: SortOrder
     bio?: SortOrder
     avatar_url?: SortOrder
+    banner_url?: SortOrder
     website?: SortOrder
     updated_at?: SortOrder
     dob?: SortOrder
@@ -15533,6 +15562,7 @@ export namespace Prisma {
     display_name?: string | null
     bio?: string | null
     avatar_url?: string | null
+    banner_url?: string | null
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
@@ -15545,6 +15575,7 @@ export namespace Prisma {
     display_name?: string | null
     bio?: string | null
     avatar_url?: string | null
+    banner_url?: string | null
     website?: string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: Date | string
@@ -15752,6 +15783,7 @@ export namespace Prisma {
     display_name?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    banner_url?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -15764,6 +15796,7 @@ export namespace Prisma {
     display_name?: NullableStringFieldUpdateOperationsInput | string | null
     bio?: NullableStringFieldUpdateOperationsInput | string | null
     avatar_url?: NullableStringFieldUpdateOperationsInput | string | null
+    banner_url?: NullableStringFieldUpdateOperationsInput | string | null
     website?: NullableStringFieldUpdateOperationsInput | string | null
     social_links?: NullableJsonNullValueInput | InputJsonValue
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
