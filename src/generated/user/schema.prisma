@@ -56,16 +56,16 @@ model user_certificates {
 
 model user_profile {
   user_id      String    @id @db.Uuid
-  username     String    @unique // Optional if you're auto-generating it, keep it required if manual
-  display_name String? // Optional
-  bio          String? // Optional
-  avatar_url   String? // Optional
-  banner_url   String? // ✅ NEW FIELD (Optional)
-  website      String? // Optional
-  social_links Json?     @default("{}") // Optional
+  username     String    @unique
+  display_name String?
+  bio          String?
+  avatar_url   String?
+  website      String?
+  social_links Json?     @default("{}")
   updated_at   DateTime  @default(now()) @db.Timestamp(6)
-  dob          DateTime? @db.Date // Optional
-  country      String? // Optional
+  dob          DateTime? @db.Date
+  country      String?
+  banner_url   String?
   users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
@@ -91,19 +91,17 @@ model user_sessions {
 }
 
 model users {
-  id               String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  email            String   @unique // NOW REQUIRED (removed ?)
-  phone            String?  @unique
-  password_hash    String // Already required
-  created_at       DateTime @default(now()) @db.Timestamp(6)
-  updated_at       DateTime @default(now()) @db.Timestamp(6)
-  is_verified      Boolean? @default(false)
-  is_active        Boolean? @default(true)
-  pass_salts       String?
-  user_type        String?  @default("user")
-  intitial_balance Float    @default(50000) @db.Real
-
-  // Relations
+  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  email                 String                  @unique
+  phone                 String?                 @unique
+  password_hash         String
+  created_at            DateTime                @default(now()) @db.Timestamp(6)
+  updated_at            DateTime                @default(now()) @db.Timestamp(6)
+  is_verified           Boolean?                @default(false)
+  is_active             Boolean?                @default(true)
+  pass_salts            String?
+  user_type             String?                 @default("user")
+  intitial_balance      Float                   @default(50000) @db.Real
   password_reset_tokens password_reset_tokens[]
   user_analytics        user_analytics?
   user_audit_logs       user_audit_logs[]

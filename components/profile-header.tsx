@@ -1,28 +1,52 @@
-"use client"
+import { redirect } from "next/navigation";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Settings,
+  Share2,
+  MapPin,
+  Calendar,
+  LinkIcon,
+} from "lucide-react";
+import { getUserProfile } from "@/lib/user-profile/profile-header";
+import Link from "next/link";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Card, CardContent } from "@/components/ui/card"
-import { Settings, Share2, MessageSquare, Sparkles, MapPin, Calendar, LinkIcon } from "lucide-react"
+interface UserProfileData {
+  username: string | null;
+  display_name: string | null;
+  avatar_url: string | null;
+  banner_url: string | null;
+  bio: string | null;
+  location: string | null;
+  website: string | null;
+  social_links: string | null;
+  dob: Date | null;
+  followers: number;
+  following: number;
+  join_date: Date | null;
+}
 
-export function ProfileHeader() {
+export async function ProfileHeader() {
+  let data: UserProfileData | null = null;
+
+  try {
+    data = await getUserProfile();
+
+    // Also handle if user_id or username were not available
+    if (!data?.username && !data?.display_name) {
+      redirect("/");
+    }
+
+  } catch (err) {
+    // Redirect on Prisma errors like undefined user_id
+    redirect("/");
+  }
+
   return (
     <div className="relative mb-8">
-      {/* Cover Image */}
       <div className="relative h-64 w-full rounded-2xl overflow-hidden bg-primary/10">
         <div className="absolute inset-0 bg-primary/5"></div>
-
-        {/* Floating Elements */}
-        <div className="absolute top-8 left-8 floating-animation">
-          <div className="w-12 h-12 rounded-full bg-primary/20"></div>
-        </div>
-        <div className="absolute top-16 right-16 floating-animation">
-          <div className="w-8 h-8 rounded-full bg-secondary/20"></div>
-        </div>
-        <div className="absolute bottom-12 right-8 floating-animation">
-          <div className="w-16 h-16 rounded-full bg-accent/20"></div>
-        </div>
       </div>
 
       {/* Profile Content */}
@@ -31,53 +55,49 @@ export function ProfileHeader() {
           <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
             <div className="flex flex-col md:flex-row items-center md:items-end gap-6">
               <Avatar className="h-32 w-32 border-4 border-background shadow-xl">
-                <AvatarImage src="/placeholder.svg" alt="@janedoe" />
-                <AvatarFallback className="bg-primary text-primary-foreground text-4xl">JD</AvatarFallback>
+                <AvatarImage src={data.avatar_url || "/placeholder.svg"} alt="@user" />
+                <AvatarFallback className="bg-primary text-primary-foreground text-4xl">
+                  {data.username?.charAt(0).toUpperCase()}
+                </AvatarFallback>
               </Avatar>
 
               <div className="text-center md:text-left md:mb-2">
                 <div className="flex items-center gap-2 justify-center md:justify-start mb-2">
-                  <h1 className="text-3xl font-bold">Jane Doe</h1>
-                  <Badge className="bg-primary text-primary-foreground">
-                    <Sparkles className="h-3 w-3 mr-1" /> Pro Creator
-                  </Badge>
+                  <h1 className="text-3xl font-bold">{data.display_name}</h1>
                 </div>
-                <p className="text-muted-foreground text-lg mb-3">@janedoe</p>
+                <p className="text-muted-foreground text-lg mb-3">@{data.username}</p>
 
                 <div className="flex flex-wrap items-center justify-center md:justify-start gap-4 text-sm text-muted-foreground mb-4">
                   <div className="flex items-center gap-1">
                     <MapPin className="h-4 w-4" />
-                    <span>San Francisco, CA</span>
+                    <span>
+                      {data.location || <Link href="/settings">Add your location</Link>}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1">
                     <Calendar className="h-4 w-4" />
-                    <span>Joined March 2022</span>
+                    <span>Joined {data.join_date?.toDateString()}</span>
                   </div>
                   <div className="flex items-center gap-1">
                     <LinkIcon className="h-4 w-4" />
-                    <a href="#" className="hover:text-primary transition-colors">
-                      janedoe.com
+                    <a href={data.website || "#"} className="hover:text-primary transition-colors">
+                      {data.website || <Link href="/settings">Add your website link</Link>}
                     </a>
                   </div>
                 </div>
 
                 <p className="max-w-2xl text-muted-foreground">
-                  Digital artist and storyteller creating immersive worlds through art, writing, and music. Passionate
-                  about bringing dreams to life through creative expression.
+                  {data.bio || "Add your bio here"}
                 </p>
               </div>
             </div>
 
             <div className="flex items-center space-x-2 justify-center md:justify-end mb-2">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90">Subscribe</Button>
-              <Button variant="outline" size="icon" className="rounded-full border-primary/20 hover:bg-primary/10">
-                <MessageSquare className="h-4 w-4" />
-              </Button>
               <Button variant="outline" size="icon" className="rounded-full border-primary/20 hover:bg-primary/10">
                 <Share2 className="h-4 w-4" />
               </Button>
-              <Button variant="outline" size="icon" className="rounded-full border-primary/20 hover:bg-primary/10">
-                <Settings className="h-4 w-4" />
+              <Button variant="outline" size="icon" className="rounded-full border-primary/20 hover:bg-primary/10 hover:cursor-pointer">
+                <Link href="/settings"><Settings className="h-4 w-4" /></Link>
               </Button>
             </div>
           </div>
@@ -85,20 +105,16 @@ export function ProfileHeader() {
           {/* Stats */}
           <div className="flex items-center justify-center md:justify-start space-x-8 text-center mt-6 pt-6 border-t">
             <div>
-              <div className="text-2xl text-primary font-bold">245</div>
-              <div className="text-sm text-muted-foreground">Dreams</div>
-            </div>
-            <div>
-              <div className="text-2xl text-primary font-bold">15.3K</div>
+              <div className="text-2xl text-primary font-bold">{data.followers}</div>
               <div className="text-sm text-muted-foreground">Followers</div>
             </div>
             <div>
-              <div className="text-2xl text-primary font-bold">128</div>
+              <div className="text-2xl text-primary font-bold">{data.following}</div>
               <div className="text-sm text-muted-foreground">Following</div>
             </div>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
+  );
 }

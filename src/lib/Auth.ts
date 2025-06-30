@@ -58,6 +58,7 @@ export const authOptions: NextAuthOptions = {
       if (token.user) {
         session.user = {
           ...token.user,
+          username: token.user.username,
           name: token.user.name,
           email: token.user.email,
           image: token.user.avatar,
@@ -101,11 +102,11 @@ export function useAuth() {
     []
   )
   const signUp = useCallback(
-    async (name: string, email: string, password: string) => {
+    async (name: string, email: string, password: string, username: string) => {
       const res = await fetch("/api/auth/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, email, password, username }),
       })
 
       if (!res.ok) {

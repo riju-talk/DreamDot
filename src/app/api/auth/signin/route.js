@@ -3,8 +3,6 @@ import { NextResponse } from "next/server"
 import { prismaUser } from "@/lib/db"
 import bcrypt from "bcryptjs"
 import { signJwt } from "@/lib/jwt"
-import { v4 as uuidv4 } from "uuid"
-
 
 export async function POST(req) {
   const { email, password } = await req.json()
@@ -37,9 +35,7 @@ export async function POST(req) {
   const token = signJwt({
     id: user.id,
     email: user.email,
-    name: user.user_profile?.display_name ?? "",
-    avatar: user.user_profile?.avatar_url,
-    banner: user.user_profile?.banner_url,
+    name: user.user_profile?.display_name ?? ""
   })
 
   // 6) Return token & minimal user info
@@ -47,11 +43,9 @@ export async function POST(req) {
     message: "Sign-in successful",
     token,
     user: {
-      id: user.id,
+      id: user.user_profile.user_id,
       email: user.email,
       name: user.user_profile?.display_name,
-      avatar: user.user_profile?.avatar_url,
-      banner: user.user_profile?.banner_url,
     },
   })
 }

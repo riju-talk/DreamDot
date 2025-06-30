@@ -19,7 +19,7 @@ export function UserNav() {
 
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: "/", redirect: true })
+    signOut()
   }
 
   if (!isAuthenticated || !user) {

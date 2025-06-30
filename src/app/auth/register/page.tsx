@@ -25,10 +25,12 @@ export default function RegisterPage() {
   const { signUp } = useAuth()
 
   const [name, setName] = useState("")
+  const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPwd, setConfirmPwd] = useState("")
   const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   // redirect if already authenticated
   useEffect(() => {
@@ -55,29 +57,34 @@ export default function RegisterPage() {
     e.preventDefault()
     if (!pwdValid || !matchValid) return
     setIsLoading(true)
+    setError(null)
 
     try {
       // 1) Create account
-      const res = await signUp(name, email, password)
+      const res = await signUp(name, email, password, username)
       if (res.error) {
-        toast.error("Sign up failed: " + res.error)
+        setError(res.error)
+        toast.error(res.error)
         return
       }
 
-      // 2) Auto sign-in with new credentials
+      // 2) Auto sign-in with new credentials (use normalized email)
       const result = await nextAuthSignIn("credentials", {
         redirect: false,
-        email,
+        email: email.trim().toLowerCase(),
         password,
       })
       if (result?.ok) {
-        toast.success("Welcome to DreamDOT!\nYour account has been created and you are now signed in.")
+        toast.success("Welcome to DreamDOT! Your account has been created and you are now signed in.")
         router.push("/feed")
       } else {
         throw new Error("Auto sign-in failed")
       }
+
     } catch (err: any) {
-      toast.error("Error: " + err.message || "Something went wrong")
+      const msg = err.message || "Something went wrong"
+      setError(msg)
+      toast.error(msg)
     } finally {
       setIsLoading(false)
     }
@@ -122,7 +129,9 @@ export default function RegisterPage() {
 
           <form onSubmit={handleSubmit}>
             <CardContent className="space-y-4">
-              {/* Name */}
+              {error && <p className="text-sm text-red-600">{error}</p>}
+
+              {/* Full Name */}
               <div className="space-y-2">
                 <Label htmlFor="name">Full Name</Label>
                 <Input
@@ -131,6 +140,19 @@ export default function RegisterPage() {
                   placeholder="Enter your full name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
+                  required
+                />
+              </div>
+
+              {/* Username */}
+              <div className="space-y-2">
+                <Label htmlFor="username">Username</Label>
+                <Input
+                  id="username"
+                  type="text"
+                  placeholder="Enter your username"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
                   required
                 />
               </div>
@@ -160,7 +182,6 @@ export default function RegisterPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      minLength={8}
                     />
                   </div>
                 </TooltipTrigger>
@@ -199,7 +220,7 @@ export default function RegisterPage() {
               <Toaster />
               <Button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5 my-5"
+                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 py-5"
                 disabled={!pwdValid || !matchValid || isLoading}
               >
                 {isLoading && (

@@ -88,12 +88,11 @@ const subscriptionTiers = [
 export function ProfileTabs() {
   return (
     <Tabs defaultValue="posts" className="w-full">
-      <TabsList className="grid w-full grid-cols-5 rounded-xl">
+      <TabsList className="grid w-full grid-cols-4 rounded-xl">
         <TabsTrigger value="posts" className="rounded-l-xl">
           Posts
         </TabsTrigger>
         <TabsTrigger value="products">Products</TabsTrigger>
-        <TabsTrigger value="subscriptions">Subscriptions</TabsTrigger>
         <TabsTrigger value="collections">Collections</TabsTrigger>
         <TabsTrigger value="about" className="rounded-r-xl">
           About

@@ -167,12 +167,12 @@ exports.Prisma.User_profileScalarFieldEnum = {
   display_name: 'display_name',
   bio: 'bio',
   avatar_url: 'avatar_url',
-  banner_url: 'banner_url',
   website: 'website',
   social_links: 'social_links',
   updated_at: 'updated_at',
   dob: 'dob',
-  country: 'country'
+  country: 'country',
+  banner_url: 'banner_url'
 };
 
 exports.Prisma.User_securityScalarFieldEnum = {
