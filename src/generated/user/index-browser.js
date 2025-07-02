@@ -120,12 +120,12 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
-exports.Prisma.Password_reset_tokensScalarFieldEnum = {
-  token: 'token',
+exports.Prisma.User_aboutScalarFieldEnum = {
+  about_id: 'about_id',
   user_id: 'user_id',
-  expires_at: 'expires_at',
-  created_at: 'created_at',
-  used: 'used'
+  about: 'about',
+  goals: 'goals',
+  skills: 'skills'
 };
 
 exports.Prisma.User_analyticsScalarFieldEnum = {
@@ -236,7 +236,7 @@ exports.Prisma.JsonNullValueFilter = {
 
 
 exports.Prisma.ModelName = {
-  password_reset_tokens: 'password_reset_tokens',
+  user_about: 'user_about',
   user_analytics: 'user_analytics',
   user_audit_logs: 'user_audit_logs',
   user_blocklist: 'user_blocklist',

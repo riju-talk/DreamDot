@@ -70,7 +70,7 @@ export function ChatSidebar() {
   }
 
   return (
-    <div className="w-80 border-r border-border bg-background flex flex-col">
+    <div className="w-96 border-r border-border bg-background flex flex-col">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-4">
@@ -110,7 +110,7 @@ export function ChatSidebar() {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="all" className="flex-1 flex flex-col">
+      <Tabs defaultValue="all" className="flex-1 overflow-hidden flex flex-col">
         <TabsList className="grid w-full grid-cols-3 mx-4 mt-4">
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="dms">DMs</TabsTrigger>

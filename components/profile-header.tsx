@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { getUserProfile } from "@/lib/user-profile/profile-header";
 import Link from "next/link";
+import Image from "next/image";
 
 interface UserProfileData {
   username: string | null;
@@ -46,7 +47,13 @@ export async function ProfileHeader() {
   return (
     <div className="relative mb-8">
       <div className="relative h-64 w-full rounded-2xl overflow-hidden bg-primary/10">
-        <div className="absolute inset-0 bg-primary/5"></div>
+      <Image
+    src={data.banner_url || "/default-banner.jpg"}
+    alt="Banner"
+    fill
+    className="object-cover"
+    priority
+  />
       </div>
 
       {/* Profile Content */}

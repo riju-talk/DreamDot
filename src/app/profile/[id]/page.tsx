@@ -1,5 +1,5 @@
 import { AccountHeader } from "../../../../components/account-header"
-import { ProfileTabs } from "../../../../components/profile-tabs"
+import { AccountTabs } from "../../../../components/account-tabs"
 import { TopNav } from "../../../../components/top-nav"
 import { MobileNav } from "../../../../components/mobile-nav"
 import { SidebarProvider } from "@/components/ui/sidebar"
@@ -15,7 +15,7 @@ export default function ProfilePage({params}: {params: {id: string}}) {
           <main className="flex-1 container mx-auto px-4 py-6">
             <div className="container mx-auto px-4 py-6">
               <AccountHeader user_id={params.id} />
-              <ProfileTabs/>
+              <AccountTabs user_id={params.id}/>
             </div>
           </main>
           <MobileNav />

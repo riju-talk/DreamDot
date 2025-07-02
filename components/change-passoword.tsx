@@ -4,6 +4,9 @@ import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
 import { FaLock, FaEye, FaSyncAlt, FaShieldAlt } from "react-icons/fa"
 export function ChangePassword() {
+    const handleEnable2FA = () => {
+        alert("This feature is not ready yet, kindly bare with us")
+    }
     return (
         <><Card>
             <CardHeader>
@@ -94,7 +97,7 @@ export function ChangePassword() {
                                 </p>
                             </div>
                         </div>
-                        <Button variant="outline">
+                        <Button variant="outline" onClick={handleEnable2FA}>
                             Enable
                         </Button>
                     </div>

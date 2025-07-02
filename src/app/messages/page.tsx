@@ -11,24 +11,27 @@ import { ProtectedRoute } from "../../../components/protected-route"
 
 export default function MessagesPage() {
   return (
+
     <ProtectedRoute>
-      <ChatProvider>
-        <SidebarProvider>
-          <div className="min-h-screen flex w-full">
-            <AppSidebar />
-            <div className="flex-1 flex flex-col">
-              <TopNav />
-              <main className="flex-1 flex">
-                <div className="flex w-full h-[calc(100vh-4rem)]">
-                  <ChatSidebar />
-                  <ChatWindow />
-                </div>
-              </main>
-              <MobileNav />
-            </div>
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full">
+          <AppSidebar />
+          <div className="flex-1 flex flex-col overflow-hidden">
+            <TopNav />
+            <main className="flex-1 container mx-auto py-6 overflow-hidden">
+                <ChatProvider>
+                    <div className="min-h-screen flex w-full overflow-hidden">
+                        <div className="flex w-full h-[calc(96vh-4rem)]">
+                          <ChatSidebar />
+                          <ChatWindow />
+                        </div>
+                    </div>
+                </ChatProvider>
+            </main>
+            <MobileNav />
           </div>
-        </SidebarProvider>
-      </ChatProvider>
+        </div>
+      </SidebarProvider>
     </ProtectedRoute>
   )
 }

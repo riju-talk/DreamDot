@@ -1,4 +1,3 @@
-
 import { LandingNav } from "../../components/landing-nav"
 import { LandingHero } from "../../components/landing-hero"
 import { LandingFeatures } from "../../components/landing-features"

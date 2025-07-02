@@ -40,11 +40,11 @@
 | Layer         | Technologies                                                                 |
 |---------------|------------------------------------------------------------------------------|
 | **Frontend**  | Next.js, Tailwind CSS, Framer Motion, Ant Design                             |
-| **Backend**   | Next.js, Prisma ORM, NextAuth.js, Firebase Storage                            |
-| **Databases** | MongoDB (social/media data), PostgreSQL (user, items, audit logs)           |
+| **Backend**   | Next.js, Prisma ORM, NextAuth.js, Firebase Storage                           |
+| **Databases** | MongoDB (social/media data), PostgreSQL (user, items, audit logs)            |
 | **ORM**       | Prisma ORM                                                                   |
-| **Auth**      | JWT + Prisma Auth                                                            |
-| **Storage**   | Firebase Storage / AWS S3 (for media)                                        |
+| **Auth**      | JWT + NextAuth.js                                                            |
+| **Storage**   | Cloudinary for Media Storage for site components + Supabase Storage                                              |
 
 ---
 

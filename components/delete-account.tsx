@@ -5,6 +5,9 @@ import { Button } from "@/components/ui/button"
 import { FaTrashAlt } from "react-icons/fa"
 
 export function DeleteAccount() {
+    const handleDeleteAccount = () => {
+        alert("This feature is not ready yet, kindly bare with us")
+    }
     return <>
         <Card className="border-red-200">
             <CardHeader className="bg-red-50 border-b border-red-200">
@@ -22,7 +25,7 @@ export function DeleteAccount() {
                             This action is permanant, this account can be never accessed again. but the email will persist for the next 30 days.
                         </p>
                     </div>
-                    <Button variant="destructive">
+                    <Button variant="destructive" onClick={handleDeleteAccount}>
                         <FaTrashAlt className="mr-2" />
                         Delete Account
                     </Button>
