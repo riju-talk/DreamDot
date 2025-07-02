@@ -1,13 +1,11 @@
-"use client"
-
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Card, CardContent } from "@/components/ui/card"
 import { SocialPost } from "./social-post"
 import { ProductCard } from "./product-card"
 import { SubscriptionTier } from "./subscription-tier"
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Star, Users, Calendar, Award, Target } from "lucide-react"
+import { Star, Calendar, Award } from "lucide-react"
+import { UserAbout } from "./user-about"
 
 const socialPosts = [
   {
@@ -152,52 +150,7 @@ export function ProfileTabs() {
       <TabsContent value="about" className="mt-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           <div className="lg:col-span-2 space-y-6">
-            <Card className="dream-card">
-              <CardContent className="pt-6 space-y-6">
-                <div>
-                  <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                    <Users className="h-5 w-5 text-primary" />
-                    About Me
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    I'm a digital artist and storyteller with over 10 years of experience creating immersive worlds
-                    through various mediums. My work explores themes of futurism, nature, and human connection in
-                    digital spaces. I believe that art has the power to transport us to new realities and inspire us to
-                    dream bigger.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
-                    <Target className="h-5 w-5 text-primary" />
-                    My Mission
-                  </h3>
-                  <p className="text-muted-foreground leading-relaxed">
-                    To create art that not only captivates the eye but also touches the soul. I strive to build a
-                    community where creativity flourishes and where every dreamer feels inspired to pursue their
-                    artistic vision.
-                  </p>
-                </div>
-
-                <div>
-                  <h3 className="font-semibold text-lg mb-3">Skills & Expertise</h3>
-                  <div className="flex flex-wrap gap-2">
-                    {[
-                      "Digital Art",
-                      "3D Modeling",
-                      "Animation",
-                      "Storytelling",
-                      "Creative Writing",
-                      "Music Composition",
-                    ].map((skill) => (
-                      <Badge key={skill} variant="outline" className="bg-muted/50 hover:bg-muted">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+            <UserAbout />
           </div>
 
           <div className="space-y-6">

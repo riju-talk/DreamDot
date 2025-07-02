@@ -59,7 +59,7 @@ export function SocialPost({ post }: SocialPostProps) {
   }
 
   return (
-    <Card className="dream-card">
+    <Card className="dream-card w-full max-w-2xl mx-auto">
       <CardContent className="p-6 pb-0">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
