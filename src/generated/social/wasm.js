@@ -163,7 +163,6 @@ exports.Prisma.Posts_analyticsScalarFieldEnum = {
   post_id: 'post_id',
   views_count: 'views_count',
   likes_count: 'likes_count',
-  shares_count: 'shares_count',
   comments_count: 'comments_count',
   updated_at: 'updated_at'
 };
@@ -187,14 +186,6 @@ exports.Prisma.Reported_contentScalarFieldEnum = {
   post_id: 'post_id'
 };
 
-exports.Prisma.Password_reset_tokensScalarFieldEnum = {
-  token: 'token',
-  user_id: 'user_id',
-  expires_at: 'expires_at',
-  created_at: 'created_at',
-  used: 'used'
-};
-
 exports.Prisma.User_analyticsScalarFieldEnum = {
   user_id: 'user_id',
   posts_count: 'posts_count',
@@ -203,6 +194,14 @@ exports.Prisma.User_analyticsScalarFieldEnum = {
   following_count: 'following_count',
   last_login: 'last_login',
   activity_score: 'activity_score'
+};
+
+exports.Prisma.User_aboutScalarFieldEnum = {
+  about_id: 'about_id',
+  user_id: 'user_id',
+  about: 'about',
+  goals: 'goals',
+  skills: 'skills'
 };
 
 exports.Prisma.User_audit_logsScalarFieldEnum = {
@@ -234,6 +233,7 @@ exports.Prisma.User_profileScalarFieldEnum = {
   display_name: 'display_name',
   bio: 'bio',
   avatar_url: 'avatar_url',
+  banner_url: 'banner_url',
   website: 'website',
   social_links: 'social_links',
   updated_at: 'updated_at',
@@ -310,8 +310,8 @@ exports.Prisma.ModelName = {
   posts_analytics: 'posts_analytics',
   posts_metadata: 'posts_metadata',
   reported_content: 'reported_content',
-  password_reset_tokens: 'password_reset_tokens',
   user_analytics: 'user_analytics',
+  user_about: 'user_about',
   user_audit_logs: 'user_audit_logs',
   user_blocklist: 'user_blocklist',
   user_certificates: 'user_certificates',

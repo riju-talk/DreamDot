@@ -43,17 +43,17 @@ export function LandingFooter() {
             <h4 className="text-background/90 font-semibold mb-4">Community</h4>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/creators" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/account" className="text-background/70 hover:text-background transition-colors">
                   For Creators
                 </Link>
               </li>
               <li>
-                <Link href="/support" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/account" className="text-background/70 hover:text-background transition-colors">
                   Support
                 </Link>
               </li>
               <li>
-                <Link href="/guidelines" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/account" className="text-background/70 hover:text-background transition-colors">
                   Guidelines
                 </Link>
               </li>

@@ -13,10 +13,12 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
 import { useAuth } from "@/lib/auth"
+import { useSession } from "next-auth/react"
 
 export function UserNav() {
   const { user, signOut, isAuthenticated } = useAuth()
-
+  const { data: session } = useSession()
+  const sessionUser = session?.user
 
   const handleSignOut = () => {
     signOut()
@@ -40,9 +42,9 @@ export function UserNav() {
       <DropdownMenuTrigger asChild>
         <Button variant="ghost" className="relative h-8 w-8 rounded-full">
           <Avatar className="h-8 w-8 ring-2 ring-background">
-            <AvatarImage src={user.avatar || "/placeholder.svg"} alt={user.name} />
+            <AvatarImage src={sessionUser?.image || "/placeholder.svg"} alt={sessionUser?.name || ""} />
             <AvatarFallback className="bg-primary text-primary-foreground">
-              {user.name.substring(0, 2).toUpperCase()}
+              {sessionUser?.name?.substring(0, 2).toUpperCase() || "user"}
             </AvatarFallback>
           </Avatar>
         </Button>
@@ -50,8 +52,8 @@ export function UserNav() {
       <DropdownMenuContent className="w-56" align="end" forceMount>
         <DropdownMenuLabel className="font-normal">
           <div className="flex flex-col space-y-1">
-            <p className="text-sm font-medium leading-none">{user.name}</p>
-            <p className="text-xs leading-none text-muted-foreground">{user.handle}</p>
+            <p className="text-sm font-medium leading-none">{sessionUser?.name}</p>
+            <p className="text-xs leading-none text-muted-foreground">{sessionUser?.email}</p>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

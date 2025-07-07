@@ -28,16 +28,18 @@ import {
   Sparkles,
 } from "lucide-react"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 
 export function AppSidebar() {
+  const router = useRouter()
   return (
     <Sidebar className="h-screen flex flex-col overflow-hidden">
       <SidebarHeader className="p-4 overflow-hidden flex-shrink-0">
         <Link href="/" className="flex items-center gap-2">
-          <div className="relative overflow-hidden rounded-lg p-1.5 bg-gradient-to-r from-primary via-secondary to-accent">
+          <div className="relative overflow-hidden rounded-lg p-1.5 bg-gradient-to-r from-green-700 to-emerald-500">
             <Sparkles className="h-6 w-6 text-primary-foreground" />
           </div>
-          <span className="font-bold text-xl bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+          <span className="font-bold text-xl bg-gradient-to-r from-green-700 to-emerald-500 bg-clip-text text-transparent">
             DreamDot
           </span>
         </Link>
@@ -149,7 +151,7 @@ export function AppSidebar() {
         </SidebarGroup>
       </SidebarContent>
       <SidebarFooter className="p-4 overflow-hidden flex-shrink-0">
-        <Button className="w-full dream-button" size="lg">
+        <Button className="w-full dream-button" size="lg" onClick={() => router.push("/create")}>
           <PlusSquare className="mr-2 h-4 w-4" />
           Create New Dream
         </Button>

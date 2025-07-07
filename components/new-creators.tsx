@@ -76,7 +76,7 @@ export function NewCreators() {
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-1">
                   <Link
-                    href={`/creator/${creator.handle}`}
+                    href={`/account/${creator.handle}`}
                     className="text-sm font-medium hover:underline hover:text-primary transition-colors truncate"
                   >
                     {creator.name}

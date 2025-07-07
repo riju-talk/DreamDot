@@ -44,7 +44,7 @@ export function ContentCard({ item }: ContentCardProps) {
               </AvatarFallback>
             </Avatar>
             <div>
-              <Link href={`/creator/${item.creator}`} className="text-sm font-medium hover:underline">
+              <Link href={`/account/${item.creator}`} className="text-sm font-medium hover:underline">
                 {item.creator}
               </Link>
             </div>

@@ -89,7 +89,7 @@ export function FeedPost({ post }: FeedPostProps) {
   }
 
   return (
-    <Card className="dream-card">
+    <Card className="dream-card mx-auto w-full max-w-2xl">
       <CardContent className="p-6 pb-0">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
@@ -102,7 +102,7 @@ export function FeedPost({ post }: FeedPostProps) {
             </Avatar>
             <div>
               <div className="flex items-center gap-1">
-                <Link href={`/creator/${post.user.handle}`} className="font-medium hover:underline">
+                <Link href={`/account/${post.user.handle}`} className="font-medium hover:underline">
                   {post.user.name}
                 </Link>
                 {post.user.verified && <Sparkles className="h-4 w-4 text-primary" />}
@@ -128,7 +128,6 @@ export function FeedPost({ post }: FeedPostProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Save post</DropdownMenuItem>
               <DropdownMenuItem>Copy link</DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Report</DropdownMenuItem>

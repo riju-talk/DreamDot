@@ -24,16 +24,14 @@ export default function CreatePage() {
           <div className="flex-1 flex flex-col">
             <TopNav />
             <main className="flex-1">
+              <div className="flex-1 p-10">
               <Tabs defaultValue="upload" className="w-full">
-                <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 rounded-xl">
+                <TabsList className="grid grid-cols-3 md:grid-cols-3 rounded-xl">
                   <TabsTrigger value="upload" className="rounded-l-xl">
                     Upload
                   </TabsTrigger>
                   <TabsTrigger value="write">Write</TabsTrigger>
                   <TabsTrigger value="bundle">Bundle</TabsTrigger>
-                  <TabsTrigger value="subscription" className="rounded-r-xl">
-                    Subscription
-                  </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="upload" className="mt-6">
@@ -78,7 +76,6 @@ export default function CreatePage() {
                               <SelectItem value="photography">Photography</SelectItem>
                               <SelectItem value="music">Music</SelectItem>
                               <SelectItem value="video">Video</SelectItem>
-                              <SelectItem value="writing">Writing</SelectItem>
                               <SelectItem value="course">Course</SelectItem>
                               <SelectItem value="digital-asset">Digital Asset</SelectItem>
                             </SelectContent>
@@ -102,10 +99,6 @@ export default function CreatePage() {
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="one-time" id="one-time" />
                             <Label htmlFor="one-time">One-time purchase</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="subscription" id="subscription" />
-                            <Label htmlFor="subscription">Include in subscription</Label>
                           </div>
                         </RadioGroup>
 
@@ -179,10 +172,6 @@ export default function CreatePage() {
                           <div className="flex items-center space-x-2">
                             <RadioGroupItem value="one-time" id="write-one-time" />
                             <Label htmlFor="write-one-time">One-time purchase</Label>
-                          </div>
-                          <div className="flex items-center space-x-2">
-                            <RadioGroupItem value="subscription" id="write-subscription" />
-                            <Label htmlFor="write-subscription">Include in subscription</Label>
                           </div>
                         </RadioGroup>
 
@@ -271,80 +260,8 @@ export default function CreatePage() {
                     </CardFooter>
                   </Card>
                 </TabsContent>
-
-                <TabsContent value="subscription" className="mt-6">
-                  <Card className="dream-card">
-                    <CardHeader>
-                      <CardTitle>Create Subscription</CardTitle>
-                      <CardDescription>Set up a recurring subscription for your dreams</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="grid gap-4">
-                        <div className="grid gap-2">
-                          <Label htmlFor="sub-title">Subscription Name</Label>
-                          <Input
-                            id="sub-title"
-                            placeholder="Enter a name for your subscription"
-                            className="rounded-xl"
-                          />
-                        </div>
-
-                        <div className="grid gap-2">
-                          <Label htmlFor="sub-description">Description</Label>
-                          <Textarea
-                            id="sub-description"
-                            placeholder="Describe what subscribers will get"
-                            className="rounded-xl"
-                          />
-                        </div>
-
-                        <div className="grid gap-2">
-                          <Label htmlFor="sub-price">Monthly Price</Label>
-                          <Input id="sub-price" placeholder="0.00" type="number" className="rounded-xl" />
-                        </div>
-
-                        <div className="grid gap-2">
-                          <Label>Benefits</Label>
-                          <div className="border rounded-xl p-4 space-y-2 bg-muted/50">
-                            <div className="flex items-center space-x-2">
-                              <Switch id="benefit-1" defaultChecked />
-                              <Label htmlFor="benefit-1">Access to all premium dreams</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Switch id="benefit-2" defaultChecked />
-                              <Label htmlFor="benefit-2">Early access to new releases</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Switch id="benefit-3" defaultChecked />
-                              <Label htmlFor="benefit-3">Exclusive subscriber-only dreams</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Switch id="benefit-4" />
-                              <Label htmlFor="benefit-4">Monthly live Q&A sessions</Label>
-                            </div>
-                            <div className="flex items-center space-x-2">
-                              <Switch id="benefit-5" />
-                              <Label htmlFor="benefit-5">Direct messaging access</Label>
-                            </div>
-
-                            <div className="pt-2">
-                              <Button variant="outline" size="sm" className="rounded-xl">
-                                Add Custom Benefit
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-between">
-                      <Button variant="outline" className="rounded-xl">
-                        Preview
-                      </Button>
-                      <Button className="dream-button text-primary-foreground">Launch Subscription</Button>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
               </Tabs>
+              </div>
             </main>
             <MobileNav />
           </div>

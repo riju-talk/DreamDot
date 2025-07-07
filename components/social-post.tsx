@@ -72,7 +72,7 @@ export function SocialPost({ post }: SocialPostProps) {
             </Avatar>
             <div>
               <div className="flex items-center gap-1">
-                <Link href={`/creator/${post.user.handle}`} className="font-medium hover:underline">
+                <Link href={`/account/${post.user.handle}`} className="font-medium hover:underline">
                   {post.user.name}
                 </Link>
                 {post.user.verified && <Sparkles className="h-4 w-4 text-primary" />}

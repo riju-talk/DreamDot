@@ -63,7 +63,7 @@ export function TrendingCreators() {
               </Avatar>
               <div>
                 <Link
-                  href={`/creator/${creator.handle}`}
+                  href={`/account/${creator.handle}`}
                   className="text-sm font-medium leading-none hover:underline hover:text-primary transition-colors"
                 >
                   {creator.name}
