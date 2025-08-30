@@ -12,6 +12,7 @@ import {
 import type { NextAuthOptions } from "next-auth"
 import { useCallback } from "react"
 import { PrismaAdapter } from "@next-auth/prisma-adapter"
+import jwt from "jsonwebtoken"
 
 
 export const authOptions: NextAuthOptions = {
@@ -51,6 +52,17 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, user }) {
       if (user) {
         token.user = user
+        // Generate chat token for socket.io server
+        if (process.env.JWT_SECRET) {
+          token.chatToken = jwt.sign(
+            { 
+              sub: user.id, 
+              email: user.email 
+            },
+            process.env.JWT_SECRET,
+            { expiresIn: '7d' }
+          )
+        }
       }
       return token
     },
@@ -63,6 +75,7 @@ export const authOptions: NextAuthOptions = {
           email: token.user.email,
           image: token.user.avatar,
         }
+        session.chatToken = token.chatToken
       }
       return session
     },

@@ -102,16 +102,25 @@ export function registerSocket(io: Server) {
 
     // Handle message sending
     socket.on('message:send', async (payload: MessagePayload, ack) => {
-      const { conversationId } = payload;
-      await ensureMember(user.sub, conversationId);
-      const saved = await saveEncryptedMessage(user.sub, payload);
-      io.of(ns).to(conversationId).emit('message:new', { ...saved.toObject(), status: 'delivered' });
-      if (ack) ack({ ok: true, id: saved._id });
+      try {
+        const { conversationId } = payload;
+        await ensureMember(userId, conversationId);
+        const saved = await saveEncryptedMessage(userId, payload);
+        socket.to(conversationId).emit('message:new', { 
+          ...saved.toObject(), 
+          status: 'delivered' 
+        });
+        if (ack) ack({ ok: true, id: saved._id });
+      } catch (error) {
+        handleError(error as Error, 'message:send');
+        if (ack) ack({ ok: false, error: (error as Error).message });
+      }
     });
 
-    socket.on('disconnect', () => {});
+    socket.on('disconnect', () => {
+      console.log(`User ${userId} disconnected`);
+    });
   };
 
-  io.of('/dm').on('connection', onConnection('/dm'));
-  io.of('/community').on('connection', onConnection('/community'));
+  io.on('connection', onConnection);
 }

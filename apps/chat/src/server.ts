@@ -46,6 +46,10 @@ const io = new SocketIOServer(server, {
 // Initialize socket connection handling with authentication
 initializeSocketIO(io);
 
+// Register socket event handlers
+import { registerSocket } from './socket';
+registerSocket(io);
+
 // Error handling middleware (should be after all routes)
 app.use(errorHandler);
 
