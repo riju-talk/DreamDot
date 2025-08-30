@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.10.1
- * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.10.1",
-  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -229,7 +229,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\code\\DreamDot\\src\\generated\\user",
+      "value": "e:\\code\\DreamDot\\apps\\web\\src\\generated\\user",
       "fromEnvVar": null
     },
     "config": {
@@ -240,19 +240,27 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\code\\DreamDot\\src\\lib\\prisma\\schema.user.prisma",
+    "sourceFilePath": "e:\\code\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.user.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": null,
+    "rootEnvPath": "../../../.env",
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../lib/prisma",
-  "clientVersion": "6.10.1",
-  "engineVersion": "9b628578b3b7cae625e8c927178f15a170e74a9c",
+  "clientVersion": "6.14.0",
+  "engineVersion": "717184b7b35ea05dfa71a3236b7af656013e1e49",
   "datasourceNames": [
     "db"
   ],
@@ -266,8 +274,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../../generated/user\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRESS_DB_USER\")\n}\n\nmodel user_about {\n  about_id String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id  String   @unique @db.Uuid\n  about    String?\n  goals    String?\n  skills   String[] @default([])\n  users    users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_analytics {\n  user_id         String    @id @db.Uuid\n  posts_count     Int?      @default(0)\n  likes_received  Int?      @default(0)\n  followers_count Int?      @default(0)\n  following_count Int?      @default(0)\n  last_login      DateTime? @db.Timestamp(6)\n  activity_score  Decimal?  @default(0.00) @db.Decimal(5, 2)\n  users           users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_audit_logs {\n  audit_id     String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id      String?  @db.Uuid\n  action_type  String\n  details      Json?    @default(\"{}\")\n  performed_by String?  @db.Uuid\n  event_time   DateTime @default(now()) @db.Timestamp(6)\n  users        users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction)\n}\n\nmodel user_blocklist {\n  block_id   String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id    String?  @unique @db.Uuid\n  reason     String\n  blocked_at DateTime @default(now()) @db.Timestamp(6)\n  users      users?   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_certificates {\n  user_id     String   @id @db.Uuid\n  public_key  String\n  certificate String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_profile {\n  user_id      String    @id @db.Uuid\n  username     String    @unique\n  display_name String?\n  bio          String?\n  avatar_url   String?\n  website      String?\n  social_links Json?     @default(\"{}\")\n  updated_at   DateTime  @default(now()) @db.Timestamp(6)\n  dob          DateTime? @db.Date\n  country      String?\n  banner_url   String?\n  users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_security {\n  user_id           String    @id @db.Uuid\n  failed_attempts   Int?      @default(0)\n  last_failed_login DateTime? @db.Timestamp(6)\n  otp_code          String?\n  otp_expires_at    DateTime? @db.Timestamp(6)\n  recovery_codes    String[]\n  updated_at        DateTime  @default(now()) @db.Timestamp(6)\n  users             users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_sessions {\n  session_id String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id    String   @db.Uuid\n  token      String\n  created_at DateTime @default(now()) @db.Timestamp(6)\n  is_revoked Boolean? @default(false)\n  secret     String?\n  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel users {\n  id                String             @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  email             String             @unique\n  phone             String?            @unique\n  password_hash     String\n  created_at        DateTime           @default(now()) @db.Timestamp(6)\n  updated_at        DateTime           @default(now()) @db.Timestamp(6)\n  is_verified       Boolean?           @default(false)\n  is_active         Boolean?           @default(true)\n  pass_salts        String?\n  user_type         String?            @default(\"user\")\n  intitial_balance  Float              @default(50000) @db.Real\n  user_about        user_about?\n  user_analytics    user_analytics?\n  user_audit_logs   user_audit_logs[]\n  user_blocklist    user_blocklist?\n  user_certificates user_certificates?\n  user_profile      user_profile?\n  user_security     user_security?\n  user_sessions     user_sessions[]\n}\n",
-  "inlineSchemaHash": "632ef843f0aa1824c3069faaa25efda6fa9eb9441de299aa517569a960f19fe9",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../../generated/user\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRESS_DB_USER\")\n}\n\nmodel user_about {\n  about_id String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id  String   @unique @db.Uuid\n  about    String?\n  goals    String?\n  skills   String[] @default([])\n  users    users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_analytics {\n  user_id         String    @id @db.Uuid\n  posts_count     Int?      @default(0)\n  likes_received  Int?      @default(0)\n  followers_count Int?      @default(0)\n  following_count Int?      @default(0)\n  last_login      DateTime? @db.Timestamp(6)\n  activity_score  Decimal?  @default(0.00) @db.Decimal(5, 2)\n  users           users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_audit_logs {\n  audit_id     String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id      String?  @db.Uuid\n  action_type  String\n  details      Json?    @default(\"{}\")\n  performed_by String?  @db.Uuid\n  event_time   DateTime @default(now()) @db.Timestamp(6)\n  users        users?   @relation(fields: [user_id], references: [id], onUpdate: NoAction)\n}\n\nmodel user_blocklist {\n  block_id   String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id    String?  @unique @db.Uuid\n  reason     String\n  blocked_at DateTime @default(now()) @db.Timestamp(6)\n  users      users?   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_certificates {\n  user_id     String   @id @db.Uuid\n  public_key  String\n  certificate String?\n  created_at  DateTime @default(now()) @db.Timestamp(6)\n  users       users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_profile {\n  user_id      String    @id @db.Uuid\n  username     String    @unique\n  display_name String?\n  bio          String?\n  avatar_url   String?\n  website      String?\n  social_links Json?     @default(\"{}\")\n  updated_at   DateTime  @default(now()) @db.Timestamp(6)\n  dob          DateTime? @db.Date\n  country      String?\n  banner_url   String?\n  users        users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_security {\n  user_id           String    @id @db.Uuid\n  failed_attempts   Int?      @default(0)\n  last_failed_login DateTime? @db.Timestamp(6)\n  otp_code          String?\n  otp_expires_at    DateTime? @db.Timestamp(6)\n  recovery_codes    String[]\n  updated_at        DateTime  @default(now()) @db.Timestamp(6)\n  users             users     @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel user_sessions {\n  session_id String   @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  user_id    String   @db.Uuid\n  token      String\n  created_at DateTime @default(now()) @db.Timestamp(6)\n  is_revoked Boolean? @default(false)\n  secret     String?\n  users      users    @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n\nmodel users {\n  id                String             @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  email             String             @unique\n  phone             String?            @unique\n  password_hash     String\n  created_at        DateTime           @default(now()) @db.Timestamp(6)\n  updated_at        DateTime           @default(now()) @db.Timestamp(6)\n  is_verified       Boolean?           @default(false)\n  is_active         Boolean?           @default(true)\n  pass_salts        String?\n  user_type         String?            @default(\"user\")\n  intitial_balance  Float              @default(50000) @db.Real\n  user_about        user_about?\n  user_analytics    user_analytics?\n  user_audit_logs   user_audit_logs[]\n  user_blocklist    user_blocklist?\n  user_certificates user_certificates?\n  user_profile      user_profile?\n  user_security     user_security?\n  user_sessions     user_sessions[]\n}\n",
+  "inlineSchemaHash": "35cbb506e271a8868fefa99acfa1a0e51a68c4055f88f6efc48039654e9ca3b5",
   "copyEngine": true
 }
 config.dirname = '/'

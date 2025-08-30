@@ -35,12 +35,12 @@ exports.Prisma = Prisma
 exports.$Enums = {}
 
 /**
- * Prisma Client JS version: 6.10.1
- * Query Engine version: 9b628578b3b7cae625e8c927178f15a170e74a9c
+ * Prisma Client JS version: 6.14.0
+ * Query Engine version: 717184b7b35ea05dfa71a3236b7af656013e1e49
  */
 Prisma.prismaVersion = {
-  client: "6.10.1",
-  engine: "9b628578b3b7cae625e8c927178f15a170e74a9c"
+  client: "6.14.0",
+  engine: "717184b7b35ea05dfa71a3236b7af656013e1e49"
 }
 
 Prisma.PrismaClientKnownRequestError = PrismaClientKnownRequestError;
@@ -151,7 +151,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\code\\DreamDot\\src\\generated\\community",
+      "value": "e:\\code\\DreamDot\\apps\\web\\src\\generated\\community",
       "fromEnvVar": null
     },
     "config": {
@@ -162,10 +162,18 @@ const config = {
         "fromEnvVar": null,
         "value": "windows",
         "native": true
+      },
+      {
+        "fromEnvVar": null,
+        "value": "debian-openssl-3.0.x"
+      },
+      {
+        "fromEnvVar": null,
+        "value": "windows"
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\code\\DreamDot\\src\\lib\\prisma\\schema.community.prisma",
+    "sourceFilePath": "e:\\code\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.community.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -173,8 +181,8 @@ const config = {
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../lib/prisma",
-  "clientVersion": "6.10.1",
-  "engineVersion": "9b628578b3b7cae625e8c927178f15a170e74a9c",
+  "clientVersion": "6.14.0",
+  "engineVersion": "717184b7b35ea05dfa71a3236b7af656013e1e49",
   "datasourceNames": [
     "db"
   ],
@@ -188,8 +196,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "generator client {\n  provider = \"prisma-client-js\"\n  output   = \"../../generated/community\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRESS_DB_COMMUNITY\")\n}\n\nmodel communities {\n  id                       String                     @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  name                     String                     @db.VarChar(100)\n  description              String?\n  created_at               DateTime                   @default(now()) @db.Timestamp(6)\n  updated_at               DateTime                   @default(now()) @db.Timestamp(6)\n  community_members        community_members[]\n  community_posts_metadata community_posts_metadata[]\n}\n\nmodel community_members {\n  community_id String      @db.Uuid\n  user_id      String      @db.Uuid\n  role         String?     @default(\"member\") @db.VarChar(20)\n  joined_at    DateTime    @default(now()) @db.Timestamp(6)\n  communities  communities @relation(fields: [community_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@id([community_id, user_id])\n}\n\n/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.\nmodel community_posts_metadata {\n  id           String      @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  community_id String      @db.Uuid\n  user_id      String      @db.Uuid\n  title        String?     @db.VarChar(255)\n  summary      String?\n  post_type    String?     @db.VarChar(20)\n  created_at   DateTime    @default(now()) @db.Timestamp(6)\n  updated_at   DateTime    @default(now()) @db.Timestamp(6)\n  communities  communities @relation(fields: [community_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n",
-  "inlineSchemaHash": "161e1997a51baa0fa9765dd8b7d9def34e52ca4802239529e077a7cf4b0af388",
+  "inlineSchema": "generator client {\n  provider      = \"prisma-client-js\"\n  output        = \"../../generated/community\"\n  binaryTargets = [\"native\", \"debian-openssl-3.0.x\", \"windows\"]\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"POSTGRESS_DB_COMMUNITY\")\n}\n\nmodel communities {\n  id                       String                     @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  name                     String                     @db.VarChar(100)\n  description              String?\n  created_at               DateTime                   @default(now()) @db.Timestamp(6)\n  updated_at               DateTime                   @default(now()) @db.Timestamp(6)\n  community_members        community_members[]\n  community_posts_metadata community_posts_metadata[]\n}\n\nmodel community_members {\n  community_id String      @db.Uuid\n  user_id      String      @db.Uuid\n  role         String?     @default(\"member\") @db.VarChar(20)\n  joined_at    DateTime    @default(now()) @db.Timestamp(6)\n  communities  communities @relation(fields: [community_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n\n  @@id([community_id, user_id])\n}\n\n/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.\nmodel community_posts_metadata {\n  id           String      @id @default(dbgenerated(\"gen_random_uuid()\")) @db.Uuid\n  community_id String      @db.Uuid\n  user_id      String      @db.Uuid\n  title        String?     @db.VarChar(255)\n  summary      String?\n  post_type    String?     @db.VarChar(20)\n  created_at   DateTime    @default(now()) @db.Timestamp(6)\n  updated_at   DateTime    @default(now()) @db.Timestamp(6)\n  communities  communities @relation(fields: [community_id], references: [id], onDelete: Cascade, onUpdate: NoAction)\n}\n",
+  "inlineSchemaHash": "14ab87e8f2c40c5eb8e22b529c7a8e3736e5a6bc1b8fe85ba25b564dd41be869",
   "copyEngine": true
 }
 
@@ -230,6 +238,10 @@ Object.assign(exports, Prisma)
 // file annotations for bundling tools to include these files
 path.join(__dirname, "query_engine-windows.dll.node");
 path.join(process.cwd(), "src/generated/community/query_engine-windows.dll.node")
+
+// file annotations for bundling tools to include these files
+path.join(__dirname, "libquery_engine-debian-openssl-3.0.x.so.node");
+path.join(process.cwd(), "src/generated/community/libquery_engine-debian-openssl-3.0.x.so.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "src/generated/community/schema.prisma")
