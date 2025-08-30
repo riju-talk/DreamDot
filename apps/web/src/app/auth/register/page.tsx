@@ -61,32 +61,45 @@ export default function RegisterPage() {
 
     try {
       // 1) Create account
-      const res = await signUp(name, email, password, username)
-      if (res.error) {
-        setError(res.error)
-        toast.error(res.error)
-        return
+      const response = await fetch('/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name,
+          email: email.trim().toLowerCase(),
+          username: username.trim(),
+          password,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Registration failed');
       }
 
-      // 2) Auto sign-in with new credentials (use normalized email)
+      // 2) Auto sign-in with new credentials
       const result = await nextAuthSignIn("credentials", {
         redirect: false,
         email: email.trim().toLowerCase(),
         password,
-      })
+      });
+
       if (result?.ok) {
         toast.success("Welcome to DreamDOT! Your account has been created and you are now signed in.")
         router.push("/feed")
       } else {
-        throw new Error("Auto sign-in failed")
+        throw new Error("Account created but auto sign-in failed. Please sign in manually.")
       }
-
     } catch (err: any) {
-      const msg = err.message || "Something went wrong"
-      setError(msg)
-      toast.error(msg)
+      console.error('Registration error:', err);
+      const errorMessage = err.message || 'Something went wrong during registration';
+      setError(errorMessage);
+      toast.error(errorMessage);
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   }
 
@@ -103,12 +116,10 @@ export default function RegisterPage() {
       <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl overflow-hidden bg-white">
         {/* Image */}
         <div className="hidden lg:block">
-          <Image
+          <img
             src="https://res.cloudinary.com/diaoy8eua/image/upload/v1750944374/pexels-lukasfst-19635556_ywjhpd.jpg"
             alt="DreamDOT visual"
-            width={400}
-            height={500}
-            className="object-cover h-full w-full"
+            className="object-cover h-[800px] w-[600px]"
           />
         </div>
 

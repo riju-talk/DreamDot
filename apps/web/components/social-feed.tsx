@@ -18,12 +18,13 @@ export async function SocialFeed() {
 
       <div className="space-y-6">
         {posts.map((post) => (
+          console.log(post),
           <SocialPost
             key={post._id}
             post={{
               id: post._id,
               user: {
-                name: post.user?.username || "Anonymous",
+                name: post.user?.name || "Anonymous",
                 handle: `@${post.user?.username || "user"}`,
                 avatar: post.user?.avatar_url || "/placeholder.svg",
                 verified: true, // you can toggle based on some logic if needed

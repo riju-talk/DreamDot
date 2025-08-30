@@ -15,44 +15,101 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sparkles, Loader2, Eye, EyeOff } from "lucide-react";
-import { FaGithub, FaGoogle } from "react-icons/fa"
-import { Toaster, toast } from "sonner"
-import { useSession, signIn as nextAuthSignIn } from "next-auth/react"
+import { FaGithub, FaGoogle } from "react-icons/fa";
+import { toast } from "sonner";
+import { useSession, signIn as nextAuthSignIn, SignInResponse } from "next-auth/react";
+
+interface FormData {
+  email: string;
+  password: string;
+}
+
+interface SignInError {
+  error: string;
+}
 
 export default function SignInPage() {
   const { data: session, status } = useSession()
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<FormData>({
+    email: "",
+    password: "",
+  });
   const [isLoading, setIsLoading] = useState(false);
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [errors, setErrors] = useState<Partial<FormData>>({});
+  const router = useRouter();
   useEffect(() => {
     if (status === "authenticated") {
       router.replace("/feed")
     }
   }, [status, router])
 
+  const validateForm = (): boolean => {
+    const newErrors: Partial<FormData> = {};
+    
+    if (!formData.email) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address";
+    }
+    
+    if (!formData.password) {
+      newErrors.password = "Password is required";
+    } else if (formData.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));    
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!validateForm()) {
+      return;
+    }
+    
     setIsLoading(true);
 
     try {
       const result = await nextAuthSignIn("credentials", {
         redirect: false,
-        email,
-        password,
-      })
+        email: formData.email,
+        password: formData.password,
+      }) as SignInResponse | undefined;
+
+      if (result?.error) {
+        toast.error("Sign in failed", {
+          description: result.error === "CredentialsSignin" 
+            ? "Invalid email or password" 
+            : "Please check your credentials and try again."
+        });
+        return;
+      }
 
       if (result?.ok) {
-        toast.success("Welcome back!\nYou've successfully signed in to DreamDOT.")
-        router.push("/feed")
-      } else {
-        toast.error("Sign in failed" + "\nPlease check your credentials and try again.")
+        toast.success("Welcome back!", {
+          description: "You've successfully signed in to DreamDOT."
+        });
+        router.push("/feed");
       }
     } catch (err) {
-      toast.error("Sign in error" + "\nSomething went wrong. Please try again.")
+      console.error("Sign in error:", err);
+      const errorMessage = err instanceof Error ? err.message : "Something went wrong. Please try again.";
+      toast.error("Sign in error", {
+        description: errorMessage
+      });
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
   };
 
@@ -65,12 +122,10 @@ export default function SignInPage() {
       <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl shadow-lg overflow-hidden bg-white">
         {/* Left: Illustration */}
         <div className="hidden lg:block">
-          <Image
+          <img
             src="https://res.cloudinary.com/diaoy8eua/image/upload/v1750937757/pexels-artem-yellow-422929671-15157857_qqkdym.jpg"
             alt="DreamDOT Illustration"
-            width={400}
-            height={400}
-            className="object-cover h-full w-full"
+            className="object-cover h-[600px] w-[600px]"
           />
         </div>
 
@@ -90,49 +145,68 @@ export default function SignInPage() {
           </CardHeader>
 
           <CardContent className="space-y-4">
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form onSubmit={handleSubmit}>
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   placeholder="you@example.com"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={errors.email ? 'border-destructive' : ''}
                 />
+                {errors.email && (
+                  <p className="text-sm text-destructive mt-1">{errors.email}</p>
+                )}
               </div>
               <div className="space-y-2 relative">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
-                  <input
+                  <Input
                     id="password"
+                    name="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="••••••••"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                    className="w-full px-3 py-2 border rounded-md pr-10 focus:outline-none focus:ring-2 focus:ring-primary"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`w-full pr-10 ${errors.password ? 'border-destructive' : ''}`}
+                    autoComplete="current-password"
                   />
                   <button
                     type="button"
-                    className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 focus:outline-none"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
+                    disabled={isLoading}
                   >
-                    {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                    {showPassword ? (
+                      <EyeOff className="h-4 w-4" />
+                    ) : (
+                      <Eye className="h-4 w-4" />
+                    )}
+                    <span className="sr-only">
+                      {showPassword ? 'Hide password' : 'Show password'}
+                    </span>
                   </button>
                 </div>
+                {errors.password && (
+                  <p className="text-sm text-destructive mt-1">{errors.password}</p>
+                )}
               </div>
-              <Toaster />
               <Button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90"
+                className="w-full mt-2"
                 disabled={isLoading}
               >
-                {isLoading && (
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                {isLoading ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Signing in...
+                  </>
+                ) : (
+                  'Sign In'
                 )}
-                Sign In
               </Button>
             </form>
 
@@ -147,16 +221,18 @@ export default function SignInPage() {
                 variant="outline"
                 className="w-full flex items-center justify-center gap-2"
                 onClick={() => handleNotReady("Google")}
+                disabled={isLoading}
               >
-                <FaGoogle className="h-5 w-5" />
+                <FaGoogle className="h-4 w-4" />
                 Sign in with Google
               </Button>
               <Button
                 variant="outline"
                 className="w-full flex items-center justify-center gap-2"
                 onClick={() => handleNotReady("GitHub")}
+                disabled={isLoading}
               >
-                <FaGithub className="h-5 w-5" />
+                <FaGithub className="h-4 w-4" />
                 Sign in with GitHub
               </Button>
             </div>
@@ -167,7 +243,8 @@ export default function SignInPage() {
               Don’t have an account?{" "}
               <a
                 href="/auth/register"
-                className="text-primary hover:underline"
+                className="text-primary hover:underline font-medium"
+                tabIndex={isLoading ? -1 : 0}
               >
                 Sign up
               </a>

@@ -70,7 +70,7 @@ export function ChatSidebar() {
   }
 
   return (
-    <div className="w-96 border-r border-border bg-background flex flex-col">
+    <div className="w-96 max-w-[400px] min-w-[300px] border-r border-border bg-background flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-border">
         <div className="flex items-center justify-between mb-4">

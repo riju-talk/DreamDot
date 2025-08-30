@@ -161,15 +161,19 @@ export default function SettingsPage() {
                 <Card className="sticky top-6">
                   <CardHeader>
                     <div className="flex items-center gap-4 mb-2">
-                      <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-xl font-bold">
-                        <Image 
-                          src={avatarUrl || "/avatar.png"} 
-                          alt="Avatar" 
-                          width={56} 
-                          height={56} 
-                          className="object-cover w-full h-full"
-                        />
-                      </div>
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-xl font-bold">
+            {avatarUrl === 'loading' ? (
+              <div className="w-full h-full flex items-center justify-center animate-pulse text-xs">Uploading...</div>
+            ) : (
+              <Image 
+                src={avatarUrl || "/avatar.png"} 
+                alt="Avatar" 
+                width={56} 
+                height={56} 
+                className="object-cover w-full h-full"
+              />
+            )}
+          </div>
                       <div>
                         <h3 className="font-semibold text-gray-800">{form.display_name}</h3>
                         <p className="text-xs text-gray-500">{form.username}</p>

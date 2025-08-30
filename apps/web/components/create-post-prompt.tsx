@@ -13,41 +13,127 @@ import {
   DialogFooter,
   DialogClose,
 } from "@/components/ui/dialog"
-import { ImageIcon, Video, X } from "lucide-react"
+import { ImageIcon, Video, X, Loader2 } from "lucide-react"
 import { useSession } from "next-auth/react"
+import { toast } from "sonner"
+import { uploadMediaFile, validateMediaFile, formatFileSize, revokeObjectURL } from "@/lib/utils/media-upload"
 
 export function CreatePostPrompt() {
   const [open, setOpen] = useState(false)
   const [content, setContent] = useState("")
   const [media, setMedia] = useState<File | null>(null)
   const [mediaPreview, setMediaPreview] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [mediaError, setMediaError] = useState<string | null>(null)
 
   const { data: session } = useSession()
   const sessionUser = session?.user
+  const accessToken = session?.accessToken 
+  console.log("Access Token:", accessToken)
+  console.log("Session Data:", session)
   function handleContentChange(e: ChangeEvent<HTMLTextAreaElement>) {
     setContent(e.target.value)
   }
 
   function handleMediaChange(e: ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0] ?? null
-    setMedia(file)
-    if (file) {
-      const url = URL.createObjectURL(file)
-      setMediaPreview(url)
-    } else {
+    setMediaError(null)
+    
+    if (!file) {
+      setMedia(null)
       setMediaPreview(null)
+      return
     }
+
+    // Validate file before setting it
+    const validation = validateMediaFile(file)
+    if (!validation.isValid) {
+      setMediaError(validation.error || "Invalid file")
+      toast.error(`File Validation Error: ${validation.error}`)
+      return
+    }
+
+    setMedia(file)
+    const url = URL.createObjectURL(file)
+    setMediaPreview(url)
   }
 
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    // TODO: replace with actual API call to create post
-    console.log({ content, media })
-    // reset
+  const resetForm = () => {
     setContent("")
     setMedia(null)
+    if (mediaPreview) {
+      revokeObjectURL(mediaPreview)
+    }
     setMediaPreview(null)
+    setMediaError(null)
     setOpen(false)
+  }
+
+  async function handleSubmit(e: FormEvent) {
+    e.preventDefault()
+    
+    if (!session?.user) {
+      toast.error("Authentication Required: Please sign in to create a post")
+      return
+    }
+
+    if (!content.trim() && !media) {
+      toast.error("Content Required: Please add some content or media to your post")
+      return
+    }
+
+    setIsLoading(true)
+    
+    try {
+      let mediaUrl: string | undefined
+      let mediaType: string = "text"
+      
+      // Upload media first if present
+      if (media) {
+        const uploadResult = await uploadMediaFile(media, "posts")
+        if (!uploadResult.success) {
+          throw new Error(uploadResult.error || "Failed to upload media")
+        }
+        mediaUrl = uploadResult.url
+        mediaType = uploadResult.type || "image"
+      }
+
+      // Create post via API
+      const response = await fetch("/api/posts/create", {
+        method: "POST",
+        headers: {
+          "Authorization": `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          content: content.trim(),
+          mediaUrl,
+          mediaType,
+          visibility: true // Default to public
+        })
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        toast.error(data.message || "Failed to create post")
+        return
+      }
+
+      // Success
+      toast.success("Post Created! Your post has been published successfully")
+
+      resetForm()
+      
+      // Optionally trigger a refresh of the posts feed
+      // You might want to use a context or callback here
+      
+    } catch (error) {
+      console.error("Error creating post:", error)
+      toast.error(error instanceof Error ? error.message : "Failed to create post")
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   
@@ -96,6 +182,18 @@ export function CreatePostPrompt() {
                         autoFocus
                       />
                       <div className="mt-4">
+                        {mediaError && (
+                          <div className="mb-4 p-3 bg-destructive/10 border border-destructive/20 rounded-md">
+                            <p className="text-sm text-destructive">{mediaError}</p>
+                          </div>
+                        )}
+                        {media && (
+                          <div className="mb-4 p-2 bg-muted/20 rounded-md">
+                            <p className="text-xs text-muted-foreground">
+                              📎 {media.name} ({formatFileSize(media.size)})
+                            </p>
+                          </div>
+                        )}
                         {mediaPreview && (
                           <div className="relative rounded-lg overflow-hidden border">
                             {media?.type.startsWith("video") ? (
@@ -117,9 +215,12 @@ export function CreatePostPrompt() {
                               className="absolute top-2 right-2"
                               onClick={(e) => {
                                 e.preventDefault();
+                                revokeObjectURL(mediaPreview);
                                 setMedia(null);
                                 setMediaPreview(null);
+                                setMediaError(null);
                               }}
+                              disabled={isLoading}
                             >
                               <X className="h-4 w-4" />
                             </Button>
@@ -158,11 +259,18 @@ export function CreatePostPrompt() {
                     <DialogFooter className="sm:justify-end">
                       <Button 
                         type="submit" 
-                        disabled={!content && !media}
-                        className="px-8 py-2 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-md transition-colors"
+                        disabled={isLoading || (!content.trim() && !media) || !!mediaError}
+                        className="px-8 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-muted disabled:text-muted-foreground text-white font-medium rounded-md transition-colors"
                         size="lg"
                       >
-                        Post
+                        {isLoading ? (
+                          <>
+                            <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                            {media ? "Uploading..." : "Posting..."}
+                          </>
+                        ) : (
+                          "Post"
+                        )}
                       </Button>
                     </DialogFooter>
                   </div>

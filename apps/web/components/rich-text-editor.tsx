@@ -57,9 +57,31 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
     }
   }, [value, editorHtml]);
 
-  const handleThumbnailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const [thumbnailError, setThumbnailError] = useState("");
+  const [uploadingThumb, setUploadingThumb] = useState(false);
+
+  const handleThumbnailChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    setThumbnailError("");
     const file = e.target.files?.[0] ?? null;
-    onThumbnailChange(file);
+    if (!file) return onThumbnailChange(null);
+    if (!file.type.startsWith("image/")) {
+      setThumbnailError("Invalid image file.");
+      return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+      setThumbnailError("Image too large (max 5MB).");
+      return;
+    }
+    setUploadingThumb(true);
+    // Use imagekit upload utility, handle url or error
+    const url = await uploadImageToImageKit(file, "thumbnails");
+    setUploadingThumb(false);
+    if (url) {
+      // Call parent prop with uploaded file (or url if you want)
+      onThumbnailChange(file); // or provide url to parent with new prop
+    } else {
+      setThumbnailError("Upload failed. Try again.");
+    }
   };
 
   const removeThumbnail = () => onThumbnailChange(null);
@@ -112,6 +134,12 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
                 onChange={handleThumbnailChange}
                 className="hidden"
               />
+              {uploadingThumb && (
+                <div className="text-xs text-blue-500 mt-2">Uploading...</div>
+              )}
+              {thumbnailError && (
+                <div className="text-xs text-red-500 mt-2">{thumbnailError}</div>
+              )}
               <p className="text-sm text-muted-foreground mt-2">
                 JPG, PNG (max 5MB)
               </p>

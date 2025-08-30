@@ -75,7 +75,7 @@ export function ChatWindow() {
   }
 
   return (
-    <div className="flex-1 flex flex-col">
+    <div className="flex-1 flex flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b border-border bg-background">
         <div className="flex items-center justify-between">

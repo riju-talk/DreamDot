@@ -1,7 +1,7 @@
 import mongoose, { Collection } from 'mongoose'
 import { connectToDatabase } from "./connection"
 import { Post } from "./types/Post"
-import { prismaSocial } from "../db"
+import { prismaSocial } from "../db" 
 
 const { Schema } = mongoose
 
@@ -17,23 +17,13 @@ const PostSchema = new Schema({
 // Create model if it doesn't exist
 export const PostModel = mongoose.models.Post || mongoose.model("Post", PostSchema)
 
-// TypeScript interface for fetch options
 interface FetchPostsOptions {
   userId?: string
   page?: number
   limit?: number
 }
 
-// Main fetch function
-export async function fetchPosts(options: FetchPostsOptions = {}): Promise<{
-  posts: Post[]
-  pagination: {
-    total: number
-    page: number
-    limit: number
-    hasMore: boolean
-  }
-}> {
+export async function fetchPosts(options: FetchPostsOptions = {}) {
   try {
     const { userId, page = 1, limit = 10 } = options
     const skip = (page - 1) * limit
@@ -69,11 +59,21 @@ export async function fetchPosts(options: FetchPostsOptions = {}): Promise<{
 
     // Step 2: Enrich with metadata and analytics from PostgreSQL
     const sqlPosts = await prismaSocial.posts_metadata.findMany({
-      where: { id: { in: postIds } },
+      where: { id: { in: postIds } }, // ✅ filter only needed posts
       include: {
         posts_analytics: true,
         users: {
-          include: { user_profile: true },
+          select: {
+            id: true,
+            is_verified: true,
+            display_name: true,
+            user_profile: {
+              select: {
+                username: true,
+                avatar_url: true,
+              },
+            },
+          },
         },
       },
     })
@@ -93,8 +93,10 @@ export async function fetchPosts(options: FetchPostsOptions = {}): Promise<{
           },
           user: {
             id: post.users.id,
+            name: post.users.display_name ?? "Unknown User",
             username: post.users.user_profile?.username ?? "user",
             avatar_url: post.users.user_profile?.avatar_url ?? "/placeholder.svg",
+            verified: post.users.is_verified ?? false,
           },
         },
       ])
@@ -112,7 +114,13 @@ export async function fetchPosts(options: FetchPostsOptions = {}): Promise<{
         created_at: meta?.created_at ?? post.createdAt,
         visibility: meta?.visibility ?? true,
         analytics: meta?.analytics ?? null,
-        user: meta?.user ?? null,
+        user: meta?.user ?? {
+          id: "unknown",
+          name: "Unknown User",
+          username: "unknown",
+          avatar_url: "/placeholder.svg",
+          verified: false,
+        }, // ✅ fallback user
       }
     })
 
@@ -126,7 +134,7 @@ export async function fetchPosts(options: FetchPostsOptions = {}): Promise<{
       },
     }
   } catch (error) {
-    console.error('Error fetching posts:', error)
+    console.error("Error fetching posts:", error)
     throw error
   }
 }

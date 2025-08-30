@@ -1,6 +1,8 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, type ReactNode } from "react"
+import { useSession } from "next-auth/react"
+import { chatApi } from "./api/chat"
 import type { ChatConversation, ChatMessage, GroupChat, DirectMessage } from "./chat"
 
 interface ChatContextType {
@@ -14,6 +16,7 @@ interface ChatContextType {
   createGroupChat: (name: string, participantIds: string[]) => Promise<GroupChat>
   markAsRead: (conversationId: string) => void
   searchConversations: (query: string) => ChatConversation[]
+  refreshConversations: () => Promise<void>
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined)
@@ -193,45 +196,117 @@ const mockMessages: { [key: string]: ChatMessage[] } = {
 }
 
 export function ChatProvider({ children }: { children: ReactNode }) {
-  const [conversations, setConversations] = useState<ChatConversation[]>(mockConversations)
+  const { data: session } = useSession()
+  const [conversations, setConversations] = useState<ChatConversation[]>([])
   const [activeConversation, setActiveConversation] = useState<ChatConversation | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
   const [isLoading, setIsLoading] = useState(false)
 
+  // Load conversations on mount
   useEffect(() => {
-    if (activeConversation) {
-      setMessages(mockMessages[activeConversation.id] || [])
+    if (session?.user) {
+      refreshConversations()
+    }
+  }, [session])
+
+  // Load messages when active conversation changes
+  useEffect(() => {
+    if (activeConversation?.id) {
+      loadMessages(activeConversation.id)
+    } else {
+      setMessages([])
     }
   }, [activeConversation])
+
+  const refreshConversations = async () => {
+    setIsLoading(true)
+    try {
+      const response = await chatApi.getConversations()
+      if (response.success && response.data) {
+        setConversations(response.data)
+      } else {
+        console.error('Failed to load conversations:', response.error)
+        // Fallback to mock data if API fails
+        setConversations(mockConversations)
+      }
+    } catch (error) {
+      console.error('Error loading conversations:', error)
+      // Fallback to mock data on error
+      setConversations(mockConversations)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const loadMessages = async (conversationId: string) => {
+    setIsLoading(true)
+    try {
+      const response = await chatApi.getMessages(conversationId)
+      if (response.success && response.data) {
+        setMessages(response.data)
+      } else {
+        console.error('Failed to load messages:', response.error)
+        // Fallback to mock data if API fails
+        setMessages(mockMessages[conversationId] || [])
+      }
+    } catch (error) {
+      console.error('Error loading messages:', error)
+      // Fallback to mock data on error
+      setMessages(mockMessages[conversationId] || [])
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const sendMessage = async (content: string, type: "text" | "image" | "file" = "text") => {
     if (!activeConversation) return
 
-    const newMessage: ChatMessage = {
-      id: `msg-${Date.now()}`,
+    // Optimistically add the message to UI
+    const tempId = `temp-${Date.now()}`
+    const optimisticMessage: ChatMessage = {
+      id: tempId,
       content,
-      senderId: "current-user",
-      senderName: "You",
-      senderAvatar: "/placeholder.svg",
+      senderId: session?.user?.id || "current-user",
+      senderName: session?.user?.name || "You",
+      senderAvatar: session?.user?.image || "/placeholder.svg",
       timestamp: new Date().toISOString(),
       type,
       isRead: true,
     }
 
-    setMessages((prev) => [...prev, newMessage])
+    setMessages((prev) => [...prev, optimisticMessage])
 
-    // Update conversation's last message
-    setConversations((prev) =>
-      prev.map((conv) =>
-        conv.id === activeConversation.id
-          ? {
-              ...conv,
-              lastMessage: newMessage,
-              updatedAt: new Date().toISOString(),
-            }
-          : conv,
-      ),
-    )
+    try {
+      const response = await chatApi.sendMessage(activeConversation.id, content, type)
+      
+      if (response.success && response.data) {
+        // Replace optimistic message with real one
+        setMessages((prev) => 
+          prev.map(msg => msg.id === tempId ? response.data! : msg)
+        )
+
+        // Update conversation's last message
+        setConversations((prev) =>
+          prev.map((conv) =>
+            conv.id === activeConversation.id
+              ? {
+                  ...conv,
+                  lastMessage: response.data!,
+                  updatedAt: new Date().toISOString(),
+                }
+              : conv,
+          ),
+        )
+      } else {
+        console.error('Failed to send message:', response.error)
+        // Remove optimistic message on failure
+        setMessages((prev) => prev.filter(msg => msg.id !== tempId))
+      }
+    } catch (error) {
+      console.error('Error sending message:', error)
+      // Remove optimistic message on error
+      setMessages((prev) => prev.filter(msg => msg.id !== tempId))
+    }
   }
 
   const createDirectMessage = async (userId: string): Promise<DirectMessage> => {
@@ -296,7 +371,11 @@ export function ChatProvider({ children }: { children: ReactNode }) {
   }
 
   const searchConversations = (query: string) => {
-    return conversations.filter((conv) => conv.name.toLowerCase().includes(query.toLowerCase()))
+    if (!query.trim()) return conversations
+    
+    // Use Fuse.js search from search utility
+    const { searchConversations: fuseSearchConversations } = require('./search')
+    return fuseSearchConversations(conversations, query)
   }
 
   return (
@@ -312,6 +391,7 @@ export function ChatProvider({ children }: { children: ReactNode }) {
         createGroupChat,
         markAsRead,
         searchConversations,
+        refreshConversations,
       }}
     >
       {children}

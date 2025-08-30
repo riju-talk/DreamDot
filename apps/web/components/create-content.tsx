@@ -11,7 +11,34 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Switch } from "@/components/ui/switch"
 import { Upload, ImageIcon, FileText, Music, Sparkles } from "lucide-react"
 
+import { useState } from "react"
+import { uploadImageToImageKit } from "@/lib/imagekitupload"
+
 export function CreateContent() {
+  const [uploadLoading, setUploadLoading] = useState(false)
+  const [uploadError, setUploadError] = useState("")
+  const [uploadedUrl, setUploadedUrl] = useState("")
+  
+  async function handleContentUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadError("")
+    const maxSizeMb = 100
+    if (file.size > maxSizeMb * 1024 * 1024) {
+      setUploadError("File is too large. Max 100MB.")
+      return
+    }
+    setUploadLoading(true)
+    const url = await uploadImageToImageKit(file, "content")
+    setUploadLoading(false)
+    if (url) {
+      setUploadedUrl(url)
+      setUploadError("")
+    } else {
+      setUploadError("Upload failed. Try again.")
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-6">
       <div className="flex flex-col items-start gap-4 md:flex-row md:justify-between md:items-center mb-8">
@@ -52,7 +79,18 @@ export function CreateContent() {
                       Support for images, videos, audio, and documents up to 100MB
                     </p>
                   </div>
-                  <Button className="mt-4 dream-button text-primary-foreground">Select Files</Button>
+                  <input
+                    type="file"
+                    accept="image/*,video/*,audio/*,application/pdf"
+                    onChange={(e) => handleContentUpload(e)}
+                    className="hidden"
+                    id="dream-content-upload"
+                  />
+                  <Label htmlFor="dream-content-upload">
+                    <Button className="mt-4 dream-button text-primary-foreground">Select Files</Button>
+                  </Label>
+                  {uploadLoading && <div className="text-xs text-blue-500 mt-2">Uploading...</div>}
+                  {uploadError && <div className="text-xs text-red-500 mt-2">{uploadError}</div>}
                 </div>
               </div>
 
