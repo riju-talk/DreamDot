@@ -1,10 +1,8 @@
 // lib/search.ts - Enhanced search functionality with Fuse.js
-import { PrismaClient } from "@prisma/client";
+import { prismaUser } from "@/lib/db";
 import Fuse from "fuse.js";
 
-const prisma = new PrismaClient();
-
-// Marketplace search configuration
+const prisma = prismaUser;
 export const marketplaceSearchOptions = {
   includeScore: true,
   threshold: 0.3, // Lower threshold for more precise matches
@@ -29,7 +27,6 @@ export const marketplaceSearchOptions = {
   }
 }
 
-// Profile/User search configuration
 export const profileSearchOptions = {
   includeScore: true,
   threshold: 0.4, // Slightly higher threshold for user search

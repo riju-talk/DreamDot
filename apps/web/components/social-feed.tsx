@@ -5,6 +5,8 @@ import { RefreshCw } from "lucide-react"
 
 export async function SocialFeed() {
   const { posts } = await fetchPosts({ page: 1, limit: 5 })
+  //console.log('Fetched posts:', JSON.stringify(posts, null, 2))
+  //console.log('First post structure:', posts[0] ? Object.keys(posts[0]) : 'No posts found')
 
   return (
     <div className="space-y-6 max-w-2xl mx-auto">
@@ -17,41 +19,43 @@ export async function SocialFeed() {
       </div>
 
       <div className="space-y-6">
-        {posts.map((post) => (
-          console.log(post),
-          <SocialPost
-            key={post._id}
-            post={{
-              id: post._id,
-              user: {
-                name: post.user?.name || "Anonymous",
-                handle: `@${post.user?.username || "user"}`,
-                avatar: post.user?.avatar_url || "/placeholder.svg",
-                verified: true, // you can toggle based on some logic if needed
-              },
-              timestamp: new Date(post.created_at).toLocaleTimeString([], {
-                hour: "2-digit",
-                minute: "2-digit",
-              }),
-              content: {
-                text: post.content || "",
-                media: post.media?.map((mediaItem: any) => ({
-                  type: mediaItem.type || "image",
-                  url: mediaItem.url || "/placeholder.svg",
-                  alt: mediaItem.alt || "Post media",
-                })),
-              },
-              engagement: {
-                likes: post.analytics?.likes_count ?? 0,
-                comments: post.analytics?.comments_count ?? 0,
-                shares: post.analytics?.shares_count ?? 0,
-                bookmarks: 0, // assuming bookmarks not yet implemented
-              },
-              isLiked: false,
-              isBookmarked: false,
-            }}
-          />
-        ))}
+        {posts.map((post) => {
+          //console.log('Post data:', post); // Debug log
+          return (
+            <SocialPost
+              key={post.id}
+              post={{
+                id: post.id,
+                user: {
+                  name: post.user?.display_name || post.user?.username || "Anonymous",
+                  handle: post.user?.username || "user",
+                  avatar: post.user?.avatar_url || "/placeholder.svg",
+                  verified: post.user?.verified || false,
+                },
+                timestamp: new Date(post.created_at).toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }),
+                content: {
+                  text: post.content || "",
+                  media: Array.isArray(post.media) ? post.media.map((m: any) => ({
+                    type: m.type || "image",
+                    url: m.url || "/placeholder.svg",
+                    alt: m.alt || "Post media"
+                  })) : []
+                },
+                engagement: {
+                  likes: post.analytics?.likes_count || 0,
+                  comments: post.analytics?.comments_count || 0,
+                  shares: 0, // Not available in the analytics object
+                  bookmarks: 0
+                },
+                isLiked: false,
+                isBookmarked: false
+              }}
+            />
+          )
+        })}
       </div>
 
       <div className="text-center py-8">
