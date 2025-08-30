@@ -8,14 +8,14 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Search, PointerIcon as SidebarTrigger, User, Users, MessageSquare, X } from "lucide-react"
+import { Search, PointerIcon as SidebarTrigger, User, X, ShoppingBag } from "lucide-react"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { searchUsers } from "@/lib/search"
+import { quickSearch } from "@/lib/search"   
 import Link from "next/link"
 
 interface SearchResult {
-  type: 'user' | 'post' | 'marketplace'
+  type: "user" | "marketplace"
   id: string
   title: string
   subtitle?: string
@@ -36,7 +36,6 @@ function GlobalSearch() {
     const timer = setTimeout(() => {
       setDebouncedQuery(searchQuery)
     }, 300)
-
     return () => clearTimeout(timer)
   }, [searchQuery])
 
@@ -46,7 +45,6 @@ function GlobalSearch() {
       setSearchResults([])
       return
     }
-
     performSearch(debouncedQuery)
   }, [debouncedQuery])
 
@@ -57,37 +55,32 @@ function GlobalSearch() {
         setIsSearchOpen(false)
       }
     }
-
-    document.addEventListener('mousedown', handleClickOutside)
-    return () => document.removeEventListener('mousedown', handleClickOutside)
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
   const performSearch = async (query: string) => {
     setIsLoading(true)
     try {
-      // Search users (profiles)
-      const users = await searchUsers(query)
-      const userResults: SearchResult[] = users.slice(0, 5).map(user => ({
-        type: 'user',
-        id: user.user_id,
-        title: user.display_name || user.username,
-        subtitle: `@${user.username}`,
-        avatar: user.avatar_url,
-        searchScore: user.searchScore
+      const results = await quickSearch(query, 8) // ✅ unified search for profiles + marketplace
+      const mapped: SearchResult[] = results.map((r) => ({
+        type: r.type === "profile" ? "user" : "marketplace",
+        id: r.id,
+        title: r.title,
+        subtitle: r.type === "profile" ? `@${r.metadata?.username}` : r.metadata?.category,
+        avatar: r.image,
+        searchScore: r.score,
       }))
-
-      setSearchResults(userResults)
+      setSearchResults(mapped)
     } catch (error) {
-      console.error('Search error:', error)
+      console.error("Search error:", error)
       setSearchResults([])
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handleSearchFocus = () => {
-    setIsSearchOpen(true)
-  }
+  const handleSearchFocus = () => setIsSearchOpen(true)
 
   const handleClearSearch = () => {
     setSearchQuery("")
@@ -97,19 +90,17 @@ function GlobalSearch() {
 
   const getResultIcon = (type: string) => {
     switch (type) {
-      case 'user': return <User className="h-4 w-4" />
-      case 'post': return <MessageSquare className="h-4 w-4" />
-      case 'marketplace': return <Search className="h-4 w-4" />
+      case "user": return <User className="h-4 w-4" />
+      case "marketplace": return <ShoppingBag className="h-4 w-4" />
       default: return <Search className="h-4 w-4" />
     }
   }
 
   const getResultLink = (result: SearchResult) => {
     switch (result.type) {
-      case 'user': return `/profile/${result.id}`
-      case 'post': return `/post/${result.id}`
-      case 'marketplace': return `/product/${result.id}`
-      default: return '#'
+      case "user": return `/profile/${result.id}`
+      case "marketplace": return `/items/${result.id}`
+      default: return "#"
     }
   }
 
@@ -118,21 +109,21 @@ function GlobalSearch() {
       <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
       <Input
         type="search"
-        placeholder="Search people, posts, products..."
+        placeholder="Search profiles or marketplace..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         onFocus={handleSearchFocus}
         className="pl-8 pr-8 rounded-full"
       />
       {searchQuery && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="absolute right-1 top-1/2 transform -translate-y-1/2 h-6 w-6"
+        <button
+          type="button"
           onClick={handleClearSearch}
+          className="absolute right-2 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+          aria-label="Clear search"
         >
-          <X className="h-3 w-3" />
-        </Button>
+          <X className="h-4 w-4" />
+        </button>
       )}
 
       {/* Search Results Dropdown */}
@@ -193,7 +184,6 @@ function GlobalSearch() {
     </div>
   )
 }
-
 export function TopNav() {
   const pathname = usePathname()
 
