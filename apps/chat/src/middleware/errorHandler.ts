@@ -1,98 +1,78 @@
 import { Request, Response, NextFunction } from 'express';
 import { logger } from '../utils/logger';
 
-export class AppError extends Error {
-  constructor(
-    public statusCode: number = 500,
-    message: string,
-    public isOperational: boolean = true
-  ) {
-    super(message);
-    this.name = this.constructor.name;
-    Error.captureStackTrace(this, this.constructor);
-  }
+interface CustomError extends Error {
+  statusCode?: number;
+  code?: number;
 }
 
 export const errorHandler = (
-  err: Error | AppError,
+  error: CustomError,
   req: Request,
   res: Response,
   next: NextFunction
-) => {
-  // Default to 500 server error
-  let statusCode = 500;
-  let message = 'Internal Server Error';
-  let errorCode: string | undefined;
-  let stack: string | undefined;
+): void => {
+  logger.error('Error occurred:', {
+    message: error.message,
+    stack: error.stack,
+    url: req.url,
+    method: req.method,
+    ip: req.ip,
+    userAgent: req.get('User-Agent')
+  });
 
-  // Handle custom AppError instances
-  if (err instanceof AppError) {
-    statusCode = err.statusCode;
-    message = err.message;
-    errorCode = err.name;
-  } 
-  // Handle JWT errors
-  else if (err.name === 'JsonWebTokenError') {
-    statusCode = 401;
-    message = 'Invalid token';
-    errorCode = 'INVALID_TOKEN';
-  } 
-  else if (err.name === 'TokenExpiredError') {
-    statusCode = 401;
-    message = 'Token expired';
-    errorCode = 'TOKEN_EXPIRED';
-  }
-  // Handle validation errors
-  else if (err.name === 'ValidationError') {
-    statusCode = 400;
-    message = err.message;
-    errorCode = 'VALIDATION_ERROR';
-  }
-  // Handle MongoDB duplicate key errors
-  else if ((err as any).code === 11000) {
-    statusCode = 409;
-    message = 'Duplicate key error';
-    errorCode = 'DUPLICATE_KEY';
-  }
-
-  // Log the error with stack trace in development
-  if (process.env.NODE_ENV === 'development') {
-    logger.error({
-      message: err.message,
-      stack: err.stack,
-      name: err.name,
-      ...(err as any).errors
+  // Mongoose validation error
+  if (error.name === 'ValidationError') {
+    res.status(400).json({
+      success: false,
+      message: 'Validation Error',
+      errors: error.message
     });
-    stack = err.stack;
-  } else {
-    // In production, only log the error message
-    logger.error({
-      message: err.message,
-      name: err.name,
-      ...(err as any).errors
-    });
+    return;
   }
 
-  // Send error response
+  // Mongoose duplicate key error
+  if (error.code === 11000) {
+    res.status(409).json({
+      success: false,
+      message: 'Duplicate resource',
+      error: 'Resource already exists'
+    });
+    return;
+  }
+
+  // JWT errors
+  if (error.name === 'JsonWebTokenError') {
+    res.status(401).json({
+      success: false,
+      message: 'Invalid token'
+    });
+    return;
+  }
+
+  if (error.name === 'TokenExpiredError') {
+    res.status(401).json({
+      success: false,
+      message: 'Token expired'
+    });
+    return;
+  }
+
+  // Default error
+  const statusCode = error.statusCode || 500;
+  const message = error.message || 'Internal Server Error';
+
   res.status(statusCode).json({
-    status: 'error',
-    statusCode,
-    message,
-    errorCode,
-    ...(process.env.NODE_ENV === 'development' && { stack })
+    success: false,
+    message: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : message,
+    ...(process.env.NODE_ENV !== 'production' && { stack: error.stack })
   });
 };
 
-// Handle unhandled promise rejections
-process.on('unhandledRejection', (reason: Error | any, promise: Promise<any>) => {
-  logger.error('Unhandled Rejection at:', promise, 'reason:', reason);
-  // Close server & exit process
-  process.exit(1);
-});
-
-// Handle uncaught exceptions
-process.on('uncaughtException', (error: Error) => {
-  logger.error('Uncaught Exception:', error);
-  // Close server & exit process
-  process.exit(1);
-});
+// 404 handler
+export const notFoundHandler = (req: Request, res: Response): void => {
+  res.status(404).json({
+    success: false,
+    message: `Route ${req.originalUrl} not found`
+  });
+};

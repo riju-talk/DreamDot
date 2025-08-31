@@ -2,11 +2,14 @@
   "name": "my-turborepo",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "type-check": "turbo type-check",
+    "chat:dev": "cd apps/chat && npm run dev",
+    "chat:build": "cd apps/chat && npm run build",
+    "chat:start": "cd apps/chat && npm start",
+    "dev:all": "concurrently \"npm run dev\" \"npm run chat:dev\""
   },
   "devDependencies": {
     "prettier": "^3.6.2",

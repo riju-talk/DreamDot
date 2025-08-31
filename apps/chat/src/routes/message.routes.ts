@@ -3,6 +3,7 @@ import { ChatService } from '../services/chat.service';
 import { AuthenticatedRequest } from '../middleware/auth';
 import { logger } from '../utils/logger';
 import { Message } from '../models/Message';
+import { Conversation } from '../models/Conversation'; // Import Conversation model
 import { Types } from 'mongoose';
 
 const router = Router();

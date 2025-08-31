@@ -6,3 +6,15 @@ channel = "stable-25_05"
 
 [deployment]
 run = ["sh", "-c", "npm run dev"]
+
+[workflows]
+runButton = "Chat Server Dev"
+
+[[workflows.workflow]]
+name = "Chat Server Dev"
+author = 17682793
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd apps/chat && npm run dev"

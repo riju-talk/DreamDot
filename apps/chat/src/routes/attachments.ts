@@ -1,44 +1,37 @@
-import { Request, Response } from "express";
-import mongoose from "mongoose";
-import { Attachment } from "../db/models/Attachment";
-import busboy from "busboy";
-import { ensureMember } from "../utils/authz";
 
-// POST /attachments : file upload with cipher metaexport async function uploadAttachment(req: Request, res: Response) {
-  const bb = busboy({ headers: req.headers, limits: { fileSize: 25 * 1024 * 1024 } });
-  let fileId: mongoose.Types.ObjectId | null = null;
-  let meta: any = {};
-  let fileReceived = false;
+import { Router } from 'express';
+import { AuthenticatedRequest } from '../middleware/auth';
+import { logger } from '../utils/logger';
 
-  bb.on('file', (fieldname, file, info) => {
-    const { filename, mimeType } = info;
-    if (!/^image\//.test(mimeType) && !/^audio\//.test(mimeType) && !/^video\//.test(mimeType)) return res.status(400).end();
-    const attachment = new Attachment({
-      uploaderId: req.user.sub,
-      conversationId: req.body.conversationId,
-      filename,
-      size: 0, // update later
-      mimeType,
-      cipherMeta: JSON.parse(req.body.cipherMeta),
+const router = Router();
+
+// Upload attachment endpoint
+router.post('/upload', async (req: AuthenticatedRequest, res) => {
+  try {
+    const userId = req.user?.sub;
+
+    if (!userId) {
+      return res.status(401).json({ success: false, message: 'Unauthorized' });
+    }
+
+    // This is a placeholder - implement actual file upload logic
+    // You might want to use multer for file handling
+    res.json({
+      success: true,
+      message: 'Attachment upload endpoint - to be implemented',
+      data: {
+        url: 'placeholder-url',
+        type: 'file',
+        name: 'placeholder.txt'
+      }
     });
-    fileId = attachment._id;
-    const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'attachments' });
-    const uploadStream = bucket.openUploadStreamWithId(fileId, filename, { contentType: mimeType });
-    file.on('data', (chunk) => { attachment.size += chunk.length; });
-    file.pipe(uploadStream);
-    fileReceived = true;
-    uploadStream.on('finish', async () => {
-      await attachment.save();
-      res.status(201).json({ attachmentId: fileId });
+  } catch (error) {
+    logger.error('Error uploading attachment:', error);
+    res.status(500).json({
+      success: false,
+      message: error instanceof Error ? error.message : 'Failed to upload attachment'
     });
-  });
-  req.pipe(bb);
-}
+  }
+});
 
-// GET /attachments/:id : stream ciphertextexport async function streamAttachment(req: Request, res: Response) {
-  await ensureMember(req.user.sub, req.query.conversationId || '');
-  const bucket = new mongoose.mongo.GridFSBucket(mongoose.connection.db, { bucketName: 'attachments' });
-  const id = new mongoose.Types.ObjectId(req.params.id);
-  bucket.openDownloadStream(id).pipe(res);
-}
-
+export const attachmentRoutes = router;

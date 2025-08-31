@@ -61,18 +61,18 @@ export function useChat(conversationId?: string) {
   useEffect(() => {
     if (!socket || !isConnected || !conversationId) return
 
-    // Join conversation room
-    socket.emit('joinConversation', conversationId)
+    // Join conversation room using the correct event name
+    socket.emit('room:join', { conversationId })
 
     return () => {
-      // Leave conversation room
-      socket.emit('leaveConversation', conversationId)
+      // Leave conversation room using the correct event name
+      socket.emit('room:leave', { conversationId })
     }
   }, [socket, isConnected, conversationId])
 
-  const sendMessage = (message: any) => {
+  const sendMessage = (message: any, callback?: (response: any) => void) => {
     if (socket && isConnected) {
-      socket.emit('message:send', message)
+      socket.emit('message:send', message, callback)
     }
   }
 
@@ -88,11 +88,18 @@ export function useChat(conversationId?: string) {
     }
   }
 
+  const setTyping = (conversationId: string, isTyping: boolean) => {
+    if (socket && isConnected) {
+      socket.emit('message:typing', { conversationId, isTyping })
+    }
+  }
+
   return {
     socket,
     isConnected,
     sendMessage,
     joinRoom,
-    leaveRoom
+    leaveRoom,
+    setTyping
   }
 }
