@@ -7,7 +7,7 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Rocket, Users, PenTool } from "lucide-react";
+import { Rocket, Users, PenTool, Sparkles, TrendingUp, Shield, CircleDollarSign, BarChart } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export function LandingDetails() {
@@ -20,111 +20,143 @@ export function LandingDetails() {
         router.push("/feed");
     };
 
+    const faqItems = [
+        {
+            icon: Sparkles,
+            value: "profile",
+            question: "How do I set up my creator profile?",
+            answer: "Fill in your bio, link socials, upload your avatar/cover, and choose your content categories—this helps your audience discover you.",
+            gradient: "from-emerald-500/10 to-teal-500/10"
+        },
+        {
+            icon: TrendingUp,
+            value: "publish",
+            question: "What content types can I publish?",
+            answer: "Articles, blogs, image galleries, audio, videos, or rich multimedia posts—all in one platform.",
+            gradient: "from-teal-500/10 to-green-500/10"
+        },
+        {
+            icon: CircleDollarSign,
+            value: "monetize",
+            question: "How does monetization work?",
+            answer: "Choose what fits you: subscriptions, tips, or premium content. You keep 95% of what you earn—DreamDOT takes no cuts.",
+            gradient: "from-green-500/10 to-emerald-500/10"
+        },
+        {
+            icon: Users,
+            value: "collab",
+            question: "Can I collaborate with others?",
+            answer: "Absolutely. Invite collaborators, co-author posts, or build together in real-time using shared spaces.",
+            gradient: "from-emerald-500/10 to-teal-500/10"
+        },
+        {
+            icon: BarChart,
+            value: "insights",
+            question: "Will I get analytics?",
+            answer: "Yes. Access real-time dashboards tracking reach, growth, and engagement to optimize your creative journey.",
+            gradient: "from-teal-500/10 to-green-500/10"
+        }
+    ];
 
     return (
-        <section className="bg-green-900 text-white">
+        <section className="bg-gradient-to-b from-green-900 via-teal-900 to-emerald-950 text-white">
             {/* FAQ Section */}
-            <div className="mx-auto max-w-3xl px-4 py-16 bg-green-900 rounded-lg" id="questions">
-                <h3 className="text-2xl font-semibold text-center mb-8 tracking-wide text-blue-cyan-50">
-                    Frequently Asked Questions
-                </h3>
+            <div className="mx-auto max-w-4xl px-4 py-20" id="questions">
+                <div className="text-center mb-12">
+                    <h3 className="text-4xl font-bold mb-4 bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
+                        Frequently Asked Questions
+                    </h3>
+                    <p className="text-emerald-200 text-lg">
+                        Everything you need to know to get started
+                    </p>
+                </div>
+                
                 <Accordion type="multiple" className="space-y-4">
-                    <AccordionItem value="profile" className="bg-white">
-                        <AccordionTrigger className="px-4 py-2 text-lg font-bold text-emerald-700 hover:bg-emerald-50">
-                            How do I set up my creator profile?
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 py-2 text-base text-emerald-600">
-                            Fill in your bio, link socials, upload your avatar/cover, and choose your content categories—this helps your audience discover you.
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="publish" className="bg-white">
-                        <AccordionTrigger className="px-4 py-2 text-lg font-bold text-emerald-700 hover:bg-emerald-50">
-                            What content types can I publish?
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 py-2 text-base bg-blue-cyan-50 text-emerald-600">
-                            Articles, blogs, image galleries, audio, videos, or rich multimedia posts—all in one platform.
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="monetize" className="bg-white">
-                        <AccordionTrigger className="px-4 py-2 text-lg font-bold text-emerald-700 hover:bg-emerald-50">
-                            How does monetization work?
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 py-2 text-base text-emerald-600">
-                            Choose what fits you: subscriptions, tips, or premium content. You keep 95% of what you earn—DreamDOT takes no cuts.
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="collab" className="bg-white">
-                        <AccordionTrigger className="px-4 py-2 text-lg font-bold text-emerald-700 hover:bg-emerald-50">
-                            Can I collaborate with others?
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 py-2 text-base text-emerald-600">
-                            Absolutely. Invite collaborators, co-author posts, or build together in real-time using shared spaces.
-                        </AccordionContent>
-                    </AccordionItem>
-                    <AccordionItem value="insights" className="bg-white">
-                        <AccordionTrigger className="px-4 py-2 text-lg font-bold text-emerald-700 hover:bg-emerald-50">
-                            Will I get analytics?
-                        </AccordionTrigger>
-                        <AccordionContent className="px-4 py-2 text-base text-emerald-600">
-                            Yes. Access real-time dashboards tracking reach, growth, and engagement to optimize your creative journey.
-                        </AccordionContent>
-                    </AccordionItem>
+                    {faqItems.map((item) => {
+                        const IconComponent = item.icon;
+                        return (
+                            <AccordionItem 
+                                key={item.value}
+                                value={item.value} 
+                                className={`bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-emerald-500/20 rounded-2xl overflow-hidden transition-all hover:border-emerald-400/40 hover:shadow-lg hover:shadow-emerald-500/10`}
+                            >
+                                <AccordionTrigger className="px-6 py-5 text-lg font-semibold text-emerald-50 hover:text-green-300 transition-colors group">
+                                    <div className="flex items-center gap-4">
+                                        <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg group-hover:scale-110 transition-transform">
+                                            <IconComponent className="w-5 h-5 text-white" />
+                                        </div>
+                                        <span className="text-left">{item.question}</span>
+                                    </div>
+                                </AccordionTrigger>
+                                <AccordionContent className="px-6 pb-5 text-base text-emerald-100 leading-relaxed">
+                                    <div className="pl-14">
+                                        {item.answer}
+                                    </div>
+                                </AccordionContent>
+                            </AccordionItem>
+                        );
+                    })}
                 </Accordion>
             </div>
 
-            {/* Final Section: What’s Next */}
+            {/* Final Section: What's Next */}
             <div className="bg-[#0C111A] py-20 text-center" id="explore">
-                <h3 className="text-3xl font-bold mb-4">
+                <h3 className="text-4xl font-bold mb-4 bg-gradient-to-r from-green-300 to-emerald-400 bg-clip-text text-transparent">
                     Launch Your Creative Career with DreamDOT
                 </h3>
-                <p className="text-gray-400 mb-12 max-w-2xl mx-auto">
+                <p className="text-gray-400 mb-12 max-w-2xl mx-auto text-lg">
                     No gatekeepers. No limits. Just you, your content, and the tools to
-                    turn your ideas into income. Whether you’re an artist, writer,
+                    turn your ideas into income. Whether you're an artist, writer,
                     influencer, or visionary—you belong here.
                 </p>
 
                 <div className="grid gap-6 sm:grid-cols-3 max-w-5xl mx-auto mb-12 px-4">
-                    <div className="bg-[#11151f] p-6 rounded-xl">
-                        <Rocket className="w-8 h-8 text-green-400 mb-3 mx-auto" />
-                        <h4 className="font-semibold text-lg">Instant Publishing</h4>
-                        <p className="text-gray-400 text-sm mt-2">
+                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] p-8 rounded-2xl border border-emerald-500/20 hover:border-emerald-400/40 transition-all hover:shadow-lg hover:shadow-emerald-500/20 group">
+                        <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg p-3 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <Rocket className="w-8 h-8 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-xl mb-2 text-emerald-50">Instant Publishing</h4>
+                        <p className="text-gray-400 text-sm leading-relaxed">
                             Share content instantly across web, mobile, and social—no tech
                             skills required.
                         </p>
                     </div>
-                    <div className="bg-[#11151f] p-6 rounded-xl">
-                        <Users className="w-8 h-8 text-blue-400 mb-3 mx-auto" />
-                        <h4 className="font-semibold text-lg">Built-in Community</h4>
-                        <p className="text-gray-400 text-sm mt-2">
+                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] p-8 rounded-2xl border border-teal-500/20 hover:border-teal-400/40 transition-all hover:shadow-lg hover:shadow-teal-500/20 group">
+                        <div className="bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg p-3 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <Users className="w-8 h-8 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-xl mb-2 text-emerald-50">Built-in Community</h4>
+                        <p className="text-gray-400 text-sm leading-relaxed">
                             Connect with fans, fellow creators, and collaborators. You own the
                             relationships.
                         </p>
                     </div>
-                    <div className="bg-[#11151f] p-6 rounded-xl">
-                        <PenTool className="w-8 h-8 text-green-400 mb-3 mx-auto" />
-                        <h4 className="font-semibold text-lg">Total Creative Control</h4>
-                        <p className="text-gray-400 text-sm mt-2">
+                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] p-8 rounded-2xl border border-green-500/20 hover:border-green-400/40 transition-all hover:shadow-lg hover:shadow-green-500/20 group">
+                        <div className="bg-gradient-to-br from-green-500 to-teal-600 rounded-lg p-3 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform">
+                            <PenTool className="w-8 h-8 text-white" />
+                        </div>
+                        <h4 className="font-semibold text-xl mb-2 text-emerald-50">Total Creative Control</h4>
+                        <p className="text-gray-400 text-sm leading-relaxed">
                             Customize your space, your content, and your business—your way.
                         </p>
                     </div>
                 </div>
-                <div className="flex sm:flex-row gap-4 justify-center">
-                <Button
-                    size="lg"
-                    className="bg-green-400 text-black hover:bg-green-400/90 px-10 py-6 text-lg font-semibold"
-                    onClick={handleStart}
-                >
-                    Create My Free Account
-                </Button>
-                <Button
-                    size="lg"
-                    className="bg-blue-400 text-black hover:bg-blue-400/90 px-10 py-6 text-lg font-semibold"
-                    onClick={handleExplore}
-                >
-                    Explore The Platform
-                </Button>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                    <Button
+                        size="lg"
+                        className="bg-gradient-to-r from-green-400 to-emerald-500 text-black hover:from-green-500 hover:to-emerald-600 px-10 py-6 text-lg font-semibold shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transition-all"
+                        onClick={handleStart}
+                    >
+                        Create My Free Account
+                    </Button>
+                    <Button
+                        size="lg"
+                        className="bg-gradient-to-r from-teal-400 to-green-500 text-black hover:from-teal-500 hover:to-green-600 px-10 py-6 text-lg font-semibold shadow-lg shadow-teal-500/30 hover:shadow-xl hover:shadow-teal-500/40 transition-all"
+                        onClick={handleExplore}
+                    >
+                        Explore The Platform
+                    </Button>
                 </div>
-                
             </div>
         </section>
     );
