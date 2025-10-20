@@ -5,10 +5,12 @@ run = "npm run dev"
 channel = "stable-25_05"
 
 [deployment]
-run = ["sh", "-c", "npm run dev"]
+run = ["bash", "-c", "cd apps/web && npm run start"]
+deploymentTarget = "autoscale"
+build = ["bash", "-c", "cd apps/web && npm run build"]
 
 [workflows]
-runButton = "Chat Server Dev"
+runButton = "Project"
 
 [[workflows.workflow]]
 name = "Chat Server Dev"
@@ -19,5 +21,30 @@ mode = "sequential"
 task = "shell.exec"
 args = "cd apps/chat && npm run dev"
 
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Next.js App"
+
+[[workflows.workflow]]
+name = "Next.js App"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd apps/web && npm run dev"
+waitForPort = 5000
+
+[workflows.workflow.metadata]
+outputType = "webview"
+
 [agent]
 expertMode = true
+
+[[ports]]
+localPort = 5000
+externalPort = 80

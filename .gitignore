@@ -36,3 +36,10 @@ yarn-error.log*
 # Misc
 .DS_Store
 *.pem
+
+# Replit
+.replit
+.config/
+.upm/
+replit.nix
+.breakpoints

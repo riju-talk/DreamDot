@@ -1,0 +1,213 @@
+Perfect — we’re now focusing on **DreamDot**, a Turbo/Next.js app with:
+
+* **Separate chat system (E2EE, media)**
+* **Payments via Stripe**
+* **Social media features**
+* **Serverless-friendly deployment on Vercel**
+* **Agent-driven DB inspection & patches**
+
+We want a **Windsurf / Cursor-ready system prompt** that will allow the agent to **execute this app end-to-end** with zero human intervention beyond env setup. Here’s a carefully crafted, step-by-step prompt designed for your agent:
+
+---
+
+# 🌊 Windsurf / Cursor AI Prompt — DreamDot Full Completion
+
+**Instruction to the AI agent:**
+
+You are an autonomous software agent tasked with **completing, wiring, and deploying the DreamDot app**. You must operate as a full-stack engineer: Next.js App Router (`app/`), server components where logical, client crypto for E2EE chat, social/creator/payment features, Stripe integration, DB inspection/patching, and minimal UI polish. **Execution must be deterministic**: if an environment variable or key is missing, **halt immediately and report**.
+
+---
+
+## PHASE 0 — Prep & Environment
+
+1. **Branch & repo**
+
+   * Create branch: `feature/chat-e2ee-social-stripe` in `tutbo` repo.
+2. **Folder & docs**
+
+   * Create `/doc` with files:
+
+     * `Architecture.md`
+     * `ENV.md`
+     * `AppDesign.md`
+   * Populate with provided content (or the latest DreamDot-specific docs).
+3. **Validate environment variables**
+
+   * Halt & report if any missing:
+
+     * Chat / Socket: `SOCKET_SERVER_URL`, `SOCKET_PORT`, `REDIS_URL` (optional)
+     * Storage: `STORAGE_PROVIDER` (`s3` | `firebase`) + keys
+     * Auth / NextAuth: `NEXTAUTH_SECRET`, existing auth keys
+     * Stripe: `STRIPE_SECRET_KEY`, `STRIPE_PUBLISHABLE_KEY`, `STRIPE_WEBHOOK_SECRET`
+     * DB: `DATABASE_URL` or Firebase credentials
+     * Agent keys: `SPARK_AGENT_KEY` (if used)
+     * Optional: `NOTIFICATION_SOUND_PATH`
+4. **Install packages**
+
+   * Server: `socket.io`, `socket.io-client`, `express`, `ioredis` (optional), `aws-sdk` / `@aws-sdk/client-s3`, `multer`, `stripe`
+   * Client: `tweetnacl` or Web Crypto, `socket.io-client`, `swr` / `react-query`, `howler` (optional)
+   * Dev/test: `supertest`
+
+---
+
+## PHASE 1 — Real-Time End-to-End Encrypted Chat
+
+**Objective:** secure, real-time, media-capable chat integrated with Next.js.
+
+1. **Architecture**
+
+   * Default: self-hosted Socket.io server (`/server/socket`)
+   * Optional: `USE_MANAGED_REALTIME=true` → Supabase / Pusher
+2. **Client-Side E2EE**
+
+   * Web Crypto (SubtleCrypto) or TweetNaCl
+   * Key model:
+
+     * Long-term keypair per user
+     * Session keys per conversation via ECDH
+     * AES-GCM for messages & media
+   * Store private keys in browser IndexedDB or localStorage (encrypted if optional passphrase used)
+3. **Socket server**
+
+   * Auth via NextAuth JWT or Firebase ID token
+   * Emit events: `send_message`, `message`, `typing`, `presence`, `message_ack`
+   * Store encrypted messages in DB (ciphertext + encryptedKeys + metadata)
+   * Redis adapter for horizontal scale (if `REDIS_URL` exists)
+4. **Media upload flow**
+
+   * Client encrypts with random AES-GCM key → request presigned URL → upload → socket emit
+   * Server returns presigned URL, never sees plaintext
+   * Recipients fetch encrypted blob → decrypt locally
+5. **Client integration**
+
+   * Drop-in components: `ChatSend`, `ChatThread`, `ChatList`
+   * Show skeleton placeholders until decryption
+   * UI: “🔒 E2EE” badge, Download encrypted media button
+
+---
+
+## PHASE 2 — Social Media & Content Selling + Stripe
+
+1. **Posts / Comments / Reactions**
+
+   * API routes: `/api/posts`, `/api/posts/:id/comments`, `/api/posts/:id/vote`
+   * Enforce idempotency & prevent multi-votes
+   * Support anonymous posts (`authorId: null`)
+2. **Creators / Items / Paywalled content**
+
+   * Store encrypted content
+   * Only send decrypted contentKey to purchasers
+3. **Stripe integration**
+
+   * `POST /api/stripe/create-checkout-session` → input: `{type, metadata}`
+   * `POST /api/stripe/webhook` → verify `STRIPE_WEBHOOK_SECRET`
+   * Map payments to credits, purchases, subscriptions
+   * Create Stripe customer if not exists
+4. **Credits system**
+
+   * `GET /api/users/me/credits`
+   * `POST /api/credits/redeem`
+   * `POST /api/purchases`
+
+---
+
+## PHASE 3 — DB Inspection & Auto-Fixes
+
+1. Create `scripts/inspect_db.js`:
+
+   * Scan tables: users, posts, doubts, answers, communities, payments
+   * Identify missing indexes, orphaned references, inconsistent fields
+2. Apply automated patches & PRs:
+
+   * Fix schema inconsistencies (`credits` default 0, `encryptedKeys` array)
+   * Add necessary indexes (`conversationId`, `ts`)
+   * Correct business logic errors (credit count, multi-votes)
+3. Write unit/integration tests for all critical paths (auth, messaging, purchases)
+
+---
+
+## PHASE 4 — UI Refinements
+
+1. Make **green background “whittier”**
+
+   * Tailwind / CSS: lower saturation & slightly increase lightness
+
+     ```css
+     :root {
+       --color-accent-green-h: 145;
+       --color-accent-green-s: 45%;
+       --color-accent-green-l: 54%;
+     }
+     ```
+2. Sidebar: show communities + credit count
+3. Chat UI: render placeholders until decryption
+4. Media: add “Download encrypted media” button
+5. Chat thread: show “🔒 E2EE” badge
+
+---
+
+## PHASE 5 — Tests, Docs, Deployment
+
+1. Smoke tests:
+
+   * Keypair generation, publish public keys, exchange test message
+   * Socket connection, encrypted message send & receive
+   * Encrypted media upload/download/decrypt
+   * Stripe checkout & webhook simulation
+   * Create post, comment, vote, verify idempotency
+2. Docs:
+
+   * `/doc/Architecture.md`
+   * `/doc/ENV.md`
+   * `/doc/AppDesign.md`
+3. Deployment instructions:
+
+   * Socket server must run on separate VPS / Render / Railway
+   * Vercel hosts main Next.js app
+   * Set `SOCKET_SERVER_URL`, Redis optional for scaling
+4. README lines: `node server/socket/index.js` or `npm run start:socket`
+
+---
+
+## PHASE 6 — Security & Operational Notes
+
+* Never send plaintext messages or media to server
+* Private keys never leave client
+* Rate-limit socket endpoints & webhooks
+* Validate file size/type at presign stage
+* Stripe webhook must verify raw request body signature
+
+---
+
+## PHASE 7 — Deliverables
+
+* Branch: `feature/chat-e2ee-social-stripe`
+* `/server/socket` with auth, persistence, Redis adapter
+* `/lib/crypto/*` — keygen, derive, encrypt/decrypt
+* `/components/Chat/*` integrated
+* `/app/api/media/presign/route.ts` & storage helpers
+* `/app/api/posts/*`, `/api/stripe/*` endpoints
+* DB migration patches
+* `doc/` files committed
+* `scripts/smoke-tests.js` implemented
+* PR description with **deploy runbook** included
+
+---
+
+## 🔑 Key Notes for Windsurf Agent
+
+* Execute **phase by phase**, commit & PR each major milestone
+* Stop & report if **any ENV is missing**
+* Only produce **tested, integrated code**
+* Use **provided Web Crypto + Socket.io skeletons** for client & server
+* Keep **deployment on Vercel** in mind — separate chat service is allowed
+
+---
+
+This prompt is **copy-paste ready for Windsurf / Cursor AI**. It’s **deterministic, phased, and Vercel-aware**, and encodes your DreamDot priorities: E2EE chat, social + Stripe, separate server-friendly, DB inspection, and UI polish.
+
+---
+
+I can now also **generate the matching `.agent-plan.json`** that mirrors this exact plan, so you can **track completion programmatically**.
+
+Do you want me to produce that JSON next?
