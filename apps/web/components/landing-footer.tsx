@@ -3,36 +3,36 @@ import { Sparkles, Facebook, Twitter, Instagram, Github, Linkedin } from "lucide
 
 export function LandingFooter() {
   return (
-    <footer className="bg-blue-aqua-900 text-blue-aqua-50 py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          <div className="space-y-4">
+    <footer className="bg-gradient-to-br from-emerald-950 to-teal-950 text-emerald-50 py-12 sm:py-16">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10">
+          <div className="space-y-4 sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2">
-              <div className="relative overflow-hidden rounded-lg p-1.5 bg-transparent">
-                <Sparkles className="h-6 w-6 text-primary-foreground" />
+              <div className="relative overflow-hidden rounded-lg p-1.5 bg-gradient-to-br from-emerald-500 to-teal-600 shadow-md">
+                <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </div>
-              <span className="text-xl font-bold">DreamDOT</span>
+              <span className="text-lg sm:text-xl font-bold">DreamDOT</span>
             </div>
-            <p className="text-sm text-background/70 max-w-xs">
+            <p className="text-sm sm:text-base text-emerald-200 max-w-xs leading-relaxed">
               Empowering creators worldwide with intuitive tools and a supportive community.
             </p>
           </div>
 
           <div>
-            <h4 className="text-background/90 font-semibold mb-4">Platform</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-emerald-100 font-semibold mb-4 text-base sm:text-lg">Platform</h4>
+            <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base">
               <li>
-                <Link href="/#features" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/#features" className="text-emerald-300 hover:text-emerald-100 transition-colors">
                   Features
                 </Link>
               </li>
               <li>
-                <Link href="/#questions" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/#questions" className="text-emerald-300 hover:text-emerald-100 transition-colors">
                   Questions
                 </Link>
               </li>
               <li>
-                <Link href="" className="text-background/70 hover:text-background transition-colors">
+                <Link href="" className="text-emerald-300 hover:text-emerald-100 transition-colors">
                   Blog
                 </Link>
               </li>
@@ -40,20 +40,20 @@ export function LandingFooter() {
           </div>
 
           <div>
-            <h4 className="text-background/90 font-semibold mb-4">Community</h4>
-            <ul className="space-y-2 text-sm">
+            <h4 className="text-emerald-100 font-semibold mb-4 text-base sm:text-lg">Community</h4>
+            <ul className="space-y-2 sm:space-y-3 text-sm sm:text-base">
               <li>
-                <Link href="/account" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/account" className="text-emerald-300 hover:text-emerald-100 transition-colors">
                   For Creators
                 </Link>
               </li>
               <li>
-                <Link href="/account" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/account" className="text-emerald-300 hover:text-emerald-100 transition-colors">
                   Support
                 </Link>
               </li>
               <li>
-                <Link href="/account" className="text-background/70 hover:text-background transition-colors">
+                <Link href="/account" className="text-emerald-300 hover:text-emerald-100 transition-colors">
                   Guidelines
                 </Link>
               </li>
@@ -61,8 +61,8 @@ export function LandingFooter() {
           </div>
 
           <div>
-            <h4 className="text-background/90 font-semibold mb-4">Connect</h4>
-            <div className="flex gap-4">
+            <h4 className="text-emerald-100 font-semibold mb-4 text-base sm:text-lg">Connect</h4>
+            <div className="flex gap-3 sm:gap-4 flex-wrap">
               {[
                 { Icon: Facebook, href: "#" },
                 { Icon: Twitter, href: "#" },
@@ -70,15 +70,19 @@ export function LandingFooter() {
                 { Icon: Github, href: "#" },
                 { Icon: Linkedin, href: "#" },
               ].map(({ Icon, href }, index) => (
-                <Link key={index} href={href} className="p-2 hover:bg-background/10 rounded-full transition-colors">
-                  <Icon className="h-5 w-5" />
+                <Link 
+                  key={index} 
+                  href={href} 
+                  className="p-2 hover:bg-emerald-500/20 rounded-full transition-all border border-emerald-500/20 hover:border-emerald-400/40"
+                >
+                  <Icon className="h-4 w-4 sm:h-5 sm:w-5 text-emerald-300 hover:text-emerald-100" />
                 </Link>
               ))}
             </div>
           </div>
         </div>
 
-        <div className="border-t border-background/10 mt-12 pt-8 text-center text-sm text-background/70">
+        <div className="border-t border-emerald-500/20 mt-10 sm:mt-12 pt-6 sm:pt-8 text-center text-xs sm:text-sm text-emerald-300">
           © 2025 DreamDOT. All rights reserved.
         </div>
       </div>

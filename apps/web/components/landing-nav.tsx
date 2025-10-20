@@ -18,10 +18,9 @@ export function LandingNav() {
     setIsMenuOpen(false)
   }
 
-  // Detect scroll to toggle fixed positioning and background
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 0)
+      setIsScrolled(window.scrollY > 20)
     }
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
@@ -31,29 +30,26 @@ export function LandingNav() {
     <nav
       className={`${
         isScrolled
-          ? "fixed top-0 left-0 right-0 z-50 bg-[teal-50]/95"
+          ? "fixed top-0 left-0 right-0 z-50 bg-white/95 shadow-md"
           : "relative bg-white"
-      } backdrop-blur-md transition-all duration-500 ease-in-out`}
-      style={{
-        backgroundColor: isScrolled ? "rgba(212, 212, 212, 0.77)" : "#ffffff", // Teal-50/95 as rgba
-      }}
+      } backdrop-blur-md transition-all duration-300 ease-in-out`}
     >
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4">
         <div className="flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="relative overflow-hidden rounded-lg p-1.5 bg-emerald-500">
-              <Sparkles className="h-6 w-6 text-emerald-50" />
+          <Link href="/" className="flex items-center gap-2 flex-shrink-0">
+            <div className="relative overflow-hidden rounded-lg p-1.5 bg-gradient-to-br from-emerald-500 to-teal-600 shadow-md">
+              <Sparkles className="h-5 w-5 sm:h-6 sm:w-6 text-emerald-50" />
             </div>
-            <span className="font-bold text-xl">DreamDOT</span>
+            <span className="font-bold text-lg sm:text-xl text-foreground">DreamDOT</span>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
             {["features", "questions", "explore"].map((item) => (
               <button
                 key={item}
                 onClick={() => handleExploreClick(item)}
-                className="text-sm font-medium hover:text-emerald-700 transition-colors"
+                className="text-sm lg:text-base font-medium hover:text-emerald-600 transition-colors"
               >
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </button>
@@ -61,12 +57,12 @@ export function LandingNav() {
           </div>
 
           {/* Desktop Buttons */}
-          <div className="hidden md:flex items-center space-x-4">
-            <Button variant="ghost" asChild>
+          <div className="hidden md:flex items-center space-x-3 lg:space-x-4">
+            <Button variant="ghost" asChild className="text-sm lg:text-base">
               <Link href="/auth/signin">Sign In</Link>
             </Button>
             <Button
-              className="bg-emerald-600 text-emerald-50 hover:bg-emerald-700"
+              className="bg-gradient-to-r from-emerald-600 to-teal-600 text-emerald-50 hover:from-emerald-700 hover:to-teal-700 shadow-md text-sm lg:text-base"
               asChild
             >
               <Link href="/auth/register">Get Started</Link>
@@ -74,36 +70,35 @@ export function LandingNav() {
           </div>
 
           {/* Mobile Menu Button */}
-          <Button variant="ghost" size="icon" className="md:hidden" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="md:hidden"
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+          >
             {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </Button>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden mt-4 pb-4 border-t border-[teal-200]">
-            <div className="flex flex-col space-y-4 pt-4">
-              {["features", "community", "testimonials"].map((item) => (
+          <div className="md:hidden mt-4 pb-4 border-t border-emerald-200">
+            <div className="flex flex-col space-y-3 pt-4">
+              {["features", "questions", "explore"].map((item) => (
                 <button
                   key={item}
                   onClick={() => handleExploreClick(item)}
-                  className="text-sm font-medium hover:text-emerald-700 transition-colors text-left"
+                  className="text-sm font-medium hover:text-emerald-600 transition-colors text-left px-2 py-1"
                 >
                   {item.charAt(0).toUpperCase() + item.slice(1)}
                 </button>
               ))}
-              <button
-                onClick={() => redirectToFeed()}
-                className="text-sm font-medium hover:text-emerald-700 transition-colors text-left"
-              >
-                Explore
-              </button>
               <div className="flex flex-col space-y-2 pt-4">
-                <Button variant="ghost" asChild>
+                <Button variant="ghost" asChild className="w-full justify-start">
                   <Link href="/auth/signin">Sign In</Link>
                 </Button>
                 <Button
-                  className="bg-emerald-600 text-emerald-50 hover:bg-emerald-700"
+                  className="bg-gradient-to-r from-emerald-600 to-teal-600 text-emerald-50 hover:from-emerald-700 hover:to-teal-700 w-full"
                   asChild
                 >
                   <Link href="/auth/register">Get Started</Link>

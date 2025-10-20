@@ -54,18 +54,18 @@ const features = [
 
 export function LandingFeatures() {
   return (
-    <section id="features" className="py-20 bg-gradient-to-b from-muted/30 to-background">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground">
+    <section id="features" className="py-12 sm:py-16 md:py-20 bg-gradient-to-b from-muted/30 to-background">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 sm:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 text-foreground px-4">
             The Only Limit is Your <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Imagination</span>
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto px-4">
             Everything you need to create, collaborate, and monetize your creative work
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {features.map((feature, index) => {
             const IconComponent = feature.icon
             return (
@@ -74,16 +74,16 @@ export function LandingFeatures() {
                 className={`dream-card group hover:shadow-2xl transition-all duration-300 border-2 ${feature.borderColor} overflow-hidden relative`}
               >
                 <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <CardContent className="p-6 relative z-10">
+                <CardContent className="p-5 sm:p-6 relative z-10">
                   <div
-                    className={`inline-flex items-center justify-center w-14 h-14 rounded-xl ${feature.bgColor} mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}
+                    className={`inline-flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-xl ${feature.bgColor} mb-4 shadow-md group-hover:scale-110 transition-transform duration-300`}
                   >
-                    <IconComponent className={`h-7 w-7 ${feature.color}`} />
+                    <IconComponent className={`h-6 w-6 sm:h-7 sm:w-7 ${feature.color}`} />
                   </div>
-                  <h3 className="text-xl font-semibold mb-3 group-hover:text-primary transition-colors">
+                  <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 group-hover:text-primary transition-colors">
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground leading-relaxed">{feature.description}</p>
+                  <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">{feature.description}</p>
                 </CardContent>
               </Card>
             )
