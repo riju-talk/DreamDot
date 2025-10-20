@@ -7,6 +7,7 @@ import "quill/dist/quill.snow.css";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ImageIcon, X } from "lucide-react";
+import { uploadImageToImageKit } from "@/lib/imagekitupload";
 
 interface RichTextEditorProps {
   value: string;
@@ -32,11 +33,9 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
         theme: "snow",
         modules: {
           toolbar: [
-            [{ header: [1, 2, 3, false] }],
-            ["bold", "italic", "underline", "strike"],
-            [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image"],
-            ["clean"],
+            ["bold", "italic", "underline"],
+            [{ size: ["small", false, "large", "huge"] }],
+            [{ color: [] }],
           ],
         },
       });

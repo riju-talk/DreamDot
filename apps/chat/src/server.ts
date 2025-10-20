@@ -90,10 +90,10 @@ const startServer = async () => {
     // Connect to database
     await connectDb();
     
-    const PORT = process.env.PORT || 3001;
+    const PORT = parseInt(process.env.PORT || '3001', 10);
     const HOST = process.env.HOST || '0.0.0.0';
     
-    server.listen(PORT, HOST as string, () => {
+    server.listen(PORT, HOST, () => {
       logger.info(`🚀 Chat server running on ${HOST}:${PORT}`);
       logger.info(`📝 Environment: ${process.env.NODE_ENV || 'development'}`);
       logger.info(`🌐 CORS allowed origins: ${process.env.CORS_ORIGIN || 'http://localhost:3000'}`);
