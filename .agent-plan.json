@@ -1,0 +1,87 @@
+{
+  "currentPhase": 0,
+  "phases": [
+    {
+      "id": 0,
+      "name": "Prep & Environment",
+      "status": "in_progress",
+      "tasks": [
+        "Create .agent-plan.json with phase tracking",
+        "Set up environment variables for chat server and web app",
+        "Verify database connections and dependencies",
+        "Test chat server startup"
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Real-Time E2EE Chat",
+      "status": "pending",
+      "tasks": [
+        "Verify Socket.IO server implementation",
+        "Test Socket.IO client integration",
+        "Implement missing encryption features (TweetNaCl/Web Crypto)",
+        "Fix /messages route and chat UI",
+        "Implement media file handling with encryption",
+        "Test DMs and community chats"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Social Media & Marketplace + Stripe",
+      "status": "pending",
+      "tasks": [
+        "Review existing social media features",
+        "Integrate Stripe for payments",
+        "Implement marketplace functionality",
+        "Set up credits system"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "DB Inspection & Auto-Fixes",
+      "status": "pending",
+      "tasks": [
+        "Scan database for orphaned references",
+        "Fix missing indexes",
+        "Apply migrations programmatically"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "UI Refinements",
+      "status": "pending",
+      "tasks": [
+        "Update color scheme to whittier green",
+        "Polish feeds and marketplace UI",
+        "Add E2EE badges to chat"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Tests, Docs, Deployment",
+      "status": "pending",
+      "tasks": [
+        "Write integration tests",
+        "Create deployment documentation",
+        "Set up CI/CD pipeline"
+      ]
+    }
+  ],
+  "environment": {
+    "required": [
+      "MONGODB_URI (chat server)",
+      "JWT_SECRET (chat server)",
+      "CORS_ORIGIN (chat server)",
+      "NEXT_PUBLIC_CHAT_SERVER_URL (web app)",
+      "MONGO_CLUSTER (web app)",
+      "NEXTAUTH_SECRET (web app)",
+      "NEXTAUTH_URL (web app)"
+    ],
+    "optional": [
+      "STRIPE_SECRET_KEY",
+      "STRIPE_WEBHOOK_SECRET",
+      "IMAGEKIT_PUBLIC_KEY",
+      "IMAGEKIT_PRIVATE_KEY"
+    ]
+  }
+}
