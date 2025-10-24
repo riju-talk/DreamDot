@@ -130,7 +130,7 @@ export default function SignInPage() {
         </div>
 
         {/* Right: Sign In Card */}
-        <Card className="w-full max-w-md rounded-none lg:rounded-l-none lg:rounded-r-xl shadow-none border-none">
+        <Card className="w-full max-w-md rounded-none lg:rounded-l-none lg:rounded-r-xl shadow-none border-none bg-white">
           <CardHeader className="text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="relative overflow-hidden rounded-lg p-1.5 bg-primary">
@@ -144,9 +144,9 @@ export default function SignInPage() {
             </CardDescription>
           </CardHeader>
 
-          <CardContent className="space-y-4">
+          <CardContent className="space-y-6">
             <form onSubmit={handleSubmit}>
-              <div className="space-y-2">
+              <div className="space-y-8">
                 <Label htmlFor="email">Email</Label>
                 <Input
                   id="email"
@@ -155,13 +155,13 @@ export default function SignInPage() {
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className={errors.email ? 'border-destructive' : ''}
+                  className={errors.email ? 'border-destructive bg-white' : 'bg-white'}
                 />
                 {errors.email && (
                   <p className="text-sm text-destructive mt-1">{errors.email}</p>
                 )}
               </div>
-              <div className="space-y-2 relative">
+              <div className="space-y-8 relative">
                 <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Input
@@ -171,7 +171,7 @@ export default function SignInPage() {
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`w-full pr-10 ${errors.password ? 'border-destructive' : ''}`}
+                    className={`w-full pr-10 ${errors.password ? 'border-destructive bg-white' : 'bg-white'}`}
                     autoComplete="current-password"
                   />
                   <button
@@ -219,7 +219,7 @@ export default function SignInPage() {
             <div className="flex flex-col space-y-2">
               <Button
                 variant="outline"
-                className="w-full flex items-center justify-center gap-2"
+                className="w-full flex items-center justify-center gap-2 bg-white"
                 onClick={() => handleNotReady("Google")}
                 disabled={isLoading}
               >
@@ -228,7 +228,7 @@ export default function SignInPage() {
               </Button>
               <Button
                 variant="outline"
-                className="w-full flex items-center justify-center gap-2"
+                className="w-full flex items-center justify-center gap-2 bg-white"
                 onClick={() => handleNotReady("GitHub")}
                 disabled={isLoading}
               >

@@ -6,22 +6,8 @@ import { connectToDatabase } from "@/lib/mongoose/connection"
 import { PostModel } from "@/lib/mongoose/posts"
 import mongoose from "mongoose"
 
-//const session = await getServerSession(authOptions)
-
-interface PostCreateRequest {
-  content: string
-  mediaUrl?: string
-  visibility?: boolean
-  mediaType?: "text" | "image" | "video" | "audio"
-}
-
-interface AuthenticatedUser {
-  email: string
-  name: string
-}
-
 // Helper function to validate user authentication
-async function validateUser(request: NextRequest): Promise<AuthenticatedUser | null> {
+async function validateUser(request) {
   try {
     // First try NextAuth session
     const session = await getServerSession(authOptions)
@@ -34,7 +20,6 @@ async function validateUser(request: NextRequest): Promise<AuthenticatedUser | n
 
     // Fallback to JWT token validation
     const authorization = request.headers.get("Authorization")
-    //console.log("Authorization header:", authorization)
     if (!authorization?.startsWith("Bearer ")) {
       return null
     }
@@ -56,8 +41,8 @@ async function validateUser(request: NextRequest): Promise<AuthenticatedUser | n
 }
 
 // Helper function to validate and sanitize input
-function validateInput(data: any): { isValid: boolean; errors: string[]; cleanData?: PostCreateRequest } {
-  const errors: string[] = []
+function validateInput(data) {
+  const errors = []
 
   if (!data.content || typeof data.content !== "string") {
     errors.push("Content is required and must be a string")
@@ -92,7 +77,7 @@ function validateInput(data: any): { isValid: boolean; errors: string[]; cleanDa
 }
 
 // Helper function to create post analytics entry
-async function createPostAnalytics(postId: string) {
+async function createPostAnalytics(postId) {
   try {
     await prismaSocial.posts_analytics.create({
       data: {
@@ -110,7 +95,7 @@ async function createPostAnalytics(postId: string) {
 }
 
 // Helper function to update user analytics
-async function updateUserAnalytics(userId: string) {
+async function updateUserAnalytics(userId) {
   try {
     const userAnalytics = await prismaSocial.user_analytics.findUnique({
       where: { user_id: userId }
@@ -143,14 +128,14 @@ async function updateUserAnalytics(userId: string) {
   }
 }
 
-export async function POST(request: NextRequest) {
+export async function POST(request) {
   try {
     // 1. Validate user authentication
     const user = await validateUser(request)
     if (!user) {
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           message: "Authentication required",
           code: "UNAUTHORIZED"
         },
@@ -161,15 +146,13 @@ export async function POST(request: NextRequest) {
     // 2. Parse and validate request body
     let requestData
     try {
-      const rawBody = await request.text();
-      //console.log("Raw request body:", rawBody);
-      requestData = JSON.parse(rawBody);
-      //console.log("Parsed request data:", requestData);
+      const rawBody = await request.text()
+      requestData = JSON.parse(rawBody)
     } catch (error) {
-      console.error("Error parsing request body:", error);
+      console.error("Error parsing request body:", error.message)
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           message: `Invalid JSON in request body: ${error.message}`,
           code: "INVALID_JSON"
         },
@@ -181,8 +164,8 @@ export async function POST(request: NextRequest) {
     const validation = validateInput(requestData)
     if (!validation.isValid) {
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           message: "Validation failed",
           errors: validation.errors,
           code: "VALIDATION_ERROR"
@@ -191,18 +174,18 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const { content, mediaUrl, visibility, mediaType } = validation.cleanData!
+    const { content, mediaUrl, visibility, mediaType } = validation.cleanData
 
     // 4. Find user by email to get the user ID
     const dbUser = await prismaSocial.users.findUnique({
       where: { email: user.email },
       select: { id: true }
-    });
+    })
 
     if (!dbUser) {
       return NextResponse.json(
-        { 
-          success: false, 
+        {
+          success: false,
           message: "User not found",
           code: "USER_NOT_FOUND"
         },
@@ -221,7 +204,7 @@ export async function POST(request: NextRequest) {
       }
     })
 
-    // 5. Connect to MongoDB and create post content
+    // 6. Connect to MongoDB and create post content
     await connectToDatabase()
     const postContent = await PostModel.create({
       _id: new mongoose.Types.ObjectId(), // Let MongoDB generate its own ID
@@ -235,13 +218,13 @@ export async function POST(request: NextRequest) {
       comments: []
     })
 
-    // 6. Create initial analytics entry (non-blocking)
+    // 7. Create initial analytics entry (non-blocking)
     createPostAnalytics(postMetadata.id)
 
-    // 7. Update user analytics (non-blocking)
+    // 8. Update user analytics (non-blocking)
     updateUserAnalytics(dbUser.id)
 
-    // 8. Return success response
+    // 9. Return success response
     return NextResponse.json({
       success: true,
       message: "Post created successfully",
@@ -266,19 +249,19 @@ export async function POST(request: NextRequest) {
       name: error.name,
       stack: error.stack,
       fullError: JSON.stringify(error, Object.getOwnPropertyNames(error))
-    });
+    })
 
     // Log validation errors if they exist
     if (error.errors) {
-      console.error("Validation errors:", error.errors);
+      console.error("Validation errors:", error.errors)
     }
 
     // Handle specific database errors
     if (error instanceof Error) {
       if (error.message.includes("duplicate key")) {
         return NextResponse.json(
-          { 
-            success: false, 
+          {
+            success: false,
             message: "Post already exists",
             code: "DUPLICATE_POST"
           },
@@ -288,8 +271,8 @@ export async function POST(request: NextRequest) {
 
       if (error.message.includes("foreign key constraint")) {
         return NextResponse.json(
-          { 
-            success: false, 
+          {
+            success: false,
             message: "Invalid user reference",
             code: "INVALID_USER"
           },
@@ -300,8 +283,8 @@ export async function POST(request: NextRequest) {
 
     // Generic error response
     return NextResponse.json(
-      { 
-        success: false, 
+      {
+        success: false,
         message: "Internal server error occurred while creating post",
         code: "INTERNAL_ERROR"
       },
@@ -311,7 +294,7 @@ export async function POST(request: NextRequest) {
 }
 
 // GET endpoint to retrieve user's posts
-export async function GET(request: NextRequest) {
+export async function GET(request) {
   try {
     const user = await validateUser(request)
     if (!user) {
