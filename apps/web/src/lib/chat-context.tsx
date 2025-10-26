@@ -11,57 +11,155 @@ interface ChatContextType {
   activeConversation: ChatConversation | null
   messages: ChatMessage[]
   isConnected: boolean
+  isLoading: boolean
   joinConversation: (conversationId: string) => void
   leaveConversation: (conversationId: string) => void
   sendMessage: (content: string, conversationId: string) => void
   setActiveConversation: (conversation: ChatConversation | null) => void
+  createDirectMessage: (userId: string) => Promise<void>
+  createGroupChat: (name: string, participants: string[]) => Promise<void>
+  searchConversations: (query: string) => ChatConversation[]
+  markAsRead: (conversationId: string) => void
+  loadConversations: () => Promise<void>
+  loadMessages: (conversationId: string) => Promise<void>
 }
 
 const ChatContext = createContext<ChatContextType | undefined>(undefined)
 
 export function ChatProvider({ children }: { children: ReactNode }) {
   const { data: session } = useSession()
-  const { socket, isConnected } = useSocket()
+  const { socket, isConnected, sendMessage: socketSendMessage, joinRoom, leaveRoom, setTyping } = useSocket()
   const [conversations, setConversations] = useState<ChatConversation[]>([])
   const [activeConversation, setActiveConversation] = useState<ChatConversation | null>(null)
   const [messages, setMessages] = useState<ChatMessage[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+
+  // Load conversations on mount
+  useEffect(() => {
+    if (session?.user?.name && (session as any)?.accessToken) {
+      loadConversations()
+    }
+  }, [session?.user?.name, (session as any)?.accessToken])
 
   // Listen for incoming messages
   useEffect(() => {
     if (!socket) return
 
-    const handleNewMessage = (message: ChatMessage) => {
-      setMessages(prev => [...prev, message])
+    const handleNewMessage = (data: any) => {
+      const newMessage: ChatMessage = {
+        id: data._id || data.id,
+        content: data.content || '',
+        senderId: data.senderId,
+        senderName: data.sender?.name || 'Unknown',
+        senderAvatar: data.sender?.avatar || '',
+        timestamp: data.timestamp || new Date().toISOString(),
+        type: data.type || 'text',
+        isRead: data.readBy?.includes((session as any)?.user?.id) || false
+      }
+
+      setMessages(prev => {
+        // Avoid duplicates
+        if (prev.find(m => m.id === newMessage.id)) return prev
+        return [...prev, newMessage]
+      })
+
+      // Update conversation's last message
+      setConversations(prev =>
+        prev.map(conv =>
+          conv.id === data.conversationId
+            ? { ...conv, lastMessage: newMessage, unreadCount: conv.id === activeConversation?.id ? 0 : conv.unreadCount + 1 }
+            : conv
+        )
+      )
     }
 
     const handleMessageDelivered = (data: { messageId: string }) => {
-      setMessages(prev => 
-        prev.map(msg => 
-          msg.id === data.messageId 
-            ? { ...msg, status: 'delivered' } 
+      setMessages(prev =>
+        prev.map(msg =>
+          msg.id === data.messageId
+            ? { ...msg, status: 'delivered' }
             : msg
         )
       )
     }
 
+    const handleTyping = (data: { userId: string; isTyping: boolean; conversationId: string }) => {
+      // Handle typing indicators if needed
+      console.log('Typing:', data)
+    }
+
+    const handleUserJoined = (data: { userId: string; timestamp: string }) => {
+      // Handle presence updates if needed
+      console.log('User joined:', data)
+    }
+
     socket.on('message:new', handleNewMessage)
     socket.on('message:delivered', handleMessageDelivered)
+    socket.on('message:typing', handleTyping)
+    socket.on('presence:join', handleUserJoined)
 
     return () => {
       socket.off('message:new', handleNewMessage)
       socket.off('message:delivered', handleMessageDelivered)
+      socket.off('message:typing', handleTyping)
+      socket.off('presence:join', handleUserJoined)
     }
-  }, [socket])
+  }, [socket, activeConversation, session])
+
+  const loadConversations = async () => {
+    if (!session?.user) return
+
+    try {
+      setIsLoading(true)
+      const response = await fetch('/api/chat/conversations')
+
+      if (response.ok) {
+        const data = await response.json()
+        setConversations(data.conversations || [])
+      }
+    } catch (error) {
+      console.error('Failed to load conversations:', error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
+
+  const loadMessages = async (conversationId: string) => {
+    if (!session?.user) return
+
+    try {
+      const response = await fetch(`/api/chat/conversations/${conversationId}/messages`)
+
+      if (response.ok) {
+        const data = await response.json()
+        const loadedMessages = (data.messages || []).map((msg: any) => ({
+          id: msg._id,
+          content: msg.content || '',
+          senderId: msg.senderId,
+          senderName: msg.sender?.name || 'Unknown',
+          senderAvatar: msg.sender?.avatar || '',
+          timestamp: msg.timestamp,
+          type: msg.type || 'text',
+          isRead: msg.readBy?.includes((session as any).user.name) || false
+        }))
+
+        setMessages(loadedMessages)
+      }
+    } catch (error) {
+      console.error('Failed to load messages:', error)
+    }
+  }
 
   const joinConversation = (conversationId: string) => {
     if (socket && isConnected) {
-      socket.emit('room:join', { conversationId })
+      joinRoom(conversationId)
+      loadMessages(conversationId)
     }
   }
 
   const leaveConversation = (conversationId: string) => {
     if (socket && isConnected) {
-      socket.emit('room:leave', { conversationId })
+      leaveRoom(conversationId)
     }
   }
 
@@ -71,18 +169,98 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     const message = {
       conversationId,
       content,
-      senderId: session.user.id,
+      senderId: (session as any).user.name,
       timestamp: new Date().toISOString(),
       type: 'text' as const
     }
 
-    socket.emit('message:send', message, (response: any) => {
+    socketSendMessage(message, (response: any) => {
       if (response.ok) {
-        console.log('Message sent successfully')
+        // Message sent successfully
+        const newMessage: ChatMessage = {
+          id: response.id,
+          content,
+          senderId: (session as any).user.id,
+          senderName: (session as any).user.name || 'You',
+          senderAvatar: (session as any).user.image || '',
+          timestamp: new Date().toISOString(),
+          type: 'text',
+          isRead: true
+        }
+
+        setMessages(prev => [...prev, newMessage])
       } else {
         console.error('Failed to send message:', response.error)
       }
     })
+  }
+
+  const createDirectMessage = async (userId: string) => {
+    if (!session?.user) return
+
+    try {
+      const response = await fetch('/api/chat/conversations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: 'direct',
+          participants: [userId]
+        })
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setConversations(prev => [data.conversation, ...prev])
+        setActiveConversation(data.conversation)
+      }
+    } catch (error) {
+      console.error('Failed to create DM:', error)
+    }
+  }
+
+  const createGroupChat = async (name: string, participants: string[]) => {
+    if (!session?.user) return
+
+    try {
+      const response = await fetch('/api/chat/conversations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          type: 'group',
+          participants,
+          name
+        })
+      })
+
+      if (response.ok) {
+        const data = await response.json()
+        setConversations(prev => [data.conversation, ...prev])
+        setActiveConversation(data.conversation)
+      }
+    } catch (error) {
+      console.error('Failed to create group:', error)
+    }
+  }
+
+  const searchConversations = (query: string) => {
+    return conversations.filter(conv =>
+      conv.name.toLowerCase().includes(query.toLowerCase()) ||
+      conv.participants.some(p => p.name.toLowerCase().includes(query.toLowerCase()))
+    )
+  }
+
+  const markAsRead = (conversationId: string) => {
+    setConversations(prev =>
+      prev.map(conv =>
+        conv.id === conversationId
+          ? { ...conv, unreadCount: 0 }
+          : conv
+      )
+    )
   }
 
   const value: ChatContextType = {
@@ -90,10 +268,17 @@ export function ChatProvider({ children }: { children: ReactNode }) {
     activeConversation,
     messages,
     isConnected,
+    isLoading,
     joinConversation,
     leaveConversation,
     sendMessage,
-    setActiveConversation
+    setActiveConversation,
+    createDirectMessage,
+    createGroupChat,
+    searchConversations,
+    markAsRead,
+    loadConversations,
+    loadMessages
   }
 
   return (

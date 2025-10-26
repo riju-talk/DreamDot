@@ -1,4 +1,5 @@
-require('dotenv').config();
+const path = require('path');
+require('dotenv').config({ path: path.resolve(__dirname, '../../.env') });
 const express = require('express');
 const http = require('http');
 const socketIo = require('socket.io');
@@ -7,8 +8,8 @@ const helmet = require('helmet');
 const compression = require('compression');
 
 const { connectDb } = require('./db');
-const { authenticateToken, authenticateSocket, generateToken, ensureMember } = require('./auth');
-const { Message, Conversation, User } = require('./models');
+const { authenticateToken, authenticateSocket, ensureMember } = require('./auth');
+const { Message, Conversation } = require('./models');
 
 // Debug logging function
 function debugLog(message, data = null) {
@@ -58,10 +59,13 @@ app.set('trust proxy', 1);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
+  const dbStatus = require('./db').isConnected() ? 'connected' : 'disconnected';
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
-    uptime: process.uptime()
+    uptime: process.uptime(),
+    database: dbStatus,
+    service: 'chat-server'
   });
 });
 
@@ -71,7 +75,7 @@ app.use('/api/v1', authenticateToken);
 // Get user conversations
 app.get('/api/v1/conversations', async (req, res) => {
   try {
-    debugLog('📋 Getting conversations for user:', req.user.sub);
+    debugLog('Getting conversations for user:', req.user.sub);
 
     const conversations = await Conversation.find({
       participants: req.user.sub,
@@ -80,10 +84,10 @@ app.get('/api/v1/conversations', async (req, res) => {
     .sort({ lastMessageAt: -1 })
     .limit(50);
 
-    debugLog('✅ Found conversations:', conversations.length);
+    debugLog('SUCCESS: Found conversations:', conversations.length);
     res.json({ success: true, data: conversations });
   } catch (error) {
-    debugLog('❌ Error getting conversations:', error.message);
+    debugLog('ERROR: Error getting conversations:', error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -94,7 +98,7 @@ app.post('/api/v1/conversations', async (req, res) => {
     const { type, participants, name } = req.body;
     const userId = req.user.sub;
 
-    debugLog('💬 Creating conversation:', { type, participants, name, userId });
+    debugLog('Creating conversation:', { type, participants, name, userId });
 
     if (!type || !participants || !Array.isArray(participants)) {
       return res.status(400).json({ success: false, error: 'Type and participants are required' });
@@ -108,7 +112,7 @@ app.post('/api/v1/conversations', async (req, res) => {
       });
 
       if (existingConversation) {
-        debugLog('✅ Found existing direct conversation');
+        debugLog('SUCCESS: Found existing direct conversation');
         return res.json({ success: true, data: existingConversation });
       }
     }
@@ -122,10 +126,10 @@ app.post('/api/v1/conversations', async (req, res) => {
       lastMessageAt: new Date(),
     });
 
-    debugLog('✅ Created conversation:', conversation._id);
+    debugLog('SUCCESS: Created conversation:', conversation._id);
     res.json({ success: true, data: conversation });
   } catch (error) {
-    debugLog('❌ Error creating conversation:', error.message);
+    debugLog('ERROR: Error creating conversation:', error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -136,7 +140,7 @@ app.get('/api/v1/conversations/:id/messages', async (req, res) => {
     const { id } = req.params;
     const { limit = 50, before } = req.query;
 
-    debugLog('📨 Getting messages for conversation:', id);
+    debugLog('Getting messages for conversation:', id);
 
     let query = { conversation: id, isDeleted: false };
 
@@ -149,10 +153,10 @@ app.get('/api/v1/conversations/:id/messages', async (req, res) => {
       .limit(parseInt(limit))
       .populate('sender', 'name email avatar');
 
-    debugLog('✅ Found messages:', messages.length);
+    debugLog('SUCCESS: Found messages:', messages.length);
     res.json({ success: true, data: messages.reverse() });
   } catch (error) {
-    debugLog('❌ Error getting messages:', error.message);
+    debugLog('ERROR: Error getting messages:', error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -164,7 +168,7 @@ app.post('/api/v1/conversations/:id/messages', async (req, res) => {
     const { content, type = 'text', attachments = [] } = req.body;
     const userId = req.user.sub;
 
-    debugLog('📨 Sending message to conversation:', id);
+    debugLog('Sending message to conversation:', id);
 
     // Check if user is member
     await ensureMember(userId, id);
@@ -190,10 +194,10 @@ app.post('/api/v1/conversations/:id/messages', async (req, res) => {
       $pull: { unreadBy: userId }, // Remove sender from unreadBy
     });
 
-    debugLog('✅ Message sent:', message._id);
+    debugLog('SUCCESS: Message sent:', message._id);
     res.json({ success: true, data: message });
   } catch (error) {
-    debugLog('❌ Error sending message:', error.message);
+    debugLog('ERROR: Error sending message:', error.message);
     res.status(500).json({ success: false, error: error.message });
   }
 });
@@ -214,12 +218,12 @@ const io = socketIo(server, {
 io.use(authenticateSocket);
 
 io.on('connection', (socket) => {
-  debugLog('🔌 Socket connected:', socket.userId);
+  debugLog('Socket connected:', socket.userId);
 
   // Handle room joining
   socket.on('room:join', async (data) => {
     try {
-      debugLog('🚪 Joining room:', data.conversationId);
+      debugLog('Joining room:', data.conversationId);
 
       await ensureMember(socket.userId, data.conversationId);
       await socket.join(data.conversationId);
@@ -230,16 +234,16 @@ io.on('connection', (socket) => {
         timestamp: new Date().toISOString()
       });
 
-      debugLog('✅ Joined room:', data.conversationId);
+      debugLog('SUCCESS: Joined room:', data.conversationId);
     } catch (error) {
-      debugLog('❌ Error joining room:', error.message);
+      debugLog('ERROR: Error joining room:', error.message);
       socket.emit('error', { event: 'room:join', message: error.message });
     }
   });
 
   // Handle room leaving
   socket.on('room:leave', (data) => {
-    debugLog('🚪 Leaving room:', data.conversationId);
+    debugLog('Leaving room:', data.conversationId);
 
     socket.leave(data.conversationId);
     socket.to(data.conversationId).emit('presence:leave', {
@@ -247,12 +251,12 @@ io.on('connection', (socket) => {
       timestamp: new Date().toISOString()
     });
 
-    debugLog('✅ Left room:', data.conversationId);
+    debugLog('SUCCESS: Left room:', data.conversationId);
   });
 
   // Handle typing indicators
   socket.on('message:typing', (data) => {
-    debugLog('⌨️ Typing in room:', data.conversationId);
+    debugLog('Typing in room:', data.conversationId);
 
     socket.to(data.conversationId).emit('message:typing', {
       userId: socket.userId,
@@ -264,7 +268,7 @@ io.on('connection', (socket) => {
   // Handle message sending
   socket.on('message:send', async (data, ack) => {
     try {
-      debugLog('📨 Socket message send:', data.conversationId);
+      debugLog('Socket message send:', data.conversationId);
 
       const { conversationId, ciphertext, nonce, keyId, attachments = [] } = data;
 
@@ -300,13 +304,13 @@ io.on('connection', (socket) => {
         status: 'delivered'
       });
 
-      debugLog('✅ Message sent and broadcasted:', savedMessage._id);
+      debugLog('SUCCESS: Message sent and broadcasted:', savedMessage._id);
 
       if (ack) {
         ack({ ok: true, id: savedMessage._id });
       }
     } catch (error) {
-      debugLog('❌ Error sending socket message:', error.message);
+      debugLog('ERROR: Error sending socket message:', error.message);
       socket.emit('error', { event: 'message:send', message: error.message });
       if (ack) {
         ack({ ok: false, error: error.message });
@@ -316,7 +320,7 @@ io.on('connection', (socket) => {
 
   // Handle disconnect
   socket.on('disconnect', () => {
-    debugLog('🔌 Socket disconnected:', socket.userId);
+    debugLog('Socket disconnected:', socket.userId);
   });
 });
 
@@ -330,7 +334,7 @@ app.use('*', (req, res) => {
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-  debugLog('❌ Express error:', err.message);
+  debugLog('Express error:', err.message);
   res.status(500).json({
     success: false,
     error: err.message
@@ -339,26 +343,26 @@ app.use((err, req, res, next) => {
 
 // Graceful shutdown
 const gracefulShutdown = (signal) => {
-  debugLog(`📴 Received ${signal}. Shutting down gracefully...`);
+  debugLog(`SHUTDOWN: Received ${signal}. Shutting down gracefully...`);
 
   server.close(async () => {
-    debugLog('📴 HTTP server closed');
+    debugLog('SHUTDOWN: HTTP server closed');
 
     try {
       const mongoose = require('mongoose');
       await mongoose.disconnect();
-      debugLog('📴 Database connection closed');
+      debugLog('SHUTDOWN: Database connection closed');
     } catch (error) {
-      debugLog('❌ Error closing database connection:', error.message);
+      debugLog('ERROR: Error closing database connection:', error.message);
     }
 
-    debugLog('📴 Process terminated');
+    debugLog('SHUTDOWN: Process terminated');
     process.exit(0);
   });
 
   // Force close after 10 seconds
   setTimeout(() => {
-    debugLog('❌ Could not close connections in time, forcefully shutting down');
+    debugLog('ERROR: Could not close connections in time, forcefully shutting down');
     process.exit(1);
   }, 10000);
 };
@@ -369,12 +373,12 @@ process.on('SIGINT', () => gracefulShutdown('SIGINT'));
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (reason, promise) => {
-  debugLog('❌ Unhandled Rejection at:', promise, 'reason:', reason);
+  debugLog('ERROR: Unhandled Rejection at:', promise, 'reason:', reason);
 });
 
 // Handle uncaught exceptions
 process.on('uncaughtException', (error) => {
-  debugLog('❌ Uncaught Exception:', error.message);
+  debugLog('ERROR: Uncaught Exception:', error.message);
   process.exit(1);
 });
 
@@ -387,19 +391,22 @@ const startServer = async () => {
     const PORT = parseInt(process.env.PORT || '3001', 10);
     const HOST = process.env.HOST || '0.0.0.0';
 
-    server.listen(PORT, HOST, () => {
-      debugLog(`🚀 Chat server running on ${HOST}:${PORT}`);
-      debugLog(`🌐 Environment: ${process.env.NODE_ENV || 'development'}`);
-      debugLog(`🔌 Socket.IO path: ${process.env.SOCKET_PATH || '/socket.io'}`);
+    // FORCE chat server to use port 3001
+    const CHAT_PORT = 3001;
+
+    server.listen(CHAT_PORT, HOST, () => {
+      debugLog(`SERVER: Chat server running on ${HOST}:${CHAT_PORT}`);
+      debugLog(`INFO: Environment: ${process.env.NODE_ENV || 'development'}`);
+      debugLog(`INFO: Socket.IO path: ${process.env.SOCKET_PATH || '/socket.io'}`);
 
       if (!require('./db').isConnected()) {
-        debugLog('⚠️  Running in offline mode - database not connected');
-        debugLog('💡 Some features like message persistence may not work');
+        debugLog('WARNING: Running in offline mode - database not connected');
+        debugLog('INFO: Some features like message persistence may not work');
       }
     });
 
   } catch (error) {
-    debugLog('❌ Failed to start server:', error.message);
+    debugLog('ERROR: Failed to start server:', error.message);
     process.exit(1);
   }
 };

@@ -1,9 +1,6 @@
 import { NextResponse } from "next/server"
-import jwt from "jsonwebtoken"
 import { getServerSession } from "next-auth"
 import { fetchConversations, createConversation, markConversationAsRead } from "@/lib/mongoose/conversations"
-
-const JWT_SECRET = process.env.NEXTAUTH_SECRET || "your-secret"
 
 export async function GET(req) {
   try {
@@ -13,7 +10,7 @@ export async function GET(req) {
     }
 
     const { conversations } = await fetchConversations(session.user.id)
-    return NextResponse.json(conversations)
+    return NextResponse.json({ conversations })
   } catch (error) {
     console.error("Error fetching conversations:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
@@ -28,10 +25,10 @@ export async function POST(req) {
     }
 
     const body = await req.json()
-    const { type, name, participantIds } = body
+    const { type, name, participants } = body
 
-    const allParticipants = [session.user.id, ...participantIds]
-    
+    const allParticipants = [session.user.id, ...participants]
+
     const { conversation } = await createConversation({
       type,
       name,
@@ -39,7 +36,7 @@ export async function POST(req) {
       isPrivate: body.isPrivate || false
     })
 
-    return NextResponse.json(conversation)
+    return NextResponse.json({ conversation })
   } catch (error) {
     console.error("Error creating conversation:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })

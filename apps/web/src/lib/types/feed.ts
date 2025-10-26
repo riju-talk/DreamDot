@@ -21,15 +21,15 @@ export interface Item {
   description: string
   fileUrl: string
   fileType: string
-  price: number
-  originalPrice?: number
-  category?: string
-  rating?: number
-  students?: number
+  price: number | null
+  originalPrice?: number | null
+  category?: string | null
+  rating?: number | null
+  students?: number | null
   tracks?: string[]
   courses?: string[]
-  hours?: number
-  discount?: number
+  hours?: number | null
+  discount?: number | null
   visibility: boolean
   createdAt: Date
   creatorId: string
@@ -39,6 +39,7 @@ export interface FeedItem {
   id: string
   type: 'post' | 'marketplace'
   created_at: Date
+  timestamp: string
   user: {
     id: string
     name: string
@@ -49,21 +50,24 @@ export interface FeedItem {
   content: {
     text: string
     media: Array<{
-      type: string
+      type: "image" | "video" | "audio"
       url: string
-      alt: string
+      alt?: string
+      title?: string
+      duration?: string
     }>
     product?: {
       title: string
-      price: number
-      originalPrice?: number
-      category?: string
+      price: string
+      originalPrice?: string
+      category: string
       rating?: number
       students?: number
-      tracks?: string[]
-      courses?: string[]
-      hours?: number
-      discount?: number
+      tracks?: number
+      duration?: string
+      courses?: number
+      hours?: string
+      discount?: string
     }
   }
   engagement: {

@@ -3,8 +3,8 @@ import { prismaSocial } from "@/lib/db"
 import { prismaItem } from "@/lib/db"
 import { prismaUser } from "@/lib/db"
 import { connectToDatabase } from "../mongoose/connection"
-import PostModel from "../mongoose/models/Post"
-import ItemModel from "../mongoose/models/Item"
+import { PostModel } from "../mongoose/posts"
+import { ItemModel } from "../mongoose/items"
 import type { Post, Item, FeedItem } from "../types/feed"
 
 type FeedScope = "mixed" | "posts" | "items"
@@ -21,10 +21,24 @@ interface FetchOptions {
 function safeDate(d?: Date | string | null): Date {
   if (!d) return new Date(0)
   try {
-    return d instanceof Date ? d : new Date(d)
+    if (d instanceof Date) return d
+    const date = new Date(d)
+    return isNaN(date.getTime()) ? new Date(0) : date
   } catch {
     return new Date(0)
   }
+}
+
+function formatTimestamp(date: Date): string {
+  const now = new Date()
+  const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000)
+
+  if (diffInSeconds < 60) return "Just now"
+  if (diffInSeconds < 3600) return `${Math.floor(diffInSeconds / 60)}m ago`
+  if (diffInSeconds < 86400) return `${Math.floor(diffInSeconds / 3600)}h ago`
+  if (diffInSeconds < 604800) return `${Math.floor(diffInSeconds / 86400)}d ago`
+
+  return date.toLocaleDateString()
 }
 
 function pickUserFromPrisma(u?: {
@@ -68,12 +82,13 @@ function mapMongoPostToFeedItem(
     }
   >
 ): FeedItem {
-  const u = userById[String(post.userId)]
+  const u = userById[String(post.creatorId)]
   const user = pickUserFromPrisma(u)
   return {
     id: String(post._id),
     type: "post" as const,
     created_at: safeDate(post.createdAt),
+    timestamp: formatTimestamp(safeDate(post.createdAt)),
     user,
     content: {
       text: post.content ?? "",
@@ -101,27 +116,66 @@ function mapMongoPostToFeedItem(
 // Prisma Social → FeedItem (Post)
 function mapPrismaSocialPostToFeedItem(p: any): FeedItem {
   const user = pickUserFromPrisma(p.users)
-  const analyticsLikes =
-    p.posts_analytics?.likes_count ??
-    (p._count?.likes ? Number(p._count.likes) : 0)
-  const analyticsComments =
-    p.posts_analytics?.comments_count ??
-    (p._count?.comments ? Number(p._count.comments) : 0)
+  
+  // Use _count for analytics since posts_analytics might not exist
+  const analyticsLikes = p._count?.likes ? Number(p._count.likes) : 0
+  const analyticsComments = p._count?.comments ? Number(p._count.comments) : 0
 
   return {
     id: p.id,
     type: "post" as const,
     created_at: safeDate(p.created_at),
+    timestamp: formatTimestamp(safeDate(p.created_at)),
     user,
     content: {
       text: p.description ?? "",
-      media: [], // posts_metadata has no media field in your Prisma schema
+      media: [], // Prisma schema doesn't have media fields for posts_metadata
     },
     engagement: {
-      likes: analyticsLikes || 0,
-      comments: analyticsComments || 0,
-      shares: 0,
-      bookmarks: 0,
+      likes: 0, // Not available without _count
+      comments: 0, // Not available without _count
+      shares: 0, // Not available in schema
+      bookmarks: 0, // Not available in schema
+    },
+    isLiked: false,
+    isBookmarked: false,
+  }
+}
+
+// Prisma Items → FeedItem (Item) - FIXED
+function mapPrismaItemToFeedItem(i: any): FeedItem {
+  const user = pickUserFromPrisma(i.users)
+  
+  // Calculate average rating safely
+  const ratings = (i.reviews ?? [])
+    .map((r: { rating: number | null }) => (r.rating ? Number(r.rating) : 0))
+    .filter((n: number) => n > 0)
+
+  return {
+    id: i.item_id,
+    type: "marketplace" as const,
+    created_at: safeDate(i.created_at),
+    timestamp: formatTimestamp(safeDate(i.created_at)),
+    user,
+    content: {
+      text: i.description ?? "",
+      media: [], // Prisma schema doesn't have media fields for items
+      product: {
+        title: i.title ?? "Untitled",
+        price: String(i.price ? Number(i.price) : 0),
+        originalPrice: undefined, // Not available in schema
+        category: i.category ?? "General",
+        rating: 0, // Not available without reviews
+        students: 0, // Not available in schema
+        hours: 0, // Not available in schema
+        discount: 0, // Not available in schema
+      },
+    },
+    engagement: {
+      likes: 0, // Not available in schema
+      comments: 0, // Not available without _count
+      shares: 0, // Not available in schema
+      bookmarks: 0, // Not available without _count
     },
     isLiked: false,
     isBookmarked: false,
@@ -144,22 +198,21 @@ function mapMongoItemToFeedItem(
     }
   >
 ): FeedItem {
-  const u = userById[String(item.userId)]
+  const u = userById[String(item.creatorId)]
   const user = pickUserFromPrisma(u)
 
   return {
     id: String(item._id),
     type: "marketplace" as const,
     created_at: safeDate(item.createdAt),
+    timestamp: formatTimestamp(safeDate(item.createdAt)),
     user,
     content: {
       text: item.description ?? "",
-      media: item.fileUrl
+      media: item.fileUrl && ["image", "video", "audio"].includes(item.fileType)
         ? [
             {
-              type:
-                (item.fileType as "image" | "video" | "audio" | "file") ||
-                "image",
+              type: (item.fileType as "image" | "video" | "audio"),
               url: item.fileUrl,
               alt: item.title ?? "Media",
             },
@@ -167,15 +220,16 @@ function mapMongoItemToFeedItem(
         : [],
       product: {
         title: item.title ?? "Untitled",
-        price: item.price ?? 0,
-        originalPrice: item.originalPrice ?? undefined,
-        category: item.category ?? undefined,
+        price: String(item.price ?? 0),
+        originalPrice: item.originalPrice ? String(item.originalPrice) : undefined,
+        category: item.category ?? "General",
         rating: Number(item.rating ?? 0),
         students: Number(item.students ?? 0),
-        tracks: Number(item.tracks ?? 0),
-        courses: Number(item.courses ?? 0),
-        hours: Number(item.hours ?? 0),
-        discount: Number(item.discount ?? 0),
+        tracks: Number(item.tracks?.length ?? 0),
+        duration: undefined,
+        courses: Number(item.courses?.length ?? 0),
+        hours: item.hours ? String(item.hours) : undefined,
+        discount: item.discount ? String(item.discount) : undefined,
       },
     },
     engagement: {
@@ -189,44 +243,6 @@ function mapMongoItemToFeedItem(
   }
 }
 
-// Prisma Items → FeedItem (Item)
-function mapPrismaItemToFeedItem(i: any): FeedItem {
-  const user = pickUserFromPrisma(i.users)
-  const ratings = (i.reviews ?? [])
-    .map((r: { rating: number | null }) => (r.rating ? Number(r.rating) : 0))
-    .filter((n: number) => n > 0)
-
-  return {
-    id: i.item_id,
-    type: "marketplace" as const,
-    created_at: safeDate(i.created_at),
-    user,
-    content: {
-      text: i.description ?? "",
-      media: [], // Prisma items schema doesn't define media here
-      product: {
-        title: i.title ?? "Untitled",
-        price: i.price ? Number(i.price) : 0,
-        originalPrice: undefined,
-        category: i.category ?? undefined,
-        rating: avg(ratings),
-        students: 0,
-        tracks: 0,
-        courses: 0,
-        hours: 0,
-        discount: 0,
-      },
-    },
-    engagement: {
-      likes: 0,
-      comments: i._count?.reviews ? Number(i._count.reviews) : 0,
-      shares: 0,
-      bookmarks: i._count?.favorites ? Number(i._count.favorites) : 0,
-    },
-    isLiked: false,
-    isBookmarked: false,
-  }
-}
 
 /** ---------- Main fetcher ---------- */
 
@@ -250,12 +266,22 @@ export async function fetchUnifiedFeed({
     const wantPosts = scope === "mixed" || scope === "posts"
     const wantItems = scope === "mixed" || scope === "items"
 
+    // Calculate how many items to take from each source for mixed feed
+    const getSourceLimit = (sourceCount: number) => {
+      if (scope !== "mixed") return take
+      // For mixed feed, divide limit among available sources
+      return Math.ceil(take / sourceCount)
+    }
+
+    const sourceCount = [wantPosts, wantItems].filter(Boolean).length
+    const sourceLimit = getSourceLimit(sourceCount)
+
     // Mongo queries (guarded)
     const mongoPostPromise = wantPosts
       ? PostModel.find({ visibility: true })
           .sort({ createdAt: -1 })
           .skip(skip)
-          .limit(take)
+          .limit(sourceLimit)
           .lean<Post[]>()
       : Promise.resolve<Post[]>([])
 
@@ -263,7 +289,7 @@ export async function fetchUnifiedFeed({
       ? ItemModel.find({ visibility: true })
           .sort({ createdAt: -1 })
           .skip(skip)
-          .limit(take)
+          .limit(sourceLimit)
           .lean<Item[]>()
       : Promise.resolve<Item[]>([])
 
@@ -273,7 +299,7 @@ export async function fetchUnifiedFeed({
           where: { visibility: true },
           orderBy: { created_at: "desc" },
           skip,
-          take,
+          take: sourceLimit,
           include: {
             // NOTE: users model doesn't have username/avatar directly; select via user_profile
             users: {
@@ -285,8 +311,6 @@ export async function fetchUnifiedFeed({
                 },
               },
             },
-            posts_analytics: true,
-            _count: { select: { likes: true, comments: true } },
           },
         })
       : Promise.resolve<any[]>([])
@@ -297,7 +321,7 @@ export async function fetchUnifiedFeed({
           where: { availability: true },
           orderBy: { created_at: "desc" },
           skip,
-          take,
+          take: sourceLimit,
           include: {
             users: {
               select: {
@@ -308,8 +332,6 @@ export async function fetchUnifiedFeed({
                 },
               },
             },
-            reviews: { select: { rating: true } },
-            _count: { select: { favorites: true, reviews: true, transactions: true } },
           },
         })
       : Promise.resolve<any[]>([])
@@ -323,8 +345,8 @@ export async function fetchUnifiedFeed({
 
     // 3) Batch-load user profiles for Mongo docs from the User DB (Prisma)
     const mongoUserIds = new Set<string>()
-    if (wantPosts) mongoPosts.forEach((p) => p?.userId && mongoUserIds.add(String(p.userId)))
-    if (wantItems) mongoItems.forEach((i) => i?.userId && mongoUserIds.add(String(i.userId)))
+    if (wantPosts) mongoPosts.forEach((p) => p?.creatorId && mongoUserIds.add(String(p.creatorId)))
+    if (wantItems) mongoItems.forEach((i) => i?.creatorId && mongoUserIds.add(String(i.creatorId)))
 
     let prismaUsersById: Record<
       string,
@@ -378,29 +400,25 @@ export async function fetchUnifiedFeed({
       }
     }
 
-    // 5) Merge-sort by created_at DESC and slice to page size
-    //    We fetched per-source `limit` items, so mixed feeds can exceed `limit`.
-    //    We sort then take the top `limit` for consistent paging surface.
+    // 5) Sort by created_at DESC and take exactly `limit` items
     const sorted = mapped.sort(
       (a, b) => safeDate(b.created_at).getTime() - safeDate(a.created_at).getTime()
     )
     const pageSlice = sorted.slice(0, limit)
 
-    // 6) Pagination totals (approximate but consistent)
-    const [mongoPostCount, mongoItemCount, pgSocialCount, pgItemCount] = await Promise.all([
-      wantPosts ? PostModel.countDocuments({ visibility: true }) : Promise.resolve(0),
-      wantItems ? ItemModel.countDocuments({ visibility: true }) : Promise.resolve(0),
+    // 6) Get accurate counts for pagination
+    const counts = await Promise.all([
+      wantPosts ? PostModel.countDocuments({ visibility: true }) : 0,
+      wantItems ? ItemModel.countDocuments({ visibility: true }) : 0,
       wantPosts ? prismaSocial.posts_metadata.count({ where: { visibility: true } }) : 0,
       wantItems ? prismaItem.items.count({ where: { availability: true } }) : 0,
     ])
 
-    const total =
-      (wantPosts ? mongoPostCount + pgSocialCount : 0) +
-      (wantItems ? mongoItemCount + pgItemCount : 0)
-
-    // Heuristic hasMore: if we sliced anything off OR the total exceeds returned count for current page
-    const expectedSoFar = page * limit
-    const hasMore = total > expectedSoFar
+    const total = counts.reduce((sum, count) => sum + count, 0)
+    
+    // Calculate hasMore based on whether we got fewer items than requested
+    // OR if there are more items beyond what we've fetched
+    const hasMore = pageSlice.length === limit || total > page * limit
 
     return {
       feed: pageSlice,
@@ -413,10 +431,8 @@ export async function fetchUnifiedFeed({
     }
   } catch (error) {
     console.error("[fetchUnifiedFeed] error:", error)
-    return {
-      feed: [],
-      pagination: { total: 0, page, limit, hasMore: false },
-    }
+    // Re-throw the error so calling components can handle it properly
+    throw error
   }
 }
 
@@ -426,9 +442,19 @@ export async function fetchUnifiedFeed({
 ----------------------------------------------------------------- */
 
 export async function fetchPostsFeed(opts: Omit<FetchOptions, "scope">) {
-  return fetchUnifiedFeed({ ...opts, scope: "posts" })
+  try {
+    return await fetchUnifiedFeed({ ...opts, scope: "posts" })
+  } catch (error) {
+    console.error("[fetchPostsFeed] error:", error)
+    throw error
+  }
 }
 
 export async function fetchItemsFeed(opts: Omit<FetchOptions, "scope">) {
-  return fetchUnifiedFeed({ ...opts, scope: "items" })
+  try {
+    return await fetchUnifiedFeed({ ...opts, scope: "items" })
+  } catch (error) {
+    console.error("[fetchItemsFeed] error:", error)
+    throw error
+  }
 }

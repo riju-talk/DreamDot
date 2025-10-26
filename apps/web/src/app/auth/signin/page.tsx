@@ -49,15 +49,11 @@ export default function SignInPage() {
     
     if (!formData.email) {
       newErrors.email = "Email is required";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "Please enter a valid email address";
-    }
+    } 
     
     if (!formData.password) {
       newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+    } 
     
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -89,9 +85,7 @@ export default function SignInPage() {
 
       if (result?.error) {
         toast.error("Sign in failed", {
-          description: result.error === "CredentialsSignin" 
-            ? "Invalid email or password" 
-            : "Please check your credentials and try again."
+          description: "Invalid credentials: Check credentials and try again"
         });
         return;
       }

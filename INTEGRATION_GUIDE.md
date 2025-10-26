@@ -47,70 +47,14 @@ cd ../..
 
 ### 2. Environment Variables
 
-Create the following `.env` files:
+Copy the environment template and configure it:
 
-#### apps/web/.env
-```env
-# Authentication
-NEXTAUTH_SECRET=<generate-with-openssl-rand-base64-32>
-NEXTAUTH_URL=http://localhost:5000
-JWT_SECRET=<generate-with-openssl-rand-base64-32>
+```bash
+# From root directory
+cp .env.example .env
 
-# MongoDB
-MONGO_CLUSTER=mongodb+srv://username:password@cluster.mongodb.net/dreamdot
-
-# PostgreSQL Databases
-POSTGRESS_DB_USER=postgresql://user:pass@host:5432/user_db
-POSTGRESS_DB_SOCIAL=postgresql://user:pass@host:5432/social_db
-POSTGRESS_DB_ITEMS=postgresql://user:pass@host:5432/items_db
-POSTGRESS_DB_COMMUNITY=postgresql://user:pass@host:5432/community_db
-POSTGRESS_DB_AUDIT=postgresql://user:pass@host:5432/audit_db
-
-# ImageKit
-IMAGEKIT_PRIVATE_KEY=<your-imagekit-private-key>
-NEXT_PUBLIC_IMAGEKIT_PUBLIC_KEY=<your-imagekit-public-key>
-NEXT_PUBLIC_IMAGEKIT_URL_ENDPOINT=https://ik.imagekit.io/<your-id>
-
-# Services
-NEXT_PUBLIC_CHAT_SERVER_URL=http://localhost:3001
-NEXT_PUBLIC_PAYMENT_SERVER_URL=http://localhost:3002
-```
-
-#### apps/chat/.env
-```env
-# Server Configuration
-PORT=3001
-HOST=0.0.0.0
-NODE_ENV=development
-
-# Database
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/dreamdot
-
-# Authentication
-JWT_SECRET=<same-as-web-app>
-
-# CORS
-CORS_ORIGIN=http://localhost:5000,http://localhost:3000
-
-# Socket.IO
-SOCKET_PATH=/socket.io
-```
-
-#### apps/payment/.env
-```env
-# Server Configuration
-PORT=3002
-
-# Stripe
-STRIPE_SECRET_KEY=sk_test_<your-stripe-secret-key>
-STRIPE_WEBHOOK_SECRET=whsec_<your-webhook-secret>
-
-# Database
-MONGO_CLUSTER=mongodb+srv://username:password@cluster.mongodb.net/dreamdot
-
-# Client
-CLIENT_URL=http://localhost:5000
-CORS_ORIGIN=http://localhost:5000
+# Edit the .env file with your credentials
+# See .env.example for all required variables for all services
 ```
 
 ## Database Configuration
@@ -184,7 +128,7 @@ npx prisma db push --schema=src/lib/prisma/schema.audit.prisma
    - URL: `https://your-payment-service.com/webhook/stripe`
    - Events to listen: `checkout.session.completed`, `checkout.session.expired`
 4. Get webhook secret
-5. Add all credentials to `apps/payment/.env`
+5. Add all credentials to `.env`
 
 ### Stripe Webhook Testing (Local Development)
 

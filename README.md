@@ -117,11 +117,9 @@ cd dreamdot
 npm install
 
 # Set up environment variables
-cp .env.example apps/web/.env
-cp apps/payment/.env.example apps/payment/.env
-cp apps/chat/.env.example apps/chat/.env
+cp .env.example .env
 
-# Edit the .env files with your credentials
+# Edit the .env file with your credentials
 # See .env.example for all required variables
 
 # Generate Prisma clients
@@ -141,7 +139,7 @@ npx prisma db push --schema=src/lib/prisma/schema.audit.prisma
 
 # Return to root and start all services
 cd ../..
-npm run dev
+npm run dev:all
 ```
 
 The application will be available at:
@@ -217,16 +215,13 @@ dreamdot/
 
 ```bash
 # Terminal 1: Next.js App
-cd apps/web
 npm run dev
 
 # Terminal 2: Chat Server
-cd apps/chat
-npm run dev
+npm run chat:dev
 
 # Terminal 3: Payment Service
-cd apps/payment
-npm run dev
+npm run payment:dev
 ```
 
 ### Build for Production
@@ -316,29 +311,20 @@ message_ack           - Message acknowledgment
 
 ## 🌐 Environment Variables
 
-Required environment variables (see [.env.example](.env.example)):
+All services (Web App, Chat Server, Payment Service) use the same root `.env` file for configuration. Required environment variables (see [.env.example](.env.example)):
 
-### Web App
+### Required Variables
 - `NEXTAUTH_SECRET` - NextAuth secret key
-- `JWT_SECRET` - JWT token secret
-- `MONGO_CLUSTER` - MongoDB connection string
-- `POSTGRESS_DB_*` - PostgreSQL database URLs (5 databases)
-- `IMAGEKIT_*` - ImageKit credentials
-- `NEXT_PUBLIC_CHAT_SERVER_URL` - Chat server URL
-- `NEXT_PUBLIC_PAYMENT_SERVER_URL` - Payment server URL
-
-### Chat Server
-- `MONGODB_URI` - MongoDB connection string
-- `JWT_SECRET` - JWT token secret (must match web app)
-- `CORS_ORIGIN` - Allowed origins
-- `PORT` - Server port (default: 3001)
-
-### Payment Service
-- `STRIPE_SECRET_KEY` - Stripe API key
-- `STRIPE_WEBHOOK_SECRET` - Stripe webhook secret
-- `MONGO_CLUSTER` - MongoDB connection string
-- `CLIENT_URL` - Frontend URL
-- `PORT` - Server port (default: 3002)
+- `JWT_SECRET` - JWT token secret (shared across all services)
+- `MONGO_CLUSTER` - MongoDB connection string (used by all services)
+- `POSTGRESS_DB_*` - PostgreSQL database URLs (5 databases for web app)
+- `IMAGEKIT_*` - ImageKit credentials (for web app media uploads)
+- `STRIPE_SECRET_KEY` - Stripe API key (payment service)
+- `STRIPE_WEBHOOK_SECRET` - Stripe webhook secret (payment service)
+- `NEXT_PUBLIC_CHAT_SERVER_URL` - Chat server URL (web app)
+- `NEXT_PUBLIC_PAYMENT_SERVER_URL` - Payment server URL (web app)
+- `CORS_ORIGIN` - Allowed origins (chat and payment services)
+- `CLIENT_URL` - Frontend URL (payment service)
 
 ---
 

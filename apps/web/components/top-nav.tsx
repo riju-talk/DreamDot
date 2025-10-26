@@ -188,9 +188,7 @@ export function TopNav() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-30 flex h-16 items-center gap-4 border-b bg-background/95 px-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <SidebarTrigger className="md:hidden h-8 w-8" />
-
+    <header className="flex h-16 items-center gap-4 border-b bg-background px-4">
       <div className="hidden md:flex md:flex-1">
         <nav className="flex items-center space-x-4 lg:space-x-6">
           <Button

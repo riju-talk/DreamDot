@@ -1,0 +1,24 @@
+{
+  "watch": [
+    "server.js",
+    "models.js",
+    "auth.js",
+    "db.js",
+    "routes/"
+  ],
+  "ignore": [
+    "node_modules/",
+    ".git/",
+    "*.log",
+    ".env",
+    "test-db.js"
+  ],
+  "ext": "js,json",
+  "delay": 500,
+  "restartable": "rs",
+  "verbose": true,
+  "env": {
+    "NODE_ENV": "development"
+  },
+  "legacyWatch": false
+}

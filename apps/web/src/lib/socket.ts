@@ -13,7 +13,7 @@ export function useSocket() {
   const [isConnected, setIsConnected] = useState(false)
 
   useEffect(() => {
-    if (!session?.chatToken) {
+    if (!session?.accessToken) {
       if (socket) {
         socket.disconnect()
         setSocket(null)
@@ -22,10 +22,10 @@ export function useSocket() {
       return
     }
 
-    // Create socket connection with authentication
+    // Create socket connection with NextAuth JWT token
     const newSocket = io(CHAT_SERVER_URL, {
       auth: {
-        token: session.chatToken
+        token: session.accessToken
       },
       autoConnect: true
     })
@@ -50,25 +50,7 @@ export function useSocket() {
     return () => {
       newSocket.disconnect()
     }
-  }, [session?.chatToken])
-
-  return { socket, isConnected }
-}
-
-export function useChat(conversationId?: string) {
-  const { socket, isConnected } = useSocket()
-
-  useEffect(() => {
-    if (!socket || !isConnected || !conversationId) return
-
-    // Join conversation room using the correct event name
-    socket.emit('room:join', { conversationId })
-
-    return () => {
-      // Leave conversation room using the correct event name
-      socket.emit('room:leave', { conversationId })
-    }
-  }, [socket, isConnected, conversationId])
+  }, [session?.accessToken])
 
   const sendMessage = (message: any, callback?: (response: any) => void) => {
     if (socket && isConnected) {
@@ -93,6 +75,31 @@ export function useChat(conversationId?: string) {
       socket.emit('message:typing', { conversationId, isTyping })
     }
   }
+
+  return {
+    socket,
+    isConnected,
+    sendMessage,
+    joinRoom,
+    leaveRoom,
+    setTyping
+  }
+}
+
+export function useChat(conversationId?: string) {
+  const { socket, isConnected, sendMessage, joinRoom, leaveRoom, setTyping } = useSocket()
+
+  useEffect(() => {
+    if (!socket || !isConnected || !conversationId) return
+
+    // Join conversation room using the correct event name
+    socket.emit('room:join', { conversationId })
+
+    return () => {
+      // Leave conversation room using the correct event name
+      socket.emit('room:leave', { conversationId })
+    }
+  }, [socket, isConnected, conversationId])
 
   return {
     socket,

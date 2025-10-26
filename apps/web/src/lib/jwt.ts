@@ -15,7 +15,6 @@ export function verifyJwt<T extends object>(token: string): T | null {
   }
 }
   
-import jwt from 'jsonwebtoken'
 
 export function generateChatToken(userId: string, email: string): string {
   if (!process.env.JWT_SECRET) {

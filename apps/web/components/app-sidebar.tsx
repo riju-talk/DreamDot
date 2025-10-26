@@ -33,7 +33,7 @@ import { useRouter } from "next/navigation"
 export function AppSidebar() {
   const router = useRouter()
   return (
-    <Sidebar className="h-screen flex flex-col overflow-hidden">
+    <Sidebar className="h-screen flex flex-col overflow-hidden" variant="inset" collapsible="none">
       <SidebarHeader className="p-4 overflow-hidden flex-shrink-0">
         <Link href="/" className="flex items-center gap-2">
           <div className="relative overflow-hidden rounded-lg p-1.5 bg-gradient-to-r from-green-700 to-emerald-500">

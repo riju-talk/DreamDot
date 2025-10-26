@@ -88,7 +88,7 @@
   ],
   "environment": {
     "required": [
-      "MONGODB_URI (chat server)",
+      "MONGO_CLUSTER (chat server)",
       "MONGO_CLUSTER (web app, payment service)",
       "JWT_SECRET (chat server, web app)",
       "NEXTAUTH_SECRET (web app)",

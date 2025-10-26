@@ -8,7 +8,7 @@ export async function POST(req) {
   const { email, password } = await req.json()
   // 1) Basic validation
   if (!email || !password) {
-    return NextResponse.json({ error: "Email and password required" }, { status: 400 })
+    return NextResponse.json({ error: "Invalid credentials" }, { status: 400 })
   }
 
   // 2) Find user + profile
@@ -17,13 +17,13 @@ export async function POST(req) {
     include: { user_profile: true },
   })
   if (!user || !user.password_hash) {
-    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
+    return NextResponse.json({ error: "User not found" }, { status: 401 })
   }
 
   // 3) Verify password
   const valid = await bcrypt.compare(password, user.password_hash)
   if (!valid) {
-    return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
+    return NextResponse.json({ error: "Password incorrect" }, { status: 401 })
   }
 
   // 4) Optional: block unverified accounts

@@ -1,14 +1,16 @@
+const path = require('path')
+require('dotenv').config({ path: path.resolve(__dirname, '../../../.env') })
 const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-require('dotenv').config()
 
 const paymentRoutes = require('./routes/payment')
 const webhookRoutes = require('./routes/webhook')
 
 const app = express()
-const PORT = process.env.PORT || 3002
+const PORT = 3002  // FORCE payment service to use port 3002
+const HOST = '0.0.0.0'
 
 app.use(cors({
   origin: process.env.CORS_ORIGIN || '*',
@@ -36,7 +38,7 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Internal server error' })
 })
 
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, HOST, () => {
   console.log(`Payment service running on port ${PORT}`)
 })
 

@@ -109,7 +109,7 @@ export async function fetchItems(options: FetchItemsOptions = {}): Promise<{
       return {
         ...mongoItem,
         _id: mongoId,
-        price: sqlData?.price ?? null,
+        price: sqlData?.price ?? 0,
         rating: sqlData?.rating ?? null,
         sales: sqlData?.sales ?? 0,
       }
