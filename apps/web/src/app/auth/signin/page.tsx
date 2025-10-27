@@ -15,9 +15,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Sparkles, Loader2, Eye, EyeOff } from "lucide-react";
-import { FaGithub, FaGoogle } from "react-icons/fa";
 import { toast } from "sonner";
 import { useSession, signIn as nextAuthSignIn, SignInResponse } from "next-auth/react";
+import { OAuthButtons } from "../../../components/auth/OAuthButtons";
 
 interface FormData {
   email: string;
@@ -107,9 +107,9 @@ export default function SignInPage() {
     }
   };
 
-  const handleNotReady = (provider: string) => {
-    alert(`${provider} sign-in not ready yet!`);
-  };
+  // OAuth feature flags from environment
+  const googleEnabled = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === "true";
+  const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_OAUTH_ENABLED === "true";
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
@@ -204,32 +204,11 @@ export default function SignInPage() {
               </Button>
             </form>
 
-            <div className="flex items-center justify-center gap-2">
-              <span className="h-px bg-border flex-1" />
-              <span className="text-sm text-muted-foreground">or sign in with</span>
-              <span className="h-px bg-border flex-1" />
-            </div>
-
-            <div className="flex flex-col space-y-2">
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-center gap-2 bg-white"
-                onClick={() => handleNotReady("Google")}
-                disabled={isLoading}
-              >
-                <FaGoogle className="h-4 w-4" />
-                Sign in with Google
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full flex items-center justify-center gap-2 bg-white"
-                onClick={() => handleNotReady("GitHub")}
-                disabled={isLoading}
-              >
-                <FaGithub className="h-4 w-4" />
-                Sign in with GitHub
-              </Button>
-            </div>
+            <OAuthButtons 
+              isLoading={isLoading}
+              googleEnabled={googleEnabled}
+              githubEnabled={githubEnabled}
+            />
           </CardContent>
 
           <CardFooter className="flex flex-col space-y-4">

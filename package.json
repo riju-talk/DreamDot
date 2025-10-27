@@ -9,9 +9,11 @@
     "chat:dev": "cd apps/chat && npm run dev",
     "chat:build": "cd apps/chat && npm run build",
     "chat:start": "cd apps/chat && npm start",
-    "dev:all": "concurrently \"npm run dev\" \"npm run chat:dev\""
+    "dev:all": "concurrently \"npm run dev\" \"npm run chat:dev\"",
+    "postinstall": "cd apps/web && npx prisma generate --schema=src/lib/prisma/schema.user.prisma && npx prisma generate --schema=src/lib/prisma/schema.social.prisma && npx prisma generate --schema=src/lib/prisma/schema.item.prisma && npx prisma generate --schema=src/lib/prisma/schema.community.prisma && npx prisma generate --schema=src/lib/prisma/schema.audit.prisma"
   },
   "devDependencies": {
+    "concurrently": "^9.2.1",
     "prettier": "^3.6.2",
     "turbo": "^2.5.6",
     "typescript": "5.9.2"

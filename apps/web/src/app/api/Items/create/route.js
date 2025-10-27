@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { prismaSocial } from '@/lib/db'
 import { connectToDatabase } from '@/lib/mongoose/connection'
-import Item from '@/lib/mongoose/models/Item'
+import { ItemModel as Item } from '@/lib/mongoose/items'
 import mongoose from 'mongoose'
 
 export async function POST(request) {

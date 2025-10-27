@@ -57,7 +57,7 @@
 | **Frontend**   | Next.js 15 (App Router), TypeScript, Tailwind CSS 4, shadcn/ui, Quill.js          |
 | **Backend**    | Next.js API Routes, Express.js, Socket.IO, Prisma ORM, NextAuth.js                |
 | **Databases**  | PostgreSQL (5 schemas), MongoDB (chat & content)                                   |
-| **Auth**       | NextAuth.js with JWT                                                               |
+|| **Auth**       | NextAuth.js with JWT, Google OAuth, GitHub OAuth                                  |
 | **Encryption** | Web Crypto API, TweetNaCl (E2EE chat)                                             |
 | **Payments**   | Stripe                                                                             |
 | **Media**      | ImageKit                                                                           |
@@ -113,24 +113,17 @@
 git clone https://github.com/yourusername/dreamdot.git
 cd dreamdot
 
-# Install dependencies
+# Install dependencies (this automatically generates Prisma clients via postinstall)
 npm install
 
 # Set up environment variables
-cp .env.example .env
+cp .env .env.local  # Or edit .env directly
 
 # Edit the .env file with your credentials
-# See .env.example for all required variables
+# See below for all required variables
 
-# Generate Prisma clients
+# Push database schemas (first time only)
 cd apps/web
-npx prisma generate --schema=src/lib/prisma/schema.user.prisma
-npx prisma generate --schema=src/lib/prisma/schema.social.prisma
-npx prisma generate --schema=src/lib/prisma/schema.item.prisma
-npx prisma generate --schema=src/lib/prisma/schema.community.prisma
-npx prisma generate --schema=src/lib/prisma/schema.audit.prisma
-
-# Push database schemas
 npx prisma db push --schema=src/lib/prisma/schema.user.prisma
 npx prisma db push --schema=src/lib/prisma/schema.social.prisma
 npx prisma db push --schema=src/lib/prisma/schema.item.prisma
@@ -311,7 +304,7 @@ message_ack           - Message acknowledgment
 
 ## 🌐 Environment Variables
 
-All services (Web App, Chat Server, Payment Service) use the same root `.env` file for configuration. Required environment variables (see [.env.example](.env.example)):
+All services (Web App, Chat Server, Payment Service) use the same root `.env` file for configuration.
 
 ### Required Variables
 - `NEXTAUTH_SECRET` - NextAuth secret key
@@ -325,6 +318,51 @@ All services (Web App, Chat Server, Payment Service) use the same root `.env` fi
 - `NEXT_PUBLIC_PAYMENT_SERVER_URL` - Payment server URL (web app)
 - `CORS_ORIGIN` - Allowed origins (chat and payment services)
 - `CLIENT_URL` - Frontend URL (payment service)
+
+### OAuth Configuration (Optional)
+
+DreamDot supports Google and GitHub OAuth authentication via NextAuth. OAuth providers are **disabled by default** and can be enabled via feature flags.
+
+#### Enabling OAuth Providers
+
+1. **Set up OAuth credentials:**
+   - **Google**: Get credentials from [Google Cloud Console](https://console.cloud.google.com/apis/credentials)
+   - **GitHub**: Get credentials from [GitHub Developer Settings](https://github.com/settings/developers)
+
+2. **Add credentials to `.env`:**
+   ```bash
+   # Google OAuth
+   GOOGLE_CLIENT_ID="your_google_client_id"
+   GOOGLE_CLIENT_SECRET="your_google_client_secret"
+   
+   # GitHub OAuth
+   GITHUB_ID="your_github_client_id"
+   GITHUB_SECRET="your_github_client_secret"
+   ```
+
+3. **Enable OAuth providers with feature flags:**
+   ```bash
+   # Server-side feature flags (for NextAuth)
+   GOOGLE_OAUTH_ENABLED="true"  # Set to "true" to enable Google OAuth
+   GITHUB_OAUTH_ENABLED="true"  # Set to "true" to enable GitHub OAuth
+   
+   # Client-side feature flags (for UI buttons)
+   NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED="true"
+   NEXT_PUBLIC_GITHUB_OAUTH_ENABLED="true"
+   ```
+
+4. **Configure OAuth callback URLs:**
+   - **Google**: Add `http://localhost:5000/api/auth/callback/google` (dev) and your production URL
+   - **GitHub**: Add `http://localhost:5000/api/auth/callback/github` (dev) and your production URL
+
+5. **Restart the development server** for changes to take effect.
+
+#### OAuth Feature Flags
+
+- **Server-side flags** (`GOOGLE_OAUTH_ENABLED`, `GITHUB_OAUTH_ENABLED`): Control whether providers are registered in NextAuth
+- **Client-side flags** (`NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED`, `NEXT_PUBLIC_GITHUB_OAUTH_ENABLED`): Control whether OAuth buttons appear in the UI
+- Both flags must be set to `"true"` for OAuth to work
+- Setting flags to `"false"` or omitting them disables OAuth entirely
 
 ---
 
