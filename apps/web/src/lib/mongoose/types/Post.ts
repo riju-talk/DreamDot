@@ -1,16 +1,19 @@
 export interface Post {
-    _id: string
+  _id: string
+  userId: string
+  content: string
+  media?: Array<{
+    type?: string
+    url?: string
+    alt?: string
+  }>
+  // In DB it's currently a boolean flag
+  visibility: boolean
+  createdAt: string
+  likes?: string[]
+  comments?: {
     userId: string
-    content: string
-    mediaUrl?: string
-    mediaType: "image" | "video" | "text" | "audio"
-    createdAt: string
-    visibility: "public" | "followers" | "private"
-    likes: string[]
-    comments: {
-      userId: string
-      text: string
-      timestamp: string
-    }[]
-  }
-  
+    text: string
+    timestamp: string
+  }[]
+}

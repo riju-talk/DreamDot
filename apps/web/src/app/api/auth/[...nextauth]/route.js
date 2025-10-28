@@ -23,10 +23,7 @@ export const authOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        console.log("🟦 [authorize] Received credentials:", credentials);
-
         if (!credentials?.email || !credentials.password) {
-          console.log("❌ Missing email or password");
           throw "Invalid credentials";
         }
 
@@ -36,18 +33,13 @@ export const authOptions = {
             include: { user_profile: true },
           });
 
-          console.log("🔍 [authorize] Found user:", user?.email);
-
           if (!user || !user.password_hash) {
-            console.log("❌ User not found or missing password hash");
             throw "Invalid credentials";
           }
 
           const valid = await bcrypt.compare(credentials.password, user.password_hash);
-          console.log("🔐 [authorize] Password valid:", valid);
 
           if (!valid) {
-            console.log("❌ Invalid password");
             throw "Invalid credentials";
           }
 
@@ -58,7 +50,6 @@ export const authOptions = {
             image: user.user_profile?.avatar_url ?? "/placeholder.svg",
           };
 
-          console.log("✅ [authorize] Returning user object:", userObject);
           return userObject;
         } catch (error) {
           console.error("🔥 [authorize] Error during login:", error);
@@ -90,25 +81,17 @@ export const authOptions = {
 
   callbacks: {
     async jwt({ token, user, account, profile, trigger }) {
-      console.log("🧩 [jwt] Before:", { token, user, account, profile, trigger });
-
       if (user) {
         token.id = user.id;
       }
-
-      console.log("🧩 [jwt] After:", token);
       return token;
     },
 
     async session({ session, token }) {
-      console.log("📦 [session] Before:", { session, token });
-
       if (token) {
         session.user.id = token.id;
         session.accessToken = token;
       }
-
-      console.log("📦 [session] After:", session);
       return session;
     },
   },

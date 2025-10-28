@@ -9,7 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Search, Filter, SlidersHorizontal, Star, ShoppingCart, X } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { searchMarketplace, highlightSearchMatch } from "@/lib/search"
+import { searchMarketplace, highlightSearchMatch } from "@/lib/search-client"
 
 interface MarketplaceSearchProps {
   itemsByCategory: { items: any[] }[]

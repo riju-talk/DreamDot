@@ -28,10 +28,14 @@ import {
   Sparkles,
 } from "lucide-react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 
 export function AppSidebar() {
   const router = useRouter()
+  const pathname = usePathname()
+  const isHome = pathname?.startsWith("/feed") || pathname === "/"
+  const isDiscover = pathname?.startsWith("/discover")
+  const isMarketplace = pathname?.startsWith("/marketplace")
   return (
     <Sidebar className="h-screen flex flex-col overflow-hidden" variant="inset" collapsible="none">
       <SidebarHeader className="p-4 overflow-hidden flex-shrink-0">
@@ -51,7 +55,7 @@ export function AppSidebar() {
           <SidebarGroupContent>
             <SidebarMenu>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild isActive>
+                <SidebarMenuButton asChild isActive={Boolean(isHome)}>
                   <Link href="/feed">
                     <Home />
                     <span>Home</span>
@@ -59,7 +63,7 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild isActive={Boolean(isDiscover)}>
                   <Link href="/discover">
                     <Compass />
                     <span>Discover</span>
@@ -67,7 +71,7 @@ export function AppSidebar() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
               <SidebarMenuItem>
-                <SidebarMenuButton asChild>
+                <SidebarMenuButton asChild isActive={Boolean(isMarketplace)}>
                   <Link href="/marketplace">
                     <ShoppingBag />
                     <span>Marketplace</span>

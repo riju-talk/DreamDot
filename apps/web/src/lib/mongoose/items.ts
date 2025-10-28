@@ -1,131 +1,153 @@
-import mongoose, { Collection } from 'mongoose'
-import { connectToDatabase } from "./connection"
-import { Item } from "./types/Item"
-import { prismaItem } from "../db"
+// src/lib/mongoose/items.ts
 
-const { Schema } = mongoose
+import mongoose, { Collection } from "mongoose";
+import { connectToDatabase } from "./connection";
+import { Item } from "./types/Item";
+import { prismaItem } from "../db";
 
-// Define the schema
-const ItemSchema = new Schema({
-  userId: { type: String, required: true },
-  title: { type: String, required: true },
-  description: String,
-  category: { type: String, required: true },
-  price: { type: Number, required: true },
-  rating: { type: Number },
-  sales: { type: Number, default: 0 },
-  createdAt: { type: Date, default: Date.now }
-})
+// Minimal schema to provide ItemModel for other modules (e.g., feed-logic)
+// Use strict:false to accommodate varying document shapes
+const { Schema } = mongoose;
+const ItemSchema = new Schema({}, { strict: false, timestamps: true });
+export const ItemModel = mongoose.models?.Item || mongoose.model("Item", ItemSchema);
 
-// Create model if it doesn't exist
-export const ItemModel = mongoose.models.Item || mongoose.model("Item", ItemSchema)
-
-// TypeScript interface for fetch options
 interface FetchItemsOptions {
-  userId?: string
-  page?: number
-  limit?: number
-  category?: string
+  userId?: string;
+  page?: number;
+  limit?: number;
+  category?: string;
 }
 
-// Main fetch function
-export async function fetchItems(options: FetchItemsOptions = {}): Promise<{
-  items: Item[]
+export async function fetchItems(
+  options: FetchItemsOptions = {}
+): Promise<{
+  items: Item[];
   pagination: {
-    total: number
-    page: number
-    limit: number
-    hasMore: boolean
-  }
+    total: number;
+    page: number;
+    limit: number;
+    hasMore: boolean;
+  };
 }> {
+  const { userId, page = 1, limit = 10, category } = options;
+  const skip = (page - 1) * limit;
+
+  console.log("📦 fetchItems() called with:", { userId, page, limit, category });
+
   try {
-    const { userId, page = 1, limit = 10, category } = options
-    const skip = (page - 1) * limit
+    console.time("⏱️ fetchItems total duration");
 
-    // Mongo Connection
-    const db = (await connectToDatabase()).connection.db
-    const itemsCollection = db.collection("items") as Collection<Item>
+    // --- 1. Connect to MongoDB ---
+    console.time("⏱️ MongoDB connect");
+    const conn = await connectToDatabase();
+    console.timeEnd("⏱️ MongoDB connect");
 
-    // Query construction
-    const query: any = {} 
-    if (userId) query.userId = userId
-    if (category) query.category = category 
-    // Fetch items from MongoDB
+    const db = conn.connection.db;
+    const itemsCollection = db?.collection("items") as Collection<Item>;
+    if (!itemsCollection) throw new Error("MongoDB collection 'items' not found");
+
+    // --- 2. Construct Mongo query ---
+    const query: Record<string, any> = {};
+    if (userId) query.userId = userId;
+    if (category) query.category = category;
+
+    console.log("🔍 MongoDB query:", JSON.stringify(query));
+
+    // --- 3. Fetch from Mongo ---
+    console.time("⏱️ MongoDB fetch");
     const mongoItems = await itemsCollection
       .find(query)
       .sort({ createdAt: -1 })
       .skip(skip)
       .limit(limit)
-      .toArray()
+      .toArray();
 
-    const totalCount = await itemsCollection.countDocuments(query)
+    const totalCount = await itemsCollection.countDocuments(query);
+    console.timeEnd("⏱️ MongoDB fetch");
 
-    // Prepare list of item _ids from Mongo
-    const mongoIds = mongoItems.map((item) => item._id.toString())
+    console.log(`📊 MongoDB returned ${mongoItems.length} items (total count: ${totalCount})`);
 
-    // Fetch corresponding PostgreSQL items
+    if (!mongoItems.length) {
+      console.warn("⚠️ No MongoDB items found for query");
+      return {
+        items: [],
+        pagination: { total: totalCount, page, limit, hasMore: false },
+      };
+    }
+
+    // --- 4. Fetch from PostgreSQL (items_d schema) ---
+    const mongoIds = mongoItems.map((it) => String(it._id));
+    console.log(`🔗 Fetching ${mongoIds.length} corresponding SQL entries from Prisma...`);
+
+    console.time("⏱️ Prisma fetch");
     const sqlItems = await prismaItem.items.findMany({
-      where: {
-        item_id: { in: mongoIds },
-      },
+      where: { item_id: { in: mongoIds } },
       select: {
         item_id: true,
         price: true,
         category: true,
-        reviews: {
-          select: {
-            rating: true,
-          },
-        },
-        transactions: true,
+        monetization_type: true,
+        reviews: { select: { rating: true } },
+        transactions: { select: { transaction_id: true } },
       },
-    })
+    });
+    console.timeEnd("⏱️ Prisma fetch");
 
-    // Map PostgreSQL data for merging
-    const itemDataMap = new Map(
-      sqlItems.map((sqlItem) => {
-        const ratings = sqlItem.reviews.map(r => r.rating ?? 0)
-        const averageRating =
-          ratings.length > 0
-            ? ratings.reduce((a, b) => a + b, 0) / ratings.length
-            : null
+    console.log(`📊 Prisma returned ${sqlItems.length} matching records`);
 
-        return [
-          sqlItem.item_id,
-          {
-            price: parseFloat(sqlItem.price?.toString() ?? "0"),
-            rating: averageRating,
-            sales: sqlItem.transactions.length,
-          },
-        ]
-      })
-    )
+    // --- 5. Normalize SQL results ---
+    const sqlMap = new Map<
+      string,
+      { price: number; rating: number | null; sales: number; monetizationType: string | null }
+    >();
 
-    // Merge both Mongo + PostgreSQL into final item object
-    const items = mongoItems.map((mongoItem) => {
-      const mongoId = mongoItem._id.toString()
-      const sqlData = itemDataMap.get(mongoId)
+    for (const s of sqlItems) {
+      const ratings = s.reviews?.map((r) => r.rating ?? 0) ?? [];
+      const avgRating = ratings.length
+        ? ratings.reduce((a, b) => a + b, 0) / ratings.length
+        : null;
+
+      sqlMap.set(s.item_id, {
+        price: parseFloat(s.price?.toString() ?? "0"),
+        rating: avgRating,
+        sales: s.transactions?.length ?? 0,
+        monetizationType: s.monetization_type ?? null,
+      });
+    }
+
+    console.log("🧩 SQL map keys:", [...sqlMap.keys()].slice(0, 5), "...");
+
+    // --- 6. Merge Mongo + SQL ---
+    const mergedItems: Item[] = mongoItems.map((mongo) => {
+      const mongoId = String(mongo._id);
+      const sql = sqlMap.get(mongoId);
 
       return {
-        ...mongoItem,
+        ...mongo,
         _id: mongoId,
-        price: sqlData?.price ?? 0,
-        rating: sqlData?.rating ?? null,
-        sales: sqlData?.sales ?? 0,
-      }
-    })
+        price: sql?.price ?? mongo.price ?? 0,
+        rating: sql?.rating ?? mongo.ratings?.length ?? null,
+        sales: sql?.sales ?? 0,
+        monetizationType: sql?.monetizationType ?? mongo.monetizationType ?? "one-time",
+      } as Item;
+    });
 
+    console.log(`🧠 Merged ${mergedItems.length} Mongo+SQL records`);
+    console.timeEnd("⏱️ fetchItems total duration");
+
+    // --- 7. Return merged result ---
     return {
-      items,
+      items: mergedItems,
       pagination: {
         total: totalCount,
         page,
         limit,
-        hasMore: skip + items.length < totalCount,
+        hasMore: skip + mergedItems.length < totalCount,
       },
-    }
-  } catch (error) {
-    console.error('Error fetching items:', error)
-    throw error
+    };
+  } catch (err) {
+    console.error("💥 Error in fetchItems:", err);
+    throw err;
   }
 }
+

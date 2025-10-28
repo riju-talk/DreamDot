@@ -1,10 +1,10 @@
-// @/lib/feed-logic/feed.ts
+"use server"
 import { prismaSocial } from "@/lib/db"
 import { prismaItem } from "@/lib/db"
 import { prismaUser } from "@/lib/db"
 import { connectToDatabase } from "../mongoose/connection"
-import { PostModel } from "../mongoose/posts"
-import { ItemModel } from "../mongoose/items"
+import { fetchItems } from "../mongoose/items"
+import { fetchPosts } from "../mongoose/posts"
 import type { Post, Item, FeedItem } from "../types/feed"
 
 type FeedScope = "mixed" | "posts" | "items"
@@ -14,6 +14,43 @@ interface FetchOptions {
   limit?: number
   userId?: string
   scope?: FeedScope // supports the 3 feeds: "mixed" (default), "posts", "items"
+}
+
+// Merged (SQL+Mongo via fetchPosts) → FeedItem (Post)
+function mapMergedPostToFeedItem(p: any): FeedItem {
+  const user = {
+    id: String(p.user?.id ?? p.userId ?? p.creatorId ?? "unknown"),
+    name: p.user?.display_name ?? "Unknown User",
+    handle: p.user?.username ?? "unknown",
+    avatar: p.user?.avatar_url ?? "/default-avatar.png",
+    verified: Boolean(p.user?.verified),
+  }
+
+  return {
+    id: String(p.mongoId ?? p._id ?? p.id),
+    type: "post" as const,
+    created_at: safeDate(p.createdAt ?? p.created_at),
+    timestamp: formatTimestamp(safeDate(p.createdAt ?? p.created_at)),
+    user,
+    content: {
+      text: p.content ?? "",
+      media: Array.isArray(p.media)
+        ? p.media.map((m: any) => ({
+            type: (m?.type as "image" | "video" | "audio") || "image",
+            url: m?.url || "/placeholder.svg",
+            alt: m?.alt || "Post media",
+          }))
+        : [],
+    },
+    engagement: {
+      likes: Number(p.analytics?.likes_count ?? (p.likes?.length ?? 0)),
+      comments: Number(p.analytics?.comments_count ?? (p.comments?.length ?? 0)),
+      shares: Number(p.analytics?.shares_count ?? 0),
+      bookmarks: 0,
+    },
+    isLiked: false,
+    isBookmarked: false,
+  }
 }
 
 /** ---------- Utilities ---------- */
@@ -82,7 +119,8 @@ function mapMongoPostToFeedItem(
     }
   >
 ): FeedItem {
-  const u = userById[String(post.creatorId)]
+  const creator = (post as any).creatorId ?? (post as any).userId
+  const u = userById[String(creator)]
   const user = pickUserFromPrisma(u)
   return {
     id: String(post._id),
@@ -91,22 +129,29 @@ function mapMongoPostToFeedItem(
     timestamp: formatTimestamp(safeDate(post.createdAt)),
     user,
     content: {
-      text: post.content ?? "",
-      media: post.mediaUrl
+      text: (post as any).content ?? "",
+      // Prefer array-shaped media from Mongo; fallback to legacy single mediaUrl/mediaType
+      media: Array.isArray((post as any).media)
+        ? ((post as any).media || []).map((m: any) => ({
+            type: (m?.type as "image" | "video" | "audio") || "image",
+            url: m?.url || "/placeholder.svg",
+            alt: m?.alt || "Post media",
+          }))
+        : (post as any).mediaUrl
         ? [
             {
-              type: (post.mediaType as "image" | "video" | "audio") || "image",
-              url: post.mediaUrl,
+              type: (((post as any).mediaType as "image" | "video" | "audio") || "image"),
+              url: (post as any).mediaUrl,
               alt: "Post media",
             },
           ]
         : [],
     },
     engagement: {
-      likes: Number(post.likes ?? 0),
-      comments: Number(post.comments ?? 0),
-      shares: Number(post.shares ?? 0),
-      bookmarks: Number(post.bookmarks ?? 0),
+      likes: Number((post as any).likes ?? 0),
+      comments: Number((post as any).comments ?? 0),
+      shares: Number((post as any).shares ?? 0),
+      bookmarks: Number((post as any).bookmarks ?? 0),
     },
     isLiked: false,
     isBookmarked: false,
@@ -132,8 +177,8 @@ function mapPrismaSocialPostToFeedItem(p: any): FeedItem {
       media: [], // Prisma schema doesn't have media fields for posts_metadata
     },
     engagement: {
-      likes: 0, // Not available without _count
-      comments: 0, // Not available without _count
+      likes: analyticsLikes,
+      comments: analyticsComments,
       shares: 0, // Not available in schema
       bookmarks: 0, // Not available in schema
     },
@@ -163,12 +208,8 @@ function mapPrismaItemToFeedItem(i: any): FeedItem {
       product: {
         title: i.title ?? "Untitled",
         price: String(i.price ? Number(i.price) : 0),
-        originalPrice: undefined, // Not available in schema
         category: i.category ?? "General",
         rating: 0, // Not available without reviews
-        students: 0, // Not available in schema
-        hours: 0, // Not available in schema
-        discount: 0, // Not available in schema
       },
     },
     engagement: {
@@ -198,7 +239,8 @@ function mapMongoItemToFeedItem(
     }
   >
 ): FeedItem {
-  const u = userById[String(item.creatorId)]
+  const creator = (item as any).creatorId ?? (item as any).userId
+  const u = userById[String(creator)]
   const user = pickUserFromPrisma(u)
 
   return {
@@ -233,10 +275,18 @@ function mapMongoItemToFeedItem(
       },
     },
     engagement: {
-      likes: Number(item.likes ?? 0),
-      comments: Number(item.comments ?? 0),
-      shares: Number(item.shares ?? 0),
-      bookmarks: Number(item.bookmarks ?? 0),
+      likes: Array.isArray((item as any).likes)
+        ? (item as any).likes.length
+        : Number((item as any).likes ?? 0),
+      comments: Array.isArray((item as any).comments)
+        ? (item as any).comments.length
+        : Number((item as any).comments ?? 0),
+      shares: Array.isArray((item as any).shares)
+        ? (item as any).shares.length
+        : Number((item as any).shares ?? 0),
+      bookmarks: Array.isArray((item as any).bookmarks)
+        ? (item as any).bookmarks.length
+        : Number((item as any).bookmarks ?? 0),
     },
     isLiked: false,
     isBookmarked: false,
@@ -276,32 +326,37 @@ export async function fetchUnifiedFeed({
     const sourceCount = [wantPosts, wantItems].filter(Boolean).length
     const sourceLimit = getSourceLimit(sourceCount)
 
-    // Mongo queries (guarded)
-    const mongoPostPromise = wantPosts
-      ? PostModel.find({ visibility: true })
-          .sort({ createdAt: -1 })
-          .skip(skip)
-          .limit(sourceLimit)
-          .lean<Post[]>()
-      : Promise.resolve<Post[]>([])
+    // Split limits further within posts and items between their two subsources
+    const splitHalf = (n: number) => Math.max(1, Math.ceil(n / 2))
+    const postsGroupLimit = wantPosts ? (scope === "mixed" ? sourceLimit : take) : 0
+    const itemsGroupLimit = wantItems ? (scope === "mixed" ? sourceLimit : take) : 0
+    const postsEachLimit = wantPosts ? splitHalf(postsGroupLimit) : 0
+    const itemsEachLimit = wantItems ? splitHalf(itemsGroupLimit) : 0
 
+    // Posts via helper (merged SQL+Mongo)
+    const mergedPostsPromise = wantPosts
+      ? fetchPosts({ page, limit: postsEachLimit }).then((res) =>
+          // filter visible if present
+          (res.posts as any[]).filter((p) => (p as any).visibility !== false)
+        )
+      : Promise.resolve<any[]>([])
+
+    // Items from Mongo via helper
     const mongoItemPromise = wantItems
-      ? ItemModel.find({ visibility: true })
-          .sort({ createdAt: -1 })
-          .skip(skip)
-          .limit(sourceLimit)
-          .lean<Item[]>()
-      : Promise.resolve<Item[]>([])
+      ? fetchItems({ page, limit: itemsEachLimit }).then((res) =>
+          // filter visible if present
+          (res.items as any[]).filter((i) => (i as any).visibility !== false)
+        )
+      : Promise.resolve<any[]>([])
 
-    // Prisma Social Posts (guarded)
+    // Prisma Social Posts (raw SQL posts)
     const pgSocialPromise = wantPosts
       ? prismaSocial.posts_metadata.findMany({
           where: { visibility: true },
           orderBy: { created_at: "desc" },
           skip,
-          take: sourceLimit,
+          take: postsEachLimit,
           include: {
-            // NOTE: users model doesn't have username/avatar directly; select via user_profile
             users: {
               select: {
                 id: true,
@@ -311,6 +366,7 @@ export async function fetchUnifiedFeed({
                 },
               },
             },
+            _count: { select: { likes: true, comments: true } },
           },
         })
       : Promise.resolve<any[]>([])
@@ -321,7 +377,7 @@ export async function fetchUnifiedFeed({
           where: { availability: true },
           orderBy: { created_at: "desc" },
           skip,
-          take: sourceLimit,
+          take: itemsEachLimit,
           include: {
             users: {
               select: {
@@ -336,8 +392,8 @@ export async function fetchUnifiedFeed({
         })
       : Promise.resolve<any[]>([])
 
-    const [mongoPosts, mongoItems, pgSocialPosts, pgItems] = await Promise.all([
-      mongoPostPromise,
+    const [mergedPosts, mongoItems, pgSocialPosts, pgItems] = await Promise.all([
+      mergedPostsPromise,
       mongoItemPromise,
       pgSocialPromise,
       pgItemsPromise,
@@ -345,8 +401,11 @@ export async function fetchUnifiedFeed({
 
     // 3) Batch-load user profiles for Mongo docs from the User DB (Prisma)
     const mongoUserIds = new Set<string>()
-    if (wantPosts) mongoPosts.forEach((p) => p?.creatorId && mongoUserIds.add(String(p.creatorId)))
-    if (wantItems) mongoItems.forEach((i) => i?.creatorId && mongoUserIds.add(String(i.creatorId)))
+    if (wantItems)
+      mongoItems.forEach((i) => {
+        const iid = (i as any)?.creatorId ?? (i as any)?.userId
+        if (iid) mongoUserIds.add(String(iid))
+      })
 
     let prismaUsersById: Record<
       string,
@@ -379,13 +438,17 @@ export async function fetchUnifiedFeed({
     const mapped: FeedItem[] = []
 
     if (wantPosts) {
-      // Mongo posts
-      for (const p of mongoPosts) {
-        mapped.push(mapMongoPostToFeedItem(p, prismaUsersById))
+      const seenSqlPostIds = new Set<string>()
+      // Prefer merged posts
+      for (const p of mergedPosts) {
+        mapped.push(mapMergedPostToFeedItem(p))
+        if (p?.id) seenSqlPostIds.add(String(p.id))
       }
-      // Prisma social posts
+      // Add raw Prisma social posts if not already represented
       for (const sp of pgSocialPosts) {
-        mapped.push(mapPrismaSocialPostToFeedItem(sp))
+        if (!seenSqlPostIds.has(String(sp.id))) {
+          mapped.push(mapPrismaSocialPostToFeedItem(sp))
+        }
       }
     }
 
@@ -395,8 +458,11 @@ export async function fetchUnifiedFeed({
         mapped.push(mapMongoItemToFeedItem(i, prismaUsersById))
       }
       // Prisma items
+      const mongoItemIds = new Set<string>(mongoItems.map((m: any) => String(m?._id)))
       for (const pi of pgItems) {
-        mapped.push(mapPrismaItemToFeedItem(pi))
+        if (!mongoItemIds.has(String(pi.item_id))) {
+          mapped.push(mapPrismaItemToFeedItem(pi))
+        }
       }
     }
 
@@ -407,14 +473,15 @@ export async function fetchUnifiedFeed({
     const pageSlice = sorted.slice(0, limit)
 
     // 6) Get accurate counts for pagination
-    const counts = await Promise.all([
-      wantPosts ? PostModel.countDocuments({ visibility: true }) : 0,
-      wantItems ? ItemModel.countDocuments({ visibility: true }) : 0,
-      wantPosts ? prismaSocial.posts_metadata.count({ where: { visibility: true } }) : 0,
-      wantItems ? prismaItem.items.count({ where: { availability: true } }) : 0,
+    // Totals: use merged posts total to avoid double counting,
+    // items = mongo items total + prisma items count
+    const [postsTotal, mongoItemsTotal, prismaItemsTotal] = await Promise.all([
+      wantPosts ? fetchPosts({ page: 1, limit: 1 }).then((r) => r.pagination.total) : Promise.resolve(0),
+      wantItems ? fetchItems({ page: 1, limit: 1 }).then((r) => r.pagination.total) : Promise.resolve(0),
+      wantItems ? prismaItem.items.count({ where: { availability: true } }) : Promise.resolve(0),
     ])
 
-    const total = counts.reduce((sum, count) => sum + count, 0)
+    const total = (wantPosts ? postsTotal : 0) + (wantItems ? mongoItemsTotal + prismaItemsTotal : 0)
     
     // Calculate hasMore based on whether we got fewer items than requested
     // OR if there are more items beyond what we've fetched
