@@ -1,9 +1,10 @@
 "use client";
 import { Github, User } from "lucide-react";
-import { SidebarProvider } from "@/components/ui/sidebar";
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar";
 import { AppSidebar } from "../../../components/app-sidebar";
 import { TopNav } from "../../../components/top-nav";
 import { MobileNav } from "../../../components/mobile-nav";
+import { ScrollableContent } from "@/components/scrollable-content";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -11,11 +12,11 @@ import { motion } from "framer-motion";
 export default function AboutPage() {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <AppSidebar />
-        <div className="flex-1 flex flex-col">
-          <TopNav />
-          <main className="flex-1 container mx-auto px-4 py-6">
+      <AppSidebar />
+      <SidebarInset>
+        <TopNav />
+        <ScrollableContent>
+          <main className="container mx-auto px-4 py-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -122,9 +123,9 @@ export default function AboutPage() {
               </div>
             </motion.div>
           </main>
-          <MobileNav />
-        </div>
-      </div>
+        </ScrollableContent>
+        <MobileNav />
+      </SidebarInset>
     </SidebarProvider>
   );
 }

@@ -6,6 +6,7 @@ import { CreatePostPrompt } from "../../../components/create-post-prompt"
 import { UnifiedFeed } from "../../../components/unified-feed"
 import { TrendingCreators } from "../../../components/trending-creators"
 import { PopularTags } from "../../../components/popular-tags"
+import { ScrollableContent } from "@/components/scrollable-content"
 
 export default function FeedPage() {
   return (
@@ -13,18 +14,20 @@ export default function FeedPage() {
       <AppSidebar />
       <SidebarInset>
         <TopNav />
-        <main className="flex-1 container mx-auto px-4 py-6">
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            <div className="lg:col-span-3 space-y-6">
-              <CreatePostPrompt />
-              <UnifiedFeed />
+        <ScrollableContent>
+          <main className="container mx-auto px-4 py-6">
+            <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+              <div className="lg:col-span-3 space-y-6">
+                <CreatePostPrompt />
+                <UnifiedFeed />
+              </div>
+              <div className="space-y-6">
+                <TrendingCreators />
+                <PopularTags />
+              </div>
             </div>
-            <div className="space-y-6">
-              <TrendingCreators />
-              <PopularTags />
-            </div>
-          </div>
-        </main>
+          </main>
+        </ScrollableContent>
         <MobileNav />
       </SidebarInset>
     </SidebarProvider>

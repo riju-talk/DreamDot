@@ -3,8 +3,9 @@ import Image from "next/image"
 import { useState, useEffect } from "react"
 import { TopNav } from "../../../components/top-nav"
 import { MobileNav } from "../../../components/mobile-nav"
-import { SidebarProvider } from "@/components/ui/sidebar"
+import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
 import { AppSidebar } from "../../../components/app-sidebar"
+import { ScrollableContent } from "@/components/scrollable-content"
 import {
   Card, CardContent, CardDescription, CardFooter,
   CardHeader, CardTitle
@@ -144,11 +145,11 @@ export default function SettingsPage() {
 
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <AppSidebar />
-        <div className="flex-1 flex flex-col">
-          <TopNav />
-          <main className="flex-1 container mx-auto px-4 py-6">
+      <AppSidebar />
+      <SidebarInset>
+        <TopNav />
+        <ScrollableContent>
+          <main className="container mx-auto px-4 py-6">
             <Toaster position="top-center" richColors />
             <div className="flex justify-between items-center mb-8">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
@@ -259,9 +260,9 @@ export default function SettingsPage() {
               </div>
             </div>
           </main>
-          <MobileNav />
-        </div>
-      </div>
+        </ScrollableContent>
+        <MobileNav />
+      </SidebarInset>
     </SidebarProvider>
   )
 }

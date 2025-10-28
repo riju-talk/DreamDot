@@ -1,11 +1,8 @@
-"use client"
-
 import { fetchPosts } from "@/lib/mongoose/posts"
 import { SocialPost } from "./social-post"
 import { Button } from "@/components/ui/button"
 import { RefreshCw } from "lucide-react"
-import { DatabaseErrorFallback } from "./database-error-fallback"
-import { useState, useEffect } from "react"
+import Link from "next/link"
 
 interface PostData {
   id: string
@@ -18,7 +15,7 @@ interface PostData {
   created_at: string
   content?: string
   media?: Array<{
-    type?: string
+    type?: "image" | "video" | "audio"
     url?: string
     alt?: string
   }>
@@ -32,78 +29,32 @@ interface PostsResponse {
   posts: PostData[]
 }
 
-export function SocialFeed() {
-  const [postsData, setPostsData] = useState<PostsResponse | null>(null)
-  const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState<Error | null>(null)
-
-  const loadPosts = async () => {
-    try {
-      setIsLoading(true)
-      setError(null)
-      const data = await fetchPosts({ page: 1, limit: 5 })
-      setPostsData(data)
-    } catch (err) {
-      console.error("[SocialFeed] Error loading posts:", err)
-      setError(err instanceof Error ? err : new Error("Unknown error occurred"))
-    } finally {
-      setIsLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    loadPosts()
-  }, [])
-
-  if (error) {
+export async function SocialFeed() {
+  try {
+    const postsData = await fetchPosts({ page: 1, limit: 5 })
+    
     return (
-      <DatabaseErrorFallback
-        error={error}
-        component="SocialFeed"
-        onRetry={loadPosts}
-        showDebugInfo={process.env.NODE_ENV === "development"}
-      />
-    )
-  }
+      <div className="space-y-6 max-w-2xl mx-auto">
+        <div className="flex items-center justify-between">
+          <h2 className="text-xl font-semibold">Latest Posts</h2>
+          <div className="flex items-center gap-2">
+            <form action="/discover" method="get">
+              <Button
+                type="submit"
+                variant="outline"
+                size="sm"
+                className="gap-2 rounded-full"
+              >
+                <RefreshCw className="h-4 w-4" />
+                Refresh
+              </Button>
+            </form>
+          </div>
+        </div>
 
-  return (
-    <div className="space-y-6 max-w-2xl mx-auto">
-      <div className="flex items-center justify-between">
-        <h2 className="text-xl font-semibold">Latest Posts</h2>
-        <Button
-          variant="outline"
-          size="sm"
-          className="gap-2 rounded-full"
-          onClick={loadPosts}
-          disabled={isLoading}
-        >
-          <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin' : ''}`} />
-          {isLoading ? 'Refreshing...' : 'Refresh'}
-        </Button>
-      </div>
-
-      <div className="space-y-6">
-        {isLoading || !postsData ? (
-          [...Array(3)].map((_, i) => (
-            <div key={i} className="animate-pulse">
-              <div className="bg-muted/50 rounded-lg p-6 space-y-4">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-muted rounded-full"></div>
-                  <div className="space-y-2">
-                    <div className="w-32 h-4 bg-muted rounded"></div>
-                    <div className="w-24 h-3 bg-muted rounded"></div>
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <div className="w-full h-4 bg-muted rounded"></div>
-                  <div className="w-3/4 h-4 bg-muted rounded"></div>
-                </div>
-              </div>
-            </div>
-          ))
-        ) : postsData.posts.length > 0 ? (
-          postsData.posts.map((post) => {
-            return (
+        <div className="space-y-6">
+          {postsData.posts.length > 0 ? (
+            postsData.posts.map((post) => (
               <SocialPost
                 key={post.id}
                 post={{
@@ -114,13 +65,13 @@ export function SocialFeed() {
                     avatar: post.user?.avatar_url || "/placeholder.svg",
                     verified: post.user?.verified || false,
                   },
-                  timestamp: new Date(post.created_at).toLocaleTimeString([], {
+                  timestamp: new Date(post.createdAt).toLocaleTimeString([], {
                     hour: "2-digit",
                     minute: "2-digit",
                   }),
                   content: {
                     text: post.content || "",
-                    media: Array.isArray(post.media) ? post.media.map((m: any) => ({
+                    media: Array.isArray(post.media) ? post.media.map((m) => ({
                       type: m.type || "image",
                       url: m.url || "/placeholder.svg",
                       alt: m.alt || "Post media"
@@ -136,25 +87,37 @@ export function SocialFeed() {
                   isBookmarked: false
                 }}
               />
-            )
-          })
-        ) : (
-          <div className="text-center py-12">
-            <div className="space-y-2">
-              <p className="text-muted-foreground">No posts found</p>
-              <p className="text-sm text-muted-foreground">
-                Be the first to share your thoughts with the community!
-              </p>
+            ))
+          ) : (
+            <div className="text-center py-12">
+              <div className="space-y-2">
+                <p className="text-muted-foreground">No posts found</p>
+                <p className="text-sm text-muted-foreground">
+                  Be the first to share your thoughts with the community!
+                </p>
+              </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      <div className="text-center py-8">
-        <Button variant="outline" className="rounded-full">
-          Load More Posts
-        </Button>
+        <div className="text-center py-8">
+          <Button asChild variant="outline" className="rounded-full">
+            <Link href="/discover?page=2">Load More Posts</Link>
+          </Button>
+        </div>
       </div>
-    </div>
-  )
+    )
+  } catch (error) {
+    console.error("Error loading posts:", error)
+    return (
+      <div className="text-center py-12 space-y-4">
+        <p className="text-destructive">Failed to load posts</p>
+        <form action="/discover" method="get">
+          <Button type="submit" variant="outline">
+            Try Again
+          </Button>
+        </form>
+      </div>
+    )
+  }
 }
