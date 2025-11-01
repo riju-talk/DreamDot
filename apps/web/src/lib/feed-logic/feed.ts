@@ -27,7 +27,8 @@ function mapMergedPostToFeedItem(p: any): FeedItem {
   }
 
   return {
-    id: String(p.mongoId ?? p._id ?? p.id),
+    // prefer Mongo object id for merged posts when available, otherwise fall back to SQL id
+    id: p.mongoId ? `post:${String(p.mongoId)}` : p._id ? `post:${String(p._id)}` : `post:${String(p.id)}`,
     type: "post" as const,
     created_at: safeDate(p.createdAt ?? p.created_at),
     timestamp: formatTimestamp(safeDate(p.createdAt ?? p.created_at)),
@@ -123,7 +124,8 @@ function mapMongoPostToFeedItem(
   const u = userById[String(creator)]
   const user = pickUserFromPrisma(u)
   return {
-    id: String(post._id),
+    // use Mongo ObjectId for mongo posts (stable, unique)
+    id: `post:${String(post._id)}`,
     type: "post" as const,
     created_at: safeDate(post.createdAt),
     timestamp: formatTimestamp(safeDate(post.createdAt)),
@@ -167,7 +169,8 @@ function mapPrismaSocialPostToFeedItem(p: any): FeedItem {
   const analyticsComments = p._count?.comments ? Number(p._count.comments) : 0
 
   return {
-    id: p.id,
+    // SQL-post id; prefix to avoid collision with mongo ids
+    id: `post:${String(p.id)}`,
     type: "post" as const,
     created_at: safeDate(p.created_at),
     timestamp: formatTimestamp(safeDate(p.created_at)),
@@ -197,7 +200,8 @@ function mapPrismaItemToFeedItem(i: any): FeedItem {
     .filter((n: number) => n > 0)
 
   return {
-    id: i.item_id,
+    // prefix item ids to avoid collision with post ids
+    id: `item:${String(i.item_id)}`,
     type: "marketplace" as const,
     created_at: safeDate(i.created_at),
     timestamp: formatTimestamp(safeDate(i.created_at)),
@@ -244,7 +248,8 @@ function mapMongoItemToFeedItem(
   const user = pickUserFromPrisma(u)
 
   return {
-    id: String(item._id),
+    // use Mongo ObjectId for items and prefix
+    id: `item:${String(item._id)}`,
     type: "marketplace" as const,
     created_at: safeDate(item.createdAt),
     timestamp: formatTimestamp(safeDate(item.createdAt)),

@@ -147,9 +147,7 @@ export function LandingHero({
                   <Button
                     size="sm"
                     className="bg-gradient-to-r from-teal-400 to-green-500 text-black hover:from-teal-500 hover:to-green-600 text-xs sm:text-sm px-3 sm:px-4 py-2 shadow-md shadow-teal-500/20 transition-all w-full sm:w-auto"
-                    onClick={() => {
-                      console.log("Open feedback form");
-                    }}
+                    onClick={() => { /* feedback button clicked */ }}
                   >
                     Give Feedback
                   </Button>

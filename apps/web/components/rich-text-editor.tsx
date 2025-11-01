@@ -2,8 +2,8 @@
 "use client";
 
 import React, { useRef, useState, useEffect } from "react";
-import Quill from "quill";
-import "quill/dist/quill.snow.css";
+// NOTE: Quill and its CSS are dynamically imported inside useEffect to avoid
+// server-side execution (Quill accesses `document` and will throw during SSR).
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { ImageIcon, X } from "lucide-react";
@@ -23,13 +23,26 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   thumbnailPreview,
 }) => {
   const editorRef = useRef<HTMLDivElement | null>(null);
-  const quillInstance = useRef<Quill | null>(null);
+  const quillInstance = useRef<any | null>(null);
   const [editorHtml, setEditorHtml] = useState(value);
 
-  // Initialize Quill once
+  // Initialize Quill once (dynamically import to avoid SSR issues)
   useEffect(() => {
-    if (editorRef.current && !quillInstance.current) {
-      quillInstance.current = new Quill(editorRef.current, {
+    let mounted = true
+
+    const init = async () => {
+      if (!editorRef.current || quillInstance.current || !mounted) return
+
+      // dynamically import Quill and its styles
+      const QuillModule = await import("quill")
+      const QuillLib = (QuillModule && (QuillModule as any).default) || QuillModule
+  // CSS import for Quill (dynamic). Suppress type error if no typings for CSS.
+  // @ts-ignore
+  await import("quill/dist/quill.snow.css")
+
+      if (!mounted) return
+
+      quillInstance.current = new (QuillLib as any)(editorRef.current, {
         theme: "snow",
         modules: {
           toolbar: [
@@ -38,15 +51,21 @@ export const RichTextEditor: React.FC<RichTextEditorProps> = ({
             [{ color: [] }],
           ],
         },
-      });
+      })
 
       quillInstance.current.on("text-change", () => {
-        const html = editorRef.current!.querySelector(".ql-editor")!.innerHTML;
-        setEditorHtml(html);
-        onChange(html);
-      });
+        const html = editorRef.current!.querySelector(".ql-editor")!.innerHTML
+        setEditorHtml(html)
+        onChange(html)
+      })
     }
-  }, [editorRef, onChange]);
+
+    init()
+
+    return () => {
+      mounted = false
+    }
+  }, [editorRef, onChange])
 
   // Keep editor in sync when `value` changes externally
   useEffect(() => {

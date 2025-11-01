@@ -97,8 +97,9 @@ export function UnifiedFeed() {
 
       <div className="space-y-6">
         {feedData.feed.length > 0 ? (
-          feedData.feed.map((item) => (
-            <FeedPost key={item.id} post={item} />
+          feedData.feed.map((item, idx) => (
+            // use composite key (type + id) to avoid collisions when different sources share the same id
+            <FeedPost key={`${item.type ?? 'unknown'}-${item.id ?? idx}`} post={item} />
           ))
         ) : (
           <div className="text-center py-12">

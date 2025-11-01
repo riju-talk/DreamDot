@@ -4,13 +4,11 @@ let isConnected = false;
 
 async function connectDb() {
   if (isConnected) {
-    console.log('DB: Using existing database connection');
     return;
   }
 
   try {
-    const mongoUri = process.env.MONGO_CLUSTER || 'mongodb://localhost:27017/chatapp';
-    console.log('DB: Connecting to MongoDB...')
+  const mongoUri = process.env.MONGO_CLUSTER || 'mongodb://localhost:27017/chatapp';
 
     await mongoose.connect(mongoUri, {
       // Modern connection options
@@ -20,11 +18,9 @@ async function connectDb() {
       minPoolSize: 5
     });
 
-    isConnected = true;
-    console.log('SUCCESS: Connected to MongoDB successfully');
+  isConnected = true;
   } catch (error) {
-    console.error('ERROR: Failed to connect to MongoDB:', error.message);
-    console.log('INFO: Starting server in offline mode (some features will be disabled)');
+  console.error('ERROR: Failed to connect to MongoDB:', error.message);
 
     // Don't throw error, just log it and continue
     // This allows the server to start even without database
@@ -34,8 +30,7 @@ async function connectDb() {
 async function disconnectDb() {
   if (isConnected) {
     await mongoose.disconnect();
-    isConnected = false;
-    console.log('DB: Disconnected from MongoDB');
+  isConnected = false;
   }
 }
 
@@ -45,12 +40,10 @@ mongoose.connection.on('error', (error) => {
 });
 
 mongoose.connection.on('disconnected', () => {
-  console.log('DB: Disconnected from MongoDB');
   isConnected = false;
 });
 
 mongoose.connection.on('reconnected', () => {
-  console.log('DB: Reconnected to MongoDB');
   isConnected = true;
 });
 

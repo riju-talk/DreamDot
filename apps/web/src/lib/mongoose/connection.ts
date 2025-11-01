@@ -44,7 +44,6 @@ function getMongoDBUri(): string {
     throw new Error("MONGODB_URI_NOT_FOUND");
   }
 
-  console.log('✅ MongoDB URI found');
   return uri;
 }
 
@@ -69,16 +68,15 @@ export async function connectToDatabase(): Promise<Mongoose> {
   const MONGODB_URI = getMongoDBUri();
   const connectionOptions = getConnectionOptions();
 
-  console.log('🔄 connectToDatabase() called');
+  // connectToDatabase called
 
   // Return existing connection if available and healthy
   if (cached.conn) {
     try {
       await cached.conn.connection.db?.admin()?.ping();
-      console.log("🟢 Reusing cached MongoDB connection");
       return cached.conn;
     } catch (error) {
-      console.warn("⚠️ Cached connection is stale, creating new connection...");
+      // cached connection failed health check; drop cache and reconnect
       cached.conn = null;
       cached.promise = null;
     }
@@ -86,12 +84,8 @@ export async function connectToDatabase(): Promise<Mongoose> {
 
   // Create new connection if no promise exists
   if (!cached.promise) {
-    console.log("🔌 Establishing new MongoDB connection...");
-    console.log("   Database:", connectionOptions.dbName);
-
     cached.promise = mongoose.connect(MONGODB_URI, connectionOptions)
       .then((mongooseInstance) => {
-        console.log("✅ MongoDB connection established!");
         return mongooseInstance;
       })
       .catch((error) => {

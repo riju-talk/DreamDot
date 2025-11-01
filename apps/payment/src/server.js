@@ -23,7 +23,6 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 mongoose.connect(process.env.MONGO_CLUSTER || 'mongodb://localhost:27017/dreamdot')
-  .then(() => console.log('MongoDB connected for payment service'))
   .catch(err => console.error('MongoDB connection error:', err))
 
 app.get('/health', (req, res) => {
@@ -38,8 +37,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({ error: err.message || 'Internal server error' })
 })
 
-app.listen(PORT, HOST, () => {
-  console.log(`Payment service running on port ${PORT}`)
-})
+app.listen(PORT, HOST)
 
 module.exports = app

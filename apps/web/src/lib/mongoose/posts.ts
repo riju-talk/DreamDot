@@ -49,7 +49,7 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
     const { userId, page = 1, limit = 10 } = options;
     const skip = (page - 1) * limit;
 
-    console.log("🔍 FetchPosts called with:", { userId, page, limit });
+  // FetchPosts called with options
 
     // Step 1: Fetch PostgreSQL metadata
     console.time("⏱ SQL Fetch Time");
@@ -80,11 +80,7 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
     const totalCount = await prismaSocial.posts_metadata.count({
       where: userId ? { user_id: userId } : {},
     });
-
-    console.log(`🧠 SQL fetched ${sqlPosts.length} posts (of total ${totalCount})`);
-
     if (sqlPosts.length === 0) {
-      console.log("⚠️ No posts found in SQL");
       return {
         posts: [],
         pagination: { total: totalCount, page, limit, hasMore: false },
@@ -96,14 +92,12 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
     const connection = await connectToDatabase();
     console.timeEnd("⏱ Mongo Connection Time");
 
-    if (!connection) throw new Error("❌ Failed to connect to MongoDB");
+    if (!connection) throw new Error("Failed to connect to MongoDB");
 
     const db = connection.connection.db;
-    console.log("✅ Mongo connected:", db?.databaseName);
     const postsCollection = db?.collection("posts") as Collection<Post>;
 
     const userIds = [...new Set(sqlPosts.map((p) => String(p.user_id)))];
-    console.log("📋 User IDs to query in Mongo:", userIds);
 
     console.time("⏱ Mongo Fetch Time");
     const allMongoPosts = await postsCollection
@@ -112,7 +106,6 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
       .toArray();
     console.timeEnd("⏱ Mongo Fetch Time");
 
-    console.log(`📦 Mongo fetched ${allMongoPosts.length} posts total`);
 
     // Step 3: Map MongoDB posts by userId
     const userPostsMap = new Map<string, Post[]>();
@@ -124,7 +117,7 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
     }
 
     // Step 4: Merge SQL and Mongo data
-    console.log("🧩 Merging SQL and Mongo data...");
+  // Merging SQL and Mongo data
     const posts = sqlPosts.map((sqlPost) => {
       const uid = String(sqlPost.user_id);
       const mongoPost = userPostsMap.get(uid)?.[0]; // take latest
@@ -156,11 +149,7 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
       };
     });
 
-    console.log(`✅ Merged ${posts.length} posts`);
-    console.log("📊 Pagination info:", {
-      total: totalCount,
-      hasMore: skip + posts.length < totalCount,
-    });
+    // merged posts ready
 
     return {
       posts,

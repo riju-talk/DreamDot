@@ -85,12 +85,10 @@ export function ChatProvider({ children }: { children: ReactNode }) {
 
     const handleTyping = (data: { userId: string; isTyping: boolean; conversationId: string }) => {
       // Handle typing indicators if needed
-      console.log('Typing:', data)
     }
 
     const handleUserJoined = (data: { userId: string; timestamp: string }) => {
       // Handle presence updates if needed
-      console.log('User joined:', data)
     }
 
     socket.on('message:new', handleNewMessage)

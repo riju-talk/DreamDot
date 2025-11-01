@@ -32,15 +32,15 @@ export async function fetchItems(
   const { userId, page = 1, limit = 10, category } = options;
   const skip = (page - 1) * limit;
 
-  console.log("📦 fetchItems() called with:", { userId, page, limit, category });
+  // fetchItems called with options
 
   try {
-    console.time("⏱️ fetchItems total duration");
+  console.time("⏱️ fetchItems total duration");
 
     // --- 1. Connect to MongoDB ---
     console.time("⏱️ MongoDB connect");
     const conn = await connectToDatabase();
-    console.timeEnd("⏱️ MongoDB connect");
+  console.timeEnd("⏱️ MongoDB connect");
 
     const db = conn.connection.db;
     const itemsCollection = db?.collection("items") as Collection<Item>;
@@ -51,7 +51,7 @@ export async function fetchItems(
     if (userId) query.userId = userId;
     if (category) query.category = category;
 
-    console.log("🔍 MongoDB query:", JSON.stringify(query));
+  // MongoDB query constructed
 
     // --- 3. Fetch from Mongo ---
     console.time("⏱️ MongoDB fetch");
@@ -63,12 +63,9 @@ export async function fetchItems(
       .toArray();
 
     const totalCount = await itemsCollection.countDocuments(query);
-    console.timeEnd("⏱️ MongoDB fetch");
-
-    console.log(`📊 MongoDB returned ${mongoItems.length} items (total count: ${totalCount})`);
+  console.timeEnd("⏱️ MongoDB fetch");
 
     if (!mongoItems.length) {
-      console.warn("⚠️ No MongoDB items found for query");
       return {
         items: [],
         pagination: { total: totalCount, page, limit, hasMore: false },
@@ -77,7 +74,7 @@ export async function fetchItems(
 
     // --- 4. Fetch from PostgreSQL (items_d schema) ---
     const mongoIds = mongoItems.map((it) => String(it._id));
-    console.log(`🔗 Fetching ${mongoIds.length} corresponding SQL entries from Prisma...`);
+  // Fetching corresponding SQL entries from Prisma
 
     console.time("⏱️ Prisma fetch");
     const sqlItems = await prismaItem.items.findMany({
@@ -91,9 +88,7 @@ export async function fetchItems(
         transactions: { select: { transaction_id: true } },
       },
     });
-    console.timeEnd("⏱️ Prisma fetch");
-
-    console.log(`📊 Prisma returned ${sqlItems.length} matching records`);
+  console.timeEnd("⏱️ Prisma fetch");
 
     // --- 5. Normalize SQL results ---
     const sqlMap = new Map<
@@ -115,7 +110,7 @@ export async function fetchItems(
       });
     }
 
-    console.log("🧩 SQL map keys:", [...sqlMap.keys()].slice(0, 5), "...");
+  // SQL map prepared
 
     // --- 6. Merge Mongo + SQL ---
     const mergedItems: Item[] = mongoItems.map((mongo) => {
@@ -132,8 +127,7 @@ export async function fetchItems(
       } as Item;
     });
 
-    console.log(`🧠 Merged ${mergedItems.length} Mongo+SQL records`);
-    console.timeEnd("⏱️ fetchItems total duration");
+  console.timeEnd("⏱️ fetchItems total duration");
 
     // --- 7. Return merged result ---
     return {

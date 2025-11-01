@@ -12,8 +12,13 @@ export function useSocket() {
   const [socket, setSocket] = useState<Socket | null>(null)
   const [isConnected, setIsConnected] = useState(false)
 
+  // access token may be attached to the NextAuth session object at runtime
+  // its type isn't declared on the library Session type here, so read it
+  // via an any-cast to avoid TypeScript errors while keeping runtime logic.
+  const token = (session as any)?.accessToken
+
   useEffect(() => {
-    if (!session?.accessToken) {
+    if (!token) {
       if (socket) {
         socket.disconnect()
         setSocket(null)
@@ -25,18 +30,16 @@ export function useSocket() {
     // Create socket connection with NextAuth JWT token
     const newSocket = io(CHAT_SERVER_URL, {
       auth: {
-        token: session.accessToken
+        token
       },
       autoConnect: true
     })
 
     newSocket.on('connect', () => {
-      console.log('Connected to chat server')
       setIsConnected(true)
     })
 
     newSocket.on('disconnect', () => {
-      console.log('Disconnected from chat server')
       setIsConnected(false)
     })
 
@@ -50,7 +53,7 @@ export function useSocket() {
     return () => {
       newSocket.disconnect()
     }
-  }, [session?.accessToken])
+  }, [token])
 
   const sendMessage = (message: any, callback?: (response: any) => void) => {
     if (socket && isConnected) {

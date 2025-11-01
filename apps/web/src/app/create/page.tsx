@@ -1,5 +1,6 @@
 "use client"
 import { Button } from "@/components/ui/button"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -7,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { RichTextEditor } from "@/components/rich-text-editor"
 import { Switch } from "@/components/ui/switch"
 import { Upload, ImageIcon, FileText, Music } from "lucide-react"
 import { ProtectedRoute } from "../../../components/protected-route"
@@ -16,6 +18,17 @@ import { TopNav } from "../../../components/top-nav"
 import { MobileNav } from "../../../components/mobile-nav"
 
 export default function CreatePage() {
+  const [writeContent, setWriteContent] = useState<string>("")
+  const [thumbnailFile, setThumbnailFile] = useState<File | null>(null)
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null)
+
+  useEffect(() => {
+    return () => {
+      // cleanup preview URL when unmounting
+      if (thumbnailPreview) URL.revokeObjectURL(thumbnailPreview)
+    }
+  }, [thumbnailPreview])
+
   return (
     <ProtectedRoute>
       <SidebarProvider>
@@ -132,11 +145,24 @@ export default function CreatePage() {
 
                         <div className="grid gap-2">
                           <Label htmlFor="write-content">Content</Label>
-                          <Textarea
-                            id="write-content"
-                            placeholder="Start writing..."
-                            className="min-h-[300px] rounded-xl"
-                          />
+                          <div>
+                            <RichTextEditor
+                              value={writeContent}
+                              onChange={(html) => setWriteContent(html)}
+                              thumbnailPreview={thumbnailPreview ?? null}
+                              onThumbnailChange={(file) => {
+                                // manage file and preview URL
+                                setThumbnailFile(file ?? null)
+                                if (file) {
+                                  if (thumbnailPreview) URL.revokeObjectURL(thumbnailPreview)
+                                  setThumbnailPreview(URL.createObjectURL(file))
+                                } else {
+                                  if (thumbnailPreview) URL.revokeObjectURL(thumbnailPreview)
+                                  setThumbnailPreview(null)
+                                }
+                              }}
+                            />
+                          </div>
                         </div>
 
                         <div className="grid gap-2">

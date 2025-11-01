@@ -7,13 +7,6 @@ export interface Post {
     url?: string
     alt?: string
   }>
-  // In DB it's currently a boolean flag
   visibility: boolean
   createdAt: string
-  likes?: string[]
-  comments?: {
-    userId: string
-    text: string
-    timestamp: string
-  }[]
 }

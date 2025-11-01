@@ -12,9 +12,9 @@ export function ScrollableContent({
   className = "" 
 }: ScrollableContentProps) {
   return (
-    <div className="flex flex-col h-screen">
-      <div className="flex-1 overflow-y-auto">
-        <div className={className}>
+    <div className="flex-1 min-h-[calc(100vh-4rem)] relative">
+      <div className="absolute inset-0 overflow-y-auto overflow-x-hidden">
+        <div className={`min-h-full ${className}`}>
           {children}
         </div>
       </div>
