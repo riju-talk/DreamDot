@@ -40,30 +40,42 @@ export default function SettingsPage() {
   const [avatarUrl, setAvatarUrl] = useState<string | null>(null)
   const [bannerUrl, setBannerUrl] = useState<string | null>(null)
   const [socialLinks, setSocialLinks] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     async function loadProfile() {
-      const res = await fetch("/api/settings", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      })
-
-      if (res.ok) {
-        const data = await res.json()
-        const profile = data.profile || {}
-
-        setForm({
-          username: profile.username || "",
-          display_name: profile.display_name || "",
-          bio: profile.bio || "",
-          dob: profile.dob?.split("T")[0] || "",
-          country: profile.country || "",
-          website: profile.website || "",
+      try {
+        setIsLoading(true)
+        const res = await fetch("/api/settings", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         })
-        setAvatarUrl(profile.avatar_url || null)
-        setBannerUrl(profile.banner_url || null)
-        setSocialLinks(Array.isArray(profile.social_links) ? profile.social_links : [])
+
+        if (res.ok) {
+          const data = await res.json()
+          const profile = data.profile || {}
+
+          setForm({
+            username: profile.username || "",
+            display_name: profile.display_name || "",
+            bio: profile.bio || "",
+            dob: profile.dob?.split("T")[0] || "",
+            country: profile.country || "",
+            website: profile.website || "",
+          })
+          setAvatarUrl(profile.avatar_url || null)
+          setBannerUrl(profile.banner_url || null)
+          setSocialLinks(Array.isArray(profile.social_links) ? profile.social_links : [])
+        } else {
+          toast.error("Failed to load profile")
+        }
+      } catch (error) {
+        console.error("Error loading profile:", error)
+        toast.error("Error loading profile")
+      } finally {
+        setIsLoading(false)
       }
     }
 
@@ -97,50 +109,121 @@ export default function SettingsPage() {
   }
 
   async function handleSaveChanges() {
-    const token = localStorage.getItem("token")
-    const data: Record<string, any> = {}
-    const fields: string[] = []
+    try {
+      setIsSaving(true)
+      const token = localStorage.getItem("token")
+      const data: Record<string, any> = {}
+      const fields: string[] = []
 
-    // Collect updated fields
-    Object.entries(form).forEach(([key, value]) => {
-      if (value?.toString().trim() !== "") {
-        data[key] = value
-        fields.push(key)
+      // Collect updated fields
+      Object.entries(form).forEach(([key, value]) => {
+        if (value?.toString().trim() !== "") {
+          data[key] = value
+          fields.push(key)
+        }
+      })
+
+      if (avatarUrl) {
+        data.avatar_url = avatarUrl
+        fields.push("avatar_url")
       }
-    })
+      if (bannerUrl) {
+        data.banner_url = bannerUrl
+        fields.push("banner_url")
+      }
 
-    if (avatarUrl) {
-      data.avatar_url = avatarUrl
-      fields.push("avatar_url")
+      const filteredLinks = socialLinks.filter((l) => l.trim() !== "")
+      if (filteredLinks.length) {
+        data.social_links = filteredLinks
+        fields.push("social_links")
+      }
+
+      const payload = { fields, data }
+
+      const res = await fetch("/api/settings", {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+      })
+
+      const json = await res.json()
+      if (res.ok) {
+        toast.success("Profile updated successfully!")
+        // Update form with returned data if available
+        if (json.profile) {
+          setForm({
+            username: json.profile.username || "",
+            display_name: json.profile.display_name || "",
+            bio: json.profile.bio || "",
+            dob: json.profile.dob?.split("T")[0] || "",
+            country: json.profile.country || "",
+            website: json.profile.website || "",
+          })
+          setAvatarUrl(json.profile.avatar_url || null)
+          setBannerUrl(json.profile.banner_url || null)
+          setSocialLinks(json.profile.social_links || [])
+        }
+      } else {
+        toast.error("Error: " + json.error)
+      }
+    } catch (error) {
+      console.error("Save error:", error)
+      toast.error("Failed to save changes")
+    } finally {
+      setIsSaving(false)
     }
-    if (bannerUrl) {
-      data.banner_url = bannerUrl
-      fields.push("banner_url")
-    }
+  }
 
-    const filteredLinks = socialLinks.filter((l) => l.trim() !== "")
-    if (filteredLinks.length) {
-      data.social_links = filteredLinks
-      fields.push("social_links")
-    }
-
-    const payload = { fields, data }
-
-    const res = await fetch("/api/settings", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-      body: JSON.stringify(payload),
-    })
-
-    const json = await res.json()
-    if (res.ok) {
-      toast.success("Profile updated!")
-    } else {
-      toast.error("Error: " + json.error)
-    }
+  if (isLoading) {
+    return (
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset>
+          <TopNav />
+          <ScrollableContent>
+            <main className="container mx-auto px-4 py-6 bg-background text-foreground">
+              <div className="flex justify-between items-center mb-8">
+                <div className="h-8 w-48 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+              </div>
+              <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
+                <div className="lg:col-span-1">
+                  <Card>
+                    <CardHeader>
+                      <div className="flex items-center gap-4">
+                        <div className="w-14 h-14 rounded-full bg-gray-200 dark:bg-gray-700 animate-pulse" />
+                        <div className="space-y-2">
+                          <div className="h-4 w-24 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                          <div className="h-3 w-20 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                        </div>
+                      </div>
+                    </CardHeader>
+                  </Card>
+                </div>
+                <div className="lg:col-span-3">
+                  <Card>
+                    <CardHeader>
+                      <div className="h-6 w-48 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                      <div className="h-4 w-64 bg-gray-200 dark:bg-gray-700 rounded animate-pulse mt-2" />
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-4">
+                        {[...Array(6)].map((_, i) => (
+                          <div key={i} className="h-10 bg-gray-200 dark:bg-gray-700 rounded animate-pulse" />
+                        ))}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </div>
+              </div>
+            </main>
+          </ScrollableContent>
+          <MobileNav />
+        </SidebarInset>
+      </SidebarProvider>
+    )
   }
 
   return (
@@ -149,10 +232,10 @@ export default function SettingsPage() {
       <SidebarInset>
         <TopNav />
         <ScrollableContent>
-          <main className="container mx-auto px-4 py-6">
+          <main className="container mx-auto px-4 py-6 bg-background text-foreground">
             <Toaster position="top-center" richColors />
             <div className="flex justify-between items-center mb-8">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-800 dark:text-gray-100">
                 Account Settings
               </h1>
             </div>
@@ -162,22 +245,24 @@ export default function SettingsPage() {
                 <Card className="sticky top-6">
                   <CardHeader>
                     <div className="flex items-center gap-4 mb-2">
-          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-xl font-bold">
+          <div className="w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-blue-500 flex items-center justify-center text-white text-xl font-bold overflow-hidden">
             {avatarUrl === 'loading' ? (
               <div className="w-full h-full flex items-center justify-center animate-pulse text-xs">Uploading...</div>
-            ) : (
+            ) : avatarUrl ? (
               <Image 
-                src={avatarUrl || "/avatar.png"} 
+                src={avatarUrl} 
                 alt="Avatar" 
                 width={56} 
                 height={56} 
                 className="object-cover w-full h-full"
               />
+            ) : (
+              <span>{form.display_name?.charAt(0)?.toUpperCase() || "U"}</span>
             )}
           </div>
                       <div>
-                        <h3 className="font-semibold text-gray-800">{form.display_name}</h3>
-                        <p className="text-xs text-gray-500">{form.username}</p>
+                        <h3 className="font-semibold text-gray-800 dark:text-gray-200">{form.display_name}</h3>
+                        <p className="text-xs text-gray-500 dark:text-gray-400">{form.username}</p>
                       </div>
                     </div>
                   </CardHeader>
@@ -207,7 +292,7 @@ export default function SettingsPage() {
                         <Label htmlFor="country">Country</Label>
                         <Select
                           value={form.country}
-                          onValueChange={(val) => setForm({ ...form, country: val })}
+                          onValueChange={(val: string) => setForm({ ...form, country: val })}
                         >
                           <SelectTrigger><SelectValue placeholder="Select country" /></SelectTrigger>
                           <SelectContent>
@@ -246,11 +331,20 @@ export default function SettingsPage() {
                   </CardContent>
 
                   <CardFooter className="flex justify-end gap-3">
-                    <Button variant="outline" onClick={() => window.location.reload()}>
-                      <FaTimes className="mr-2" /> Cancel
+                    <Button 
+                      variant="outline" 
+                      onClick={() => window.location.reload()} 
+                      disabled={isSaving || isLoading}
+                      className="gap-2"
+                    >
+                      <FaTimes /> Cancel
                     </Button>
-                    <Button onClick={handleSaveChanges}>
-                      <Save className="mr-2" /> Save Changes
+                    <Button 
+                      onClick={handleSaveChanges} 
+                      disabled={isSaving || isLoading}
+                      className="gap-2"
+                    >
+                      <Save /> {isSaving ? "Saving..." : "Save Changes"}
                     </Button>
                   </CardFooter>
                 </Card>
@@ -296,8 +390,21 @@ function BannerUpload({
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
-      <Image src={imageUrl || "/placeholder.png"} alt={label} width={400} height={400} />
-      <input type="file" accept="image/*" onChange={onUpload} />
+      <div className="relative w-full h-32 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-lg overflow-hidden">
+        {imageUrl ? (
+          <Image 
+            src={imageUrl} 
+            alt={label} 
+            fill
+            className="object-cover" 
+          />
+        ) : (
+          <div className="flex items-center justify-center h-full text-white text-sm">
+            No banner uploaded
+          </div>
+        )}
+      </div>
+      <input type="file" accept="image/*" onChange={onUpload} className="text-sm" />
     </div>
   )
 }
@@ -311,8 +418,19 @@ function AvatarUpload({
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
-      <Image src={imageUrl || "/placeholder.png"} alt={label} width={60} height={60} />
-      <input type="file" accept="image/*" onChange={onUpload} />
+      <div className="relative w-20 h-20 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full overflow-hidden flex items-center justify-center">
+        {imageUrl ? (
+          <Image 
+            src={imageUrl} 
+            alt={label} 
+            fill
+            className="object-cover" 
+          />
+        ) : (
+          <span className="text-white text-2xl font-bold">?</span>
+        )}
+      </div>
+      <input type="file" accept="image/*" onChange={onUpload} className="text-sm" />
     </div>
   )
 }

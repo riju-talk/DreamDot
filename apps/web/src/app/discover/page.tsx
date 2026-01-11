@@ -1,5 +1,5 @@
 import { SocialDiscoverHero } from "../../../components/social-discover-hero"
-import { SocialFeed } from "../../../components/social-feed"
+import { SocialFeedWrapper } from "../../../components/social-feed-wrapper"
 import { TrendingHashtags } from "../../../components/trending-hashtags"
 import { SuggestedCreators } from "../../../components/suggested-creators"
 import { SidebarProvider, SidebarInset } from "@/components/ui/sidebar"
@@ -20,7 +20,7 @@ export default async function DiscoverPage() {
               <SocialDiscoverHero />
               <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
                 <div className="lg:col-span-3">
-                  <SocialFeed />
+                  <SocialFeedWrapper />
                 </div>
                 <div className="space-y-8">
                   <TrendingHashtags />

@@ -37,10 +37,10 @@ const stats = [
 
 export function LandingStats() {
   return (
-    <section id="community" className="py-20">
+    <section id="community" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
             Trusted by <span className="text-primary">Millions</span>
           </h2>
           <p className="text-xl text-muted-foreground">Join the largest community of creative entrepreneurs</p>
@@ -55,7 +55,7 @@ export function LandingStats() {
                   <IconComponent className={`h-8 w-8 ${stat.color}`} />
                 </div>
                 <div className="text-3xl md:text-4xl font-bold mb-2 text-primary">{stat.value}</div>
-                <div className="text-lg font-semibold mb-1">{stat.label}</div>
+                <div className="text-lg font-semibold mb-1 text-foreground">{stat.label}</div>
                 <div className="text-sm text-muted-foreground">{stat.description}</div>
               </div>
             )

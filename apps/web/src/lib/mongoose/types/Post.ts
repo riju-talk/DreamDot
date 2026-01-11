@@ -9,4 +9,10 @@ export interface Post {
   }>
   visibility: boolean
   createdAt: string
+  likes?: string[] // Array of user IDs who liked the post
+  comments?: Array<{
+    userId: string
+    text: string
+    timestamp: Date
+  }>
 }

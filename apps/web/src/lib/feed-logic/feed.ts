@@ -338,9 +338,9 @@ export async function fetchUnifiedFeed({
     const postsEachLimit = wantPosts ? splitHalf(postsGroupLimit) : 0
     const itemsEachLimit = wantItems ? splitHalf(itemsGroupLimit) : 0
 
-    // Posts via helper (merged SQL+Mongo)
+    // Posts via helper (merged SQL+Mongo) - THIS ALREADY MERGES EVERYTHING!
     const mergedPostsPromise = wantPosts
-      ? fetchPosts({ page, limit: postsEachLimit }).then((res) =>
+      ? fetchPosts({ page, limit: take }).then((res) =>
           // filter visible if present
           (res.posts as any[]).filter((p) => (p as any).visibility !== false)
         )
@@ -354,27 +354,9 @@ export async function fetchUnifiedFeed({
         )
       : Promise.resolve<any[]>([])
 
-    // Prisma Social Posts (raw SQL posts)
-    const pgSocialPromise = wantPosts
-      ? prismaSocial.posts_metadata.findMany({
-          where: { visibility: true },
-          orderBy: { created_at: "desc" },
-          skip,
-          take: postsEachLimit,
-          include: {
-            users: {
-              select: {
-                id: true,
-                is_verified: true,
-                user_profile: {
-                  select: { username: true, display_name: true, avatar_url: true },
-                },
-              },
-            },
-            _count: { select: { likes: true, comments: true } },
-          },
-        })
-      : Promise.resolve<any[]>([])
+    // NOTE: We DO NOT fetch pgSocialPosts separately anymore!
+    // fetchPosts already merges SQL metadata with Mongo content.
+    // Fetching pgSocialPosts separately was causing duplicates.
 
     // Prisma Items (guarded)
     const pgItemsPromise = wantItems
@@ -397,10 +379,9 @@ export async function fetchUnifiedFeed({
         })
       : Promise.resolve<any[]>([])
 
-    const [mergedPosts, mongoItems, pgSocialPosts, pgItems] = await Promise.all([
+    const [mergedPosts, mongoItems, pgItems] = await Promise.all([
       mergedPostsPromise,
       mongoItemPromise,
-      pgSocialPromise,
       pgItemsPromise,
     ])
 
@@ -443,17 +424,9 @@ export async function fetchUnifiedFeed({
     const mapped: FeedItem[] = []
 
     if (wantPosts) {
-      const seenSqlPostIds = new Set<string>()
-      // Prefer merged posts
+      // Use merged posts (SQL metadata + Mongo content already combined)
       for (const p of mergedPosts) {
         mapped.push(mapMergedPostToFeedItem(p))
-        if (p?.id) seenSqlPostIds.add(String(p.id))
-      }
-      // Add raw Prisma social posts if not already represented
-      for (const sp of pgSocialPosts) {
-        if (!seenSqlPostIds.has(String(sp.id))) {
-          mapped.push(mapPrismaSocialPostToFeedItem(sp))
-        }
       }
     }
 

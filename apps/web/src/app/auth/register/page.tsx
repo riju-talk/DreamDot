@@ -19,6 +19,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Tooltip, TooltipTrigger, TooltipContent, TooltipProvider } from "@/components/ui/tooltip"
 import { OAuthButtons } from "../../../components/auth/OAuthButtons"
+import { ModeToggle } from "@/components/mode-toggle"
 
 export default function RegisterPage() {
   const { data: session, status } = useSession()
@@ -174,19 +175,19 @@ export default function RegisterPage() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
-        <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl shadow-lg overflow-hidden bg-white">
+      <div className="min-h-screen flex items-center justify-center bg-muted/30 dark:bg-slate-950 px-4">
+        <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl shadow-lg overflow-hidden bg-white dark:bg-slate-900">
           {/* Left: Illustration */}
           <div className="hidden lg:block">
             <img
               src="https://res.cloudinary.com/diaoy8eua/image/upload/v1750944374/pexels-lukasfst-19635556_ywjhpd.jpg"
               alt="DreamDOT visual"
-              className="object-cover h-[600px] w-[600px]"
+              className="object-cover h-[800px] w-[600px]"
             />
           </div>
 
           {/* Right: Registration Card */}
-          <Card className="w-full max-w-md rounded-none lg:rounded-l-none lg:rounded-r-xl shadow-none border-none bg-white">
+          <Card className="w-full max-w-md rounded-none lg:rounded-l-none lg:rounded-r-xl shadow-none border-none bg-white dark:bg-slate-900">
             <CardHeader className="text-center">
               <div className="flex items-center justify-center gap-2 mb-4">
                 <div className="relative overflow-hidden rounded-lg p-1.5 bg-primary">
@@ -213,7 +214,7 @@ export default function RegisterPage() {
                       placeholder="Enter your full name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={errors.name ? 'border-destructive bg-white' : 'bg-white'}
+                      className={errors.name ? 'border-destructive' : ''}
                       required
                     />
                     {errors.name && (
@@ -231,7 +232,7 @@ export default function RegisterPage() {
                       placeholder="Choose a username"
                       value={formData.username}
                       onChange={handleChange}
-                      className={errors.username ? 'border-destructive bg-white' : 'bg-white'}
+                      className={errors.username ? 'border-destructive' : ''}
                       required
                     />
                     {errors.username && (
@@ -249,7 +250,7 @@ export default function RegisterPage() {
                       placeholder="you@example.com"
                       value={formData.email}
                       onChange={handleChange}
-                      className={errors.email ? 'border-destructive bg-white' : 'bg-white'}
+                      className={errors.email ? 'border-destructive' : ''}
                       required
                     />
                     {errors.email && (
@@ -270,7 +271,7 @@ export default function RegisterPage() {
                             placeholder="••••••••"
                             value={formData.password}
                             onChange={handleChange}
-                            className={`w-full pr-10 ${errors.password ? 'border-destructive bg-white' : 'bg-white'}`}
+                            className={`w-full pr-10 ${errors.password ? 'border-destructive' : ''}`}
                             required
                           />
                           <button
@@ -317,7 +318,7 @@ export default function RegisterPage() {
                             placeholder="••••••••"
                             value={formData.confirmPwd}
                             onChange={handleChange}
-                            className={`w-full pr-10 ${errors.confirmPwd ? 'border-destructive bg-white' : 'bg-white'}`}
+                            className={`w-full pr-10 ${errors.confirmPwd ? 'border-destructive' : ''}`}
                             required
                           />
                           <button
@@ -381,6 +382,9 @@ export default function RegisterPage() {
                   Sign in
                 </Link>
               </p>
+              <div className="flex justify-center pt-2 border-t border-border/50 w-full">
+                <ModeToggle />
+              </div>
             </CardFooter>
           </Card>
         </div>

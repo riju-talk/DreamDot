@@ -100,43 +100,43 @@ export function LandingDetails() {
             </div>
 
             {/* Final Section: What's Next */}
-            <div className="bg-[#0C111A] py-12 sm:py-16 md:py-20 text-center px-4 sm:px-6" id="explore">
+            <div className="bg-[#0C111A] dark:bg-gray-950 py-12 sm:py-16 md:py-20 text-center px-4 sm:px-6" id="explore">
                 <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-green-300 to-emerald-400 bg-clip-text text-transparent">
                     Launch Your Creative Career with DreamDOT
                 </h3>
-                <p className="text-gray-400 mb-8 sm:mb-12 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-4">
+                <p className="text-gray-400 dark:text-gray-300 mb-8 sm:mb-12 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed px-4">
                     No gatekeepers. No limits. Just you, your content, and the tools to
                     turn your ideas into income. Whether you're an artist, writer,
                     influencer, or visionary—you belong here.
                 </p>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 max-w-5xl mx-auto mb-8 sm:mb-12">
-                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-emerald-500/20 hover:border-emerald-400/40 transition-all hover:shadow-lg hover:shadow-emerald-500/20 group">
+                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] dark:from-gray-900 dark:to-gray-800 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-emerald-500/20 hover:border-emerald-400/40 transition-all hover:shadow-lg hover:shadow-emerald-500/20 group">
                         <div className="bg-gradient-to-br from-emerald-500 to-green-600 rounded-lg p-3 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <Rocket className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                         </div>
-                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-emerald-50">Instant Publishing</h4>
-                        <p className="text-gray-400 text-sm leading-relaxed">
+                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-emerald-50 dark:text-emerald-100">Instant Publishing</h4>
+                        <p className="text-gray-400 dark:text-gray-300 text-sm leading-relaxed">
                             Share content instantly across web, mobile, and social—no tech
                             skills required.
                         </p>
                     </div>
-                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-teal-500/20 hover:border-teal-400/40 transition-all hover:shadow-lg hover:shadow-teal-500/20 group">
+                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] dark:from-gray-900 dark:to-gray-800 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-teal-500/20 hover:border-teal-400/40 transition-all hover:shadow-lg hover:shadow-teal-500/20 group">
                         <div className="bg-gradient-to-br from-teal-500 to-emerald-600 rounded-lg p-3 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <Users className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                         </div>
-                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-emerald-50">Built-in Community</h4>
-                        <p className="text-gray-400 text-sm leading-relaxed">
+                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-emerald-50 dark:text-emerald-100">Built-in Community</h4>
+                        <p className="text-gray-400 dark:text-gray-300 text-sm leading-relaxed">
                             Connect with fans, fellow creators, and collaborators. You own the
                             relationships.
                         </p>
                     </div>
-                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-green-500/20 hover:border-green-400/40 transition-all hover:shadow-lg hover:shadow-green-500/20 group sm:col-span-2 lg:col-span-1">
+                    <div className="bg-gradient-to-br from-[#11151f] to-[#1a202c] dark:from-gray-900 dark:to-gray-800 p-6 sm:p-8 rounded-xl sm:rounded-2xl border border-green-500/20 hover:border-green-400/40 transition-all hover:shadow-lg hover:shadow-green-500/20 group sm:col-span-2 lg:col-span-1">
                         <div className="bg-gradient-to-br from-green-500 to-teal-600 rounded-lg p-3 w-fit mx-auto mb-4 group-hover:scale-110 transition-transform">
                             <PenTool className="w-7 h-7 sm:w-8 sm:h-8 text-white" />
                         </div>
-                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-emerald-50">Total Creative Control</h4>
-                        <p className="text-gray-400 text-sm leading-relaxed">
+                        <h4 className="font-semibold text-lg sm:text-xl mb-2 text-emerald-50 dark:text-emerald-100">Total Creative Control</h4>
+                        <p className="text-gray-400 dark:text-gray-300 text-sm leading-relaxed">
                             Customize your space, your content, and your business—your way.
                         </p>
                     </div>

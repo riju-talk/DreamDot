@@ -52,7 +52,8 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
   // FetchPosts called with options
 
     // Step 1: Fetch PostgreSQL metadata
-    console.time("⏱ SQL Fetch Time");
+    const sqlTimerLabel = `⏱ SQL Fetch Time (${Date.now()})`;
+    console.time(sqlTimerLabel);
     const sqlPosts = await prismaSocial.posts_metadata.findMany({
       skip,
       take: limit,
@@ -75,7 +76,7 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
       },
       where: userId ? { user_id: userId } : {},
     });
-    console.timeEnd("⏱ SQL Fetch Time");
+    console.timeEnd(sqlTimerLabel);
 
     const totalCount = await prismaSocial.posts_metadata.count({
       where: userId ? { user_id: userId } : {},
@@ -88,9 +89,10 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
     }
 
     // Step 2: Fetch MongoDB posts
-    console.time("⏱ Mongo Connection Time");
+    const mongoConnectLabel = `⏱ Mongo Connection Time (${Date.now()})`;
+    console.time(mongoConnectLabel);
     const connection = await connectToDatabase();
-    console.timeEnd("⏱ Mongo Connection Time");
+    console.timeEnd(mongoConnectLabel);
 
     if (!connection) throw new Error("Failed to connect to MongoDB");
 
@@ -99,15 +101,16 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
 
     const userIds = [...new Set(sqlPosts.map((p) => String(p.user_id)))];
 
-    console.time("⏱ Mongo Fetch Time");
+    const mongoFetchLabel = `⏱ Mongo Fetch Time (${Date.now()})`;
+    console.time(mongoFetchLabel);
     const allMongoPosts = await postsCollection
       .find({ userId: { $in: userIds } })
       .sort({ createdAt: -1 })
       .toArray();
-    console.timeEnd("⏱ Mongo Fetch Time");
+    console.timeEnd(mongoFetchLabel);
 
 
-    // Step 3: Map MongoDB posts by userId
+    // Step 3: Map MongoDB posts by userId AND create a timestamp-based matcher
     const userPostsMap = new Map<string, Post[]>();
     for (const post of allMongoPosts) {
       if (!post.userId) continue;
@@ -116,11 +119,30 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
       userPostsMap.get(id)!.push(post);
     }
 
-    // Step 4: Merge SQL and Mongo data
-  // Merging SQL and Mongo data
+    // Step 4: Merge SQL and Mongo data by matching timestamps
+    // Since there's no explicit link between SQL and MongoDB posts,
+    // we match them by userId and timestamp (within a 5-second window)
     const posts = sqlPosts.map((sqlPost) => {
       const uid = String(sqlPost.user_id);
-      const mongoPost = userPostsMap.get(uid)?.[0]; // take latest
+      const userMongoPosts = userPostsMap.get(uid) || [];
+      
+      // Find MongoDB post with closest matching timestamp
+      let mongoPost: Post | undefined;
+      if (userMongoPosts.length > 0) {
+        const sqlTime = new Date(sqlPost.created_at).getTime();
+        let minDiff = Infinity;
+        
+        for (const mp of userMongoPosts) {
+          const mongoTime = mp.createdAt ? new Date(mp.createdAt).getTime() : 0;
+          const diff = Math.abs(sqlTime - mongoTime);
+          
+          // Match if within 5 seconds (posts created together should be very close)
+          if (diff < 5000 && diff < minDiff) {
+            minDiff = diff;
+            mongoPost = mp;
+          }
+        }
+      }
 
       return {
         id: sqlPost.id,

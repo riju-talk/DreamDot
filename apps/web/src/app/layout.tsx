@@ -4,6 +4,7 @@ import "./globals.css";
 import { SessionContextProvider } from "./session-contect";
 import { Toaster } from "@/components/ui/sonner";
 import { BetaBanner } from "@/components/beta-banner";
+import { ThemeProvider } from "@/components/theme-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,16 +27,23 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <SessionContextProvider>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <BetaBanner />
-        <Toaster />
-        {children}
+        <SessionContextProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <BetaBanner />
+            <Toaster />
+            {children}
+          </ThemeProvider>
+        </SessionContextProvider>
       </body>
-      </SessionContextProvider>
     </html>
   );
 }

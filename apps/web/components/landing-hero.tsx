@@ -63,10 +63,10 @@ export function LandingHero({
           <div className="relative z-10 flex items-center justify-center h-full min-h-[70vh] lg:min-h-[85vh] py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 w-full text-center max-w-2xl mx-auto">
               <div className="space-y-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight">
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
                   Unleash Your <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">Creativity</span>
                 </h1>
-                <p className="text-base sm:text-lg md:text-xl text-gray-300 mt-4 px-4 leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-gray-300 dark:text-gray-200 mt-4 px-4 leading-relaxed">
                   The ultimate platform for writers, creators, and innovators to share their vision with the world.
                 </p>
                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
@@ -89,11 +89,11 @@ export function LandingHero({
                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 px-4">
                   <div className="flex items-center justify-center gap-2">
                     <span className="font-bold text-xl sm:text-2xl text-green-400">2k+</span>
-                    <span className="text-gray-300 text-sm sm:text-base">Creators</span>
+                    <span className="text-gray-300 dark:text-gray-200 text-sm sm:text-base">Creators</span>
                   </div>
                   <div className="flex items-center justify-center gap-2">
                     <span className="font-bold text-xl sm:text-2xl text-emerald-400">4.8</span>
-                    <span className="text-gray-300 text-sm sm:text-base">(12k reviews)</span>
+                    <span className="text-gray-300 dark:text-gray-200 text-sm sm:text-base">(12k reviews)</span>
                   </div>
                 </div>
               </div>
@@ -104,10 +104,10 @@ export function LandingHero({
         {/* Right: Craft Your Story Section */}
         <div className="w-full lg:w-1/3 bg-gradient-to-br from-[#11151f] to-[#1a202c] flex items-center justify-center p-6 sm:p-8 lg:p-10 border-t lg:border-t-0 lg:border-l border-emerald-500/10 order-2">
           <div className="text-center w-full flex items-center justify-center flex-col max-w-xl mx-auto space-y-6">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white">
               Craft Your Story, <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Share Your Vision</span>
             </h2>
-            <p className="text-gray-400 text-base sm:text-lg leading-relaxed">
+            <p className="text-gray-400 dark:text-gray-300 text-base sm:text-lg leading-relaxed">
               A unified platform for writers, creators, and artists to collaborate, publish, and grow their audience.
             </p>
             <Button
@@ -120,10 +120,10 @@ export function LandingHero({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full pt-4">
               <Card className="bg-gradient-to-br from-[#0A0D13] to-[#11151f] text-white border border-emerald-500/20 hover:bg-gradient-to-br hover:from-[#11151f] hover:to-[#1a202c] hover:border-emerald-400/40 transition-all hover:shadow-lg hover:shadow-emerald-500/20 group">
                 <CardContent className="p-4 sm:p-5 text-center">
-                  <div className="text-base sm:text-lg font-semibold text-green-400 mb-2 group-hover:text-green-300 transition-colors">
+                  <div className="text-base sm:text-lg font-semibold text-green-400 dark:text-green-300 mb-2 group-hover:text-green-300 transition-colors">
                     Start Earning
                   </div>
-                  <p className="text-gray-400 text-xs sm:text-sm mb-4 leading-relaxed">
+                  <p className="text-gray-400 dark:text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed">
                     Be part of a bigger world and start earning on your creativity.
                   </p>
                   <Button
@@ -138,10 +138,10 @@ export function LandingHero({
 
               <Card className="bg-gradient-to-br from-[#0A0D13] to-[#11151f] text-white border border-teal-500/20 hover:bg-gradient-to-br hover:from-[#11151f] hover:to-[#1a202c] hover:border-teal-400/40 transition-all hover:shadow-lg hover:shadow-teal-500/20 group">
                 <CardContent className="p-4 sm:p-5 text-center">
-                  <div className="text-base sm:text-lg font-semibold text-teal-400 mb-2 group-hover:text-teal-300 transition-colors">
+                  <div className="text-base sm:text-lg font-semibold text-teal-400 dark:text-teal-300 mb-2 group-hover:text-teal-300 transition-colors">
                     Share Feedback
                   </div>
-                  <p className="text-gray-400 text-xs sm:text-sm mb-4 leading-relaxed">
+                  <p className="text-gray-400 dark:text-gray-300 text-xs sm:text-sm mb-4 leading-relaxed">
                     Help shape DreamDOT—tell us what features you'd love to see.
                   </p>
                   <Button

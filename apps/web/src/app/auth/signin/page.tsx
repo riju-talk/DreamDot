@@ -17,6 +17,7 @@ import { Sparkles, Loader2, Eye, EyeOff } from "lucide-react";
 import { toast } from "sonner";
 import { useSession, signIn as nextAuthSignIn, SignInResponse } from "next-auth/react";
 import { OAuthButtons } from "../../../components/auth/OAuthButtons";
+import { ModeToggle } from "@/components/mode-toggle";
 
 interface FormData {
   email: string;
@@ -111,8 +112,8 @@ export default function SignInPage() {
   const githubEnabled = process.env.NEXT_PUBLIC_GITHUB_OAUTH_ENABLED === "true";
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 px-4">
-      <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl shadow-lg overflow-hidden bg-white">
+    <div className="min-h-screen flex items-center justify-center bg-muted/30 dark:bg-slate-950 px-4">
+      <div className="flex flex-col lg:flex-row items-center justify-center rounded-xl shadow-lg overflow-hidden bg-white dark:bg-slate-900">
         {/* Left: Illustration */}
         <div className="hidden lg:block">
           <img
@@ -123,7 +124,7 @@ export default function SignInPage() {
         </div>
 
         {/* Right: Sign In Card */}
-        <Card className="w-full max-w-md rounded-none lg:rounded-l-none lg:rounded-r-xl shadow-none border-none bg-white">
+        <Card className="w-full max-w-md rounded-none lg:rounded-l-none lg:rounded-r-xl shadow-none border-none bg-white dark:bg-slate-900">
           <CardHeader className="text-center">
             <div className="flex items-center justify-center gap-2 mb-4">
               <div className="relative overflow-hidden rounded-lg p-1.5 bg-primary">
@@ -148,7 +149,7 @@ export default function SignInPage() {
                   placeholder="you@example.com"
                   value={formData.email}
                   onChange={handleChange}
-                  className={errors.email ? 'border-destructive bg-white' : 'bg-white'}
+                  className={errors.email ? 'border-destructive' : ''}
                 />
                 {errors.email && (
                   <p className="text-sm text-destructive mt-1">{errors.email}</p>
@@ -164,7 +165,7 @@ export default function SignInPage() {
                     placeholder="••••••••"
                     value={formData.password}
                     onChange={handleChange}
-                    className={`w-full pr-10 ${errors.password ? 'border-destructive bg-white' : 'bg-white'}`}
+                    className={`w-full pr-10 ${errors.password ? 'border-destructive' : ''}`}
                     autoComplete="current-password"
                   />
                   <button
@@ -220,8 +221,9 @@ export default function SignInPage() {
               >
                 Sign up
               </a>
-            </p>
-          </CardFooter>
+            </p>            <div className="flex justify-center pt-2 border-t border-border/50 w-full">
+              <ModeToggle />
+            </div>          </CardFooter>
         </Card>
       </div>
     </div>

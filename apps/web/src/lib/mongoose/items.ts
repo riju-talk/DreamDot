@@ -35,12 +35,14 @@ export async function fetchItems(
   // fetchItems called with options
 
   try {
-  console.time("⏱️ fetchItems total duration");
+  const timerLabel = `⏱️ fetchItems total duration (${Date.now()})`;
+  console.time(timerLabel);
 
     // --- 1. Connect to MongoDB ---
-    console.time("⏱️ MongoDB connect");
+    const connectLabel = `⏱️ MongoDB connect (${Date.now()})`;
+    console.time(connectLabel);
     const conn = await connectToDatabase();
-  console.timeEnd("⏱️ MongoDB connect");
+    console.timeEnd(connectLabel);
 
     const db = conn.connection.db;
     const itemsCollection = db?.collection("items") as Collection<Item>;
@@ -54,7 +56,8 @@ export async function fetchItems(
   // MongoDB query constructed
 
     // --- 3. Fetch from Mongo ---
-    console.time("⏱️ MongoDB fetch");
+    const fetchLabel = `⏱️ MongoDB fetch (${Date.now()})`;
+    console.time(fetchLabel);
     const mongoItems = await itemsCollection
       .find(query)
       .sort({ createdAt: -1 })
@@ -63,7 +66,7 @@ export async function fetchItems(
       .toArray();
 
     const totalCount = await itemsCollection.countDocuments(query);
-  console.timeEnd("⏱️ MongoDB fetch");
+    console.timeEnd(fetchLabel);
 
     if (!mongoItems.length) {
       return {
@@ -127,7 +130,7 @@ export async function fetchItems(
       } as Item;
     });
 
-  console.timeEnd("⏱️ fetchItems total duration");
+  console.timeEnd(timerLabel);
 
     // --- 7. Return merged result ---
     return {
