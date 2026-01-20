@@ -1,38 +1,8 @@
-import mongoose, { Collection } from "mongoose";
+import { Collection } from "mongoose";
 import { connectToDatabase } from "./connection";
 import { prismaSocial } from "../db";
-import { Post } from "./types/Post";
-
-// ------------------------------------
-// Define Mongoose Schema
-// ------------------------------------
-const { Schema } = mongoose;
-
-const CommentSchema = new Schema({
-  userId: { type: String, required: true },
-  text: { type: String, required: true },
-  timestamp: { type: Date, default: Date.now },
-});
-
-const MediaSchema = new Schema({
-  type: { type: String },
-  url: { type: String },
-  alt: { type: String },
-});
-
-const PostSchema = new Schema({
-  userId: { type: String, required: true },
-  content: { type: String, required: true },
-  media: [MediaSchema],
-  visibility: { type: Boolean, default: true },
-  createdAt: { type: Date, default: Date.now },
-  likes: [{ type: String }],
-  comments: [CommentSchema],
-});
-
-// Prevent OverwriteModelError in Next.js dev mode
-export const PostModel =
-  mongoose.models?.Post || mongoose.model("Post", PostSchema);
+// import { Post } from "./types/Post"; // Using shared model instead
+import { Post } from "@repo/database-mongo";
 
 // ------------------------------------
 // Data Fetching Logic
@@ -49,7 +19,7 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
     const { userId, page = 1, limit = 10 } = options;
     const skip = (page - 1) * limit;
 
-  // FetchPosts called with options
+    // FetchPosts called with options
 
     // Step 1: Fetch PostgreSQL metadata
     const sqlTimerLabel = `⏱ SQL Fetch Time (${Date.now()})`;
@@ -88,60 +58,46 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
       };
     }
 
-    // Step 2: Fetch MongoDB posts
+    // Step 2: Fetch MongoDB posts by SQL IDs
     const mongoConnectLabel = `⏱ Mongo Connection Time (${Date.now()})`;
     console.time(mongoConnectLabel);
-    const connection = await connectToDatabase();
+    await connectToDatabase();
     console.timeEnd(mongoConnectLabel);
 
-    if (!connection) throw new Error("Failed to connect to MongoDB");
+    const postsCollection = Post.collection as Collection<any>;
 
-    const db = connection.connection.db;
-    const postsCollection = db?.collection("posts") as Collection<Post>;
+    // Get all SQL IDs
+    const sqlIds = sqlPosts.map((p) => p.id);
 
-    const userIds = [...new Set(sqlPosts.map((p) => String(p.user_id)))];
+    console.log(`🔍 Fetching ${sqlIds.length} MongoDB posts by sqlId`);
 
     const mongoFetchLabel = `⏱ Mongo Fetch Time (${Date.now()})`;
     console.time(mongoFetchLabel);
-    const allMongoPosts = await postsCollection
-      .find({ userId: { $in: userIds } })
-      .sort({ createdAt: -1 })
+
+    // Direct query by sqlId - this is the magic!
+    const mongoPosts = await postsCollection
+      .find({ sqlId: { $in: sqlIds } })
       .toArray();
+
     console.timeEnd(mongoFetchLabel);
 
+    // Map MongoDB posts by sqlId for O(1) lookup
+    const mongoPostsMap = new Map<string, any>();
+    mongoPosts.forEach(post => {
+      if (post.sqlId) {
+        mongoPostsMap.set(post.sqlId, post);
+      }
+    });
 
-    // Step 3: Map MongoDB posts by userId AND create a timestamp-based matcher
-    const userPostsMap = new Map<string, Post[]>();
-    for (const post of allMongoPosts) {
-      if (!post.userId) continue;
-      const id = String(post.userId);
-      if (!userPostsMap.has(id)) userPostsMap.set(id, []);
-      userPostsMap.get(id)!.push(post);
-    }
-
-    // Step 4: Merge SQL and Mongo data by matching timestamps
-    // Since there's no explicit link between SQL and MongoDB posts,
-    // we match them by userId and timestamp (within a 5-second window)
+    // Step 3: Merge - now trivial!
     const posts = sqlPosts.map((sqlPost) => {
       const uid = String(sqlPost.user_id);
-      const userMongoPosts = userPostsMap.get(uid) || [];
-      
-      // Find MongoDB post with closest matching timestamp
-      let mongoPost: Post | undefined;
-      if (userMongoPosts.length > 0) {
-        const sqlTime = new Date(sqlPost.created_at).getTime();
-        let minDiff = Infinity;
-        
-        for (const mp of userMongoPosts) {
-          const mongoTime = mp.createdAt ? new Date(mp.createdAt).getTime() : 0;
-          const diff = Math.abs(sqlTime - mongoTime);
-          
-          // Match if within 5 seconds (posts created together should be very close)
-          if (diff < 5000 && diff < minDiff) {
-            minDiff = diff;
-            mongoPost = mp;
-          }
-        }
+      const mongoPost = mongoPostsMap.get(sqlPost.id);
+
+      if (mongoPost) {
+        console.log(`✅ Matched SQL ${sqlPost.id}`);
+      } else {
+        console.warn(`❌ No MongoDB post for SQL ${sqlPost.id}`);
       }
 
       return {
@@ -170,8 +126,6 @@ export async function fetchPosts(options: FetchPostsOptions = {}) {
         mongoId: mongoPost?._id?.toString(),
       };
     });
-
-    // merged posts ready
 
     return {
       posts,

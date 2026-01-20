@@ -12,26 +12,35 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
-import { useAuth } from "@/lib/auth"
-import { useSession } from "next-auth/react"
+import { useSession, signOut as nextAuthSignOut } from "next-auth/react"
 
 export function UserNav() {
-  const { user, signOut, isAuthenticated } = useAuth()
-  const { data: session } = useSession()
+  const { data: session, status } = useSession()
   const sessionUser = session?.user
 
-  const handleSignOut = () => {
-    signOut()
+  const handleSignOut = async () => {
+    await nextAuthSignOut({ callbackUrl: "/" })
   }
 
-  if (!isAuthenticated || !user) {
+  // Show loading state
+  if (status === "loading") {
     return (
-      <div className="flex items-center space-x-2">
-        <Button variant="ghost" asChild>
+      <div className="h-8 w-8 rounded-full bg-muted animate-pulse" />
+    )
+  }
+
+  // Show sign in/up buttons when not authenticated
+  if (status === "unauthenticated" || !session) {
+    return (
+      <div className="flex items-center gap-2">
+        <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
           <Link href="/auth/signin">Sign In</Link>
         </Button>
-        <Button className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-          <Link href="/auth/register">Sign Up</Link>
+        <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
+          <Link href="/auth/register">
+            <span className="hidden sm:inline">Sign Up</span>
+            <span className="sm:hidden">Join</span>
+          </Link>
         </Button>
       </div>
     )

@@ -59,14 +59,14 @@ export function LandingDetails() {
     ];
 
     return (
-        <section className="bg-gradient-to-b from-green-900 via-teal-900 to-emerald-950 text-white">
+        <section className="bg-gradient-to-b from-[#216869] via-[#1f2421] to-[#1f2421] dark:from-[#1f2421] dark:via-[#216869]/20 dark:to-[#1f2421] text-foreground">
             {/* FAQ Section */}
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20" id="questions">
                 <div className="text-center mb-8 sm:mb-12">
-                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-green-300 via-emerald-300 to-teal-300 bg-clip-text text-transparent">
+                    <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500 bg-clip-text text-transparent">
                         Frequently Asked Questions
                     </h3>
-                    <p className="text-emerald-200 text-base sm:text-lg px-4">
+                    <p className="text-muted-foreground text-base sm:text-lg px-4">
                         Everything you need to know to get started
                     </p>
                 </div>
@@ -78,17 +78,17 @@ export function LandingDetails() {
                             <AccordionItem 
                                 key={item.value}
                                 value={item.value} 
-                                className={`bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-emerald-500/20 rounded-xl sm:rounded-2xl overflow-hidden transition-all hover:border-emerald-400/40 hover:shadow-lg hover:shadow-emerald-500/10`}
+                                className={`bg-gradient-to-br ${item.gradient} backdrop-blur-sm border border-primary/20 rounded-xl sm:rounded-2xl overflow-hidden transition-all hover:border-primary/40 hover:shadow-lg hover:shadow-primary/10 dark:bg-[#2a302d]/50`}
                             >
-                                <AccordionTrigger className="px-4 sm:px-6 py-4 sm:py-5 text-base sm:text-lg font-semibold text-emerald-50 hover:text-green-300 transition-colors group">
+                                <AccordionTrigger className="px-4 sm:px-6 py-4 sm:py-5 text-base sm:text-lg font-semibold text-foreground hover:text-primary transition-colors group">
                                     <div className="flex items-center gap-3 sm:gap-4 text-left">
-                                        <div className="p-2 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-lg group-hover:scale-110 transition-transform flex-shrink-0">
+                                        <div className="p-2 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-lg group-hover:scale-110 transition-transform flex-shrink-0">
                                             <IconComponent className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
                                         </div>
                                         <span>{item.question}</span>
                                     </div>
                                 </AccordionTrigger>
-                                <AccordionContent className="px-4 sm:px-6 pb-4 sm:pb-5 text-sm sm:text-base text-emerald-100 leading-relaxed">
+                                <AccordionContent className="px-4 sm:px-6 pb-4 sm:pb-5 text-sm sm:text-base text-muted-foreground leading-relaxed">
                                     <div className="pl-10 sm:pl-14">
                                         {item.answer}
                                     </div>

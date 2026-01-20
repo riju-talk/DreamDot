@@ -8,10 +8,11 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import { Search, PointerIcon as SidebarTrigger, User, X, ShoppingBag } from "lucide-react"
+import { Search, User, X, ShoppingBag } from "lucide-react"
+import { SidebarTrigger } from "@/components/ui/sidebar"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
-import { quickSearch } from "@/lib/search"   
+import { quickSearch } from "@/lib/search"
 import Link from "next/link"
 
 interface SearchResult {
@@ -188,43 +189,41 @@ export function TopNav() {
   const pathname = usePathname()
 
   return (
-    <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
+    <header className="sticky top-0 z-40 flex h-16 items-center gap-4 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 md:px-6">
+      <SidebarTrigger className="-ml-1" />
       <div className="hidden md:flex md:flex-1">
         <nav className="flex items-center space-x-4 lg:space-x-6">
-          <Button
-            variant="link"
+          <Link
+            href="/feed"
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary",
               pathname === "/feed" ? "text-primary" : "text-muted-foreground",
             )}
-            asChild
           >
-            <a href="/feed">Home</a>
-          </Button>
-          <Button
-            variant="link"
+            Home
+          </Link>
+          <Link
+            href="/discover"
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary",
               pathname === "/discover" ? "text-primary" : "text-muted-foreground",
             )}
-            asChild
           >
-            <a href="/discover">Discover</a>
-          </Button>
-          <Button
-            variant="link"
+            Discover
+          </Link>
+          <Link
+            href="/marketplace"
             className={cn(
               "text-sm font-medium transition-colors hover:text-primary",
               pathname === "/marketplace" ? "text-primary" : "text-muted-foreground",
             )}
-            asChild
           >
-            <a href="/marketplace">Marketplace</a>
-          </Button>
+            Marketplace
+          </Link>
         </nav>
       </div>
 
-      <div className="flex flex-1 items-center justify-end space-x-4">
+      <div className="flex flex-1 items-center justify-end space-x-2 md:space-x-4">
         <div className="hidden md:flex">
           <GlobalSearch />
         </div>

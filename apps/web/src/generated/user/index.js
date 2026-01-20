@@ -230,7 +230,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "e:\\code\\DreamDot\\apps\\web\\src\\generated\\user",
+      "value": "C:\\Code\\01_full_stack\\DreamDot\\apps\\web\\src\\generated\\user",
       "fromEnvVar": null
     },
     "config": {
@@ -252,11 +252,11 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "e:\\code\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.user.prisma",
+    "sourceFilePath": "C:\\Code\\01_full_stack\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.user.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../lib/prisma",

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Stripe = require('stripe')
-const Transaction = require('../models/Transaction')
+const { Transaction, User } = require('@repo/database-mongo')
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
 const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET
@@ -21,7 +21,7 @@ router.post('/stripe', async (req, res) => {
   switch (event.type) {
     case 'checkout.session.completed':
       const session = event.data.object
-      
+
       const transaction = await Transaction.findOneAndUpdate(
         { sessionId: session.id },
         {
@@ -33,26 +33,14 @@ router.post('/stripe', async (req, res) => {
 
       if (transaction) {
         try {
-          const updateResponse = await fetch(`${process.env.WEB_APP_URL}/api/balance/update`, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              'X-Service-Secret': process.env.SERVICE_SECRET
-            },
-            body: JSON.stringify({
-              userId: transaction.userId,
-              amount: transaction.amount,
-              transactionId: transaction._id.toString()
-            })
-          })
-
-          if (!updateResponse.ok) {
-            console.error('Failed to update balance for completed payment:', session.id)
-          } else {
-            console.log('Payment completed and balance updated:', session.id)
-          }
+          // Update User credits directly using shared model
+          await User.updateOne(
+            { _id: transaction.userId },
+            { $inc: { credits: transaction.amount } }
+          );
+          console.log('Payment completed and credits updated:', session.id)
         } catch (error) {
-          console.error('Error updating balance:', error)
+          console.error('Error updating credits:', error)
         }
       }
 
@@ -60,7 +48,7 @@ router.post('/stripe', async (req, res) => {
 
     case 'checkout.session.expired':
       const expiredSession = event.data.object
-      
+
       await Transaction.findOneAndUpdate(
         { sessionId: expiredSession.id },
         { status: 'expired' }

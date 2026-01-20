@@ -27,61 +27,43 @@ export default function AboutPage() {
               <div className="max-w-4xl mx-auto space-y-12">
                 {/* Heading */}
                 <div className="text-center">
-                  <h2 className="text-4xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-teal-400 to-emerald-400 animate-fade-in">
-                    About DreamDot
+                  <h2 className="text-4xl font-extrabold leading-tight bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent animate-fade-in">
+                    About the Author
                   </h2>
                   <p className="mt-2 text-lg text-muted-foreground">
-                    A creative home for dreamers to <span className="font-semibold text-foreground">share, collaborate, and inspire</span>.
+                    A vision by <span className="font-semibold text-foreground italic">Rijusmit</span>. Architecting the future of digital expression.
                   </p>
                 </div>
 
-                {/* Community Stats */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
-                  {[
-                    { label: "Founded", value: "2023" },
-                    { label: "Interactions", value: "2.4M+" },
-                    { label: "Dreamers", value: "180K+" },
-                  ].map((stat, i) => (
-                    <motion.div
-                      key={i}
-                      whileHover={{ scale: 1.05 }}
-                      className="p-6 rounded-xl shadow-md bg-card"
-                    >
-                      <p className="text-2xl font-bold text-teal-500">{stat.value}</p>
-                      <p className="text-sm text-muted-foreground">{stat.label}</p>
-                    </motion.div>
-                  ))}
-                </div>
-
-                {/* Sections */}
+                {/* Author sections */}
                 <div className="space-y-8">
-                  <Card className="rounded-xl shadow-md hover:shadow-lg transition">
+                  <Card className="rounded-xl shadow-md hover:shadow-lg transition bg-card border-border/50">
                     <CardHeader>
-                      <CardTitle className="text-2xl text-teal-500">Why DreamDot?</CardTitle>
+                      <CardTitle className="text-2xl text-primary">The Visionary</CardTitle>
                     </CardHeader>
                     <CardContent className="text-base text-foreground/90">
-                      DreamDot was created to give <span className="font-semibold">creators a voice</span>. 
-                      It’s a platform where ideas flourish and dreamers come together to collaborate, inspire, and grow.
+                      Rijusmit is a dreamer, designer, and developer focused on breaking the barriers of traditional digital interaction.
+                      DreamDot is the culmination of a desire to create a weightless, organic space for creativity to flourish.
                     </CardContent>
                   </Card>
 
-                  <Card className="rounded-xl shadow-md hover:shadow-lg transition">
+                  <Card className="rounded-xl shadow-md hover:shadow-lg transition bg-card border-border/50">
                     <CardHeader>
-                      <CardTitle className="text-2xl text-emerald-500">Our Story</CardTitle>
+                      <CardTitle className="text-2xl text-accent">The Philosophy</CardTitle>
                     </CardHeader>
                     <CardContent className="text-base text-foreground/90">
-                      Born from a small group of creators in 2023, DreamDot has become a 
-                      <span className="font-semibold"> thriving creative hub</span>—empowering artists, writers, musicians, and storytellers across the globe.
+                      Believing that minimalism is the bridge to inspiration, the creator has woven "Organic Futurism" into every pixel—
+                      balancing high-tech functionality with the fluid grace of nature.
                     </CardContent>
                   </Card>
 
-                  <Card className="rounded-xl shadow-md hover:shadow-lg transition">
+                  <Card className="rounded-xl shadow-md hover:shadow-lg transition bg-card border-border/50">
                     <CardHeader>
-                      <CardTitle className="text-2xl text-green-500">Our Mission</CardTitle>
+                      <CardTitle className="text-2xl text-emerald-500">The Mission</CardTitle>
                     </CardHeader>
                     <CardContent className="text-base text-foreground/90">
-                      To spark <span className="font-semibold">creativity and connection</span>. Every story matters, and together, 
-                      we’re weaving a global tapestry of innovation and artistry.
+                      To empower every visionary with tools that feel like an extension of thought.
+                      DreamDot isn't just a platform; it's a creative atelier for the next generation of storytellers.
                     </CardContent>
                   </Card>
                 </div>
@@ -91,32 +73,23 @@ export default function AboutPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.4 }}
-                  className="rounded-2xl bg-gradient-to-r from-teal-400 to-emerald-500 text-white p-8 text-center shadow-lg"
+                  className="rounded-2xl bg-gradient-to-r from-primary to-accent text-primary-foreground p-8 text-center shadow-lg"
                 >
-                  <h3 className="text-2xl font-bold mb-2">Join the Dream</h3>
-                  <p className="mb-4 text-lg">Showcase your work, explore talent, and connect with dreamers worldwide.</p>
+                  <h3 className="text-2xl font-bold mb-2">Connect with the Voice</h3>
+                  <p className="mb-4 text-lg">Follow the journey and contribute to the evolution of DreamDot.</p>
                   <div className="flex justify-center gap-4">
-                    <Button asChild className="bg-white text-teal-600 hover:bg-gray-100">
-                      <a href="/create">Create Your First Dream</a>
-                    </Button>
-                    <Button asChild variant="secondary">
-                      <a href="/about-creator">Know the Creator</a>
+                    <Button asChild className="bg-background text-foreground hover:bg-accent/20">
+                      <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">Collaborate on GitHub</a>
                     </Button>
                   </div>
                 </motion.div>
 
                 {/* Footer CTAs */}
-                <div className="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-                  <Button asChild className="flex items-center gap-2 bg-primary hover:bg-teal-500 text-primary-foreground">
+                <div className="flex justify-center gap-4 mt-6">
+                  <Button asChild className="flex items-center gap-2 bg-primary hover:opacity-90 text-primary-foreground">
                     <a href="https://github.com/your-repo" target="_blank" rel="noopener noreferrer">
                       <Github className="w-5 h-5" />
                       Visit GitHub
-                    </a>
-                  </Button>
-                  <Button asChild variant="outline" className="flex items-center gap-2 border-primary hover:border-teal-500">
-                    <a href="/about-creator">
-                      <User className="w-5 h-5" />
-                      About the Creator
                     </a>
                   </Button>
                 </div>

@@ -95,7 +95,7 @@ export function UnifiedFeed() {
         </Button>
       </div>
 
-      <div className="space-y-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
         {feedData.feed.length > 0 ? (
           feedData.feed.map((item, idx) => (
             // IDs already have type prefixes (e.g., "post:abc123", "item:def456")

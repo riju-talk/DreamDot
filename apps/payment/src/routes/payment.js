@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const Stripe = require('stripe')
-const Transaction = require('../models/Transaction')
+const { Transaction, User } = require('@repo/database-mongo')
 const { authenticateRequest, validateUserAccess } = require('../middleware/auth')
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY)
@@ -25,8 +25,8 @@ router.post('/create-checkout-session', authenticateRequest, validateUserAccess,
           price_data: {
             currency: 'usd',
             product_data: {
-              name: type === 'replenish' ? 'Replenish Balance' : 'Purchase',
-              description: `Add $${amount} to your DreamDot balance`,
+              name: type === 'replenish' ? 'Purchase Credits' : 'Purchase',
+              description: `Add ${amount} credits to your DreamDot balance`,
             },
             unit_amount: amount * 100,
           },
@@ -60,78 +60,42 @@ router.post('/create-checkout-session', authenticateRequest, validateUserAccess,
   }
 })
 
-router.post('/redeem-balance', authenticateRequest, validateUserAccess, async (req, res) => {
+router.post('/spend-credits', authenticateRequest, validateUserAccess, async (req, res) => {
   try {
-    const { userId, amount } = req.body
+    const { userId, amount, metadata } = req.body;
 
-    if (!amount || !userId) {
-      return res.status(400).json({ error: 'Amount and userId are required' })
+    if (!userId || !amount) {
+      return res.status(400).json({ error: 'UserId and amount are required' });
     }
 
-    if (amount <= 0) {
-      return res.status(400).json({ error: 'Amount must be positive' })
+    const user = await User.findOne({ _id: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
     }
 
-    const balanceResponse = await fetch(`${process.env.WEB_APP_URL}/api/balance/get`, {
-      headers: {
-        'X-User-Id': userId,
-        'X-Service-Secret': process.env.SERVICE_SECRET
-      }
-    })
-
-    if (!balanceResponse.ok) {
-      return res.status(500).json({ error: 'Failed to fetch balance' })
+    if (user.credits < amount) {
+      return res.status(400).json({ error: 'Insufficient credits' });
     }
 
-    const balanceData = await balanceResponse.json()
-
-    if (amount > balanceData.redeemableBalance) {
-      return res.status(400).json({ 
-        error: `Insufficient redeemable balance. Available: $${balanceData.redeemableBalance.toFixed(2)}` 
-      })
-    }
+    user.credits -= amount;
+    await user.save();
 
     const transaction = new Transaction({
       userId,
       amount: -amount,
-      type: 'redemption',
-      status: 'pending',
-      metadata: { 
-        redeemableBalance: balanceData.redeemableBalance,
-        currentBalance: balanceData.currentBalance
-      }
-    })
-    await transaction.save()
+      type: 'purchase',
+      status: 'completed',
+      metadata
+    });
+    await transaction.save();
 
-    const updateResponse = await fetch(`${process.env.WEB_APP_URL}/api/balance/update`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Service-Secret': process.env.SERVICE_SECRET
-      },
-      body: JSON.stringify({
-        userId,
-        amount: -amount,
-        transactionId: transaction._id.toString()
-      })
-    })
+    res.json({ success: true, credits: user.credits });
 
-    if (!updateResponse.ok) {
-      transaction.status = 'failed'
-      await transaction.save()
-      const errorData = await updateResponse.json()
-      return res.status(500).json({ error: errorData.error || 'Failed to update balance' })
-    }
-
-    transaction.status = 'completed'
-    await transaction.save()
-
-    res.json({ success: true, transaction })
   } catch (error) {
-    console.error('Redeem balance error:', error)
-    res.status(500).json({ error: 'Failed to redeem balance' })
+    console.error('Spend credits error:', error);
+    res.status(500).json({ error: 'Failed to spend credits' });
   }
-})
+});
 
 router.get('/transactions/:userId', authenticateRequest, async (req, res) => {
   try {

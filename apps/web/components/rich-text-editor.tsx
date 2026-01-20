@@ -1,209 +1,198 @@
-// RichTextEditor.tsx
 "use client";
 
-import React, { useRef, useState, useEffect } from "react";
-// NOTE: Quill and its CSS are dynamically imported inside useEffect to avoid
-// server-side execution (Quill accesses `document` and will throw during SSR).
-import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { ImageIcon, X } from "lucide-react";
-import { uploadImageToImageKit } from "@/lib/imagekitupload";
+import React, { useEffect, useRef } from "react";
 
 interface RichTextEditorProps {
   value: string;
   onChange: (content: string) => void;
-  onThumbnailChange: (file: File | null) => void;
-  thumbnailPreview: string | null;
 }
 
 export const RichTextEditor: React.FC<RichTextEditorProps> = ({
   value,
   onChange,
-  onThumbnailChange,
-  thumbnailPreview,
 }) => {
   const editorRef = useRef<HTMLDivElement | null>(null);
-  const quillInstance = useRef<any | null>(null);
-  const [editorHtml, setEditorHtml] = useState(value);
+  const quillRef = useRef<any>(null);
+  const lastValueRef = useRef<string>("");
 
-  // Initialize Quill once (dynamically import to avoid SSR issues)
   useEffect(() => {
-    let mounted = true
+    let mounted = true;
 
     const init = async () => {
-      if (!editorRef.current || quillInstance.current || !mounted) return
+      if (!editorRef.current || quillRef.current) return;
 
-      // dynamically import Quill and its styles
-      const QuillModule = await import("quill")
-      const QuillLib = (QuillModule && (QuillModule as any).default) || QuillModule
-  // CSS import for Quill (dynamic). Suppress type error if no typings for CSS.
-  // @ts-ignore
-  await import("quill/dist/quill.snow.css")
+      const QuillModule = await import("quill");
+      const Quill = (QuillModule as any).default ?? QuillModule;
 
-      if (!mounted) return
+      // @ts-ignore
+      await import("quill/dist/quill.snow.css");
 
-      quillInstance.current = new (QuillLib as any)(editorRef.current, {
+      if (!mounted) return;
+
+      const quill = new Quill(editorRef.current, {
         theme: "snow",
+        placeholder: "Start writing your dream...",
         modules: {
           toolbar: [
-            ["bold", "italic", "underline"],
-            [{ size: ["small", false, "large", "huge"] }],
-            [{ color: [] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ header: [1, 2, 3, false] }],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [
+              {
+                color: [
+                  "#216869", // primary
+                  "#49a078", // accent
+                  "#9cc5a1", // secondary / muted
+                  "#1f2421", // dark neutral
+                  "#dce1de", // light neutral
+                ],
+              },
+              {
+                background: [
+                  "#49a078",
+                  "#216869",
+                  "#9cc5a1",
+                ],
+              },
+            ],
+            ["link"],
+            ["clean"],
           ],
         },
-      })
+      });
 
-      quillInstance.current.on("text-change", () => {
-        const html = editorRef.current!.querySelector(".ql-editor")!.innerHTML
-        setEditorHtml(html)
-        onChange(html)
-      })
-    }
+      quillRef.current = quill;
 
-    init()
+      // ✅ Correct initial content load
+      if (value) {
+        quill.clipboard.dangerouslyPasteHTML(value);
+        lastValueRef.current = value;
+      }
+
+      // ✅ Let Quill manage its state
+      quill.on("text-change", () => {
+        const html = quill.root.innerHTML;
+        lastValueRef.current = html;
+        onChange(html);
+      });
+    };
+
+    init();
 
     return () => {
-      mounted = false
-    }
-  }, [editorRef, onChange])
+      mounted = false;
+    };
+  }, []);
 
-  // Keep editor in sync when `value` changes externally
+  // ✅ Sync external value WITHOUT breaking Quill
   useEffect(() => {
-    if (quillInstance.current && value !== editorHtml) {
-      quillInstance.current.root.innerHTML = value;
-      setEditorHtml(value);
-    }
-  }, [value, editorHtml]);
+    const quill = quillRef.current;
+    if (!quill) return;
 
-  const [thumbnailError, setThumbnailError] = useState("");
-  const [uploadingThumb, setUploadingThumb] = useState(false);
-
-  const handleThumbnailChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    setThumbnailError("");
-    const file = e.target.files?.[0] ?? null;
-    if (!file) return onThumbnailChange(null);
-    if (!file.type.startsWith("image/")) {
-      setThumbnailError("Invalid image file.");
-      return;
+    if (value !== lastValueRef.current) {
+      quill.clipboard.dangerouslyPasteHTML(value || "");
+      lastValueRef.current = value || "";
     }
-    if (file.size > 5 * 1024 * 1024) {
-      setThumbnailError("Image too large (max 5MB).");
-      return;
-    }
-    setUploadingThumb(true);
-    // Use imagekit upload utility, handle url or error
-    const url = await uploadImageToImageKit(file, "thumbnails");
-    setUploadingThumb(false);
-    if (url) {
-      // Call parent prop with uploaded file (or url if you want)
-      onThumbnailChange(file); // or provide url to parent with new prop
-    } else {
-      setThumbnailError("Upload failed. Try again.");
-    }
-  };
-
-  const removeThumbnail = () => onThumbnailChange(null);
-
-  const wordCount = editorHtml.trim().split(/\s+/).filter(Boolean).length;
-  const readingTime = Math.max(1, Math.floor(wordCount / 200));
+  }, [value]);
 
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-      <div className="lg:col-span-2">
-        <div
-          ref={editorRef}
-          className="h-[500px] border rounded-xl overflow-hidden bg-white"
-        />
-      </div>
+    <div className="w-full">
+      <style jsx global>{`
+        /* ================================
+           QUILL – THEME SAFE (LIGHT + DARK)
+        ================================= */
 
-      <div className="lg:col-span-1 space-y-6">
-        {/* Thumbnail Upload */}
-        <div className="space-y-2">
-          <Label>Thumbnail</Label>
-          {thumbnailPreview ? (
-            <div className="relative group">
-              <img
-                src={thumbnailPreview}
-                alt="Thumbnail preview"
-                className="rounded-xl border w-full h-48 object-cover"
-              />
-              <Button
-                variant="destructive"
-                size="icon"
-                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                onClick={removeThumbnail}
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          ) : (
-            <div className="border-2 border-dashed rounded-xl p-6 text-center bg-muted/50 flex flex-col items-center">
-              <ImageIcon className="h-10 w-10 text-muted-foreground mb-3" />
-              <Label
-                htmlFor="thumbnail-upload"
-                className="dream-button text-primary-foreground cursor-pointer"
-              >
-                Upload Thumbnail
-              </Label>
-              <input
-                id="thumbnail-upload"
-                type="file"
-                accept="image/*"
-                onChange={handleThumbnailChange}
-                className="hidden"
-              />
-              {uploadingThumb && (
-                <div className="text-xs text-blue-500 mt-2">Uploading...</div>
-              )}
-              {thumbnailError && (
-                <div className="text-xs text-red-500 mt-2">{thumbnailError}</div>
-              )}
-              <p className="text-sm text-muted-foreground mt-2">
-                JPG, PNG (max 5MB)
-              </p>
-            </div>
-          )}
-        </div>
+        .ql-toolbar.ql-snow {
+          background: hsl(var(--background));
+          border: 1px solid hsl(var(--border));
+          border-radius: 12px 12px 0 0;
+        }
 
-        {/* SEO Description */}
-        <div className="space-y-2">
-          <Label htmlFor="seo-description">SEO Description</Label>
-          <textarea
-            id="seo-description"
-            placeholder="Short description for search engines"
-            className="w-full p-3 border rounded-xl min-h-[120px] focus:outline-none focus:ring-2 focus:ring-primary"
-          />
-        </div>
+        .ql-container.ql-snow {
+          background: hsl(var(--background));
+          border: 1px solid hsl(var(--border));
+          border-top: none;
+          border-radius: 0 0 12px 12px;
+        }
 
-        {/* Content Format */}
-        <div className="space-y-2">
-          <Label>Content Format</Label>
-          <div className="grid grid-cols-2 gap-2">
-            <Button variant="outline" className="rounded-xl">
-              Article
-            </Button>
-            <Button variant="outline" className="rounded-xl">
-              Tutorial
-            </Button>
-            <Button variant="outline" className="rounded-xl">
-              Story
-            </Button>
-            <Button variant="outline" className="rounded-xl">
-              Interview
-            </Button>
-          </div>
-        </div>
+        /* Toolbar buttons */
+        .ql-toolbar button {
+          width: 36px;
+          height: 36px;
+          border-radius: 8px;
+        }
 
-        {/* Reading Time Estimate */}
-        <div className="p-4 bg-muted/30 rounded-xl">
-          <div className="flex justify-between items-center">
-            <span className="text-sm font-medium">Reading Time</span>
-            <span className="font-mono bg-background px-2 py-1 rounded-md">
-              {readingTime} min
-            </span>
-          </div>
-        </div>
-      </div>
+        .ql-toolbar button:hover {
+          background: hsl(var(--accent));
+        }
+
+        .ql-toolbar button.ql-active {
+          background: hsl(var(--primary));
+        }
+
+        .ql-toolbar button.ql-active .ql-stroke {
+          stroke: hsl(var(--primary-foreground));
+        }
+
+        .ql-toolbar button.ql-active .ql-fill {
+          fill: hsl(var(--primary-foreground));
+        }
+
+        /* Icons */
+        .ql-stroke {
+          stroke: hsl(var(--foreground));
+        }
+
+        .ql-fill {
+          fill: hsl(var(--foreground));
+        }
+
+        /* Pickers */
+        .ql-picker-label {
+          color: hsl(var(--foreground));
+          border-radius: 8px;
+        }
+
+        .ql-picker-label:hover {
+          background: hsl(var(--accent));
+        }
+
+        .ql-picker-options {
+          background: hsl(var(--background));
+          border: 1px solid hsl(var(--border));
+          border-radius: 8px;
+        }
+
+        .ql-picker-item {
+          color: hsl(var(--foreground));
+        }
+
+        .ql-picker-item:hover {
+          background: hsl(var(--accent));
+        }
+
+        .ql-picker-item.ql-selected {
+          background: hsl(var(--primary));
+          color: hsl(var(--primary-foreground));
+        }
+
+        /* Editor */
+        .ql-editor {
+          min-height: 400px;
+          padding: 24px;
+          font-size: 16px;
+          line-height: 1.8;
+          color: hsl(var(--foreground));
+        }
+
+        .ql-editor.ql-blank::before {
+          color: hsl(var(--muted-foreground));
+          opacity: 0.6;
+          font-style: normal;
+        }
+      `}</style>
+
+      <div ref={editorRef} />
     </div>
   );
 };

@@ -303,7 +303,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "e:\\code\\DreamDot\\apps\\web\\src\\generated\\social",
+      "value": "C:\\Code\\01_full_stack\\DreamDot\\apps\\web\\src\\generated\\social",
       "fromEnvVar": null
     },
     "config": {
@@ -327,11 +327,11 @@ const config = {
     "previewFeatures": [
       "multiSchema"
     ],
-    "sourceFilePath": "e:\\code\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.social.prisma",
+    "sourceFilePath": "C:\\Code\\01_full_stack\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.social.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
-    "rootEnvPath": "../../../.env",
+    "rootEnvPath": null,
     "schemaEnvPath": "../../../.env"
   },
   "relativePath": "../../lib/prisma",

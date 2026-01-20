@@ -34,7 +34,7 @@ export function LandingHero({
   }
 
   return (
-    <div className="relative bg-[#0A0D13] text-white overflow-hidden">
+    <div className="relative bg-white dark:bg-[#1f2421] text-foreground overflow-hidden">
       <div className="flex flex-col lg:flex-row items-stretch min-h-screen lg:min-h-[85vh]">
         {/* Left: Video + Hero */}
         <div className="relative w-full lg:w-2/3 flex-shrink-0 order-1">
@@ -58,21 +58,21 @@ export function LandingHero({
                 </motion.video>
               </AnimatePresence>
             )}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#0A0D13]/20 via-[#0A0D13]/40 to-[#0A0D13]/60"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background/20 via-background/40 to-background/60 dark:from-[#1f2421]/20 dark:via-[#1f2421]/40 dark:to-[#1f2421]/60"></div>
           </div>
           <div className="relative z-10 flex items-center justify-center h-full min-h-[70vh] lg:min-h-[85vh] py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-center gap-6 sm:gap-8 w-full text-center max-w-2xl mx-auto">
               <div className="space-y-6">
-                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white">
-                  Unleash Your <span className="bg-gradient-to-r from-green-400 via-emerald-400 to-teal-400 bg-clip-text text-transparent">Creativity</span>
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-foreground">
+                  Unleash Your <span className="bg-gradient-to-r from-emerald-500 via-teal-500 to-green-500 bg-clip-text text-transparent">Creativity</span>
                 </h1>
-                <p className="text-base sm:text-lg md:text-xl text-gray-300 dark:text-gray-200 mt-4 px-4 leading-relaxed">
+                <p className="text-base sm:text-lg md:text-xl text-muted-foreground mt-4 px-4 leading-relaxed">
                   The ultimate platform for writers, creators, and innovators to share their vision with the world.
                 </p>
                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center px-4">
                   <Button
                     size="lg"
-                    className="bg-gradient-to-r from-green-400 to-emerald-500 text-black hover:from-green-500 hover:to-emerald-600 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 border-0 shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transition-all w-full sm:w-auto"
+                    className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 text-base sm:text-lg px-6 sm:px-8 py-5 sm:py-6 border-0 shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/40 transition-all w-full sm:w-auto"
                     onClick={handleGetStarted}
                   >
                     Get Started
@@ -80,7 +80,7 @@ export function LandingHero({
                   <Button
                     size="lg"
                     variant="outline"
-                    className="text-base sm:text-lg bg-transparent px-6 sm:px-8 py-5 sm:py-6 border-2 border-green-400 text-green-400 hover:bg-green-400/10 hover:border-green-300 transition-all w-full sm:w-auto"
+                    className="text-base sm:text-lg bg-transparent px-6 sm:px-8 py-5 sm:py-6 border-2 border-primary text-primary hover:bg-primary/10 hover:border-primary/80 transition-all w-full sm:w-auto"
                     onClick={handleExploreFeatures}
                   >
                     Explore Features
@@ -88,12 +88,12 @@ export function LandingHero({
                 </div>
                 <div className="mt-6 sm:mt-8 flex flex-col sm:flex-row justify-center gap-4 sm:gap-8 px-4">
                   <div className="flex items-center justify-center gap-2">
-                    <span className="font-bold text-xl sm:text-2xl text-green-400">2k+</span>
-                    <span className="text-gray-300 dark:text-gray-200 text-sm sm:text-base">Creators</span>
+                    <span className="font-bold text-xl sm:text-2xl text-primary">2k+</span>
+                    <span className="text-muted-foreground text-sm sm:text-base">Creators</span>
                   </div>
                   <div className="flex items-center justify-center gap-2">
-                    <span className="font-bold text-xl sm:text-2xl text-emerald-400">4.8</span>
-                    <span className="text-gray-300 dark:text-gray-200 text-sm sm:text-base">(12k reviews)</span>
+                    <span className="font-bold text-xl sm:text-2xl text-primary">4.8</span>
+                    <span className="text-muted-foreground text-sm sm:text-base">(12k reviews)</span>
                   </div>
                 </div>
               </div>

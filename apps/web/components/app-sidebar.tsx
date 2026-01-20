@@ -37,14 +37,14 @@ export function AppSidebar() {
   const isDiscover = pathname?.startsWith("/discover")
   const isMarketplace = pathname?.startsWith("/marketplace")
   return (
-    <Sidebar className="h-screen flex flex-col overflow-hidden" variant="inset" collapsible="none">
+    <Sidebar className="h-screen flex flex-col overflow-hidden" variant="inset" collapsible="icon">
       <SidebarHeader className="p-4 overflow-hidden flex-shrink-0">
         <Link href="/" className="flex items-center gap-2">
-          <div className="relative overflow-hidden rounded-lg p-1.5 bg-gradient-to-r from-green-700 to-emerald-500">
+          <div className="relative overflow-hidden rounded-lg p-1.5 bg-primary">
             <Sparkles className="h-6 w-6 text-primary-foreground" />
           </div>
-          <span className="font-bold text-xl bg-gradient-to-r from-green-700 to-emerald-500 bg-clip-text text-transparent">
-            DreamDot
+          <span className="font-bold text-xl text-primary">
+            DreamDOT
           </span>
         </Link>
       </SidebarHeader>

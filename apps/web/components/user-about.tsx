@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card"
-import { Users, Target, Badge } from "lucide-react"
+import { Users, Target } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
 import { getUserAbout } from "@/lib/user-profile/user-about"
 import { updateUserAbout } from "@/lib/user-profile/user-about-edits"
 import { revalidatePath } from "next/cache"
@@ -71,7 +72,7 @@ export async function UserAbout() {
 
           {/* Submit */}
           <div className="pt-4">
-            <button type="submit" className="px-4 py-2 bg-primary text-white rounded-lg">
+            <button type="submit" className="px-4 py-2 bg-primary text-primary-foreground rounded-lg">
               Save Changes
             </button>
           </div>

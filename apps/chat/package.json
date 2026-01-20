@@ -1,4 +1,3 @@
-
 {
   "name": "chat-server",
   "version": "1.0.0",
@@ -11,15 +10,16 @@
     "test-db": "node test-db.js"
   },
   "dependencies": {
-    "express": "^4.18.2",
-    "socket.io": "^4.7.4",
-    "cors": "^2.8.5",
-    "helmet": "^7.1.0",
+    "@repo/database-mongo": "^0.0.0",
+    "bcryptjs": "^2.4.3",
     "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.3",
-    "bcryptjs": "^2.4.3",
-    "dotenv": "^16.3.1"
+    "socket.io": "^4.7.4"
   },
   "engines": {
     "node": ">=18.0.0"

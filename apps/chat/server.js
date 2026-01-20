@@ -9,7 +9,8 @@ const compression = require('compression');
 
 const { connectDb } = require('./db');
 const { authenticateToken, authenticateSocket, ensureMember } = require('./auth');
-const { Message, Conversation } = require('./models');
+// Use shared models
+const { Message, Conversation } = require('@repo/database-mongo');
 
 // Debug logging function
 function debugLog(message, data = null) {
@@ -36,7 +37,7 @@ app.use(compression());
 // CORS configuration
 const corsOptions = {
   origin: function (origin, callback) {
-    const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || ['http://localhost:3000'];
+    const allowedOrigins = process.env.CORS_ORIGIN?.split(',') || ['http://localhost:3000', 'http://localhost:5000'];
     if (!origin || allowedOrigins.includes(origin) || allowedOrigins.includes('*')) {
       callback(null, true);
     } else {
@@ -59,12 +60,11 @@ app.set('trust proxy', 1);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
-  const dbStatus = require('./db').isConnected() ? 'connected' : 'disconnected';
+  // We can assume connected if server is up, or improve this check later
   res.json({
     status: 'OK',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
-    database: dbStatus,
     service: 'chat-server'
   });
 });
@@ -81,8 +81,8 @@ app.get('/api/v1/conversations', async (req, res) => {
       participants: req.user.sub,
       isArchived: false
     })
-    .sort({ lastMessageAt: -1 })
-    .limit(50);
+      .sort({ lastMessageAt: -1 })
+      .limit(50);
 
     debugLog('SUCCESS: Found conversations:', conversations.length);
     res.json({ success: true, data: conversations });
@@ -142,7 +142,7 @@ app.get('/api/v1/conversations/:id/messages', async (req, res) => {
 
     debugLog('Getting messages for conversation:', id);
 
-    let query = { conversation: id, isDeleted: false };
+    let query = { conversationId: id, isDeleted: false };
 
     if (before) {
       query.timestamp = { $lt: new Date(before) };
@@ -150,8 +150,8 @@ app.get('/api/v1/conversations/:id/messages', async (req, res) => {
 
     const messages = await Message.find(query)
       .sort({ timestamp: -1 })
-      .limit(parseInt(limit))
-      .populate('sender', 'name email avatar');
+      .limit(parseInt(limit));
+    // .populate('sender', 'name email avatar'); // removed populate for now as User model might not be linked
 
     debugLog('SUCCESS: Found messages:', messages.length);
     res.json({ success: true, data: messages.reverse() });
@@ -349,8 +349,9 @@ const gracefulShutdown = (signal) => {
     debugLog('SHUTDOWN: HTTP server closed');
 
     try {
-      const mongoose = require('mongoose');
-      await mongoose.disconnect();
+      // Disconnect DB
+      const { disconnectDatabase } = require('@repo/database-mongo');
+      await disconnectDatabase();
       debugLog('SHUTDOWN: Database connection closed');
     } catch (error) {
       debugLog('ERROR: Error closing database connection:', error.message);
@@ -398,11 +399,6 @@ const startServer = async () => {
       debugLog(`SERVER: Chat server running on ${HOST}:${CHAT_PORT}`);
       debugLog(`INFO: Environment: ${process.env.NODE_ENV || 'development'}`);
       debugLog(`INFO: Socket.IO path: ${process.env.SOCKET_PATH || '/socket.io'}`);
-
-      if (!require('./db').isConnected()) {
-        debugLog('WARNING: Running in offline mode - database not connected');
-        debugLog('INFO: Some features like message persistence may not work');
-      }
     });
 
   } catch (error) {

@@ -1,113 +1,26 @@
-// src/lib/mongoose/connection.ts
-import mongoose, { ConnectOptions, Mongoose } from "mongoose";
+import { connectToDatabase as connectShared, disconnectDatabase as disconnectShared } from "@repo/database-mongo";
 
-// Type definitions for our cache
-interface MongooseCache {
-  conn: Mongoose | null;
-  promise: Promise<Mongoose> | null;
+export async function connectToDatabase() {
+  let uri = process.env.MONGODB_URI || process.env.MONGO_CLUSTER || "mongodb://localhost:27017/dreamdot";
+
+  // CRITICAL: Force dreamdot database by replacing whatever database name is in URI
+  const uriParts = uri.split('?');
+  const baseUri = uriParts[0];
+  const queryParams = uriParts[1] ? '?' + uriParts[1] : '';
+
+  // Strip any existing database name after the last slash
+  const lastSlashIndex = baseUri.lastIndexOf('/');
+  const hostPort = baseUri.substring(0, lastSlashIndex);
+
+  // Force dreamdot
+  uri = hostPort + '/dreamdot' + queryParams;
+
+  console.log(`🎯 FORCING MongoDB to use database: dreamdot`);
+
+  await connectShared(uri);
+  return {};
 }
 
-declare global {
-  var _mongooseCache: MongooseCache | undefined;
-}
-
-const globalWithMongoose = globalThis as typeof globalThis & {
-  _mongooseCache?: MongooseCache;
-};
-
-// Initialize cache (without environment check)
-const cached: MongooseCache = globalWithMongoose._mongooseCache || { 
-  conn: null, 
-  promise: null 
-};
-
-if (!globalWithMongoose._mongooseCache) {
-  globalWithMongoose._mongooseCache = cached;
-}
-
-/**
- * Get MongoDB URI - called only when needed
- */
-function getMongoDBUri(): string {
-  const uri = 
-    process.env.MONGODB_URI 
-
-  if (!uri) {
-    const errorMessage = [
-      "❌ Missing MongoDB connection string.",
-      "Please set MONGODB_URI in your .env.local file and restart the server.",
-      "",
-      "Current Node environment:", process.env.NODE_ENV
-    ].join("\n");
-    
-    console.error(errorMessage);
-    throw new Error("MONGODB_URI_NOT_FOUND");
-  }
-
-  return uri;
-}
-
-/**
- * Connection options
- */
-function getConnectionOptions(): ConnectOptions {
-  return {
-    bufferCommands: true,
-    dbName: process.env.MONGODB_DB_NAME || "dreamdot",
-    maxPoolSize: 10,
-    serverSelectionTimeoutMS: 30000,
-    socketTimeoutMS: 45000,
-  };
-}
-
-/**
- * Main connection function
- */
-export async function connectToDatabase(): Promise<Mongoose> {
-  // Get URI only when actually connecting
-  const MONGODB_URI = getMongoDBUri();
-  const connectionOptions = getConnectionOptions();
-
-  // connectToDatabase called
-
-  // Return existing connection if available and healthy
-  if (cached.conn) {
-    try {
-      await cached.conn.connection.db?.admin()?.ping();
-      return cached.conn;
-    } catch (error) {
-      // cached connection failed health check; drop cache and reconnect
-      cached.conn = null;
-      cached.promise = null;
-    }
-  }
-
-  // Create new connection if no promise exists
-  if (!cached.promise) {
-    cached.promise = mongoose.connect(MONGODB_URI, connectionOptions)
-      .then((mongooseInstance) => {
-        return mongooseInstance;
-      })
-      .catch((error) => {
-        cached.promise = null;
-        console.error("❌ MongoDB connection failed:", error.message);
-        throw error;
-      });
-  }
-
-  try {
-    cached.conn = await cached.promise;
-    return cached.conn;
-  } catch (error) {
-    cached.promise = null;
-    throw error;
-  }
-}
-
-export async function closeDatabaseConnection(): Promise<void> {
-  if (cached.conn) {
-    await cached.conn.connection.close();
-    cached.conn = null;
-    cached.promise = null;
-  }
+export async function closeDatabaseConnection() {
+  await disconnectShared();
 }

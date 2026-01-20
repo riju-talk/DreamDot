@@ -59,8 +59,8 @@ export function SocialPost({ post }: SocialPostProps) {
   }
 
   return (
-    <Card className="dream-card w-full max-w-2xl mx-auto">
-      <CardContent className="p-6 pb-0">
+    <Card className="dream-card w-full">
+      <CardContent className="p-4 pb-0">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-3">
@@ -127,15 +127,14 @@ export function SocialPost({ post }: SocialPostProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="p-6 pt-4 border-t mt-4">
+      <CardFooter className="p-4 pt-4 border-t mt-4">
         <div className="flex items-center justify-between w-full">
           <div className="flex items-center space-x-1">
             <Button
               variant="ghost"
               size="sm"
-              className={`flex items-center space-x-2 px-3 rounded-full transition-colors ${
-                isLiked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
-              }`}
+              className={`flex items-center space-x-2 px-3 rounded-full transition-colors ${isLiked ? "text-red-500 hover:text-red-600" : "hover:text-red-500"
+                }`}
               onClick={handleLike}
             >
               <Heart className={`h-4 w-4 ${isLiked ? "fill-current" : ""}`} />
@@ -153,9 +152,8 @@ export function SocialPost({ post }: SocialPostProps) {
           <Button
             variant="ghost"
             size="sm"
-            className={`px-3 rounded-full transition-colors ${
-              isBookmarked ? "text-primary hover:text-primary/80" : "hover:text-primary"
-            }`}
+            className={`px-3 rounded-full transition-colors ${isBookmarked ? "text-primary hover:text-primary/80" : "hover:text-primary"
+              }`}
             onClick={handleBookmark}
           >
             <Bookmark className={`h-4 w-4 ${isBookmarked ? "fill-current" : ""}`} />

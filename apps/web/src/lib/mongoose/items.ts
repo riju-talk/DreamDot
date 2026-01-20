@@ -1,15 +1,10 @@
 // src/lib/mongoose/items.ts
 
-import mongoose, { Collection } from "mongoose";
+import { Collection } from "mongoose";
 import { connectToDatabase } from "./connection";
-import { Item } from "./types/Item";
+// import { Item } from "./types/Item";
+import { Item } from "@repo/database-mongo";
 import { prismaItem } from "../db";
-
-// Minimal schema to provide ItemModel for other modules (e.g., feed-logic)
-// Use strict:false to accommodate varying document shapes
-const { Schema } = mongoose;
-const ItemSchema = new Schema({}, { strict: false, timestamps: true });
-export const ItemModel = mongoose.models?.Item || mongoose.model("Item", ItemSchema);
 
 interface FetchItemsOptions {
   userId?: string;
@@ -21,7 +16,7 @@ interface FetchItemsOptions {
 export async function fetchItems(
   options: FetchItemsOptions = {}
 ): Promise<{
-  items: Item[];
+  items: any[];
   pagination: {
     total: number;
     page: number;
@@ -35,17 +30,17 @@ export async function fetchItems(
   // fetchItems called with options
 
   try {
-  const timerLabel = `⏱️ fetchItems total duration (${Date.now()})`;
-  console.time(timerLabel);
+    const timerLabel = `⏱️ fetchItems total duration (${Date.now()})`;
+    console.time(timerLabel);
 
     // --- 1. Connect to MongoDB ---
     const connectLabel = `⏱️ MongoDB connect (${Date.now()})`;
     console.time(connectLabel);
-    const conn = await connectToDatabase();
+    await connectToDatabase();
     console.timeEnd(connectLabel);
 
-    const db = conn.connection.db;
-    const itemsCollection = db?.collection("items") as Collection<Item>;
+    // Get collection from shared model
+    const itemsCollection = Item.collection as Collection<any>;
     if (!itemsCollection) throw new Error("MongoDB collection 'items' not found");
 
     // --- 2. Construct Mongo query ---
@@ -53,7 +48,7 @@ export async function fetchItems(
     if (userId) query.userId = userId;
     if (category) query.category = category;
 
-  // MongoDB query constructed
+    // MongoDB query constructed
 
     // --- 3. Fetch from Mongo ---
     const fetchLabel = `⏱️ MongoDB fetch (${Date.now()})`;
@@ -77,8 +72,7 @@ export async function fetchItems(
 
     // --- 4. Fetch from PostgreSQL (items_d schema) ---
     const mongoIds = mongoItems.map((it) => String(it._id));
-  // Fetching corresponding SQL entries from Prisma
-
+    // Fetching corresponding SQL entries from Prisma
     console.time("⏱️ Prisma fetch");
     const sqlItems = await prismaItem.items.findMany({
       where: { item_id: { in: mongoIds } },
@@ -91,7 +85,7 @@ export async function fetchItems(
         transactions: { select: { transaction_id: true } },
       },
     });
-  console.timeEnd("⏱️ Prisma fetch");
+    console.timeEnd("⏱️ Prisma fetch");
 
     // --- 5. Normalize SQL results ---
     const sqlMap = new Map<
@@ -113,10 +107,10 @@ export async function fetchItems(
       });
     }
 
-  // SQL map prepared
+    // SQL map prepared
 
     // --- 6. Merge Mongo + SQL ---
-    const mergedItems: Item[] = mongoItems.map((mongo) => {
+    const mergedItems: any[] = mongoItems.map((mongo) => {
       const mongoId = String(mongo._id);
       const sql = sqlMap.get(mongoId);
 
@@ -127,10 +121,10 @@ export async function fetchItems(
         rating: sql?.rating ?? mongo.ratings?.length ?? null,
         sales: sql?.sales ?? 0,
         monetizationType: sql?.monetizationType ?? mongo.monetizationType ?? "one-time",
-      } as Item;
+      };
     });
 
-  console.timeEnd(timerLabel);
+    console.timeEnd(timerLabel);
 
     // --- 7. Return merged result ---
     return {
@@ -147,4 +141,3 @@ export async function fetchItems(
     throw err;
   }
 }
-

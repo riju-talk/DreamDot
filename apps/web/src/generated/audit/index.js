@@ -158,7 +158,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "e:\\code\\DreamDot\\apps\\web\\src\\generated\\audit",
+      "value": "C:\\Code\\01_full_stack\\DreamDot\\apps\\web\\src\\generated\\audit",
       "fromEnvVar": null
     },
     "config": {
@@ -180,7 +180,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "e:\\code\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.audit.prisma",
+    "sourceFilePath": "C:\\Code\\01_full_stack\\DreamDot\\apps\\web\\src\\lib\\prisma\\schema.audit.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {

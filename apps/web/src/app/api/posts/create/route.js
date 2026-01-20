@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth"
 import { authOptions } from "@/lib/auth"
 import { prismaSocial } from "@/lib/db"
 import { connectToDatabase } from "@/lib/mongoose/connection"
-import { PostModel } from "@/lib/mongoose/posts"
+import { Post } from "@repo/database-mongo" // Using shared Post model
 import mongoose from "mongoose"
 
 // Helper function to validate user authentication
@@ -193,30 +193,34 @@ export async function POST(request) {
       )
     }
 
-    // 5. Create post metadata in PostgreSQL
+    // 5. CRITICAL: Create PostgreSQL metadata FIRST to get UUID
     const postMetadata = await prismaSocial.posts_metadata.create({
       data: {
         user_id: dbUser.id,
-        description: content.substring(0, 200), // First 200 chars as description
-        visibility: visibility === true,
+        description: content.substring(0, 500), // Fallback content storage
         created_at: new Date(),
         updated_at: new Date()
       }
     })
 
-    // 6. Connect to MongoDB and create post content
+    const sqlId = postMetadata.id
+    console.log(`✅ SQL metadata created - ID: ${sqlId}`)
+
+    // 6. Create MongoDB post content WITH the SQL ID
     await connectToDatabase()
-    const postContent = await PostModel.create({
-      _id: new mongoose.Types.ObjectId(), // Let MongoDB generate its own ID
-      userId: dbUser.id, // Use the ID from the database query
+    const postContent = new Post({
+      userId: dbUser.id,
+      sqlId: sqlId, // Link to SQL UUID!
       content: content,
-      mediaUrl: mediaUrl, // Store the media URL from ImageKit or other CDN
-      mediaType: mediaType || "text",
-      visibility: visibility === true, // Convert to boolean
+      media: mediaUrl ? [{ type: mediaType, url: mediaUrl }] : [],
+      visibility: visibility === true,
       createdAt: new Date(),
       likes: [],
       comments: []
     })
+
+    await postContent.save()
+    console.log(`✅ MongoDB post created - _id: ${postContent._id}, sqlId: ${sqlId}`)
 
     // 7. Create initial analytics entry (non-blocking)
     createPostAnalytics(postMetadata.id)
@@ -232,7 +236,6 @@ export async function POST(request) {
         postId: postMetadata.id,
         mongoId: postContent._id,
         content: postContent.content,
-        mediaType: postContent.mediaType,
         visibility: visibility,
         createdAt: postMetadata.created_at,
         user: {
@@ -320,13 +323,13 @@ export async function GET(request) {
     }
 
     await connectToDatabase()
-    const posts = await PostModel.find({ userId: dbUser.id })
+    const posts = await Post.find({ userId: dbUser.id })
       .sort({ createdAt: -1 })
       .skip((page - 1) * limit)
       .limit(limit)
       .lean()
 
-    const totalPosts = await PostModel.countDocuments({ userId: dbUser.id })
+    const totalPosts = await Post.countDocuments({ userId: dbUser.id })
 
     return NextResponse.json({
       success: true,

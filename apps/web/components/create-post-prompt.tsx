@@ -215,7 +215,7 @@ export function CreatePostPrompt() {
                   {/* Footer */}
                   <DialogFooter className="border-t p-4 flex items-center justify-between">
                     <label className="flex items-center gap-2 cursor-pointer text-muted-foreground hover:text-foreground transition-colors">
-                      <ImageIcon className="h-5 w-5 text-green-600" />
+                      <ImageIcon className="h-5 w-5 text-primary" />
                       <span className="text-sm font-medium">Add Media</span>
                       <input
                         type="file"
@@ -228,7 +228,7 @@ export function CreatePostPrompt() {
                     <Button
                       type="submit"
                       disabled={isLoading || (!content.trim() && !media) || !!mediaError}
-                      className="px-8 py-2 bg-blue-600 hover:bg-blue-700 disabled:bg-muted disabled:text-muted-foreground text-white font-medium rounded-md transition-colors"
+                      className="px-8 py-2 bg-primary hover:bg-primary/90 disabled:bg-muted disabled:text-muted-foreground text-primary-foreground font-medium rounded-md transition-colors"
                       size="lg"
                     >
                       {isLoading ? (
